@@ -42,7 +42,7 @@ class SupervisorController extends Controller
                     return '<div class="d-flex flex-column">'.
                         '<div class="d-flex fw-bold">'.'<span class="fw-bold me-1">'.t('Name').' : </span>'.$row->name.'</div>'.
                         '<div class="d-flex"><span class="fw-bold text-primary me-1">'.t('School').' : </span><span style="direction: ltr">'.optional($row->school)->name.'</span></div>'.
-                        '<div class="d-flex text-danger">'.'<span style="direction: ltr">'.$row->email.'</span></div>'.
+                        '<div class="d-flex text-danger"><span class="cursor-pointer" style="direction: ltr" data-clipboard-text="'.$row->email.'" onclick="copyToClipboard(this)">' . $row->email . '</span></div>' .
                         '</div>';
                 })
                 ->addColumn('active', function ($row) {

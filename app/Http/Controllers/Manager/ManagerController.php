@@ -37,6 +37,9 @@ class ManagerController extends Controller
             }])->filter()->latest();
             return DataTables::make($rows)
                 ->escapeColumns([])
+                ->addColumn('email', function ($row) {
+                    return '<span class="cursor-pointer" style="direction: ltr" data-clipboard-text="'.$row->email.'" onclick="copyToClipboard(this)">' . $row->email . '</span>';
+                })
                 ->addColumn('last_login', function ($row) {
                     return $row->login_sessions->count() ? Carbon::parse($row->login_sessions->first()->created_at)->toDateTimeString() : '-';
                 })

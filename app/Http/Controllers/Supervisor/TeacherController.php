@@ -36,7 +36,7 @@ class TeacherController extends Controller
                     return '<div class="d-flex flex-column">' .
                         '<div class="d-flex fw-bold">' . '<span class="fw-bold me-1">' . t('Name') . ' : </span>' . $row->name . '</div>' .
                         '<div class="d-flex"><span class="fw-bold text-primary me-1">' . t('Mobile') . ' : </span><span style="direction: ltr">' . $row->mobile . '</span></div>' .
-                        '<div class="d-flex text-danger">' . '<span style="direction: ltr">' . $row->email . '</span></div>' .
+                        '<div class="d-flex text-danger"><span class="cursor-pointer" style="direction: ltr" data-clipboard-text="'.$row->email.'" onclick="copyToClipboard(this)">' . $row->email . '</span></div>' .
                         '</div>';
                 })
                 ->addColumn('active', function ($row) {
@@ -71,7 +71,7 @@ class TeacherController extends Controller
                 ->addColumn('teacher', function ($row) {
                     return '<div class="d-flex flex-column">' .
                         '<div class="d-flex fw-bold">' . '<span class="fw-bold me-1">' . t('Name') . ' : </span>' . $row->name . '</div>' .
-                        '<div class="d-flex text-danger">' . '<span style="direction: ltr">' . $row->email . '</span></div>' .
+                        '<div class="d-flex text-danger"><span class="cursor-pointer" style="direction: ltr" data-clipboard-text="'.$row->email.'" onclick="copyToClipboard(this)">' . $row->email . '</span></div>' .
                         '<div class="d-flex"><span class="fw-bold text-primary me-1">' . t('Students') . ' : </span><span style="direction: ltr">' . $row->students_count . '</span></div>' .
                         '</div>';
                 })

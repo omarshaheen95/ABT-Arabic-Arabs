@@ -4,117 +4,29 @@
     @section('charts')
         <div class="row gy-5 g-xl-10 justify-content-center">
             <div class="col-sm-6 col-xl-2 mb-xl-10">
-                <div class="card h-lg-100">
+                <div class="card h-lg-100" style="background-color: #67308F;background-image:url('/assets_v1/media/svg/shapes/wave-bg-red.svg')">
                     <!--begin::Body-->
                     <div class="card-body d-flex justify-content-between align-items-start flex-column">
                         <!--begin::Icon-->
-                        <div class="m-0">
-                            <i class="ki-duotone ki-home-3 fs-2hx text-gray-600">
-                                <i class="path1"></i>
-                                <i class="path2"></i>
-                            </i>
-                        </div>
-                        <!--end::Icon-->
-                        <!--begin::Section-->
-                        <div class="d-flex flex-column mt-5">
-                            <!--begin::Number-->
-                            <span class="fw-semibold fs-2x text-gray-800 lh-1 ls-n2">{{$data['schools']}} </span>
-                            <!--end::Number-->
-
-                            <!--begin::Follower-->
-                            <div class="m-0">
-                                <span class="fw-semibold fs-6 text-gray-400">{{t('Schools')}}</span>
+                        <div class="d-flex justify-content-center w-100 m-0">
+                            <div class="d-flex flex-center rounded-circle h-80px w-80px" style="border: 1px dashed rgba(255, 255, 255, 0.4);">
+                                <i class="ki-duotone ki-home-3 fs-2hx text-white">
+                                    <i class="path1"></i>
+                                    <i class="path2"></i>
+                                </i>
                             </div>
-                            <!--end::Follower-->
-                        </div>
-                        <!--end::Section-->
-                    </div>
-                    <!--end::Body-->
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-2 mb-xl-10">
-                <div class="card h-lg-100">
-                    <!--begin::Body-->
-                    <div class="card-body d-flex justify-content-between align-items-start flex-column">
-                        <!--begin::Icon-->
-                        <div class="m-0">
-                            <i class="ki-duotone ki-people fs-2hx text-gray-600">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                                <span class="path3"></span>
-                                <span class="path4"></span>
-                                <span class="path5"></span>
-                            </i>
+
                         </div>
                         <!--end::Icon-->
                         <!--begin::Section-->
-                        <div class="d-flex flex-column mt-5">
+                        <div class="d-flex flex-column mt-5 align-items-center w-100">
                             <!--begin::Number-->
-                            <span class="fw-semibold fs-2x text-gray-800 lh-1 ls-n2">{{$data['supervisors']}} </span>
+                            <span class="fw-semibold fs-2x text-white lh-1 ls-n2">{{$data['schools']}} </span>
                             <!--end::Number-->
 
                             <!--begin::Follower-->
-                            <div class="m-0">
-                                <span class="fw-semibold fs-6 text-gray-400">{{t('Supervisors')}}</span>
-                            </div>
-                            <!--end::Follower-->
-                        </div>
-                        <!--end::Section-->
-                    </div>
-                    <!--end::Body-->
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-2 mb-xl-10">
-                <div class="card h-lg-100">
-                    <!--begin::Body-->
-                    <div class="card-body d-flex justify-content-between align-items-start flex-column">
-                        <!--begin::Icon-->
-                        <div class="m-0">
-                            <i class="ki-duotone ki-user-tick fs-2hx text-gray-600">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                                <span class="path3"></span>
-                            </i>
-                        </div>
-                        <!--end::Icon-->
-                        <!--begin::Section-->
-                        <div class="d-flex flex-column mt-5">
-                            <!--begin::Number-->
-                            <span class="fw-semibold fs-2x text-gray-800 lh-1 ls-n2">{{$data['teachers']}} </span>
-                            <!--end::Number-->
-
-                            <!--begin::Follower-->
-                            <div class="m-0">
-                                <span class="fw-semibold fs-6 text-gray-400">{{t('Teachers')}}</span>
-                            </div>
-                            <!--end::Follower-->
-                        </div>
-                        <!--end::Section-->
-                    </div>
-                    <!--end::Body-->
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-2 mb-xl-10">
-                <div class="card h-lg-100">
-                    <!--begin::Body-->
-                    <div class="card-body d-flex justify-content-between align-items-start flex-column">
-                        <!--begin::Icon-->
-                        <div class="m-0">
-                            <i class="ki-duotone ki-user fs-2hx text-gray-600">
-                                <i class="path1"></i>
-                                <i class="path2"></i>
-                            </i>
-                        </div>
-                        <!--end::Icon-->
-                        <!--begin::Section-->
-                        <div class="d-flex flex-column mt-5">
-                            <!--begin::Number-->
-                            <span class="fw-semibold fs-2x text-gray-800 lh-1 ls-n2">{{$data['students']}} </span>
-                            <!--end::Number-->
-
-                            <!--begin::Follower-->
-                            <div class="m-0">
-                                <span class="fw-semibold fs-6 text-gray-400">{{t('Students')}}</span>
+                            <div class="d-flex justify-content-center m-0">
+                                <span class="fw-semibold fs-6 text-white text-center">{{t('Schools')}}</span>
                             </div>
                             <!--end::Follower-->
                         </div>
@@ -125,27 +37,32 @@
             </div>
 
             <div class="col-sm-6 col-xl-2 mb-xl-10">
-                <div class="card h-lg-100">
+                <div class="card h-lg-100" style="background-color: #F1416C;background-image:url('/assets_v1/media/svg/shapes/wave-bg-red.svg')">
                     <!--begin::Body-->
                     <div class="card-body d-flex justify-content-between align-items-start flex-column">
                         <!--begin::Icon-->
-                        <div class="m-0">
-                            <i class="ki-duotone ki-clipboard fs-2hx text-gray-600">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                                <span class="path3"></span>
-                            </i>
+                        <div class="d-flex justify-content-center w-100 m-0">
+                            <div class="d-flex flex-center rounded-circle h-80px w-80px" style="border: 1px dashed rgba(255, 255, 255, 0.4);">
+                                <i class="ki-duotone ki-people fs-2hx text-white">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                    <span class="path5"></span>
+                                </i>
+                            </div>
+
                         </div>
                         <!--end::Icon-->
                         <!--begin::Section-->
-                        <div class="d-flex flex-column mt-5">
+                        <div class="d-flex flex-column mt-5 align-items-center w-100">
                             <!--begin::Number-->
-                            <span class="fw-semibold fs-2x text-gray-800 lh-1 ls-n2">{{$data['lessons']}} </span>
+                            <span class="fw-semibold fs-2x text-white lh-1 ls-n2">{{$data['supervisors']}} </span>
                             <!--end::Number-->
 
                             <!--begin::Follower-->
-                            <div class="m-0">
-                                <span class="fw-semibold fs-6 text-gray-400">{{t('Lessons')}}</span>
+                            <div class="d-flex justify-content-center m-0">
+                                <span class="fw-semibold fs-6 text-white text-center">{{t('Supervisors')}}</span>
                             </div>
                             <!--end::Follower-->
                         </div>
@@ -154,30 +71,136 @@
                     <!--end::Body-->
                 </div>
             </div>
+
             <div class="col-sm-6 col-xl-2 mb-xl-10">
-                <div class="card h-lg-100">
+                <div class="card h-lg-100" style="background-color: #f141bf;background-image:url('/assets_v1/media/svg/shapes/wave-bg-red.svg')">
                     <!--begin::Body-->
                     <div class="card-body d-flex justify-content-between align-items-start flex-column">
                         <!--begin::Icon-->
-                        <div class="m-0">
+                        <div class="d-flex justify-content-center w-100 m-0">
+                            <div class="d-flex flex-center rounded-circle h-80px w-80px" style="border: 1px dashed rgba(255, 255, 255, 0.4);">
+                                <i class="ki-duotone ki-user-tick fs-2hx text-white">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </i>
+                            </div>
 
-                            <i class="ki-duotone ki-book-open  fs-2hx text-gray-600">
-                                <i class="path1"></i>
-                                <i class="path2"></i>
-                                <i class="path3"></i>
-                                <i class="path4"></i>
-                            </i>
                         </div>
                         <!--end::Icon-->
                         <!--begin::Section-->
-                        <div class="d-flex flex-column mt-5">
+                        <div class="d-flex flex-column mt-5 align-items-center w-100">
                             <!--begin::Number-->
-                            <span class="fw-semibold fs-2x text-gray-800 lh-1 ls-n2">{{$data['stories']}} </span>
+                            <span class="fw-semibold fs-2x text-white lh-1 ls-n2">{{$data['teachers']}} </span>
                             <!--end::Number-->
 
                             <!--begin::Follower-->
-                            <div class="m-0">
-                                <span class="fw-semibold fs-6 text-gray-400">{{t('Stories')}}</span>
+                            <div class="d-flex justify-content-center m-0">
+                                <span class="fw-semibold fs-6 text-white text-center">{{t('Teachers')}}</span>
+                            </div>
+                            <!--end::Follower-->
+                        </div>
+                        <!--end::Section-->
+                    </div>
+                    <!--end::Body-->
+                </div>
+            </div>
+
+
+            <div class="col-sm-6 col-xl-2 mb-xl-10">
+                <div class="card h-lg-100" style="background-color: #1da2b7;background-image:url('/assets_v1/media/svg/shapes/wave-bg-red.svg')">
+                    <!--begin::Body-->
+                    <div class="card-body d-flex justify-content-between align-items-start flex-column">
+                        <!--begin::Icon-->
+                        <div class="d-flex justify-content-center w-100 m-0">
+                            <div class="d-flex flex-center rounded-circle h-80px w-80px" style="border: 1px dashed rgba(255, 255, 255, 0.4);">
+                                <i class="ki-duotone ki-user fs-2hx text-white">
+                                    <i class="path1"></i>
+                                    <i class="path2"></i>
+                                </i>
+                            </div>
+
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Section-->
+                        <div class="d-flex flex-column mt-5 align-items-center w-100">
+                            <!--begin::Number-->
+                            <span class="fw-semibold fs-2x text-white lh-1 ls-n2">{{$data['students']}} </span>
+                            <!--end::Number-->
+
+                            <!--begin::Follower-->
+                            <div class="d-flex justify-content-center m-0">
+                                <span class="fw-semibold fs-6 text-white text-center">{{t('Students')}}</span>
+                            </div>
+                            <!--end::Follower-->
+                        </div>
+                        <!--end::Section-->
+                    </div>
+                    <!--end::Body-->
+                </div>
+            </div>
+
+
+            <div class="col-sm-6 col-xl-2 mb-xl-10">
+                <div class="card h-lg-100" style="background-color: #ff8640;background-image:url('/assets_v1/media/svg/shapes/wave-bg-red.svg')">
+                    <!--begin::Body-->
+                    <div class="card-body d-flex justify-content-between align-items-start flex-column">
+                        <!--begin::Icon-->
+                        <div class="d-flex justify-content-center w-100 m-0">
+                            <div class="d-flex flex-center rounded-circle h-80px w-80px" style="border: 1px dashed rgba(255, 255, 255, 0.4);">
+                                <i class="ki-duotone ki-clipboard fs-2hx text-white">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </i>
+                            </div>
+
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Section-->
+                        <div class="d-flex flex-column mt-5 align-items-center w-100">
+                            <!--begin::Number-->
+                            <span class="fw-semibold fs-2x text-white lh-1 ls-n2">{{$data['lessons']}} </span>
+                            <!--end::Number-->
+
+                            <!--begin::Follower-->
+                            <div class="d-flex justify-content-center m-0">
+                                <span class="fw-semibold fs-6 text-white text-center">{{t('Lessons')}}</span>
+                            </div>
+                            <!--end::Follower-->
+                        </div>
+                        <!--end::Section-->
+                    </div>
+                    <!--end::Body-->
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-xl-2 mb-xl-10">
+                <div class="card h-lg-100" style="background-color: #2db77a;background-image:url('/assets_v1/media/svg/shapes/wave-bg-red.svg')">
+                    <!--begin::Body-->
+                    <div class="card-body d-flex justify-content-between align-items-start flex-column">
+                        <!--begin::Icon-->
+                        <div class="d-flex justify-content-center w-100 m-0">
+                            <div class="d-flex flex-center rounded-circle h-80px w-80px" style="border: 1px dashed rgba(255, 255, 255, 0.4);">
+                                <i class="ki-duotone ki-book-open  fs-2hx text-white">
+                                    <i class="path1"></i>
+                                    <i class="path2"></i>
+                                    <i class="path3"></i>
+                                    <i class="path4"></i>
+                                </i>
+                            </div>
+
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Section-->
+                        <div class="d-flex flex-column mt-5 align-items-center w-100">
+                            <!--begin::Number-->
+                            <span class="fw-semibold fs-2x text-white lh-1 ls-n2">{{$data['stories']}} </span>
+                            <!--end::Number-->
+
+                            <!--begin::Follower-->
+                            <div class="d-flex justify-content-center m-0">
+                                <span class="fw-semibold fs-6 text-white text-center">{{t('Stories')}}</span>
                             </div>
                             <!--end::Follower-->
                         </div>

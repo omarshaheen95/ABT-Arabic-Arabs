@@ -290,3 +290,32 @@ function onSelectAllClick(selectId) {
     });
 
 }
+
+function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).attr('data-clipboard-text')).select();
+    document.execCommand("copy");
+    $temp.remove();
+
+    if ($('html').attr('lang') === 'ar') {
+        toastr.options = {
+            "positionClass": "toastr-bottom-left",
+            "showDuration": "100",
+            "hideDuration": "1000",
+            "timeOut": "1000",
+            "extendedTimeOut": "1000",
+        }
+        toastr.info('تم النسخ إلى الحافظة');
+    } else {
+        toastr.options = {
+            "positionClass": "toastr-bottom-right",
+            "showDuration": "100",
+            "hideDuration": "1000",
+            "timeOut": "1000",
+            "extendedTimeOut": "1000",
+        }
+        toastr.info('Copied to clipboard');
+    }
+
+}

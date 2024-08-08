@@ -35,7 +35,7 @@ class TeacherController extends Controller
                         '<div class="d-flex fw-bold">'.'<span class="fw-bold me-1">'.t('ID').' : </span>'.$row->id.'</div>'.
                         '<div class="d-flex fw-bold">'.'<span class="fw-bold me-1">'.t('Name').' : </span>'.$row->name.'</div>'.
                         '<div class="d-flex"><span class="fw-bold text-primary me-1">'.t('Mobile').' : </span><span style="direction: ltr">'.$row->mobile.'</span></div>'.
-                        '<div class="d-flex text-danger">'.'<span class="fw-bold text-primary me-1">'.t('Email').' : </span>'.'<span style="direction: ltr">'.$row->email.'</span></div>'.
+                        '<div class="d-flex text-danger">'.'<span class="fw-bold text-primary me-1">'.t('Email').' : <span class="cursor-pointer text-danger" style="direction: ltr" data-clipboard-text="'.$row->email.'" onclick="copyToClipboard(this)">' . $row->email . '</span></div>'.
                         '</div>';
                 })
                 ->addColumn('created_at', function ($row) {
@@ -161,11 +161,18 @@ class TeacherController extends Controller
         return $general->teacherReport($request,$id);
     }
 
-    public function teacherExport(Request $request)
+    public function export(Request $request)
     {
         $school = Auth::guard('school')->user();
         return (new TeacherExport($request, $school->id))
             ->download('Teachers Information.xlsx');
+    }
+
+    public function login($id)
+    {
+        Teacher::query()->filter()->findOrFail($id);
+        Auth::guard('teacher')->loginUsingId($id);
+        return redirect()->route('teacher.home');
     }
 
 }

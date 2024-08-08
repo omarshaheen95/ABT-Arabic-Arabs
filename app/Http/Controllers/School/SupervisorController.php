@@ -21,6 +21,9 @@ class SupervisorController extends Controller
             $rows = Supervisor::with('school')->filter($request)->latest();
             return DataTables::make($rows)
                 ->escapeColumns([])
+                ->addColumn('email', function ($row) {
+                    return '<span class="cursor-pointer" style="direction: ltr" data-clipboard-text="'.$row->email.'" onclick="copyToClipboard(this)">' . $row->email . '</span>';
+                })
                 ->addColumn('created_at', function ($row) {
                     return Carbon::parse($row->created_at)->toDateString();
                 })
