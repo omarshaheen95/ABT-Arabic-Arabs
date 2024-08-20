@@ -138,89 +138,159 @@ function get_firebase_token(string $userid = '')
 function t($key, $placeholder = [], $locale = null)
 {
     $group = 'translation';
-    if (is_null($locale))
-        $locale = config('app.locale');
+    $locale = $locale ?? app()->getLocale();
     $key = trim($key);
     $word = $group . '.' . $key;
-    if (Lang::has($word))
+
+    // Check if the translation exists
+    if (\Illuminate\Support\Facades\Lang::has($word, $locale)) {
         return trans($word, $placeholder, $locale);
-
-    $messages = [
-        $word => $key,
-    ];
-
-    app('translator')->addLines($messages, $locale);
-    $langs = ['en','ar'];
-    foreach ($langs as $lang) {
-        $translation_file = base_path() . '/resources/lang/' . $lang . '/' . $group . '.php';
-        $fh = fopen($translation_file, 'r+');
-        $key = str_replace("'", "\'", $key);
-        $new_key = "\n \t'$key' => '$key',\n];\n";
-        fseek($fh, -4, SEEK_END);
-        fwrite($fh, $new_key);
-        fclose($fh);
     }
+
+    // Add the new translation to the translator
+    app('translator')->addLines([$word => $key], $locale);
+
+    // Define the languages
+    $languages = ['ar', 'en'];
+
+    // Add the new translation key to each language file
+    foreach ($languages as $lang) {
+        $translationFile = base_path("resources/lang/{$lang}/{$group}.php");
+
+        // Ensure the file exists
+        if (file_exists($translationFile)) {
+            // Read the file content
+            $content = file_get_contents($translationFile);
+
+            // Prepare the new key-value pair with newlines
+            $keyEscaped = addslashes($key);
+            $newKey = "\n\t'{$keyEscaped}' => '{$key}',\n];";
+
+            // Add the new key before the closing bracket
+            if (strpos($content, "\n];") !== false) {
+                $content = str_replace("\n];", $newKey, $content);
+            } else {
+                // Handle the case where the file does not end as expected
+                $content .= $newKey;
+            }
+
+            // Write the updated content back to the file
+            file_put_contents($translationFile, $content);
+        } else {
+            // Handle the case where the file does not exist
+            $newContent = "<?php\n\nreturn [\n\t'{$keyEscaped}' => '{$key}',\n];";
+            file_put_contents($translationFile, $newContent);
+        }
+    }
+
+    // Return the translation
     return trans($word, $placeholder, $locale);
-    //return $key;
 }
 
 function w($key,$placeholder=[],$locale=null)
 {
 
     $group = 'web';
-    if(is_null($locale))
-    $locale = config('app.locale');
+    $locale = $locale ?? app()->getLocale();
     $key = trim($key);
-    $word = $group.'.'.$key;
-    if (Lang::has($word))
-        return trans($word,$placeholder,$locale);
+    $word = $group . '.' . $key;
 
-    $messages = [
-        $word => $key,
-    ];
+    // Check if the translation exists
+    if (\Illuminate\Support\Facades\Lang::has($word, $locale)) {
+        return trans($word, $placeholder, $locale);
+    }
 
-    app('translator')->addLines($messages, $locale);
-    $langs = config('translatable.locales');
-    foreach ($langs as $lang) {
-        $translation_file = base_path() . '/resources/lang/'.$lang.'/' . $group . '.php';
-        $fh = fopen($translation_file, 'r+');
-        $new_key = "\n \t'$key' => '$key',\n];\n";
-        fseek($fh, -4, SEEK_END);
-        fwrite($fh, $new_key);
-        fclose($fh);
-     }
-    return trans($word,$placeholder,$locale);
-    return $key;
+    // Add the new translation to the translator
+    app('translator')->addLines([$word => $key], $locale);
+
+    // Define the languages
+    $languages = ['ar', 'en'];
+
+    // Add the new translation key to each language file
+    foreach ($languages as $lang) {
+        $translationFile = base_path("resources/lang/{$lang}/{$group}.php");
+
+        // Ensure the file exists
+        if (file_exists($translationFile)) {
+            // Read the file content
+            $content = file_get_contents($translationFile);
+
+            // Prepare the new key-value pair with newlines
+            $keyEscaped = addslashes($key);
+            $newKey = "\n\t'{$keyEscaped}' => '{$key}',\n];";
+
+            // Add the new key before the closing bracket
+            if (strpos($content, "\n];") !== false) {
+                $content = str_replace("\n];", $newKey, $content);
+            } else {
+                // Handle the case where the file does not end as expected
+                $content .= $newKey;
+            }
+
+            // Write the updated content back to the file
+            file_put_contents($translationFile, $content);
+        } else {
+            // Handle the case where the file does not exist
+            $newContent = "<?php\n\nreturn [\n\t'{$keyEscaped}' => '{$key}',\n];";
+            file_put_contents($translationFile, $newContent);
+        }
+    }
+
+    // Return the translation
+    return trans($word, $placeholder, $locale);
 
 }
 function api($key,$placeholder=[],$locale=null)
 {
 
     $group = 'api';
-    if(is_null($locale))
-        $locale = config('app.locale');
+    $locale = $locale ?? app()->getLocale();
     $key = trim($key);
-    $word = $group.'.'.$key;
-    if (Lang::has($word))
-        return trans($word,$placeholder,$locale);
+    $word = $group . '.' . $key;
 
-    $messages = [
-        $word => $key,
-    ];
-
-    app('translator')->addLines($messages, $locale);
-    $langs = config('translatable.locales');
-    foreach ($langs as $lang) {
-        $translation_file = base_path() . '/resources/lang/'.$lang.'/' . $group . '.php';
-        $fh = fopen($translation_file, 'r+');
-        $new_key = "  \n  '$key' => '$key',\n];\n";
-        fseek($fh, -4, SEEK_END);
-        fwrite($fh, $new_key);
-        fclose($fh);
+    // Check if the translation exists
+    if (\Illuminate\Support\Facades\Lang::has($word, $locale)) {
+        return trans($word, $placeholder, $locale);
     }
-    return trans($word,$placeholder,$locale);
-    return $key;
 
+    // Add the new translation to the translator
+    app('translator')->addLines([$word => $key], $locale);
+
+    // Define the languages
+    $languages = ['ar', 'en'];
+
+    // Add the new translation key to each language file
+    foreach ($languages as $lang) {
+        $translationFile = base_path("resources/lang/{$lang}/{$group}.php");
+
+        // Ensure the file exists
+        if (file_exists($translationFile)) {
+            // Read the file content
+            $content = file_get_contents($translationFile);
+
+            // Prepare the new key-value pair with newlines
+            $keyEscaped = addslashes($key);
+            $newKey = "\n\t'{$keyEscaped}' => '{$key}',\n];";
+
+            // Add the new key before the closing bracket
+            if (strpos($content, "\n];") !== false) {
+                $content = str_replace("\n];", $newKey, $content);
+            } else {
+                // Handle the case where the file does not end as expected
+                $content .= $newKey;
+            }
+
+            // Write the updated content back to the file
+            file_put_contents($translationFile, $content);
+        } else {
+            // Handle the case where the file does not exist
+            $newContent = "<?php\n\nreturn [\n\t'{$keyEscaped}' => '{$key}',\n];";
+            file_put_contents($translationFile, $newContent);
+        }
+    }
+
+    // Return the translation
+    return trans($word, $placeholder, $locale);
 }
 
 function isRtl() {

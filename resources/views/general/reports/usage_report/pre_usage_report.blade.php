@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-lg-4 mb-2">
                     <label>{{t('Select date')}} :</label>
-                    <input autocomplete="disabled" class="form-control form-control-solid" id="date_range" name="date_range" value="" placeholder="{{t('Pick date range')}}" />
+                    <input autocomplete="disabled" class="form-control form-control-solid" id="date_range" name="date_range_report" value="" placeholder="{{t('Pick date range')}}" />
                     <input type="hidden" name="start_date" id="start_date_range" />
                     <input type="hidden" name="end_date" id="end_date_range" />
                 </div>
