@@ -59,7 +59,7 @@
                                         @elseif($std->gender == 'Boy')
                                             {!! QrCode::color(0, 166, 255)->size(100)->generate(sysDomain()."/login?username=$std->email".'&password=123456'); !!}
                                         @else
-                                            {!! QrCode::color(30, 67, 151)->size(100)->generate(sysDomain()."/login?username=$std->email".'&password=123456'); !!}
+                                            {!! QrCode::color(19,137,68)->size(100)->generate(sysDomain()."/login?username=$std->email".'&password=123456'); !!}
                                         @endif
                                     </div>
 
