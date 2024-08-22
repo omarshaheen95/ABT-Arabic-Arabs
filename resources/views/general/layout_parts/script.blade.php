@@ -11,7 +11,7 @@
 <!--end::Vendors Javascript-->
 
 <script src="{{asset('assets_v1/plugins/custom/datatables/datatables.bundle.js')}}"></script>
-<script src="{{asset('assets_v1/js/helpers.js')}}"></script>
+<script src="{{asset('assets_v1/js/helpers.js')}}?v={{time()}}"></script>
 <script type="text/javascript">
     @if(in_array(request()->get('current_guard'),['manager','supervisor']))
     var getTeacherBySchoolURL= "{{route(request()->get('current_guard').'.getTeacherBySchool', ":id")}}"

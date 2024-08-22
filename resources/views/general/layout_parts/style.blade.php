@@ -11,10 +11,10 @@
 <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
 @if(app()->getLocale() == 'ar')
     <link href="{{asset('assets_v1/plugins/global/plugins.bundle.rtl.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{asset('assets_v1/css/style.bundle.rtl.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('assets_v1/css/style.bundle.rtl.css')}}?v={{time()}}" rel="stylesheet" type="text/css"/>
 @else
     <link href="{{asset('assets_v1/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{asset('assets_v1/css/style.bundle.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('assets_v1/css/style.bundle.css')}}?v={{time()}}" rel="stylesheet" type="text/css"/>
 @endif
 <!--end::Global Stylesheets Bundle-->
 <link rel="SHORTCUT ICON"  type="image/x-icon" href="{{!settingCache('logo_min')? asset('logo_min.svg'):asset(settingCache('logo_min'))}}" />
