@@ -249,5 +249,14 @@ class StudentController extends Controller
         return view('general.cards_and_qr', compact('students', 'student_login_url', 'school', 'title'));
     }
 
-
+    public function userCard(Request $request,$id)
+    {
+        $students = User::with(['grade','school'])->where('id',$id)->get();
+        $student_login_url = config('app.url') . '/login';
+        $school = $students->first()->school;
+        $students= $students->chunk(6);
+        // dd($school);
+        $title = $school ? $school->name . ' | ' . t('Student Card') : t('Student Card');
+        return view('general.cards_and_qr', compact('students', 'student_login_url', 'school', 'title'));
+    }
 }

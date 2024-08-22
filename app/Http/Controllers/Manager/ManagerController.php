@@ -99,11 +99,11 @@ class ManagerController extends Controller
         return view('manager.managers.permissions', compact('title', 'permissions','manager_permissions','manager_id'));
     }
 
-    public function updatePermissions(Request $request)
+    public function updatePermissions(Request $request,$id)
     {
-        $request->validate(['manager_id'=>'required','permissions'=>'nullable']);
+        $request->validate(['permissions'=>'nullable']);
 
-        $manager = Manager::query()->findOrFail($request->get('manager_id'));
+        $manager = Manager::query()->findOrFail($id);
         $manager->syncPermissions($request->get('permissions'));
 
         return redirect()->route('manager.manager.index')->with('message', t('Successfully Updated'));

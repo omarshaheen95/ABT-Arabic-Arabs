@@ -33,7 +33,7 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::resource('manager', 'ManagerController')->except(['destroy']);
     Route::delete('manager/delete', 'ManagerController@destroy')->name('manager.destroy');
     Route::get('edit-permissions/{id}', 'ManagerController@editPermissions')->name('edit-permissions');
-    Route::post('update-permissions', 'ManagerController@updatePermissions')->name('update-permissions');
+    Route::post('update-permissions/{id}', 'ManagerController@updatePermissions')->name('update-permissions');
     Route::post('/manager/export', 'ManagerController@export')->name('manager.export');
 
     //Profile

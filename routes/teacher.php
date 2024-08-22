@@ -23,6 +23,7 @@ Route::group(['namespace' => 'Teacher'], function() {
     Route::patch('my_students/{id}', 'StudentController@update')->name('student.update');
 
     Route::get('students/cards', 'StudentController@cards')->name('student.student-cards-export');
+    Route::get('students/{id}/card', 'StudentController@userCard')->name('student.card');
     Route::post('students/export', 'StudentController@exportStudentsExcel')->name('user.export_students_excel');
 
     Route::post('student_assign', 'StudentController@studentAssign')->name('student.student_assign');

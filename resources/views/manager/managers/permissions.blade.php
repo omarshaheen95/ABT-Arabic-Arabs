@@ -29,10 +29,9 @@
             <div class="card m-0 p-0">
                 <!--begin::Form-->
                 <form class="form" id="form_data"
-                      action="{{route('manager.update-permissions')}}"
+                      action="{{route('manager.update-permissions',$manager_id)}}"
                       method="post">
                      @csrf
-                    <input name="manager_id" type="hidden" value="{{$manager_id}}">
                     <div class="card-body m-0 p-0">
                         <div class="form-group row">
                             @foreach($permissions as $key=>$values)
@@ -51,7 +50,7 @@
                                     }
                                     @endphp
                                     <div class="d-flex my-5 align-items-center">
-                                        <h2 class="m-0">{{t($key)}}</h2>
+                                        <h2 class="m-0">{{t(camelCaseText($key))}}</h2>
                                         <div class="form-check form-check-custom form-check-solid form-check-sm ms-2">
                                             <input id="{{$key}}_checkbox" class="form-check-input" type="checkbox" value=""  {{$c_status?'checked':''}}
                                             onclick="checkAllPermissions('{{$key}}_checkbox','{{'class_'.$key}}')"  {{$c_status?'checked':''}}/>
@@ -68,7 +67,7 @@
                                                 <div class="col-3 form-check form-check-custom form-check-solid form-check-sm p-2">
                                                     <input class="form-check-input {{'class_'.$key}}" type="checkbox" name="permissions[]" value="{{$permission->name}}" id="flexRadioLg" {{$status?'checked':''}}/>
                                                     <label class="form-check-label text-dark" for="flexRadioLg">
-                                                        {{t($permission->name)}}
+                                                        {{t(camelCaseText($permission->name))}}
                                                     </label>
                                                 </div>
                                             @endforeach

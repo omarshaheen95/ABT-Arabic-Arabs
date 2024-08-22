@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Contracts\Cache\Factory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 
 class PermissionsTableSeeder extends Seeder
@@ -81,10 +83,10 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'edit translation', 'guard_name' => 'manager', 'group' => 'translation'],
 
             ['name' => 'show statistics', 'guard_name' => 'manager', 'group' => 'dashboard'],
-            ['name' => 'show login sessions', 'guard_name' => 'manager', 'group' => 'login sessions'],
+            ['name' => 'show login sessions', 'guard_name' => 'manager', 'group' => 'login_sessions'],
 
-            ['name' => 'import files', 'guard_name' => 'manager', 'group' => 'import files'],
-            ['name' => 'delete import files', 'guard_name' => 'manager', 'group' => 'import files'],
+            ['name' => 'import files', 'guard_name' => 'manager', 'group' => 'import_files'],
+            ['name' => 'delete import files', 'guard_name' => 'manager', 'group' => 'import_files'],
 
             ['name' => 'show years', 'guard_name' => 'manager', 'group' => 'years'],
             ['name' => 'add years', 'guard_name' => 'manager', 'group' => 'years'],
@@ -96,8 +98,8 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'edit packages', 'guard_name' => 'manager', 'group' => 'packages'],
             ['name' => 'delete packages', 'guard_name' => 'manager', 'group' => 'packages'],
 
-            ['name' => 'teacher tracking', 'guard_name' => 'manager', 'group' => 'teacher tracking'],
-            ['name' => 'teacher tracking report', 'guard_name' => 'manager', 'group' => 'teacher tracking'],
+            ['name' => 'teacher tracking', 'guard_name' => 'manager', 'group' => 'teacher_tracking'],
+            ['name' => 'teacher tracking report', 'guard_name' => 'manager', 'group' => 'teacher_tracking'],
 
 
             ['name' => 'show lessons', 'guard_name' => 'manager', 'group' => 'lessons'],
@@ -130,15 +132,15 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'delete hidden stories', 'guard_name' => 'manager', 'group' => 'stories'],
             ['name' => 'export hidden stories', 'guard_name' => 'manager', 'group' => 'stories'],
 
-            ['name' => 'show lesson assignments', 'guard_name' => 'manager', 'group' => 'lesson assignments'],
-            ['name' => 'add lesson assignments', 'guard_name' => 'manager', 'group' => 'lesson assignments'],
-            ['name' => 'delete lesson assignments', 'guard_name' => 'manager', 'group' => 'lesson assignments'],
-            ['name' => 'export lesson assignments', 'guard_name' => 'manager', 'group' => 'lesson assignments'],
+            ['name' => 'show lesson assignments', 'guard_name' => 'manager', 'group' => 'lesson_assignments'],
+            ['name' => 'add lesson assignments', 'guard_name' => 'manager', 'group' => 'lesson_assignments'],
+            ['name' => 'delete lesson assignments', 'guard_name' => 'manager', 'group' => 'lesson_assignments'],
+            ['name' => 'export lesson assignments', 'guard_name' => 'manager', 'group' => 'lesson_assignments'],
 
-            ['name' => 'show story assignments', 'guard_name' => 'manager', 'group' => 'story assignments'],
-            ['name' => 'add story assignments', 'guard_name' => 'manager', 'group' => 'story assignments'],
-            ['name' => 'delete story assignments', 'guard_name' => 'manager', 'group' => 'story assignments'],
-            ['name' => 'export story assignments', 'guard_name' => 'manager', 'group' => 'story assignments'],
+            ['name' => 'show story assignments', 'guard_name' => 'manager', 'group' => 'story_assignments'],
+            ['name' => 'add story assignments', 'guard_name' => 'manager', 'group' => 'story_assignments'],
+            ['name' => 'delete story assignments', 'guard_name' => 'manager', 'group' => 'story_assignments'],
+            ['name' => 'export story assignments', 'guard_name' => 'manager', 'group' => 'story_assignments'],
 
             ['name' => 'show user works', 'guard_name' => 'manager', 'group' => 'marking'],
             ['name' => 'marking user works', 'guard_name' => 'manager', 'group' => 'marking'],
@@ -150,30 +152,37 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'delete user records', 'guard_name' => 'manager', 'group' => 'marking'],
             ['name' => 'export user records', 'guard_name' => 'manager', 'group' => 'marking'],
 
-            ['name' => 'show lesson tests', 'guard_name' => 'manager', 'group' => 'users tests'],
-            ['name' => 'delete lesson tests', 'guard_name' => 'manager', 'group' => 'users tests'],
-            ['name' => 'lesson tests certificate', 'guard_name' => 'manager', 'group' => 'users tests'],
-            ['name' => 'export lesson tests', 'guard_name' => 'manager', 'group' => 'users tests'],
+            ['name' => 'show lesson tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
+            ['name' => 'delete lesson tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
+            ['name' => 'lesson tests certificate', 'guard_name' => 'manager', 'group' => 'users_tests'],
+            ['name' => 'export lesson tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
 
-            ['name' => 'show story tests', 'guard_name' => 'manager', 'group' => 'users tests'],
-            ['name' => 'delete story tests', 'guard_name' => 'manager', 'group' => 'users tests'],
-            ['name' => 'story tests certificate', 'guard_name' => 'manager', 'group' => 'users tests'],
-            ['name' => 'export story tests', 'guard_name' => 'manager', 'group' => 'users tests'],
+            ['name' => 'show story tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
+            ['name' => 'delete story tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
+            ['name' => 'story tests certificate', 'guard_name' => 'manager', 'group' => 'users_tests'],
+            ['name' => 'export story tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
 
-            ['name' => 'show motivational certificate', 'guard_name' => 'manager', 'group' => 'motivational certificate'],
-            ['name' => 'delete motivational certificate', 'guard_name' => 'manager', 'group' => 'motivational certificate'],
-            ['name' => 'add motivational certificate', 'guard_name' => 'manager', 'group' => 'motivational certificate'],
-            ['name' => 'export motivational certificate', 'guard_name' => 'manager', 'group' => 'motivational certificate'],
+            ['name' => 'show motivational certificate', 'guard_name' => 'manager', 'group' => 'motivational_certificate'],
+            ['name' => 'delete motivational certificate', 'guard_name' => 'manager', 'group' => 'motivational_certificate'],
+            ['name' => 'add motivational certificate', 'guard_name' => 'manager', 'group' => 'motivational_certificate'],
+            ['name' => 'export motivational certificate', 'guard_name' => 'manager', 'group' => 'motivational_certificate'],
 
         ];
 
+        // Disable foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Permission::truncate();
+        // Enable foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         //insert permissions
-        foreach ($permissions as $permission) {
+        foreach ($permissions as $permission)
+        {
             Permission::query()->updateOrCreate($permission, $permission);
         }
 
 
-        $cache->forget('spatie.permission.cache');
+        Cache::forget('spatie.permission.cache');
 
         $manager = \App\Models\Manager::firstOrCreate([
             'email' => 'it@abt-assessments.com',

@@ -1641,3 +1641,7 @@ function teacherSections($teacher_id=null)
         ->get()
         ->pluck('section')->unique()->values();
 }
+function camelCaseText($text,$replace='_'):string
+{
+    return Str::title(str_replace($replace, ' ', $text));
+}

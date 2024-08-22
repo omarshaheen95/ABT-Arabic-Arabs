@@ -140,6 +140,7 @@ class User extends Authenticatable
         } elseif (\request()->is('teacher/*')) {
             $actions = [
                 ['key' => 'edit', 'name' => t('Edit'), 'route' => route('teacher.student.edit', $this->id)],
+                ['key' => 'login', 'name' => t('Card'), 'route' => route('teacher.student.card', $this->id)],
                 ['key' => 'edit', 'name' => t('Report'), 'route' => route('teacher.user.report', $this->id)],
                 ['key' => 'review', 'name' => t('Review'), 'route' => route('teacher.user.review', $this->id)],
                 ['key' => 'story_review', 'name' => t('Story Review'), 'route' => route('teacher.user.story-review', $this->id)],
