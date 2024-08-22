@@ -725,4 +725,6 @@ return
  	'Girl' => 'Girl',
  	'Not Active Account' => 'Not Active Account',
  	'Your account is not active, please contact support' => 'Your account is not active, please contact support',
+	'Card' => 'Card',
+	'Student Card' => 'Student Card',
 ];

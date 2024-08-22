@@ -11,6 +11,9 @@
 @endpush
 
 @section('style')
+    @if(app()->getLocale()=='ar')
+        <link href="{{asset('assets_v1/lib/multiselect/multiselect-rtl.css')}}?v={{time()}}" rel="stylesheet" type="text/css"/>
+    @endif
     <link href="{{asset('intl-tel-input-master/build/css/intlTelInput.min.css')}}" rel="stylesheet">
     @if(app()->getLocale() == 'ar')
         <style>

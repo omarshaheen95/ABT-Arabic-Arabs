@@ -16,6 +16,8 @@
 :root, [data-bs-theme=light] {
     --cs-primary-right: #138944;
     --cs-primary-left: #FCB415;
+    --cs-primary-right-rgb:19, 137, 68;
+    --cs-primary-left-rgb: 252, 180, 21;
     --cs-table-border: #b3b3b3;
 
 
@@ -110,8 +112,8 @@
     --bs-link-color: #138944;
     --bs-link-color-rgb: 19, 137, 68;
     --bs-link-decoration: none;
-    --bs-link-hover-color: #094321;
-    --bs-link-hover-color-rgb: 9, 67, 33;
+    --bs-link-hover-color: #0c5a2d;
+    --bs-link-hover-color-rgb: 12, 90, 45;
     --bs-link-hover-decoration: none;
     --bs-code-color: #b93993;
     --bs-highlight-bg: #fff3cd;
@@ -5136,7 +5138,8 @@ textarea.form-control-lg {
 .accordion-item {
     color: var(--bs-accordion-color);
     background-color: var(--bs-accordion-bg);
-    border: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color)
+    border: var(--bs-accordion-border-width) solid var(--cs-table-border)
+    /*border: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color)*/
 }
 
 .accordion-item:first-of-type {
@@ -41963,6 +41966,10 @@ code:not([class*=language-]) {
     background-color: var(--bs-danger)
 }
 
+.form-check.form-check-info .form-check-input:checked {
+    background-color: var(--bs-info)
+}
+
 .form-check.form-check-warning .form-check-input:checked {
     background-color: var(--bs-warning)
 }
@@ -42041,12 +42048,20 @@ code:not([class*=language-]) {
     border-color: var(--bs-primary) !important
 }
 
+.form-check-image.active:not(.form-check-success):not(.form-check-info) .form-check-wrapper {
+    border-color: var(--bs-info) !important
+}
+
 .form-check-image.form-check-success.active .form-check-wrapper {
     border-color: var(--bs-success) !important
 }
 
 .form-check-image.form-check-danger.active .form-check-wrapper {
     border-color: var(--bs-danger) !important
+}
+
+.form-check-image.form-check-info.active .form-check-wrapper {
+    border-color: var(--bs-info) !important
 }
 
 .form-check-image.disabled {
@@ -50302,6 +50317,16 @@ code:not([class*=language-]) {
     background-color: transparent
 }
 
+.badge-boy {
+    color: var(--bs-info-inverse);
+    background-color: var(--bs-blue)
+}
+
+.badge-girl {
+    color: var(--bs-info-inverse);
+    background-color: var(--bs-pink)
+}
+
 .badge-light-info {
     color: var(--bs-info);
     background-color: var(--bs-info-light)
@@ -56826,7 +56851,7 @@ router-outlet {
 }
 
 [data-kt-app-layout=light-sidebar] .app-sidebar .menu {
-    font-weight: 500
+    font-weight: 650
 }
 
 [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item .menu-heading {
@@ -56910,7 +56935,9 @@ router-outlet {
 
 [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here), [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) {
     transition: color .2s ease;
-    color: var(--bs-gray-900)
+    color: var(--bs-gray-900);
+    background: linear-gradient(to right, rgba(var(--cs-primary-right-rgb), 0.5), rgba(var(--cs-primary-left-rgb), 0.5));
+
 }
 
 [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-title, [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-title {
@@ -56920,7 +56947,7 @@ router-outlet {
 
 [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-icon, [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-icon .svg-icon, [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-icon i, [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-icon, [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-icon .svg-icon, [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-icon i {
     color: var(--bs-gray-700);
-    font-size: 2rem !important;
+    /*font-size: 2rem !important;*/
 }
 
 [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-bullet .bullet, [data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-bullet .bullet {

@@ -58,6 +58,7 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::get('duplicate_user', 'UserController@duplicateIndex')->name('user.duplicate_user');
     Route::delete('duplicate_user', 'UserController@destroyDuplicate')->name('user.delete_duplicate_user');
     Route::get('user_cards_and_qr', 'UserController@cards')->name('user.cards-export');
+    Route::get('user/{id}/card', 'UserController@userCard')->name('user.card');
     Route::get('user/{id}/review', 'UserController@review')->name('user.review');
     Route::get('user/{id}/story-review', 'UserController@storyReview')->name('user.story-review');
     Route::get('user/{id}/report', 'UserController@report')->name('user.report');

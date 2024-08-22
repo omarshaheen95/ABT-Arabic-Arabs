@@ -121,6 +121,7 @@ class User extends Authenticatable
             } else {
                 $actions = [
                     ['key' => 'edit', 'name' => t('Edit'), 'route' => route('manager.user.edit', $this->id), 'permission' => 'edit users'],
+                    ['key' => 'login', 'name' => t('Card'), 'route' => route('manager.user.card', $this->id)],
                     ['key' => 'review', 'name' => t('Review'), 'route' => route('manager.user.review', $this->id), 'permission' => 'review users'],
                     ['key' => 'story review', 'name' => t('Story Review'), 'route' => route('manager.user.story-review', $this->id), 'permission' => 'review users'],
                     ['key' => 'login', 'name' => t('Login'), 'route' => route('manager.user.login', $this->id), 'permission' => 'users login'],
@@ -130,6 +131,7 @@ class User extends Authenticatable
         } elseif (\request()->is('school/*')) {
             $actions = [
                 ['key' => 'edit', 'name' => t('Edit'), 'route' => route('school.student.edit', $this->id)],
+                ['key' => 'login', 'name' => t('Card'), 'route' => route('school.user.card', $this->id)],
                 ['key' => 'review', 'name' => t('Review'), 'route' => route('school.user.review', $this->id)],
                 ['key' => 'story_review', 'name' => t('Story Review'), 'route' => route('school.user.story-review', $this->id)],
                 ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id],
