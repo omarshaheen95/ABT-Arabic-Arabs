@@ -727,4 +727,6 @@ return
  	'Your account is not active, please contact support' => 'Your account is not active, please contact support',
 	'Card' => 'Card',
 	'Student Card' => 'Student Card',
+	'Student Login' => 'Student Login',
+	'Student login' => 'Student login',
 ];
