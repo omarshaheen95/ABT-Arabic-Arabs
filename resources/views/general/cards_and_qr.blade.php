@@ -41,10 +41,10 @@
                                 <hr class="my-1" style="border-top: 1px solid #00000040;">
                                 <div class="row mt-1 px-1 pb-2" style="position: relative">
                                     <div class="col-7 d-flex flex-column pe-0">
-                                        <div class="col-12 s-content"><span class="s-title">{{t('Name')}} : </span>{{ $std->name }}</div>
+                                        <div class="col-12 s-content"><span class="s-title">{{t('Name')}} : {{ $std->name }}</span></div>
                                         <div class="col-12 s-content"><span class="s-title">{{t('ID')}} : </span>{{ $std->id_number ?? '-' }}</div>
-                                        <div class="col-12 s-content"><span class="s-title"> {{t('Section')}} : </span>{{ $std->section ?? '-' }}</div>
                                         <div class="col-12 s-content"><span class="s-title">{{t('Grade')}} : </span> {{ $std->grade->name }}</div>
+                                        <div class="col-12 s-content"><span class="s-title"> {{t('Section')}} : </span>{{ $std->section ?? '-' }}</div>
 
                                     </div>
                                     <ul class="ms-3 mt-1">
