@@ -729,4 +729,5 @@ return
 	'Student Card' => 'Student Card',
 	'Student Login' => 'Student Login',
 	'Student login' => 'Student login',
+	'Username' => 'Username',
 ];

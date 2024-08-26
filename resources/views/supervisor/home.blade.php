@@ -5,7 +5,7 @@
         <div class="col-sm-6 col-xl-2 mb-xl-10">
             <div class="card h-lg-100" style="background-color: #f141bf;background-image:url('/assets_v1/media/svg/shapes/wave-bg-red.svg')">
                 <!--begin::Body-->
-                <div class="card-body d-flex justify-content-between align-items-start flex-column">
+                <div class="card-body d-flex justify-content-between align-items-start flex-column px-2 py-8">
                     <!--begin::Icon-->
                     <div class="d-flex justify-content-center w-100 m-0">
                         <div class="d-flex flex-center rounded-circle h-80px w-80px" style="border: 1px dashed rgba(255, 255, 255, 0.4);">
@@ -40,7 +40,7 @@
         <div class="col-sm-6 col-xl-2 mb-xl-10">
             <div class="card h-lg-100" style="background-color: #1da2b7;background-image:url('/assets_v1/media/svg/shapes/wave-bg-red.svg')">
                 <!--begin::Body-->
-                <div class="card-body d-flex justify-content-between align-items-start flex-column">
+                <div class="card-body d-flex justify-content-between align-items-start flex-column px-2 py-8">
                     <!--begin::Icon-->
                     <div class="d-flex justify-content-center w-100 m-0">
                         <div class="d-flex flex-center rounded-circle h-80px w-80px" style="border: 1px dashed rgba(255, 255, 255, 0.4);">
@@ -73,7 +73,7 @@
         <div class="col-sm-6 col-xl-2 mb-xl-10">
             <div class="card h-lg-100" style="background-color: #ff8640;background-image:url('/assets_v1/media/svg/shapes/wave-bg-red.svg')">
                 <!--begin::Body-->
-                <div class="card-body d-flex justify-content-between align-items-start flex-column">
+                <div class="card-body d-flex justify-content-between align-items-start flex-column px-2 py-8">
                     <!--begin::Icon-->
                     <div class="d-flex justify-content-center w-100 m-0">
                         <div class="d-flex flex-center rounded-circle h-80px w-80px" style="border: 1px dashed rgba(255, 255, 255, 0.4);">
