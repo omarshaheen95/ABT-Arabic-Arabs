@@ -117,7 +117,7 @@
                     </div>
                 </div>
 
-                <div class="col-6 mb-2 d-flex gap-2 mt-4">
+                <div class="col-2 mb-2 d-flex gap-2 mt-4">
                     <div class="form-check form-check-custom form-check-solid">
                         <input class="form-check-input" type="checkbox" value="1" name="active"
                                id="flexCheckDefault" {{isset($school) && $school->active ? 'checked':''}}/>
@@ -127,7 +127,15 @@
                     </div>
                 </div>
 
-
+                <div class="col-2 mb-2 d-flex gap-2 mt-4">
+                    <div class="form-check form-check-custom form-check-solid">
+                        <input class="form-check-input" type="checkbox" value="1" name="student_login"
+                               id="flexCheckDefault" {{isset($school) && $school->student_login ? 'checked':''}}/>
+                        <label class="form-check-label text-dark" for="flexCheckDefault">
+                            {{t('Student Login')}}
+                        </label>
+                    </div>
+                </div>
             </div>
             <div class="row my-5">
                 <div class="separator separator-content my-4"></div>

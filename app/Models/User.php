@@ -129,9 +129,11 @@ class User extends Authenticatable
                 ];
             }
         } elseif (\request()->is('school/*')) {
+            $student_login = \Auth::guard('school')->user()->student_login;
             $actions = [
                 ['key' => 'edit', 'name' => t('Edit'), 'route' => route('school.student.edit', $this->id)],
                 ['key' => 'login', 'name' => t('Card'), 'route' => route('school.user.card', $this->id)],
+                $student_login?['key' => 'login', 'name' => t('Login'), 'route' => route('school.user.login', $this->id)]:null,
                 ['key' => 'review', 'name' => t('Review'), 'route' => route('school.user.review', $this->id)],
                 ['key' => 'story_review', 'name' => t('Story Review'), 'route' => route('school.user.story-review', $this->id)],
                 ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id],

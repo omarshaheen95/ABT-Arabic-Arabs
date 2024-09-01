@@ -192,4 +192,17 @@ class StudentController extends Controller
         return view('general.cards_and_qr', compact('students', 'student_login_url', 'school', 'title'));
     }
 
+    public function login($id)
+    {
+        $school = Auth::guard('school')->user();
+        if ($school->student_login) {
+            $school_id = Auth::guard('school')->user()->id;
+            User::query()->where('school_id', $school_id)->findOrFail($id);
+            Auth::guard('web')->loginUsingId($id);
+            return redirect()->route('home');
+        }
+        return redirect()->route('school.student.index')->with('message', t('You not have permission to student login'));
+
+    }
+
 }
