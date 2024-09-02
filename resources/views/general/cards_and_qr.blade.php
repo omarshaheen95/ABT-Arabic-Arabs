@@ -45,13 +45,13 @@
                                         <div class="col-12 s-content"><span class="s-title">{{t('ID')}} : </span>{{ $std->id_number ?? '-' }}</div>
                                         <div class="col-12 s-content"><span class="s-title">{{t('Grade')}} : </span> {{ $std->grade->name }}</div>
                                         <div class="col-12 s-content"><span class="s-title"> {{t('Section')}} : </span>{{ $std->section ?? '-' }}</div>
-
+                                        <div class="col-12 s-content"><span class="s-title">{{t('Teacher')}}:</span>{{ optional($std->teacher)->name }}</div>
                                     </div>
                                     <ul class="ms-3 mt-1">
                                         <li>www.arabic-arabs.com</li>
                                         <li>{{t('Student login')}}</li>
                                         <li>{{t('Username')}}: <br /><span class="username" dir="ltr">{{ $std->email}}</span></li>
-                                        <li>{{t('Login')}}</li>
+                                        <li>{{t('Password')}}: <span class="username" dir="ltr">123456</span></li>
                                     </ul>
                                     <div class="col-5 mt-1 d-flex justify-content-end p-0 pe-1" style="position: absolute;right: 180px">
                                         @if($std->gender == 'Girl')

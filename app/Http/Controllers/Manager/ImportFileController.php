@@ -272,7 +272,7 @@ class ImportFileController extends Controller
 
     public function usersCards($id)
     {
-        $students = User::query()->where('import_file_id', $id)->get()->chunk(6);
+        $students = User::query()->with(['grade','school', 'teacher'])->where('import_file_id', $id)->get()->chunk(6);
         $imported_file = ImportFile::query()->findOrFail($id);
         $student_login_url = config('app.url') . '/login';
         $school = School::find($imported_file->school_id);

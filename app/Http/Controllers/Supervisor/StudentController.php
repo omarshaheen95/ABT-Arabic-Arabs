@@ -255,7 +255,7 @@ class StudentController extends Controller
     public function studentsCards(Request $request)
     {
         $request->validate(['teacher_id' => 'required']);
-        $students = User::query()->filter($request)->get()->chunk(6);
+        $students = User::query()->with(['grade','school', 'teacher'])->filter($request)->get()->chunk(6);
         $qr = 1;//isset($request['qr-code']);
         $student_login_url = config('app.url') . '/login';
         $school = School::find($request->get('school_id'));

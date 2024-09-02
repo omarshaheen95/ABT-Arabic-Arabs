@@ -71,7 +71,6 @@ class StudentInformation implements WithMapping, Responsable, WithHeadings, From
             optional($student->teacher)->name,
             is_null($student->active_to) ? 'unpaid' : optional($student->active_to)->format('Y-m-d'),
             $student->last_login?Carbon::parse($student->last_login)->toDateTimeString():''
-
         ];
     }
 

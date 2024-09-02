@@ -175,7 +175,7 @@ class StudentController extends Controller
 
     public function cards(Request $request)
     {
-        $students = User::with(['grade','school'])->filter($request)->get()->chunk(6);
+        $students = User::with(['grade','school', 'teacher'])->filter($request)->get()->chunk(6);
         $student_login_url = config('app.url') . '/login';
         $school = School::find($request->get('school_id'));
         $title = $school ? $school->name . ' | ' . t('Students Cards') : t('Students Cards');
@@ -184,7 +184,7 @@ class StudentController extends Controller
 
     public function userCard(Request $request,$id)
     {
-        $students = User::with(['grade','school'])->filter($request)->where('id',$id)->get();
+        $students = User::with(['grade','school', 'teacher'])->filter($request)->where('id',$id)->get();
         $student_login_url = config('app.url') . '/login';
         $school = $students->first()->school;
         $students= $students->chunk(6);
