@@ -34,6 +34,7 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'assign teacher', 'guard_name' => 'manager', 'group' => 'users'],
             ['name' => 'unassign teacher', 'guard_name' => 'manager', 'group' => 'users'],
             ['name' => 'users activation', 'guard_name' => 'manager', 'group' => 'users'],
+            ['name' => 'update users grade', 'guard_name' => 'manager', 'group' => 'users'],
 
 
             ['name' => 'show supervisors', 'guard_name' => 'manager', 'group' => 'supervisors'],

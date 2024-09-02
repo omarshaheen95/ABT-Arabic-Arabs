@@ -68,7 +68,7 @@ class StudentInformation implements WithMapping, Responsable, WithHeadings, From
             $student->mobile . ' ',
             $student->gender,
             optional($student->school)->name,
-            optional(optional($student->teacher_student)->teacher)->name,
+            optional($student->teacher)->name,
             is_null($student->active_to) ? 'unpaid' : optional($student->active_to)->format('Y-m-d'),
             $student->last_login?Carbon::parse($student->last_login)->toDateTimeString():''
 
@@ -79,7 +79,7 @@ class StudentInformation implements WithMapping, Responsable, WithHeadings, From
     {
 
 
-        $students = User::query()->with(['teacherUser.teacher','school'])->filter($this->request)->latest();
+        $students = User::query()->with(['teacher','school'])->filter($this->request)->latest();
 
         if ($students->count() >= 1) {
             $this->length = $students->count() + 1;
@@ -101,10 +101,10 @@ class StudentInformation implements WithMapping, Responsable, WithHeadings, From
         });
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $cellRange = 'A1:J1';
+                $cellRange = 'A1:K1';
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setBold('bold')->setSize(12);
                 $event->sheet->styleCells(
-                    "A1:H$this->length",
+                    "A1:K$this->length",
                     [
                         'alignment' => [
                             'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,

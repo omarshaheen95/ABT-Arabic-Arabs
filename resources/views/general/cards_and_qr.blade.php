@@ -50,7 +50,7 @@
                                     <ul class="ms-3 mt-1">
                                         <li>www.arabic-arabs.com</li>
                                         <li>{{t('Student login')}}</li>
-                                        <li>{{t('Username')}}: <span class="username" >{{ $std->email}}</span></li>
+                                        <li>{{t('Username')}}: <br /><span class="username" dir="ltr">{{ $std->email}}</span></li>
                                         <li>{{t('Login')}}</li>
                                     </ul>
                                     <div class="col-5 mt-1 d-flex justify-content-end p-0 pe-1" style="position: absolute;right: 180px">

@@ -42,6 +42,10 @@
                            data-bs-target="#users_activation_modal">{{t('Activation')}}</a>
                     </li>
             @endcan
+                @can('update users grade')
+                    <li><a class="dropdown-item" href="#!" data-bs-toggle="modal"
+                           data-bs-target="#users_update_grades_modal">{{t('Update Grades')}}</a></li>
+                @endcan
 
                 @can('delete users')
                     <li><a class="dropdown-item text-danger d-none checked-visible" href="#!" id="delete_rows">{{t('Delete')}}</a></li>
@@ -171,6 +175,15 @@
                 @endcan
             </select>
         </div>
+        <div class="col-2 mb-2">
+            <label class="mb-1">{{t('Archived Status')}}:</label>
+            <select class="form-control form-select reset-no" data-hide-search="true" data-control="select2" data-placeholder="{{t('Select Archived Status')}}" name="archived" id="archived">
+                <option value="2" selected>{{t('Not Archived Students')}}</option>
+                {{--                @can('show deleted students')--}}
+                <option value="1">{{t('Archived Students')}}</option>
+                {{--                @endcan--}}
+            </select>
+        </div>
 
 
     </div>
@@ -280,6 +293,72 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{t('Close')}}</button>
                     <button type="button" class="btn btn-primary" id="btn_users_teacher">{{t('Save')}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="users_update_grades_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">{{t('Users Grades')}}</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                         aria-label="Close">
+                        <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body d-flex flex-column">
+                    <form id="users_grades_form">
+                        <div class="mb-2">
+                            <label>{{t('Grade')}} :</label>
+                            <select name="grade" class="form-select" data-control="select2"
+                                    data-placeholder="{{t('Select Grade')}}" data-allow-clear="true">
+                                <option></option>
+                                @foreach($grades as $grade)
+                                    <option value="{{$grade->id}}">{{$grade->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label>{{t('Alternative Grade')}} :</label>
+                            <select name="alternate_grade" class="form-select" data-control="select2"
+                                    data-placeholder="{{t('Select Alternative Grade')}}" data-allow-clear="true">
+                                <option></option>
+                                @foreach($grades as $grade)
+                                    <option value="{{$grade->id}}">{{$grade->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label>{{t('Assigned Year')}} :</label>
+                            <select name="assigned_year_id" class="form-select" data-control="select2"
+                                    data-placeholder="{{t('Select Year')}}" data-allow-clear="true">
+                                <option></option>
+                                @foreach($years as $year)
+                                    <option value="{{$year->id}}">{{$year->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label>{{t('Archived Status')}} :</label>
+                            <select name="archived" class="form-select" data-control="select2"
+                                    data-placeholder="{{t('Select Status')}}" data-allow-clear="true">
+                                <option></option>
+                                <option value="1">{{t('Archived')}}</option>
+                                <option value="2">{{t('Not Archived')}}</option>
+                            </select>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{t('Close')}}</button>
+                    <button type="button" class="btn btn-primary" id="btn_users_update_grades">{{t('Save')}}</button>
                 </div>
             </div>
         </div>

@@ -109,23 +109,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 mb-2">
-                    <div class="form-group">
-                        <label class="form-label">{{t('Mobile')}}</label>
-                        <input type="text" class="form-control" id="Phone" placeholder="{{t('Mobile')}}" name="phone"
-                               value="{{ isset($user) ? $user->mobile : old('mobile') }}">
-                        <input type="hidden" id="country-code" name="country_code"
-                               value="{{ isset($user) ? $user->country_code : old('country_code') }}">
-                        <input type="hidden" id="short-country" name="short_country"
-                               value="{{ isset($user) ? $user->short_country : old('short_country') }}">
-                        <input type="hidden" placeholder="الموبايل" name="mobile"
-                               id="mobileHidden"
-                               value="{{ isset($user) ? $user->mobile : old('mobile') }}"
-                               class="form-control form-control-lg">
-                        <span id="valid-msg" class="hide">✓ فعال</span>
-                        <span id="error-msg" class="hide"></span>
-                    </div>
-                </div>
                 <div class="col-2 mb-2">
                     <div class="form-group">
                         <label for="Email" class="form-label">{{t('Password')}}</label>

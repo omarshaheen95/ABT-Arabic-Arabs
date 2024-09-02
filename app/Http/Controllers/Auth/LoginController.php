@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -46,5 +47,23 @@ class LoginController extends Controller
             $credentials[$username] = strtolower($credentials[$username]);
         }
         return $credentials;
+    }
+
+    //check if user is not archived before login
+    protected function attemptLogin(Request $request)
+    {
+        // Retrieve the user based on the email provided
+        $user = \App\Models\User::where('email', $request->email)->first();
+
+        // Check if the user exists and if they are active
+        if ($user && $user->archived) {
+            // Optionally, you can log this attempt or notify the user that their account is inactive
+            return false;
+        }
+
+        // Attempt to log the user in with the credentials provided
+        return $this->guard()->attempt(
+            $this->credentials($request), $request->filled('remember')
+        );
     }
 }

@@ -26,7 +26,7 @@ class SettingController extends Controller
         $title = t('Home');
         $teacher = Auth::guard('teacher')->user();
         $school_students = User::query()->where('school_id', $teacher->school_id)->count();
-        $students = TeacherUser::query()->where('teacher_id', $teacher->id)->count();
+        $students = $teacher->users()->count();
         $tests = UserTest::query()->whereHas('user', function (Builder $query) use($teacher){
             $query->whereHas('teacherUser', function (Builder $query) use ($teacher){
                 $query->where('teacher_id', $teacher->id);

@@ -193,7 +193,7 @@
                 </div>
                 <div class="d-flex align-items-center my-2">
 
-                    <h5 class="m-0">{{t('Download Sample of users file')}} : <a class="text-danger" target="_blank" href="{{asset('assets_v1/import_example/Users Example.xlsx')}}"> {{t('Click to Download')}}</a></h5>
+                    <h5 class="m-0">{{t('Download Sample of users file')}} : <a class="text-danger" target="_blank" href="{{asset('assets_v1/import_example/Users Example.xlsx')}}?v=1"> {{t('Click to Download')}}</a></h5>
                 </div>
                 <div class="row my-5">
                     <div class="separator separator-content my-4"></div>

@@ -122,7 +122,7 @@
             {data: 'teacher', name: 'teacher'},
             {data: 'approved', name: 'approved'},
             {data: 'active', name: 'active'},
-            {data: 'students_count', name: 'students_count'},
+            {data: 'users_count', name: 'users_count'},
             {data: 'last_login', name: 'last_login'},
             {data: 'active_to', name: 'active_to'},
             {data: 'actions', name: 'actions'}

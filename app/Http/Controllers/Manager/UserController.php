@@ -359,6 +359,12 @@ class UserController extends Controller
             $data['year_id'] = $request['users_grades']['assigned_year_id'];
         }
 
+        //check if assigned_year_id is null and not false then update users
+        if (isset($request['users_grades']['archived']) && !is_null($request['users_grades']['archived'])) {
+            $data['archived'] = $request['users_grades']['archived'] != 2 ? 1 : 0;
+        }
+
+
         User::query()->filter($request)->update($data);
 
         return $this->sendResponse(null, t('Users Updated Successfully'));

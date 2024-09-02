@@ -31,6 +31,7 @@ class UserRequest extends FormRequest
             'image' => 'nullable|image',
             'country_code' => 'required',
             'section' => 'nullable',
+            'nationality' => 'nullable',
             'short_country' => 'required',
             'year_id' => 'required',
             "phone" => ['required'],
