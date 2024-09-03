@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Teacher;
 
+use App\Rules\UserEmailRule;
+use App\Rules\UserNameRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -26,8 +28,8 @@ class UserRequest extends FormRequest
     {
         $id = $this->route('id');
         return [
-            'name' => 'required',
-            'email' => "required|email|unique:users,email,$id,id,deleted_at,NULL,archived,0",
+            'name' =>['required', new UserNameRule()],
+            'email' => ['required', 'email:rfc,dns', "unique:users,email,$id,id,deleted_at,NULL", new UserEmailRule()],
             'password' => 'nullable|min:6',
             'image' => 'nullable|image',
             'section' => 'nullable',

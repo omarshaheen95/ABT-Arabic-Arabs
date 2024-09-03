@@ -4,6 +4,8 @@ namespace App\Imports;
 
 use App\Models\Teacher;
 use App\Models\User;
+use App\Rules\UserEmailRule;
+use App\Rules\UserNameRule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
@@ -140,8 +142,8 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
             ];
         } elseif ($this->created_file->process_type == 'update') {
             return [
-                'Name' => 'sometimes',
-                'Email' => 'sometimes',
+                'Name' =>['sometimes', new UserNameRule()],
+                'Email' => ['required', new UserEmailRule()],
                 'Mobile' => 'sometimes',
                 'Password' => 'sometimes',
                 'Grade' => 'required|exists:grades,id',
@@ -156,8 +158,8 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
         } else {
             return [
                 'Student ID' => 'required',
-                'Name' => 'required',
-                'Email' => 'nullable',
+                'Name' =>['required', new UserNameRule()],
+                'Email' => ['nullable', new UserEmailRule()],
                 'Mobile' => 'nullable',
                 'Password' => 'nullable',
                 'Grade' => 'required|exists:grades,id',

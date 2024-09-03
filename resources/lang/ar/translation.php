@@ -730,4 +730,5 @@ return
 	'Student Login' => 'Student Login',
 	'Student login' => 'Student login',
 	'Username' => 'Username',
+	'The name must be english' => 'The name must be english',
 ];
