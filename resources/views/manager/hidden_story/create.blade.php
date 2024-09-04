@@ -56,7 +56,7 @@
 @section('script')
     <script type="text/javascript" src="{{ asset('assets_v1/js/custom.js')}}"></script>
 
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}?v={{time()}}"></script>
     {!! JsValidator::formRequest(\App\Http\Requests\Manager\HiddenStoryRequest::class, '#form_information'); !!}
 
     <script>

@@ -298,7 +298,7 @@
     </form>
 @endsection
 @section('script')
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}?v={{time()}}"></script>
     {!! JsValidator::formRequest(\App\Http\Requests\Manager\UserRequest::class, '#form-profile-save'); !!}
     <script src="{{asset('intl-tel-input-master/build/js/intlTelInput.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('assets_v1/lib/multiselect/multiselect.min.js')}}"></script>

@@ -128,7 +128,7 @@ WhatsApp +972592554320
 @endsection
 
 @section('script')
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}?v={{time()}}"></script>
     {!! JsValidator::formRequest(\App\Http\Requests\UserLessonRequest::class, '#form_information'); !!}
 
 @endsection

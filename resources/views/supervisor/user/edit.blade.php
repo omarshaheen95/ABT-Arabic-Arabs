@@ -120,7 +120,7 @@ WhatsApp +972592554320
 @endsection
 
 @section('script')
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}?v={{time()}}"></script>
     <script src="{{ asset('assets/vendors/general/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
     {!! JsValidator::formRequest(\App\Http\Requests\175\UserRequest::class, '#form_information'); !!}
     <script src="{{asset('intl-tel-input-master/build/js/intlTelInput.min.js')}}"></script>

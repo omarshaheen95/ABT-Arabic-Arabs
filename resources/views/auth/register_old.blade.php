@@ -129,7 +129,7 @@
     <!-- END SLIDER -->
 @endsection
 @section('script')
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}?v={{time()}}"></script>
     {!! $validator->selector('#form_information') !!}
     <script src="{{asset('intl-tel-input-master/build/js/intlTelInput.min.js')}}"></script>
     <script type="text/javascript">

@@ -143,7 +143,7 @@
     </form>
 @endsection
 @section('script')
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}?v={{time()}}"></script>
     {!! JsValidator::formRequest(\App\Http\Requests\Manager\TeacherRequest::class, '#form-data'); !!}
     <script>
         $(document).ready(function () {
