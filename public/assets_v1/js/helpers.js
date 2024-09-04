@@ -319,3 +319,13 @@ function copyToClipboard(element) {
     }
 
 }
+
+if ($('.remove_spaces').length > 0){
+    $(document).on('keyup','.remove_spaces',function () {
+        let value = $(this).val()
+        if (value){
+            value = value.replace(/\u00A0/g, ' ').replace('  ', ' ').trim();
+            $(this).val(value)
+        }
+    })
+}

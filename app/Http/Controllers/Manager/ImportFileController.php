@@ -264,6 +264,7 @@ class ImportFileController extends Controller
                 $school = School::query()->findOrFail($imported_file->school_id);
                 $file_name = $school->name . " Students Information.xlsx";
             }
+            $request['orderBy'] = 'grade';
             return (new StudentInformation($request))->download($file_name);
         } else {
             return (new TeacherExport($request))->download('Teachers Information.xlsx');
@@ -272,7 +273,9 @@ class ImportFileController extends Controller
 
     public function usersCards($id)
     {
-        $students = User::query()->with(['grade','school', 'teacher'])->where('import_file_id', $id)->get()->chunk(6);
+        $students = User::query()->with(['grade','school', 'teacher'])
+            ->orderBy('grade_id')
+            ->where('import_file_id', $id)->get()->chunk(6);
         $imported_file = ImportFile::query()->findOrFail($id);
         $student_login_url = config('app.url') . '/login';
         $school = School::find($imported_file->school_id);

@@ -109,7 +109,15 @@ class User extends Authenticatable
                 $query->whereDate('created_at', '>=', Carbon::parse($value)->startOfDay());
             })->when($value = $request->get('end_login_at', false), function (Builder $query) use ($value) {
                 $query->whereDate('created_at', '<=', Carbon::parse($value)->endOfDay());
-            })->when($value = $request->get('row_id', []), function (Builder $query) use ($value) {
+            })
+            ->when($value = $request->get('orderBy', 'latest'), function (Builder $query) use ($value) {
+                $query->when($value == 'latest', function (Builder $query) use ($value) {
+                    $query->latest();
+                })->when($value == 'grade', function (Builder $query) use ($value) {
+                    $query->orderBy('grade_id');
+                });
+            })
+            ->when($value = $request->get('row_id', []), function (Builder $query) use ($value) {
                 $query->whereIn('id', $value);
             })->when($value = $request->get('archived', 2), function (Builder $query) use ($value) {
             if ($value == 1)

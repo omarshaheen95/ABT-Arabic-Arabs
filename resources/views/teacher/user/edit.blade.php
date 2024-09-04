@@ -89,7 +89,7 @@
                 <div class="col-4 mb-2">
                     <div class="form-group">
                         <label class="form-label">{{t('Name')}}</label>
-                        <input type="text" name="name" class="form-control name" placeholder="{{t('Name')}}"
+                        <input type="text" name="name" class="form-control name remove_spaces" placeholder="{{t('Name')}}"
                                value="{{ isset($user->name) ? $user->name : old("name") }}" required>
                     </div>
                 </div>
@@ -123,13 +123,6 @@
                         <span id="error-msg" class="hide"></span>
                     </div>
                 </div>
-                <div class="col-2 mb-2">
-                    <div class="form-group">
-                        <label for="Email" class="form-label">{{t('Password')}}</label>
-                        <input type="password" name="password" class="form-control" placeholder="{{t('Password')}}">
-                    </div>
-                </div>
-
 
                 <div class="col-3 mb-2">
                     <div class="form-group">
