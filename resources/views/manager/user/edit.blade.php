@@ -96,7 +96,7 @@
                                value="{{ isset($user->name) ? $user->name : old("name") }}" required>
                     </div>
                 </div>
-                <div class="col-3 mb-2">
+                <div class="col-5 mb-2">
                     <div class="form-group">
                         <label class="form-label mb-1">{{t('Email')}}:</label>
                         <div class="input-group mb-5">
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-2 mb-2">
+                <div class="col-3 mb-2">
                     <div class="form-group">
                         <label for="password" class="form-label">{{t('Password')}}</label>
                         <input type="text" name="password" class="form-control" placeholder="{{t('Password')}}">
