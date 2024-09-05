@@ -96,7 +96,7 @@
                                value="{{ isset($user->name) ? $user->name : old("name") }}" required>
                     </div>
                 </div>
-                <div class="col-4 mb-2">
+                <div class="col-3 mb-2">
                     <div class="form-group">
                         <label class="form-label mb-1">{{t('Email')}}:</label>
                         <div class="input-group mb-5">
@@ -107,6 +107,12 @@
                          <a class="p-0 cursor-pointer" id="generateUserName"><i class="fas fa-refresh"></i></a>
                      </span>
                         </div>
+                    </div>
+                </div>
+                <div class="col-2 mb-2">
+                    <div class="form-group">
+                        <label for="password" class="form-label">{{t('Password')}}</label>
+                        <input type="text" name="password" class="form-control" placeholder="{{t('Password')}}">
                     </div>
                 </div>
 
@@ -153,7 +159,7 @@
                     </div>
                 </div>
 
-                <div class="col-4 mb-2">
+                <div class="col-3 mb-2">
                     <div class="form-group">
                         <label for="" class="form-label">{{t('Alternative Grade')}}</label>
                         <select class="form-select" name="alternate_grade_id" data-control="select2"

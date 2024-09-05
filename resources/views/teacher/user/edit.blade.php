@@ -123,6 +123,13 @@
                         <span id="error-msg" class="hide"></span>
                     </div>
                 </div>
+                <div class="col-2 mb-2">
+                    <div class="form-group">
+                        <label for="password" class="form-label">{{t('Password')}}</label>
+                        <input type="text" name="password" class="form-control" placeholder="{{t('Password')}}">
+                    </div>
+                </div>
+
 
                 <div class="col-3 mb-2">
                     <div class="form-group">

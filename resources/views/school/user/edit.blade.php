@@ -125,6 +125,13 @@
                 </div>
                 <div class="col-4 mb-2">
                     <div class="form-group">
+                        <label for="password" class="form-label">{{t('Password')}}</label>
+                        <input type="text" name="password" class="form-control" placeholder="{{t('Password')}}">
+                    </div>
+                </div>
+
+                <div class="col-4 mb-2">
+                    <div class="form-group">
                         <label for="" class="form-label">{{t('Teacher')}}</label>
                         <select class="form-select" name="teacher_id" data-control="select2" data-allow-clear="true"
                                 data-placeholder="{{t('Select Teacher')}}">
@@ -154,7 +161,7 @@
                     </div>
                 </div>
 
-                <div class="col-4 mb-2">
+                <div class="col-3 mb-2">
                     <div class="form-group">
                         <label for="" class="form-label">{{t('Alternative Grade')}}</label>
                         <select class="form-select" name="alternate_grade_id" data-control="select2"
