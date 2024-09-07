@@ -20,38 +20,40 @@
             <input name="type" value="Teacher" type="hidden">
             @csrf
             <div class="row">
-                    <div class="form-group row mb-2">
-                        <label class="col-3 col-form-label">{{t('Select the file containing the data')}}</label>
-                        <div class="col-6">
-                            <input type="file" class="form-control" name="import_file">
-                        </div>
+                <div class="form-group row mb-2">
+                    <label class="col-3 col-form-label">{{t('Select the file containing the data')}}</label>
+                    <div class="col-6">
+                        <input type="file" class="form-control" name="import_file">
                     </div>
-                    <div class="form-group row mb-2">
-                        <label class="col-3 col-form-label">{{t('School')}}</label>
-                        <div class="col-6">
-                            <select name="school_id" class="form-control form-select" data-control="select2"
-                                    data-allow-clear="true" data-placeholder="{{t('Select School')}}">
-                                <option value="" disabled selected>{{t('Select School')}}</option>
-                                @foreach($schools as $school)
-                                    <option value="{{ $school->id }}">{{ $school->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="col-3 col-form-label">{{t('School')}}</label>
+                    <div class="col-6">
+                        <select name="school_id" class="form-control form-select" data-control="select2"
+                                data-allow-clear="true" data-placeholder="{{t('Select School')}}">
+                            <option value="" disabled selected>{{t('Select School')}}</option>
+                            @foreach($schools as $school)
+                                <option value="{{ $school->id }}">{{ $school->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="form-group row mb-2">
-                        <label class="col-3 col-form-label">{{t('Active To')}}</label>
-                        <div class="col-6">
-                            <input class="form-control" name="active_to" type="text"
-                                   value="{{ isset($user) ? $user->active_to : old("active_to") }}" id="active_to_date" placeholder="{{t('Active To')}}">
-                        </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="col-3 col-form-label">{{t('Active To')}}</label>
+                    <div class="col-6">
+                        <input class="form-control" name="active_to" type="text"
+                               value="{{ isset($user) ? $user->active_to : old("active_to") }}" id="active_to_date"
+                               placeholder="{{t('Active To')}}">
                     </div>
-                    <div class="form-group row mb-2">
-                        <label class="col-3 col-form-label">{{t('Email Ends With')}}</label>
-                        <div class="col-6">
-                            <input class="form-control" name="last_of_email" type="text"
-                                   value="@arabic-arabs.com" dir="ltr" id="last_of_email" placeholder="{{t('Email Ends With')}}">
-                        </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="col-3 col-form-label">{{t('Email Ends With')}}</label>
+                    <div class="col-6">
+                        <input class="form-control" name="last_of_email" type="text"
+                               value="@arabic-arabs.com" dir="ltr" id="last_of_email"
+                               placeholder="{{t('Email Ends With')}}">
                     </div>
+                </div>
 
                 <div class="d-flex align-items-center mt-8">
                     <h5 class="m-0 mr-2">{{t('Note')}}: </h5>
@@ -59,7 +61,9 @@
                 </div>
                 <div class="d-flex align-items-center my-2">
 
-                    <h5 class="m-0">{{t('Download Sample of Teachers file')}} : <a class="text-danger" target="_blank" href="{{asset('assets_v1/import_example/Teachers Example.xlsx')}}"> {{t('Click to Download')}}</a></h5>
+                    <h5 class="m-0">{{t('Download Sample of Teachers file')}} : <a class="text-danger" target="_blank"
+                                                                                   href="{{asset('assets_v1/import_example/Teachers Example.xlsx')}}"> {{t('Click to Download')}}</a>
+                    </h5>
                 </div>
                 <div class="row my-5">
                     <div class="separator separator-content my-4"></div>
@@ -83,7 +87,8 @@
                         <select name="process_type" class="form-control form-select" data-control="select2"
                                 data-placeholder="{{t('Select Status')}}">
                             @foreach(['create', 'update', 'delete'] as $status)
-                                <option value="{{ $status }}" @if($loop->first) selected @endif>{{ t(ucfirst($status)) }}</option>
+                                <option value="{{ $status }}"
+                                        @if($loop->first) selected @endif>{{ t(ucfirst($status)) }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -126,7 +131,8 @@
                                 data-allow-clear="true" data-placeholder="{{t('Select Package')}}">
                             <option value="" disabled selected>{{t('Select Package')}}</option>
                             @foreach($packages as $package)
-                                <option data-days="{{$package->days}}" value="{{ $package->id }}">{{ $package->name }}</option>
+                                <option data-days="{{$package->days}}"
+                                        value="{{ $package->id }}">{{ $package->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -135,7 +141,8 @@
                     <label class="col-3 col-form-label">{{t('Active To')}}</label>
                     <div class="col-6">
                         <input class="form-control" name="active_to" type="text"
-                               value="{{ isset($user) ? $user->active_to : old("active_to") }}" id="active_to_date" placeholder="{{t('Active To')}}">
+                               value="{{ isset($user) ? $user->active_to : old("active_to") }}" id="active_to_date"
+                               placeholder="{{t('Active To')}}">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
@@ -153,7 +160,8 @@
                     <label class="col-3 col-form-label">{{t('Email Ends With')}}</label>
                     <div class="col-6">
                         <input class="form-control" name="last_of_email" type="text"
-                               value="@arabic-arabs.com" dir="ltr" id="last_of_email" placeholder="{{t('Email Ends With')}}">
+                               value="@arabic-arabs.com" dir="ltr" id="last_of_email"
+                               placeholder="{{t('Email Ends With')}}">
                     </div>
                 </div>
                 <div class="form-group row mb-2">
@@ -161,8 +169,9 @@
                     <div class="col-6">
                         <select name="email_structure" class="form-control form-select" data-control="select2"
                                 data-placeholder="{{t('Select Structure')}}">
-                                <option value="use_name" selected>{{ t('Use Name') }}</option>
-                                <option value="use_student_id" >{{ t('Use Student ID') }}</option>
+                            <option value="use_name" selected>{{ t('Use Name') }}</option>
+                            <option value="use_student_id">{{ t('Use Student ID') }}</option>
+                            <option value="use_student_id_with_name">{{ t('Use Student ID With Name') }}</option>
                         </select>
                     </div>
                 </div>
@@ -193,12 +202,15 @@
                 </div>
                 <div class="d-flex align-items-center my-2">
 
-                    <h5 class="m-0">{{t('Download Sample of users file')}} : <a class="text-danger" target="_blank" href="{{asset('assets_v1/import_example/Users Example.xlsx')}}?v=1"> {{t('Click to Download')}}</a></h5>
+                    <h5 class="m-0">{{t('Download Sample of users file')}} : <a class="text-danger" target="_blank"
+                                                                                href="{{asset('assets_v1/import_example/Users Example.xlsx')}}?v=1"> {{t('Click to Download')}}</a>
+                    </h5>
                 </div>
                 <div class="row my-5">
                     <div class="separator separator-content my-4"></div>
                     <div class="col-12 d-flex justify-content-end">
-                        <butto onclick="$('#upload_file').submit()" type="submit" class="btn btn-primary mr-2">{{t('Import')}}</butto>
+                        <butto onclick="$('#upload_file').submit()" type="submit"
+                               class="btn btn-primary mr-2">{{t('Import')}}</butto>
                     </div>
                 </div>
 

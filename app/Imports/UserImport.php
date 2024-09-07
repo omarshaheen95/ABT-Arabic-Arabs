@@ -184,7 +184,9 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
 
         if ($this->request->get('email_structure', 'use_name') == 'use_student_id' && isset($row['Student ID']) && !is_null($row['Student ID'])) {
             $returned_email = strtolower($row['Student ID']) . $this->request->get('last_of_email');
-        } else {
+        }elseif ($this->request->get('email_structure', 'use_name') == 'use_student_id_with_name' && isset($row['Student ID']) && !is_null($row['Student ID'])) {
+            $returned_email = $first_name.strtolower($row['Student ID']) . $this->request->get('last_of_email');
+        }  else {
             //check if first name and last name exists and check sum length of them  more than 25 characters
             if (count($name) > 2 && (strlen($first_name) + strlen($last_name) <= 25)) {
                 $email = $first_name . $last_name . '-' . rand(1, 1000) . $this->request->get('last_of_email');
