@@ -15,7 +15,6 @@
     </div>
 
 @endsection
-
 @section('filter')
     <div class="row">
         <div class="col-1  mb-2">
@@ -33,6 +32,7 @@
 
         <div class="col-lg-3 mb-2">
             <label class="mb-2">{{t('Grade')}} :</label>
+
             <select name="grade_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"
                     data-allow-clear="true">
                 <option></option>
