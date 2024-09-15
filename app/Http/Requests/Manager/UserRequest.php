@@ -31,6 +31,7 @@ class UserRequest extends FormRequest
     {
         $rules= [
             'name' =>['required', new UserNameRule()],
+            'id_number' => 'nullable',
             'password' => 'nullable|min:6',
             'image' => 'nullable|image',
             'school_id' => 'required|exists:schools,id',
