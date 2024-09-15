@@ -115,6 +115,17 @@ class User extends Authenticatable
                     $query->latest();
                 })->when($value == 'grade', function (Builder $query) use ($value) {
                     $query->orderBy('grade_id');
+                })->when($value == 'section', function (Builder $query) use ($value) {
+                    $query->orderBy('section');
+                });
+            })
+            ->when($value = $request->get('orderBy2', 'latest'), function (Builder $query) use ($value) {
+                $query->when($value == 'latest', function (Builder $query) use ($value) {
+                    $query->latest();
+                })->when($value == 'grade', function (Builder $query) use ($value) {
+                    $query->orderBy('grade_id');
+                })->when($value == 'section', function (Builder $query) use ($value) {
+                    $query->orderBy('section');
                 });
             })
             ->when($value = $request->get('row_id', []), function (Builder $query) use ($value) {
