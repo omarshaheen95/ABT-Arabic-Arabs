@@ -731,4 +731,13 @@ return
 	'Student login' => 'Student login',
 	'Username' => 'Username',
 	'The name must be english' => 'The name must be english',
+	'Show Student Data File' => 'Show Student Data File',
+	'Student Data Files' => 'Student Data Files',
+	'Row Num' => 'Row Num',
+	'Please wait...' => 'Please wait...',
+	'R N' => 'R N',
+	'Data' => 'Data',
+	'Errors' => 'Errors',
+	'Use Student ID With Name' => 'Use Student ID With Name',
+	'Data Saved Successfully' => 'Data Saved Successfully',
 ];

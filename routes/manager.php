@@ -90,6 +90,10 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::post('import_files_export_data', 'ImportFileController@exportDataAsExcel')->name('import_files.export_excel');
     Route::get('import_files/{id}/user_cards', 'ImportFileController@usersCards')->name('import_files.users_cards');
     Route::delete('delete_import_files', 'ImportFileController@destroy')->name('import_files.delete');
+    //Logs
+    Route::get('import_files/{id}/show_logs', 'ImportFileController@showFromErrors')->name('import_files.show_logs');
+    Route::delete('import_files/delete_student_file_logs', 'ImportFileController@deleteLogs')->name('import_files.delete_logs');
+    Route::post('import_files/save_student_data_logs', 'ImportFileController@saveLogs')->name('import_files.save_logs');
 
     //Lesson
     Route::resource('lesson','LessonController')->except('destroy');
