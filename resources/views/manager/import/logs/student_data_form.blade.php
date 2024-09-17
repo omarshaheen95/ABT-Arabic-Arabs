@@ -1,8 +1,7 @@
-@php $email_input=true; @endphp
 <div class="row col-12">
     <input type="hidden" name="student[{{$row->id}}][row_num]" value="{{$row->row_num}}">
-    @foreach ($row->data['inputs'] as $input)
-        @if($input['key'] == 'Arab' || $input['key'] == 'Citizen' || $input['key'] == 'SEN' || $input['key'] == 'G&T')
+    @foreach ($inputs_with_values as $input)
+        @if($input['key'] == 'Arab' || $input['key'] == 'Citizen' || $input['key'] == 'SEN' || $input['key'] == 'G&T'|| $input['key'] == 'Active')
             <div class="col-2">
                 <label class="text-info">{{$input['key']}}</label>
                 <select name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
@@ -12,7 +11,7 @@
                         data-placeholder="{{t('Select '.$input['key'])}}">
                     <option value="" disabled selected>{{t('Select Year')}}</option>
                     <option value="1" {{$input['value'] == 1 ? 'selected':''}}>{{t('Yes')}}</option>
-                    <option value="0" {{$input['value'] == 0 ? 'selected':''}}>{{t('No')}}</option>
+                    <option value="0" {{$input['value'] == 0 && $input['value'] != null ? 'selected':''}}>{{t('No')}}</option>
                 </select>
             </div>
         @elseif($input['key'] == 'Gender')
@@ -73,9 +72,26 @@
                 </select>
             </div>
 
+            @elseif($input['key'] == 'Email' )
+                <div class="col-3">
+                    <div class="form-group">
+                        <label class="text-info">{{$input['key']}}</label>
+                        <div class="input-group mb-5">
+                            <input dir="ltr"
+                                   name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
+                                   data-name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
+                                   type="text"
+                                   placeholder="{{t($input['key'])}}"
+                                   value="{{$input['value']}}"
+                                   class="form-control username from-input-data" aria-describedby="basic-addon1"/>
+                            <span class="input-group-text" id="basic-addon1">
+                     <a class="p-0 cursor-pointer" id="generateUserName"><i class="fas fa-refresh"></i></a>
+                 </span>
+                        </div>
+                    </div>
+                </div>
 
-        @elseif($input['key'] != 'Email')
-
+        @else
             <div class="col-3">
                 <label class="text-info">{{$input['key']}}</label>
                 <input required name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
@@ -85,23 +101,5 @@
             </div>
         @endif
 
-        @if($loop->index == 0)
-            <div class="col-3">
-                <div class="form-group">
-                    <label class="text-info">{{t('Email')}}</label>
-                    <div class="input-group mb-5">
-                        <input dir="ltr"
-                               name="student[{{$row->id}}][email]"
-                               data-name="student[{{$row->id}}][email]"
-                               type="text" placeholder="{{t('Email')}}"
-                               value="{{$email}}"
-                               class="form-control username from-input-data" aria-describedby="basic-addon1"/>
-                        <span class="input-group-text" id="basic-addon1">
-                     <a class="p-0 cursor-pointer" id="generateUserName"><i class="fas fa-refresh"></i></a>
-                 </span>
-                    </div>
-                </div>
-            </div>
-        @endif
     @endforeach
 </div>

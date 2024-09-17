@@ -293,26 +293,30 @@ class ImportFileController extends Controller
     public function showFromErrors($id)
     {
         $studentDataFile = ImportFile::with('school')->findOrFail($id);
-        $teachers = Teacher::query()->where('school_id', $studentDataFile->school_id)->get();
-        $grades = Grade::query()->get();
-
         if (request()->ajax()) {
             $rows = ImportFileLog::query()
                 ->filter()
                 ->where('import_file_id', $id)
                 ->latest();
+            $teachers = Teacher::query()->where('school_id', $studentDataFile->school_id)->get();
+            $grades = Grade::query()->get();
+
             $datatable = DataTables::make($rows)
                 ->escapeColumns([])
                 ->addColumn('created_at', function ($row) {
                     return Carbon::parse($row->created_at)->toDateString();
                 })
                 ->addColumn('data', function ($row)use ($grades, $teachers) {
-                    //user email
-                    $email = array_filter($row->data['inputs'], function ($item) {
-                        return $item['key'] === 'Email';
-                    });
-                    $email = collect($email)->first()['value']??null;
-                    return view('manager.import.logs.student_data_form', compact('row','grades','teachers','email'));
+                    $inputs  = ['Name', 'Email', 'Mobile', 'Password', 'Grade', 'Alternative Grade', 'Section', 'Nationality', 'Gender', 'Active', 'Student ID', 'Teacher'];
+                    $inputs_with_values = [];
+                    foreach ($inputs as $input) {
+                        $row_input_value = array_filter($row->data['inputs'], function ($item) use ($input) {
+                            return $item['key'] === $input;
+                        });
+                        $row_input_value = collect($row_input_value)->first()['value']??null;
+                        $inputs_with_values[$input] = ['id'=>$row->id,'key'=>$input,'value'=>$row_input_value];
+                    }
+                    return view('manager.import.logs.student_data_form', compact('row','grades','teachers','inputs_with_values'));
                 })
                 ->addColumn('errors', function ($row) {
                     $html = '';
@@ -332,7 +336,7 @@ class ImportFileController extends Controller
 
 
         $title = t('Show Student Data File');
-        return view('manager.import.logs.show_errors', compact('title', 'grades', 'teachers','studentDataFile'));
+        return view('manager.import.logs.show_errors', compact('title','studentDataFile'));
     }
 
     public function saveLogs(ImportFileLogDataRequest $request)

@@ -163,6 +163,17 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
         $this->error = $e->getMessage();
     }
 
+    public function prepareForValidation(array $row)
+    {
+        // Trim both keys (headers) and values (cell data)
+        $trimmedKeys = array_map('trim', array_keys($row));
+        $trimmedValues = array_map(function($value) {
+            return $value === null ? null : trim($value);
+        }, array_values($row));
+        // Rebuild the row with the trimmed keys and values
+        return array_combine($trimmedKeys, $trimmedValues);
+    }
+
     public function rules(): array
     {
         if ($this->created_file->process_type == 'delete') {
@@ -178,7 +189,7 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
                 'Grade' => 'required|exists:grades,id',
                 'Alternative Grade' => 'nullable|exists:grades,id',
                 'Section' => 'sometimes',
-                'nationality' => 'sometimes',
+                'Nationality' => 'sometimes',
                 'Gender' => 'sometimes|in:Boy,Girl',
                 'Active' => 'sometimes|in:1,0',
                 'Student ID' => 'sometimes',
@@ -194,7 +205,7 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
                 'Grade' => 'required|exists:grades,id',
                 'Alternative Grade' => 'nullable|exists:grades,id',
                 'Section' => 'nullable',
-                'nationality' => 'nullable',
+                'Nationality' => 'nullable',
                 'Gender' => 'sometimes|in:Boy,Girl',
                 'Active' => 'nullable|in:1,0',
                 'Teacher' => 'nullable',
