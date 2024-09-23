@@ -200,7 +200,7 @@ class UserTest extends Model
     }
     public function getTotalPerAttribute()
     {
-        return $this->total > 0 ? (($this->total * 2) / 100 * 100) . '%' : '0%';
+        return $this->total > 0 ? (($this->total) / 100 * 100) . '%' : '0%';
     }
 
     public function getStatusNameAttribute()
