@@ -109,10 +109,27 @@
             }
         @endphp
 
-
-        $(document).on('click','#generateUserName',function () {
-            generateUserName();
+        $(document).on('click','.generateUserName',function () {
+            let id = $(this).data('id')
+            var numbers = [0, 1];
+            var selected_number = numbers[Math.floor(Math.random() * numbers.length)];
+            var name = $('input[name="student['+id+'][name]"]').val().toLowerCase().replace('  ', ' ').split(" ");
+            var year = (new Date).getFullYear();
+            var number = parseInt(Math.random() * 100);
+            var username = null;
+            if (name.length >= 2) {
+                if (selected_number === 1) {
+                    username = name[0] + name[1] + year + number + '@arabic-arabs.com';
+                } else {
+                    username = name[0] + year + number + '@arabic-arabs.com';
+                }
+            } else {
+                username = name[0] + year + number + '@arabic-arabs.com';
+            }
+            $('input[name="student['+id+'][email]"]').val(username);
         });
+
+
 
         $(document).on('keyup','.remove_spaces',function () {
             let value = $(this).val()

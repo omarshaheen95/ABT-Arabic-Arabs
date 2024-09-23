@@ -85,7 +85,7 @@
                                    value="{{$input['value']}}"
                                    class="form-control username from-input-data" aria-describedby="basic-addon1"/>
                             <span class="input-group-text" id="basic-addon1">
-                     <a class="p-0 cursor-pointer" id="generateUserName"><i class="fas fa-refresh"></i></a>
+                     <a class="p-0 cursor-pointer generateUserName" data-id="{{$row->id}}"><i class="fas fa-refresh"></i></a>
                  </span>
                         </div>
                     </div>
