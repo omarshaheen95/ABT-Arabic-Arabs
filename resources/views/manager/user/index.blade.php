@@ -65,6 +65,10 @@
             <input type="text" name="id" class="form-control direct-search" placeholder="{{t('ID')}}">
         </div>
         <div class="col-lg-2  mb-2">
+            <label class="mb-2">{{t('ID Number')}}:</label>
+            <input type="text" name="id_number" class="form-control direct-search" placeholder="{{t('ID Number')}}">
+        </div>
+        <div class="col-lg-2  mb-2">
             <label class="mb-2">{{t('Student Name')}}:</label>
             <input type="text" name="name" class="form-control direct-search" placeholder="{{t('Student Name')}}">
         </div>
