@@ -12,7 +12,9 @@ use App\Models\Story;
 use App\Models\StoryQuestion;
 use App\Models\StoryUserRecord;
 use App\Models\TQuestion;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CurriculumController extends Controller
 {
@@ -73,6 +75,32 @@ class CurriculumController extends Controller
         return view('teacher.user_curriculum.lessons', compact('grade', 'lessons'));
     }
 
+    public function subLevels($grade, $type)
+    {
+        if ($type == 'grammar')
+        {
+            $type_name = 'القواعد النحوية';
+        }elseif ($type == 'dictation')
+        {
+            $type_name = 'الإملاء';
+        }else{
+            $type_name = 'البلاغة';
+        }
+        $title = 'مستويات الدروس -  ' . $type_name;
+        $level_grade = Grade::query()->where('id',$grade)->first();
+        $levels = Lesson::query()
+            ->whereNotNull('level')
+            ->where('lesson_type', $type)
+            ->where('grade_id',$level_grade->id)
+            ->select('level', 'grade_id', \DB::raw('COUNT(*) as c'))
+            ->groupBy('level', 'grade_id')
+            ->havingRaw('c > 0')
+            ->get()->values()->toArray();
+
+
+        return view('teacher.user_curriculum.sub_levels', compact('title', 'type', 'grade', 'levels'));
+    }
+
     public function lesson($id, $key)
     {
         $lesson = Lesson::query()->with(['grade', 'media'])->findOrFail($id);
@@ -102,6 +130,17 @@ class CurriculumController extends Controller
             default:
                 return redirect()->route('home');
         }
+    }
+
+    public function subLessons($id, $type, $level = null)
+    {
+        $user = Auth::guard('web')->user();
+        $grade = Grade::query()->findOrFail($id);
+        $lessons = Lesson::query()->where('lesson_type', $type)->where('grade_id', $grade->id)->when($level, function (Builder $query) use ($level) {
+            $query->where('level', $level);
+        })->get();
+        $grade = $id;
+        return view('teacher.user_curriculum.lessons', compact('grade', 'lessons'));
     }
 
 

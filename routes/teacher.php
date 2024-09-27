@@ -85,7 +85,10 @@ Route::group(['namespace' => 'Teacher'], function() {
     Route::get('stories/{id}/{key}/{grade}', 'CurriculumController@story')->name('stories.show');
 
     Route::get('lessons/{id}/{type}', 'CurriculumController@lessons')->name('lessons');
+    Route::get('lessons_levels/{grade}/{type}', 'CurriculumController@subLevels')->name('lessons_levels');
     Route::get('lesson/{id}/{key}', 'CurriculumController@lesson')->name('lesson');
+    Route::get('sub_lessons/{id}/{type}/{level}', 'CurriculumController@subLessons')->name('sub_lessons');
+
 
     //General
     Route::get('getLessonsByGrade', [GeneralController::class,'getLessonsByGrade'])->name('getLessonsByGrade');
