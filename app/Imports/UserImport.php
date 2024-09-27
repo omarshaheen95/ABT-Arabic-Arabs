@@ -168,7 +168,7 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
         // Trim both keys (headers) and values (cell data)
         $trimmedKeys = array_map('trim', array_keys($row));
         $trimmedValues = array_map(function($value) {
-            return $value === null ? null : trim($value);
+            return $value === null ? null : trim(str_replace(["'", '(', ')', ',', "`"], "", $value));
         }, array_values($row));
         // Rebuild the row with the trimmed keys and values
         return array_combine($trimmedKeys, $trimmedValues);
