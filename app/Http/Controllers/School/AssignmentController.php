@@ -50,11 +50,9 @@ class AssignmentController extends Controller
                     return $html;
                 })
                 ->addColumn('status', function ($row) {
-                    $tasks_status = $row->done_tasks_assignment ? '<span class="badge badge-primary">' . t('Completed') . '</span>' : '<span class="badge badge-danger">' . t('Uncompleted') . '</span>';
                     $test_status = $row->done_test_assignment ? '<span class="badge badge-primary">' . t('Completed') . '</span>' : '<span class="badge badge-danger">' . t('Uncompleted') . '</span>';
                     $status = $row->completed ? '<span class="badge badge-primary">' . t('Completed') . '</span>' : '<span class="badge badge-danger">' . t('Uncompleted') . '</span>';
                     $html = '<div class="d-flex flex-column">' .
-                        '<div class="d-flex"><span class="fw-bold text-primary pe-1">' . t('Tasks') . ':</span>' . $tasks_status . '</div>' .
                         '<div class="d-flex mt-1"><span class="fw-bold text-primary pe-1">' . t('Test') . ':</span>' . $test_status . '</span>' . '</div>' .
                         '<div class="d-flex mt-1"><span class="fw-bold text-primary pe-1">' . t('Status') . ':</span>' . $status . '</div>' .
                         '</div>';

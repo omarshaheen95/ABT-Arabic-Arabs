@@ -72,12 +72,12 @@
             </div>
             <div class="d-flex align-items-center col-6 pt-4 gap-3">
 
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" name="tasks_assignment" checked/>
-                    <label class="form-check-label text-dark">
-                        {{ t('Tasks assignment') }}
-                    </label>
-                </div>
+{{--                <div class="form-check">--}}
+{{--                    <input class="form-check-input" type="checkbox" value="1" name="tasks_assignment" checked/>--}}
+{{--                    <label class="form-check-label text-dark">--}}
+{{--                        {{ t('Tasks assignment') }}--}}
+{{--                    </label>--}}
+{{--                </div>--}}
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="1" name="test_assignment" checked/>
                     <label class="form-check-label text-dark">

@@ -246,13 +246,14 @@ class LessonController extends Controller
         {
             $user_assignment->update([
                 'done_test_assignment' => 1,
+                'completed' => 1,
             ]);
 
-            if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment){
-                $user_assignment->update([
-                    'completed' => 1,
-                ]);
-            }
+//            if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment){
+//                $user_assignment->update([
+//                    'completed' => 1,
+//                ]);
+//            }
         }
 //        dd($total);
 
