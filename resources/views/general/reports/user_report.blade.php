@@ -195,7 +195,7 @@
                     </tr>
                     <tr>
                         <td width="40%">Grade</td>
-                        <td>{{$student->grade}}</td>
+                        <td>{{$student->grade->grade_name}}</td>
                     </tr>
                     </tbody>
                 </table>
