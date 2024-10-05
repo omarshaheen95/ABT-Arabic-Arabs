@@ -205,7 +205,7 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <label>البريد الإلكتروني</label><br />
-                                                Support@Non-Arabs.com
+                                                Support@abt-.com
                                             </div>
                                         </div>
                                         <hr />

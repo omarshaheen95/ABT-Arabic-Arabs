@@ -105,11 +105,13 @@ class LessonAssignmentController extends Controller
                 $query->whereIn('id', $students_array);
             })->filter($request)->get();
 
+
+
         foreach ($students as $student)
         {
            foreach ($lessons as $lesson)
            {
-               if ($request->get('exclude_students', 1))
+               if ($request->get('exclude_students', 1) == 1)
                {
                    $pre_assignment = $student->user_assignments->where('lesson_id', $lesson)->first();
                    if (!$pre_assignment)
@@ -132,6 +134,7 @@ class LessonAssignmentController extends Controller
            }
 
         }
+
         return redirect()->route('teacher.lesson_assignment.index')->with('message',t('Successfully Added'));
 
     }

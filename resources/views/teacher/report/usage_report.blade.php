@@ -210,12 +210,12 @@
         </div>
         <br/>
         <div class="row">
-            <h1 class="text-center">Non-Arabs Platform</h1>
-            <p><span style="font-size: 16px;font-weight: bold;text-decoration: underline">Non-Arabs</span> is an online
+            <h1 class="text-center">Arabic-Arabs Platform</h1>
+            <p><span style="font-size: 16px;font-weight: bold;text-decoration: underline">Arabic-Arabs</span> is an online
                 platform for learning Arabic based on international standards for Arabic as an additional language.</p>
-            <p><span style="font-size: 16px;font-weight: bold;text-decoration: underline">Non-Arabs</span> platform is a
+            <p><span style="font-size: 16px;font-weight: bold;text-decoration: underline">Arabic-Arabs</span> platform is a
                 professional platform for learning Arabic for non-Arabic speakers based on years of learning Arabic.</p>
-            <p><span style="font-size: 16px;font-weight: bold;text-decoration: underline">Non-Arabs</span> platform is
+            <p><span style="font-size: 16px;font-weight: bold;text-decoration: underline">Arabic-Arabs</span> platform is
                 the only platform that can make a difference and make huge progress quickly.</p>
         </div>
         <div class="row">
