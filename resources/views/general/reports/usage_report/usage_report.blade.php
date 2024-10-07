@@ -162,9 +162,8 @@
         <br>
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="text-center F3C200" style="font-weight: bold; font-size: 50px; color:#f7bc38 ">{{config('app.name')}}</h1>
+                <h1 class="text-center F3C200" style="font-weight: bold; color:#f7bc38 ">{{$school->name}}</h1>
             </div>
-
         </div>
         <br>
         <div class="row">

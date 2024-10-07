@@ -162,7 +162,7 @@
         <br>
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="text-center F3C200" style="font-weight: bold; font-size: 90px; color:#f7bc38 ">Non-Arabs</h1>
+                <h1 class="text-center F3C200" style="font-weight: bold; font-size: 90px; color:#f7bc38 ">Arabic-Arabs</h1>
                 <h2 class="text-center F3C200" style="font-weight: bold; font-size: 40px; color:#f7bc38 ">Platform</h2>
             </div>
 

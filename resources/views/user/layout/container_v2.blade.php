@@ -107,6 +107,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item" href="{{ route('certificates') }}"> شهادات الدروس </a>
                             <a class="dropdown-item" href="{{ route('story.certificates') }}"> شهادات القصص </a>
+                            <a class="dropdown-item" href="{{ route('motivational.certificates') }}"> شهادات التحفيز </a>
                         </div>
                     </li>
                     <li class="nav-item dropdown {{Request::is('assignments') || Request::is('stories_assignments') ? 'active':''}}">

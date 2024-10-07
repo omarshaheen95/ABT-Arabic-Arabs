@@ -145,6 +145,9 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth']], function (){
         Route::get('story_certificate/{id}', 'StoryController@certificate')->name('story.certificate');
         Route::get('story_certificate/{id}/answers', 'StoryController@certificateAnswers')->name('story.certificate.answers');
 
+        Route::get('motivational_certificates', 'MotivationController@certificates')->name('motivational.certificates');
+        Route::get('motivational_certificate/{id}', 'MotivationController@certificate')->name('motivational.certificate');
+
         Route::get('assignments', 'HomeController@assignments')->name('assignments');
         Route::get('stories_assignments', 'HomeController@storiesAssignments')->name('stories_assignments');
 
