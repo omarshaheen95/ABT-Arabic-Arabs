@@ -156,7 +156,7 @@ WhatsApp +972592554320
 
 @endsection
 @section('script')
-    <script src="{{asset('assets_v1/js/custom.js')}}"></script>
+    <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
         var DELETE_URL = "{{ route('manager.students_works.destroy') }}";

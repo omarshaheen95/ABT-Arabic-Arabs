@@ -158,7 +158,7 @@
 
     <script src="{{asset('assets_v1/js/datatable.js')}}?v={{time()}}"></script>
     <script src="{{asset('assets_v1/js/manager/users.js')}}"></script>
-    <script src="{{asset('assets_v1/js/custom.js')}}"></script>
+    <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
         getSectionByTeacher()

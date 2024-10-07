@@ -145,7 +145,7 @@
 
 
 @section('script')
-    <script src="{{asset('assets_v1/js/custom.js')}}"></script>
+    <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
         var DELETE_URL = "{{ route('teacher.stories_records.destroy') }}";
@@ -163,7 +163,7 @@
     </script>
 
     <script src="{{asset('assets_v1/js/datatable.js')}}?v={{time()}}"></script>
-    <script src="{{asset('assets_v1/js/custom.js')}}"></script>
+    <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
         getStoriesByGrade()

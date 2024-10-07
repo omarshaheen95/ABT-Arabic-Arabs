@@ -81,7 +81,15 @@
                 @endforeach
             </select>
         </div>
-
+        <div class="col-lg-3 mb-2">
+            <label class="mb-2">{{t('Lesson Type')}} :</label>
+            <select name="lesson_type" id="lesson_type" class="form-select" data-control="select2" data-placeholder="{{t('Select Lesson Type')}}" data-allow-clear="true">
+                <option></option>
+                @foreach(\App\Models\Lesson::lessonTypes() as  $lesson_type)
+                    <option value="{{$lesson_type}}">{{t($lesson_type)}}</option>
+                @endforeach
+            </select>
+        </div>
 
         <div class="col-lg-3 mb-2">
             <label class="mb-2">{{t('Lesson')}} :</label>
@@ -137,7 +145,7 @@
 
 
 @section('script')
-    <script src="{{asset('assets_v1/js/custom.js')}}"></script>
+    <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
     <script>
 
     var TABLE_URL = "{{ route('school.lessons_tests.index') }}";

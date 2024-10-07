@@ -37,7 +37,7 @@ WhatsApp +972592554320
             <input type="text" name="user_email" class="form-control direct-search" placeholder="{{t('Email')}}">
         </div>
 
-        <div class="col-lg-3 mb-2">
+        <div class="col-lg-2 mb-2">
             <label class="mb-2">{{t('Grade')}} :</label>
             <select name="grade_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"
                     data-allow-clear="true">
@@ -79,7 +79,7 @@ WhatsApp +972592554320
                 <option value="expire">{{'Expired'}}</option>
             </select>
         </div>
-        <div class="col-3 mb-2">
+        <div class="col-2 mb-2">
             <label class="mb-2">{{t('Status')}}:</label>
             <select class="form-select" name="status" data-control="select2" data-allow-clear="true"
                     data-placeholder="{{t('Select Status')}}">
@@ -89,7 +89,15 @@ WhatsApp +972592554320
                 @endforeach
             </select>
         </div>
-
+        <div class="col-lg-3 mb-2">
+            <label class="mb-2">{{t('Lesson Type')}} :</label>
+            <select name="lesson_type" id="lesson_type" class="form-select" data-control="select2" data-placeholder="{{t('Select Lesson Type')}}" data-allow-clear="true">
+                <option></option>
+                @foreach(\App\Models\Lesson::lessonTypes() as  $lesson_type)
+                    <option value="{{$lesson_type}}">{{t($lesson_type)}}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="col-lg-3 mb-2">
             <label class="mb-2">{{t('Lesson')}} :</label>
             <select name="lesson_id" id="lesson_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Lesson')}}" data-allow-clear="true">
@@ -124,7 +132,7 @@ WhatsApp +972592554320
 
 @endsection
 @section('script')
-    <script src="{{asset('assets_v1/js/custom.js')}}"></script>
+    <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
         var TABLE_URL = "{{ route('school.students_works.index') }}";

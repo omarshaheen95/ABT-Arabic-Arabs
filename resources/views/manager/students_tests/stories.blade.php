@@ -181,7 +181,7 @@
     </script>
 
     <script src="{{asset('assets_v1/js/datatable.js')}}?v={{time()}}"></script>
-    <script src="{{asset('assets_v1/js/custom.js')}}"></script>
+    <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
         getTeacherBySchool('teacher_school_id')

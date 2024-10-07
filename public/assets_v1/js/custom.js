@@ -4,28 +4,36 @@ const csrf = $('meta[name=csrf-token]').attr('content');
 
 function getLessonsByGrade(on_change_name = 'grade_id',callback=null) {
     if (typeof getLessonsByGradeURL !== 'undefined') {
-        $('select[name="' + on_change_name + '"]').change(function () {
-            let value = $(this).val()
-            $.ajax({
-                type: "get",
-                url: getLessonsByGradeURL,
-                data: {'_token': csrf, 'grade_id': value}
+        $('select[name="' + on_change_name + '"], select[name="lesson_type"]').change(function () {
+            let grade = $('select[name="' + on_change_name + '"]').val();
+            let lesson_type = $('select[name="lesson_type"]').val();
+            //value not null and not empty
+            if (grade !== null && grade !== '') {
+                $.ajax({
+                    type: "get",
+                    url: getLessonsByGradeURL,
+                    data: {
+                        '_token': csrf,
+                        'grade_id': grade,
+                        'lesson_type': lesson_type
+                    }
 
-            }).done(function (data) {
-                if (typeof callback === 'function') {
-                    callback(true);
-                }
-                if ($('select[name="lesson_id"]').length) {
-                    $('select[name="lesson_id"]').html(data.html);
-                    $('select[name="lesson_id"]').trigger('change');
+                }).done(function (data) {
+                    if (typeof callback === 'function') {
+                        callback(true);
+                    }
+                    if ($('select[name="lesson_id"]').length) {
+                        $('select[name="lesson_id"]').html(data.html);
+                        $('select[name="lesson_id"]').trigger('change');
 
-                }
-                if ($('select[name="lesson_id[]"]').length) {
-                    $('select[name="lesson_id[]"]').html(data.html);
-                    $('select[name="lesson_id[]"]').trigger('change');
+                    }
+                    if ($('select[name="lesson_id[]"]').length) {
+                        $('select[name="lesson_id[]"]').html(data.html);
+                        $('select[name="lesson_id[]"]').trigger('change');
 
-                }
-            });
+                    }
+                });
+            }
         });
     }
 }

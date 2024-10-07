@@ -135,7 +135,7 @@ WhatsApp +972592554320
 
 @endsection
 @section('script')
-    <script src="{{asset('assets_v1/js/custom.js')}}"></script>
+    <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
         var TABLE_URL = "{{ route('supervisor.students_works.index') }}";
@@ -149,7 +149,7 @@ WhatsApp +972592554320
     </script>
 
     <script src="{{asset('assets_v1/js/datatable.js')}}?v={{time()}}"></script>
-    <script src="{{asset('assets_v1/js/custom.js')}}"></script>
+    <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
         getSectionByTeacher()

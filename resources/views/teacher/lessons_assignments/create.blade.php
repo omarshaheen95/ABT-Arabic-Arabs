@@ -11,7 +11,7 @@
         @csrf
 
         <div class="row">
-            <div class="col-lg-6 mb-2">
+            <div class="col-lg-4 mb-2">
                 <label class="form-label">{{t('Grade')}} :</label>
                 <select name="grade_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"
                         data-allow-clear="true">
@@ -29,6 +29,15 @@
                     <option value="all">{{t('All')}}</option>
                     @foreach(teacherSections() as $section)
                         <option value="{{$section}}">{{$section}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group col-2 mb-2">
+                <label class="form-label">{{ t('Lesson Type') }}</label>
+                <select name="lesson_type" id="lesson_type" class="form-select" data-control="select2" data-placeholder="{{t('Select Lesson Type')}}" data-allow-clear="true">
+                    <option></option>
+                    @foreach(\App\Models\Lesson::lessonTypes() as  $lesson_type)
+                        <option value="{{$lesson_type}}">{{t($lesson_type)}}</option>
                     @endforeach
                 </select>
             </div>
@@ -100,7 +109,7 @@
 
 
 @section('script')
-    <script src="{{asset('assets_v1/js/custom.js')}}"></script>
+    <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}?v={{time()}}"></script>
     {!! JsValidator::formRequest(\App\Http\Requests\Teacher\LessonAssignmentRequest::class, '#form_information'); !!}
 
