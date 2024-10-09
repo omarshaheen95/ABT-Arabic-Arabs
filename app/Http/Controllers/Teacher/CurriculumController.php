@@ -58,6 +58,7 @@ class CurriculumController extends Controller
                     ->where('story_id', $story->id)->latest()
                     ->where('status', 'corrected')
                     ->where('approved', 1)
+                    ->has('user')
                     ->limit(10)
                     ->get();
                 return view('teacher.user_curriculum.story.training', compact('story', 'users_story' ,'grade'));
