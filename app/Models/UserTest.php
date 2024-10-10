@@ -104,6 +104,10 @@ class UserTest extends Model
                 $query->whereHas('user', function (Builder $query) use ($value) {
                     $query->where('section', $value);
                 });
+            })->when($value = $request->get('lesson_type', false), function (Builder $query) use ($value) {
+                $query->whereHas('lesson', function (Builder $query) use ($value) {
+                    $query->where('lesson_type', $value);
+                });
             })->when($value = $request->get('user_status', false), function (Builder $query) use ($value) {
                 if ($value == 'active') {
                     $query->whereHas('user', function (Builder $query) use ($value) {

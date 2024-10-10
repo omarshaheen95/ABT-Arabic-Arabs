@@ -166,15 +166,15 @@
 										</span>
                     <!--begin:Menu sub-->
                     <div class="menu-sub menu-sub-accordion">
-                        <div class="menu-item">
-                            <a href="{{route('teacher.students_works.index')}}"
-                               class="menu-link {{Request::is('teacher/students_works*')?'active':''}}">
-                        <span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                                <span class="menu-title">{{t('Students Works')}}</span>
-                            </a>
-                        </div>
+{{--                        <div class="menu-item">--}}
+{{--                            <a href="{{route('teacher.students_works.index')}}"--}}
+{{--                               class="menu-link {{Request::is('teacher/students_works*')?'active':''}}">--}}
+{{--                        <span class="menu-bullet">--}}
+{{--														<span class="bullet bullet-dot"></span>--}}
+{{--													</span>--}}
+{{--                                <span class="menu-title">{{t('Students Works')}}</span>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
 
 
                         <div class="menu-item">
