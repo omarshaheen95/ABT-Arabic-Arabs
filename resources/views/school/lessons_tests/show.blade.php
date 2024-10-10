@@ -1,4 +1,4 @@
-@extends('manager.layout.container')
+@extends('school.layout.container')
 @section('title',$title)
 @push('breadcrumb')
     <li class="breadcrumb-item b text-muted">

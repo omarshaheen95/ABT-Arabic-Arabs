@@ -1,190 +1,157 @@
-
 @extends('teacher.layout.container')
-@section('style')
-    <style>
-        .kt-radio > span {
-            width: 25px;
-            height: 25px;
-        }
-
-        label.kt-radio {
-            font-size: 18px;
-        }
-
-        .kt-radio > span:after {
-            margin-right: -5px;
-            margin-top: -5px;
-            width: 10px;
-            height: 10px;
-        }
-    </style>
-@endsection
+@section('title',$title)
+@push('breadcrumb')
+    <li class="breadcrumb-item b text-muted">
+        {{$title}}
+    </li>
+@endpush
 @section('content')
-    @push('breadcrumb')
-        <li class="breadcrumb-item">
-            <a href="{{ route('teacher.lessons_tests.index') }}">اختبارات الطلاب</a>
-        </li>
-        <li class="breadcrumb-item">
-            {{ $title }}
-        </li>
-    @endpush
-    <div class="row">
-        <div class="col-xl-10 offset-1">
-            <div class="kt-portlet">
-                <div class="kt-portlet__head">
-                    <div class="kt-portlet__head-label">
-                        <h3 class="kt-portlet__head-title"> {{ $title }}</h3>
-                    </div>
+    <form enctype="multipart/form-data" id="form_information"
+          action="{{ route('teacher.lessons_tests.correct', $user_test->id) }}" method="post">
+        @csrf
+        @if(isset($user_record))
+            @method('PATCH')
+        @endif
+        <div class="row gap-3">
+            <div class="form-group row  align-items-center">
+                @if($user_test->lesson->lesson_type == "writing")
+                    @foreach($user_test->writingResults as $writingResult)
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label"></label>
+                            <div class="col-lg-9 col-xl-6">
+                                <label class="col-form-label">
+                                    {{ $writingResult->question->content }}
+
+                                    @if($writingResult->question->getFirstMediaUrl('imageQuestion'))
+                                        :
+                                        <div class="row justify-content-center py-3">
+                                            <div class="col-lg-6 col-md-8">
+                                                @if(\Illuminate\Support\Str::contains($writingResult->question->getFirstMediaUrl('imageQuestion'), '.mp3'))
+                                                    <div class="recorder-player" id="voice_audio_2">
+                                                        <div class="audio-player">
+                                                            <audio >
+                                                                <source
+                                                                    src="{{asset($writingResult->question->getFirstMediaUrl('imageQuestion'))}}"
+                                                                    type="audio/mpeg">
+                                                            </audio>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <div class="w-100 text-center">
+                                                        <img src="{{asset($writingResult->question->getFirstMediaUrl('imageQuestion'))}}"
+                                                             width="300px">
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
+                                </label>
+                                <br>
+                                <textarea disabled class="form-control">{{$writingResult->result}}</textarea>
+                            </div>
+
+                        </div>
+                    @endforeach
+                @endif
+                @if($user_test->lesson->lesson_type == "speaking")
+                    @foreach($user_test->speakingResults as $speakingResult)
+                        <div class="form-group row">
+                            <label class="col-xl-3 col-lg-3 col-form-label"></label>
+                            <div class="col-lg-9">
+                                <label class="col-form-label">
+                                    {{ $speakingResult->question->content }}
+                                    @if($speakingResult->question->getFirstMediaUrl('imageQuestion'))
+                                        :
+                                        <div class="row justify-content-center py-3">
+                                            <div class="col-lg-6 col-md-8">
+                                                @if(\Illuminate\Support\Str::contains($speakingResult->question->getFirstMediaUrl('imageQuestion'), '.mp3'))
+                                                    <div class="recorder-player" id="voice_audio_2">
+                                                        <div class="audio-player">
+                                                            <audio >
+                                                                <source
+                                                                    src="{{asset($speakingResult->question->getFirstMediaUrl('imageQuestion'))}}"
+                                                                    type="audio/mpeg">
+                                                            </audio>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <div class="w-100 text-center">
+                                                        <img src="{{asset($speakingResult->question->getFirstMediaUrl('imageQuestion'))}}"
+                                                             width="300px">
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
+                                </label>
+                                <br>
+                                <audio src="{{asset($speakingResult->attachment)}}" controls></audio>
+                            </div>
+
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">تغذية راجعة</label>
+                <div class="col-lg-9 col-xl-6">
+                    <textarea class="form-control" name="teacher_message">{{$user_test->feedback_message}}</textarea>
                 </div>
-                <form enctype="multipart/form-data" id="form_information" class="kt-form kt-form--label-right"
-                      action="{{ route('teacher.lessons_tests.correct', $user_test->id) }}" method="post">
-                    {{ csrf_field() }}
-                    <div class="kt-portlet__body">
-                        <div class="kt-section kt-section--first">
-                            <div class="kt-section__body">
-                                @if($user_test->lesson->lesson_type == "writing")
-                                    @foreach($user_test->writingResults as $writingResult)
-                                        <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label"></label>
-                                            <div class="col-lg-9 col-xl-6">
-                                                <label class="col-form-label">
-                                                    {{ $writingResult->question->content }}
+            </div>
 
-                                                    @if($writingResult->question->getFirstMediaUrl('imageQuestion'))
-                                                        :
-                                                        <div class="row justify-content-center py-3">
-                                                            <div class="col-lg-6 col-md-8">
-                                                                @if(\Illuminate\Support\Str::contains($writingResult->question->getFirstMediaUrl('imageQuestion'), '.mp3'))
-                                                                    <div class="recorder-player" id="voice_audio_2">
-                                                                        <div class="audio-player">
-                                                                            <audio >
-                                                                                <source
-                                                                                    src="{{asset($writingResult->question->getFirstMediaUrl('imageQuestion'))}}"
-                                                                                    type="audio/mpeg">
-                                                                            </audio>
-                                                                        </div>
-                                                                    </div>
-                                                                @else
-                                                                    <div class="w-100 text-center">
-                                                                        <img src="{{asset($writingResult->question->getFirstMediaUrl('imageQuestion'))}}"
-                                                                             width="300px">
-                                                                    </div>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                </label>
-                                                <br>
-                                                <textarea disabled class="form-control">{{$writingResult->result}}</textarea>
-                                            </div>
-
-                                        </div>
-                                    @endforeach
-                                @endif
-                                @if($user_test->lesson->lesson_type == "speaking")
-                                    @foreach($user_test->speakingResults as $speakingResult)
-                                        <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label"></label>
-                                            <div class="col-lg-9">
-                                                <label class="col-form-label">
-                                                    {{ $speakingResult->question->content }}
-                                                    @if($speakingResult->question->getFirstMediaUrl('imageQuestion'))
-                                                        :
-                                                        <div class="row justify-content-center py-3">
-                                                            <div class="col-lg-6 col-md-8">
-                                                                @if(\Illuminate\Support\Str::contains($speakingResult->question->getFirstMediaUrl('imageQuestion'), '.mp3'))
-                                                                    <div class="recorder-player" id="voice_audio_2">
-                                                                        <div class="audio-player">
-                                                                            <audio >
-                                                                                <source
-                                                                                    src="{{asset($speakingResult->question->getFirstMediaUrl('imageQuestion'))}}"
-                                                                                    type="audio/mpeg">
-                                                                            </audio>
-                                                                        </div>
-                                                                    </div>
-                                                                @else
-                                                                    <div class="w-100 text-center">
-                                                                        <img src="{{asset($speakingResult->question->getFirstMediaUrl('imageQuestion'))}}"
-                                                                             width="300px">
-                                                                    </div>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                </label>
-                                                <br>
-                                                <audio src="{{asset($speakingResult->attachment)}}" controls></audio>
-                                            </div>
-
-                                        </div>
-                                    @endforeach
-                                @endif
-
-                                <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">تغذية راجعة</label>
-                                    <div class="col-lg-9 col-xl-6">
-                                        <textarea class="form-control"
-                                                  name="teacher_message">{{$user_test->feedback_message}}</textarea>
-                                    </div>
-                                    <div class="col-xl-3">
-                                    </div>
-
-                                </div>
-
-
-                                <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">سجل تغذية راجعة</label>
-                                    <div class="col-lg-9 col-xl-6 justify-content-center text-center">
-                                        <label class="text-danger" id="spiner" style="display:none;">تسجيل
-                                            <i
-                                                class="fa fa-circle-o-notch fa-spin"
-                                                style="font-size:24px"></i></label>
-                                        <button class="btn btn-success btn-circle record-btn btn-lg"
-                                                type="button"
-                                                id="start-btn">
-                                            <i class="fa fa-play p-0"></i>
-                                        </button>
-                                        <button type="button" data-question=""
-                                                class="btn btn-danger btn-circle record-btn btn-lg"
-                                                id="stop-btn"
-                                                disabled>
-                                            <i class="fa fa-stop p-0"></i>
-                                        </button>
-                                        <button type="button"
-                                                class="btn btn-warning btn-circle record-btn btn-lg"
-                                                id="delete-btn" disabled>
-                                            <i class="fa fa-trash p-0"></i>
-                                        </button>
-                                        <ul id="recordingslist"></ul>
-                                        @if($user_test && !is_null($user_test->feedback_record) )
-                                            <audio src="{{asset($user_test->feedback_record)}}" controls></audio>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">الدرجة النهائية من (100)</label>
-                                    <div class="col-lg-9 col-xl-6">
-                                        <input class="form-control" name="mark" type="number" max="100" min="0"
-                                               value="{{ $user_test->total }}">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+            <div class="form-group row align-items-center">
+                <label class="col-xl-3 col-lg-3 col-form-label">سجل تغذية راجعة</label>
+                <div class="col-lg-9 col-xl-6 d-flex justify-content-center align-items-center text-center">
+                    <label class="text-danger" id="spiner" style="display:none;">تسجيل
+                        <i
+                            class="fa fa-circle-o-notch fa-spin"
+                            style="font-size:24px"></i></label>
+                    <div class="d-flex gap-3 justify-content-center align-items-center">
+                        <button class="btn btn-success btn-sm btn-icon record-btn"
+                                type="button"
+                                id="start-btn">
+                            <i class="fa fa-play p-0"></i>
+                        </button>
+                        <button type="button" data-question=""
+                                class="btn btn-danger btn-sm btn-icon record-btn"
+                                id="stop-btn"
+                                disabled>
+                            <i class="fa fa-stop p-0"></i>
+                        </button>
+                        <button type="button"
+                                class="btn btn-warning btn-sm btn-icon record-btn"
+                                id="delete-btn" disabled>
+                            <i class="fa fa-trash p-0"></i>
+                        </button>
                     </div>
-                    <div class="kt-portlet__foot">
-                        <div class="kt-form__actions">
-                            <div class="row">
-                                <div class="col-lg-12 text-right">
-                                    <button type="submit" id="save" class="btn btn-danger">اعتماد التصحيح</button>&nbsp;
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+
+                </div>
+            </div>
+
+            <div class="form-group row align-items-center">
+                <label class="col-xl-3 col-lg-3 col-form-label">التسحيلات</label>
+                <div class="col-lg-9 col-xl-6 d-flex justify-content-center align-items-center text-center">
+                    <ul id="recordingslist"></ul>
+                    @if($user_test && !is_null($user_test->feedback_record) )
+                        <audio src="{{asset($user_test->feedback_record)}}" controls></audio>
+                    @endif
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-xl-3 col-lg-3 col-form-label">{{t('The Final Mark From 100')}}</label>
+                <div class="col-lg-9 col-xl-6 justify-content-center text-center">
+                    <input class="form-control" name="mark" type="number" placeholder="{{t('Mark')}}"
+                           value="{{ $user_test->total }}" min="0" max="100">
+                </div>
+            </div>
+
+            <div class="separator mt-4"></div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" id="save" class="btn btn-primary">{{ t('Save') }}</button>&nbsp;
             </div>
         </div>
-    </div>
+    </form>
 
 @endsection
 
@@ -319,35 +286,22 @@
             var url = URL.createObjectURL(blob);
             var au = document.createElement('audio');
             var li = document.createElement('li');
+
+            // $('#recordingslist').append(`<li><audio style="height: 33px;" src="${url}" controls></audio><li>`)
 // var link = document.createElement('a');
 
 //name of .wav file to use during upload and download (without extendion)
             filename = new Date().toISOString();
-
+//
 //add controls to the <audio> element
             au.controls = true;
             au.src = url;
 
 // //save to disk link
-// link.href = url;
-// link.download = filename+".wav"; //download forces the browser to donwload the file using the  filename
-// link.innerHTML = "Save to disk";
 
 //add the new audio element to li
             li.appendChild(au);
 
-//add the filename to the li
-// li.appendChild(document.createTextNode(filename+".wav "))
-
-// //add the save to disk link to li
-// li.appendChild(link);
-//
-// //upload link
-// var upload = document.createElement('a');
-// upload.href="#";
-// upload.innerHTML = "Upload";
-// li.appendChild(document.createTextNode (" "))//add a space in between
-// li.appendChild(upload)//add the upload link to li
 
 //add the li element to the ol
             recordingsList.appendChild(li);
@@ -431,3 +385,4 @@
     </script>
 
 @endsection
+
