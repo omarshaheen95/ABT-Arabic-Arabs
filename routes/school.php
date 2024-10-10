@@ -47,7 +47,10 @@ Route::group(['namespace' => 'School'], function() {
 
     //Students Tests
     Route::get('lessons_tests', 'StudentTestController@lessonsIndex')->name('lessons_tests.index');
-    Route::get('lessons_tests/{id}', 'StudentTestController@lessonsShow')->name('lessons_tests.show');
+//    Route::get('lessons_tests/{id}', 'StudentTestController@lessonsShow')->name('lessons_tests.show');
+    Route::get('lessons_tests/{id}', 'StudentTestController@show')->name('lessons_tests.show');
+    Route::get('lessons_tests/{id}/preview', 'StudentTestController@preview')->name('lessons_tests.preview');
+    Route::post('lessons_tests/{id}', 'StudentTestController@correct')->name('lessons_tests.correct');
     Route::get('lessons_tests/certificate/{id}', 'StudentTestController@lessonsCertificate')->name('lessons_tests.certificate');
     Route::post('lessons_tests/export', 'StudentTestController@lessonsExportStudentsTestsExcel')->name('lessons_tests.export_excel');
 

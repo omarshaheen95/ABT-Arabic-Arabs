@@ -743,4 +743,7 @@ return
 	'Select Active' => 'Select Active',
 	'' => '',
 	'ID Number' => 'ID Number',
+	'Correct' => 'Correct',
+	'Please wait, saving ...' => 'Please wait, saving ...',
+	'The Final Mark From 100' => 'The Final Mark From 100',
 ];

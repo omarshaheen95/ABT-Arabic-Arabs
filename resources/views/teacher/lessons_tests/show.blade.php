@@ -22,7 +22,7 @@
 @section('content')
     @push('breadcrumb')
         <li class="breadcrumb-item">
-            <a href="{{ route('teacher.students_tests.index') }}">اختبارات الطلاب</a>
+            <a href="{{ route('teacher.lessons_tests.index') }}">اختبارات الطلاب</a>
         </li>
         <li class="breadcrumb-item">
             {{ $title }}
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <form enctype="multipart/form-data" id="form_information" class="kt-form kt-form--label-right"
-                      action="{{ route('teacher.students_tests.correct', $user_test->id) }}" method="post">
+                      action="{{ route('teacher.lessons_tests.correct', $user_test->id) }}" method="post">
                     {{ csrf_field() }}
                     <div class="kt-portlet__body">
                         <div class="kt-section kt-section--first">
@@ -377,7 +377,7 @@
                     fd.append('record1', testerAudio, filename);
                     console.log(fd);
                     $.ajax({
-                        url: '{{ route('teacher.students_tests.correct', $user_test->id) }}',
+                        url: '{{ route('teacher.lessons_tests.correct', $user_test->id) }}',
                         data: fd,
                         processData: false,
                         contentType: false,
@@ -419,7 +419,7 @@
                         }
                     }).done(function (data) {
                         setTimeout(function () {
-                            window.location.href = "{{route('teacher.students_tests.index')}}";
+                            window.location.href = "{{route('teacher.lessons_tests.index')}}";
                         }, 500);
                     });
                 };

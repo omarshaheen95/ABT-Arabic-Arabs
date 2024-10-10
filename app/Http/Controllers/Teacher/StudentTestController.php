@@ -24,6 +24,7 @@ use Yajra\DataTables\DataTables;
 
 class StudentTestController extends Controller
 {
+    //Lesson
     public function lessonsIndex(Request $request)
     {
         if (request()->ajax())
@@ -77,9 +78,10 @@ class StudentTestController extends Controller
         $title = t('Show students lessons tests');
         $schools = School::query()->get();
         $grades = Grade::query()->get();
-        return view('teacher.students_tests.lessons', compact('title', 'grades', 'schools'));
+        return view('teacher.lessons_tests.index', compact('title', 'grades', 'schools'));
     }
 
+    //For Show As Student Test
     public function lessonsShow(Request $request,$id){
         $student_test = UserTest::query()->with(['lesson','user'])->where('id',$id)->first();
         if ($student_test){
@@ -114,9 +116,7 @@ class StudentTestController extends Controller
                 $query->where('teacher_id', $teacher->id);
             });
         })->findOrFail($id);
-//        dd($user_test);
-
-        return view('teacher.student_test.show',compact('title', 'user_test'));
+        return view('teacher.lessons_tests.show',compact('title', 'user_test'));
     }
 
     public function preview($id)
@@ -130,7 +130,7 @@ class StudentTestController extends Controller
         $grade = $student_test->lesson->grade_id;
         $questions = Question::query()->where('lesson_id', $student_test->lesson_id)->get();
 
-        return view('teacher.student_test.student_test_results', compact('student_test', 'grade', 'questions'));
+        return view('teacher.lessons_tests.student_test_results', compact('student_test', 'grade', 'questions'));
     }
     public function correct(Request $request, $id)
     {
@@ -221,7 +221,7 @@ class StudentTestController extends Controller
             }
         }
 
-        return $this->redirectWith(false, 'teacher.students_tests.index', 'تم اعتماد التصحيح بنجاح');
+        return $this->redirectWith(false, 'teacher.lessons_tests.index', 'تم اعتماد التصحيح بنجاح');
 
     }
 
@@ -241,17 +241,7 @@ class StudentTestController extends Controller
         return (new StudentTestExport($request))->download('Students tests.xlsx');
     }
 
-
-
-
-
-
-
-
-
-
-
-
+    //Story
 
     public function storiesIndex(Request $request)
     {
@@ -430,87 +420,6 @@ class StudentTestController extends Controller
 
 
 
-
-
-
-//    public function index(Request $request)
-//    {
-//        $teacher = Auth::guard('teacher')->user();
-//        if (request()->ajax())
-//        {
-//            $username = $request->get('username', false);
-//            $grade = $request->get('grade', false);
-//            $lesson_id = $request->get('lesson_id', false);
-//            $start_at = $request->get('start_at', false);
-//            $end_at = $request->get('end_at', false);
-//            $status = $request->get('status', false);
-//            $corrected = $request->get('corrected', false);
-//
-//            $rows = UserTest::query()->with(['lesson', 'user'])
-//                ->when($corrected == 1, function (Builder $query){
-//                    $query->where('corrected', 1);
-//                })
-//                ->when($corrected == 2, function (Builder $query){
-//                    $query->where('corrected', 0);
-//                })
-//                ->whereHas('user', function (Builder $query) use ($teacher, $username){
-//                    $query->whereHas('teacherUser', function (Builder $query) use($teacher){
-//                        $query->where('teacher_id', $teacher->id);
-//                    });
-//                    $query->when($username, function (Builder $query) use ($username){
-//                        $query->where('name', 'like', '%'.$username.'%');
-//                    });
-//                })->when($grade, function (Builder $query) use ($grade){
-//                    $query->whereHas('lesson', function (Builder $query) use ($grade){
-//                        $query->where('grade_id', $grade);
-//                    });
-//                })->when($lesson_id, function (Builder $query) use ($lesson_id){
-//                    $query->where('lesson_id', $lesson_id);
-//                })->when($start_at, function (Builder $query) use ($start_at){
-//                    $query->where('created_at', '<=', $start_at);
-//                })->when($end_at, function (Builder $query) use ($end_at){
-//                    $query->where('created_at', '>=', $end_at);
-//                })->when($status, function (Builder $query) use ($status) {
-//                    $query->where('status', $status);
-//                })->latest();
-//
-//            return DataTables::make($rows)
-//                ->escapeColumns([])
-//                ->addColumn('created_at', function ($row){
-//                    return Carbon::parse($row->created_at)->toDateTimeString();
-//                })
-//                ->addColumn('user', function ($row){
-//                    return $row->user->name;
-//                })
-//                ->addColumn('lesson', function ($row) {
-//                    return $row->lesson->name;
-//                })
-//                ->addColumn('grade', function ($row) {
-//                    return $row->lesson->grade_id;
-//                })
-//                ->addColumn('status', function ($row) {
-//                    return $row->status;
-//                })
-//                ->addColumn('total', function ($row) {
-//                    return $row->total;
-//                })
-//                ->addColumn('actions', function ($row) {
-//                    return $row->teacher_action_buttons;
-//                })
-//
-//                ->make();
-//        }
-//        $title = "اختبارات الطلاب";
-//        $grades = Grade::query()->get();
-//        return view('teacher.student_test.index', compact('title', 'grades'));
-//    }
-//
-//    public function exportStudentsTestsExcel(Request $request)
-//    {
-//        $teacher = Auth::guard('teacher')->user();
-//        return (new StudentTestExport($teacher->school_id, $teacher->id))
-//            ->download('Students tests.xlsx');
-//    }
 
 
 }

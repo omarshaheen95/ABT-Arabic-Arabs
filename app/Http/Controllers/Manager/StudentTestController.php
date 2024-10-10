@@ -13,16 +13,19 @@ use App\Models\School;
 use App\Models\StoryQuestion;
 use App\Models\StoryUserRecord;
 use App\Models\StudentStoryTest;
+use App\Models\UserAssignment;
 use App\Models\UserTest;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class StudentTestController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:show lesson tests')->only(['lessonsIndex','lessonsShow']);
+        $this->middleware('permission:show lesson tests')->only(['lessonsIndex','show']);
         $this->middleware('permission:delete lesson tests')->only(['lessonsDestroy']);
         $this->middleware('permission:lesson tests certificate')->only(['lessonsCertificate']);
         $this->middleware('permission:export lesson tests')->only('lessonsExportStudentsTestsExcel');
@@ -92,7 +95,7 @@ class StudentTestController extends Controller
         $title = t('Show students lessons tests');
         $schools = School::query()->get();
         $grades = Grade::query()->get();
-        return view('manager.students_tests.lessons', compact('title', 'grades', 'schools'));
+        return view('manager.lessons_tests.index', compact('title', 'grades', 'schools'));
     }
 
     public function lessonsShow(Request $request,$id){
@@ -121,6 +124,110 @@ class StudentTestController extends Controller
             return view('general.user.test_preview.test',compact('questions','student_test','lesson','user'));
         }
         return redirect()->route('manager.home')->with('message', t('Not allowed to access for this test'))->with('m-class', 'error');
+
+    }
+    public function show(Request $request,$id)
+    {
+        $title = "عرض اختبار طالب";
+        $user_test = UserTest::query()->with(['lesson', 'user'])->filter($request)->findOrFail($id);
+        return view('manager.lessons_tests.show',compact('title', 'user_test'));
+    }
+
+    public function preview(Request $request,$id)
+    {
+        $student_test = UserTest::query()->with(['lesson', 'user'])->filter($request)->findOrFail($id);
+        $grade = $student_test->lesson->grade_id;
+        $questions = Question::query()->where('lesson_id', $student_test->lesson_id)->get();
+
+        return view('manager.lessons_tests.student_test_results', compact('student_test', 'grade', 'questions'));
+    }
+    public function correct(Request $request, $id)
+    {
+        $request->validate([
+            'mark' => 'required|max:100|min:0',
+        ]);
+        $user_test = UserTest::query()->with(['lesson', 'user'])
+            ->whereHas('lesson', function (Builder $query) {
+                $query->whereIn('lesson_type', ['writing', 'speaking']);
+            })
+            ->filter($request)->findOrFail($id);
+
+        $record = null;
+        if(isset($_FILES['record1']) && $_FILES['record1']['type'] != 'text/plain' && $_FILES['record1']['error'] <= 0){
+            $new_name = uniqid().'.'.'wav';
+            $destination = public_path('uploads/teachers_records_result');
+            move_uploaded_file($_FILES['record1']['tmp_name'], $destination .'/'. $new_name);
+            $record = 'uploads'.DIRECTORY_SEPARATOR.'teachers_records_result'.DIRECTORY_SEPARATOR.$new_name;
+        }
+        $success_mark = $user_test->lesson->success_mark;
+        $mark = $request->get('mark');
+        $user_test->update([
+            'approved' => 1,
+            'corrected' => 1,
+            'total' => $mark,
+            'status' => $mark >= $success_mark ? 'Pass':'Fail',
+            'feedback_message' => $request->get('teacher_message', null),
+            'feedback_record' => $record,
+        ]);
+
+        $student_tests = UserTest::query()
+            ->where('user_id',  $user_test->user_id)
+            ->where('lesson_id', $user_test->lesson_id)
+            ->orderByDesc('total')->get();
+
+
+
+        if (optional($student_tests->first())->total >= $mark)
+        {
+            UserTest::query()
+                ->where('user_id', $user_test->user_id)
+                ->where('lesson_id', $user_test->lesson_id)
+                ->where('id', '<>', $student_tests->first()->id)->update([
+                    'approved' => 0,
+                ]);
+
+            UserTest::query()
+                ->where('user_id', $user_test->user_id)
+                ->where('lesson_id', $user_test->lesson_id)
+                ->where('id',  $student_tests->first()->id)->update([
+                    'approved' => 1,
+                ]);
+        }
+
+        $user_test->user->user_tracker()->create([
+            'lesson_id' => $user_test->lesson_id,
+            'type' => 'test',
+            'color' => 'danger',
+            'start_at' => $user_test->start_at,
+            'end_at' => $user_test->end_at,
+        ]);
+
+        if ($user_test->user->teacherUser)
+        {
+            updateTeacherStatistics($user_test->user->teacherUser->teacher_id);
+        }
+
+        $user_assignment = UserAssignment::query()
+            ->where('user_id', $user_test->user_id)
+            ->where('lesson_id', $user_test->lesson_id)
+            ->where('test_assignment', 1)
+            ->where('done_test_assignment', 0)
+            ->first();
+
+        if ($user_assignment)
+        {
+            $user_assignment->update([
+                'done_test_assignment' => 1,
+            ]);
+
+            if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment){
+                $user_assignment->update([
+                    'completed' => 1,
+                ]);
+            }
+        }
+
+        return $this->redirectWith(false, 'teacher.lessons_tests.index', 'تم اعتماد التصحيح بنجاح');
 
     }
 
