@@ -34,14 +34,13 @@
             <label class="mb-2">{{t('Student Email')}}:</label>
             <input type="text" name="user_email" class="form-control direct-search" placeholder="{{t('Email')}}">
         </div>
-        <div class="col-lg-3 mb-2">
-            <label class="mb-2">{{t('Grade')}} :</label>
-            <select name="grade_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"
-                    data-allow-clear="true">
+        <div class="col-2 mb-2">
+            <label class="mb-2">{{t('Activation')}}:</label>
+            <select class="form-select" name="user_status" data-control="select2" data-allow-clear="true"
+                    data-placeholder="{{t('Select Status')}}">
                 <option></option>
-                @foreach($grades as $grade)
-                    <option value="{{$grade->id}}">{{$grade->name}}</option>
-                @endforeach
+                <option value="active">{{t('Active')}}</option>
+                <option value="expire">{{'Expired'}}</option>
             </select>
         </div>
 
@@ -63,21 +62,23 @@
 
             </select>
         </div>
-        <div class="col-2 mb-2">
-            <label class="mb-2">{{t('Activation')}}:</label>
-            <select class="form-select" name="user_status" data-control="select2" data-allow-clear="true"
-                    data-placeholder="{{t('Select Status')}}">
-                <option></option>
-                <option value="active">{{t('Active')}}</option>
-                <option value="expire">{{'Expired'}}</option>
-            </select>
-        </div>
+
         <div class="col-lg-3 mb-2">
             <label class="mb-2">{{t('Lesson Type')}} :</label>
             <select name="lesson_type" id="lesson_type" class="form-select" data-control="select2" data-placeholder="{{t('Select Lesson Type')}}" data-allow-clear="true">
                 <option></option>
                 @foreach(\App\Models\Lesson::lessonTypes() as  $lesson_type)
                     <option value="{{$lesson_type}}">{{t($lesson_type)}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-lg-3 mb-2">
+            <label class="mb-2">{{t('Grade')}} :</label>
+            <select name="grade_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"
+                    data-allow-clear="true">
+                <option></option>
+                @foreach($grades as $grade)
+                    <option value="{{$grade->id}}">{{$grade->name}}</option>
                 @endforeach
             </select>
         </div>

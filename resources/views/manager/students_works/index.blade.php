@@ -169,7 +169,7 @@ WhatsApp +972592554320
             {data: 'actions', name: 'actions'},
         ];
 
-        getTeacherBySchool('teacher_school_id')
+        getTeacherBySchool()
         getSectionBySchool()
         getSectionByTeacher()
         getLessonsByGrade()

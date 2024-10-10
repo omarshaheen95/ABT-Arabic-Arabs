@@ -50,17 +50,16 @@
             <label class="mb-2">{{t('Student Email')}}:</label>
             <input type="text" name="user_email" class="form-control direct-search" placeholder="{{t('Email')}}">
         </div>
-
-        <div class="col-lg-3 mb-2">
-            <label class="mb-2">{{t('Student Grade')}} :</label>
-            <select name="student_grade" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"
-                    data-allow-clear="true">
+        <div class="col-3 mb-2">
+            <label class="mb-2">{{t('Activation')}}:</label>
+            <select class="form-select" name="user_status" data-control="select2" data-allow-clear="true"
+                    data-placeholder="{{t('Select Status')}}">
                 <option></option>
-                @foreach($grades as $grade)
-                    <option value="{{ $grade->id }}">{{ $grade->name }}</option>
-                @endforeach
+                <option value="active">{{t('Active')}}</option>
+                <option value="expire">{{'Expired'}}</option>
             </select>
         </div>
+
 
         <div class="col-3 mb-2">
             <label class="mb-2">{{t('School')}}:</label>
@@ -89,13 +88,20 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-3 mb-2">
-            <label class="mb-2">{{t('Activation')}}:</label>
-            <select class="form-select" name="user_status" data-control="select2" data-allow-clear="true"
-                    data-placeholder="{{t('Select Status')}}">
+        <div class="col-lg-3 mb-2">
+            <label class="mb-2">{{t('Student Grade')}} :</label>
+            <select name="student_grade" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"
+                    data-allow-clear="true">
                 <option></option>
-                <option value="active">{{t('Active')}}</option>
-                <option value="expire">{{'Expired'}}</option>
+                @foreach($grades as $grade)
+                    <option value="{{ $grade->id }}">{{ $grade->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-lg-3 mb-2">
+            <label class="mb-2">{{t('Story')}} :</label>
+            <select  name="story_id" id="story_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Story')}}" data-allow-clear="true">
+                <option></option>
             </select>
         </div>
         <div class="col-2 mb-2">
@@ -107,12 +113,7 @@
                 <option value="Girl">{{'Girl'}}</option>
             </select>
         </div>
-        <div class="col-lg-3 mb-2">
-            <label class="mb-2">{{t('Story')}} :</label>
-            <select  name="story_id" id="story_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Story')}}" data-allow-clear="true">
-                <option></option>
-            </select>
-        </div>
+
 
         <div class="col-lg-3 mb-2">
             <label class="mb-2">{{t('Status')}} :</label>

@@ -166,7 +166,7 @@
     <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
-        getStoriesByGrade()
+        getStoriesByGrade('student_grade')
     </script>
 @endsection
 

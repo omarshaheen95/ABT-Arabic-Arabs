@@ -44,6 +44,10 @@
                                         @include('general.user.test_preview.questions.match')
                                     @elseif($question->type == 4)
                                         @include('general.user.test_preview.questions.sort')
+                                    @elseif($question->type == 5)
+                                        @include('general.user.test_preview.questions.writing')
+                                    @elseif($question->type == 6)
+                                        @include('general.user.test_preview.questions.speaking')
                                     @endif
                                     @php
                                         $counter ++;

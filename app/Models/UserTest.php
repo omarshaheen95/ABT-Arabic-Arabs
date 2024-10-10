@@ -52,6 +52,8 @@ class UserTest extends Model
         } elseif (\request()->is('teacher/*')) {
             $actions = [
                 ['key' => 'show', 'name' => t('Show'), 'route' => route('teacher.lessons_tests.show', $this->id)],
+                ['key' => 'show', 'name' => t('Show Test'), 'route' => route('teacher.students_tests.show', $this->id)],
+                ['key' => 'show', 'name' => t('Preview Test'), 'route' => route('teacher.students_tests.preview', $this->id)],
             ];
             if ($this->status == 'Pass') {
                 $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('teacher.lessons_tests.certificate', $this->id)];

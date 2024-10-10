@@ -158,6 +158,7 @@
             {data: 'actions', name: 'actions'},
         ];
         initializeDateRangePicker();
+        getSectionByTeacher()
         getLessonsByGrade()
     </script>
 

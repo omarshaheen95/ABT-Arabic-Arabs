@@ -40,6 +40,13 @@ Route::group(['namespace' => 'Teacher'], function() {
     Route::get('lessons_tests/{id}/certificate', 'StudentTestController@lessonsCertificate')->name('lessons_tests.certificate');
     Route::post('lessons_tests/export', 'StudentTestController@lessonsExportStudentsTestsExcel')->name('lessons_tests.export_excel');
 
+    //Student tests
+    Route::get('students_tests', 'StudentTestController@index')->name('students_tests.index');
+    Route::get('students_tests/{id}', 'StudentTestController@show')->name('students_tests.show');
+    Route::get('students_tests/{id}/preview', 'StudentTestController@preview')->name('students_tests.preview');
+    Route::post('students_tests/{id}', 'StudentTestController@correct')->name('students_tests.correct');
+    Route::post('export_students_tests_excel', 'StudentTestController@exportStudentsTestsExcel')->name('students_tests.export_excel');
+
     Route::get('stories_tests', 'StudentTestController@storiesIndex')->name('stories_tests.index');
     Route::get('stories_tests/{id}', 'StudentTestController@storiesShow')->name('stories_tests.show');
     Route::delete('stories_tests', 'StudentTestController@storiesDestroy')->name('stories_tests.destroy');

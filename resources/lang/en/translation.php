@@ -741,4 +741,6 @@ return
 	'Use Student ID With Name' => 'Use Student ID With Name',
 	'Data Saved Successfully' => 'Data Saved Successfully',
 	'Select Active' => 'Select Active',
+	'' => '',
+	'ID Number' => 'ID Number',
 ];

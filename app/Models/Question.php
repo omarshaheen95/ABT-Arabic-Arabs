@@ -24,8 +24,7 @@ class Question extends Model implements HasMedia
 
     public function getTypeNameAttribute()
     {
-        switch ($this->type)
-        {
+        switch ($this->type) {
             case 1:
                 return t('True False');
             case 2:
@@ -34,6 +33,10 @@ class Question extends Model implements HasMedia
                 return t('Match');
             case 4:
                 return t('Sort Words');
+            case 5:
+                return t('Writing');
+            case 6:
+                return t('Speaking');
             default:
                 return '';
         }
@@ -108,6 +111,15 @@ class Question extends Model implements HasMedia
     public function sort_results()
     {
         return $this->hasMany(SortResult::class, 'question_id');
+    }
+
+    public function writing_results()
+    {
+        return $this->hasMany(WritingResult::class, 'question_id');
+    }
+    public function speaking_results()
+    {
+        return $this->hasMany(SpeakingResult::class, 'question_id');
     }
     public function studentAnswer($test_id, $student_id = null)
     {

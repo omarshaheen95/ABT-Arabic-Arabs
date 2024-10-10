@@ -108,6 +108,10 @@ class StudentTestController extends Controller
                    $query->where('user_test_id',$id);
                 },'sort_results'=>function($query) use($id){
                    $query->where('user_test_id',$id);
+                },'speaking_results'=>function($query) use($id){
+                   $query->where('user_test_id',$id);
+                },'writing_results'=>function($query) use($id){
+                   $query->where('user_test_id',$id);
                 },
             ])->where('lesson_id',$student_test->lesson_id)->get();
             // dd($questions->toArray());

@@ -159,7 +159,7 @@
         ];
         initializeDateRangePicker();
         getSectionByTeacher()
-        getStoriesByGrade()
+        getStoriesByGrade('student_grade')
     </script>
 
     <script src="{{asset('assets_v1/js/datatable.js')}}?v={{time()}}"></script>

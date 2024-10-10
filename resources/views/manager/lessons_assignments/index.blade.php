@@ -50,16 +50,16 @@
             <label class="mb-2">{{t('Student Email')}}:</label>
             <input type="text" name="user_email" class="form-control direct-search" placeholder="{{t('Email')}}">
         </div>
-        <div class="col-lg-3 mb-2">
-            <label class="mb-2">{{t('Grade')}} :</label>
-            <select name="grade_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"
-                    data-allow-clear="true">
+        <div class="col-3 mb-2">
+            <label class="mb-2">{{t('Activation')}}:</label>
+            <select class="form-select" name="user_status" data-control="select2" data-allow-clear="true"
+                    data-placeholder="{{t('Select Status')}}">
                 <option></option>
-                @foreach($grades as $grade)
-                    <option value="{{ $grade->id }}">{{$grade->name}}</option>
-                @endforeach
+                <option value="active">{{t('Active')}}</option>
+                <option value="expire">{{'Expired'}}</option>
             </select>
         </div>
+
 
         <div class="col-3 mb-2">
             <label class="mb-2">{{t('School')}}:</label>
@@ -88,16 +88,23 @@
                 @endforeach
             </select>
         </div>
-
-        <div class="col-3 mb-2">
-            <label class="mb-2">{{t('Activation')}}:</label>
-            <select class="form-select" name="user_status" data-control="select2" data-allow-clear="true"
-                    data-placeholder="{{t('Select Status')}}">
+        <div class="col-lg-3 mb-2">
+            <label class="mb-2">{{t('Grade')}} :</label>
+            <select name="grade_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"
+                    data-allow-clear="true">
                 <option></option>
-                <option value="active">{{t('Active')}}</option>
-                <option value="expire">{{'Expired'}}</option>
+                @foreach($grades as $grade)
+                    <option value="{{ $grade->id }}">{{$grade->name}}</option>
+                @endforeach
             </select>
         </div>
+        <div class="col-lg-3 mb-2">
+            <label class="mb-2">{{t('Lesson')}} :</label>
+            <select  name="lesson_id" id="lesson_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Lesson')}}" data-allow-clear="true">
+                <option></option>
+            </select>
+        </div>
+
         <div class="col-2 mb-2">
             <label class="mb-2">{{t('Gender')}}:</label>
             <select class="form-select" name="gender" data-control="select2" data-allow-clear="true"
@@ -107,12 +114,7 @@
                 <option value="Girl">{{'Girl'}}</option>
             </select>
         </div>
-        <div class="col-lg-3 mb-2">
-            <label class="mb-2">{{t('Lesson')}} :</label>
-            <select  name="lesson_id" id="lesson_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Lesson')}}" data-allow-clear="true">
-                <option></option>
-            </select>
-        </div>
+
 
         <div class="col-lg-3 mb-2">
             <label class="mb-2">{{t('Status')}} :</label>
@@ -178,7 +180,7 @@
     <script src="{{asset('assets_v1/js/datatable.js')}}?v={{time()}}"></script>
 
     <script>
-        getTeacherBySchool('teacher_school_id')
+        getTeacherBySchool()
         getSectionBySchool()
         getSectionByTeacher()
         getLessonsByGrade()
