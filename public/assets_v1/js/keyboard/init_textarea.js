@@ -7,7 +7,7 @@ $(function() {
             openOn: '',  // Prevent keyboard from opening on focus
             change: function(event, keyboard, el) {
                 // Method to perform on keyup
-                saveCache($(el).attr('id'));
+                // saveCache($(el).attr('id'));
                 onSpacePress($(el).val(), $(el).attr('id'));
             },
             initialized: function(event, keyboard, el) {
