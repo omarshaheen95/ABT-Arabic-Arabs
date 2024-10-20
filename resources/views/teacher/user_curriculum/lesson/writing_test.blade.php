@@ -1,7 +1,9 @@
 
 @extends('teacher.user_curriculum.layout.container_v2')
 @section('style')
-    <link rel="stylesheet" type="text/css" href="https://www.arabic-keyboard.org/keyboard/keyboard.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets_v1/js/keyboard/keyboard.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets_v1/js/keyboard/jquery-ui.css')}}">
+
     <style>
         .green-audio-player{
             width: 100%;
@@ -161,12 +163,17 @@
                                                     @endif
 
                                                     <div class="exercise-question-answer">
-                                                        <div class="textarea">
-                                                    <textarea class="form-control keyboard-input keyboardInput" name="writing_answer[{{$question->id}}]" id="" rows="4" placeholder="اكتب إجابتك هنا....."></textarea>
+                                                        <div class="textarea" id="textarea-{{$question->id}}" dir="rtl">
                                                             <div class="text-end">
-                                                                <span class="word-count "> الكلمات: <span>0</span></span>
+                                                                <span class="word-count">عدد الكلمات: <span class="word-count-value">0</span></span>
                                                             </div>
+                                                            <textarea class="form-control text keyboard text-start"  onpaste="return false;"
+                                                                      name="writing_answer[{{$question->id}}]"
+                                                                      id="writing_answer_{{$question->id}}"
+                                                                      rows="4"
+                                                                      placeholder="اكتب إجابتك هنا"></textarea>
                                                         </div>
+
                                                         <div class="upload-files text-right" style="text-align: right;">
                                                             <label for="file-1" class="btn btn-upload-file">
                                                                 <svg id="vuesax_bulk_document-upload"
@@ -262,7 +269,11 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{asset('s_website/js/jquery.ui.touch-punch.js')}}"></script>
-    <script type="text/javascript" src="https://www.arabic-keyboard.org/keyboard/keyboard.js" charset="UTF-8"></script>
+
+    <script type="text/javascript" src="{{asset('assets_v1/js/keyboard/jquery.keyboard.js')}}" charset="UTF-8"></script>
+    <script type="text/javascript" src="{{asset('assets_v1/js/keyboard/jquery.keyboard.extension-typing.js')}}" charset="UTF-8"></script>
+    <script type="text/javascript" src="{{asset('assets_v1/js/keyboard/keyboard-layouts-microsoft.min.js')}}" charset="UTF-8"></script>
+    <script type="text/javascript" src="{{asset('assets_v1/js/keyboard/init_textarea.js')}}" charset="UTF-8"></script>
 
 
     <script>
