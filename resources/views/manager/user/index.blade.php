@@ -318,6 +318,17 @@
                 <div class="modal-body d-flex flex-column">
                     <form id="users_grades_form">
                         <div class="mb-2">
+                            <label>{{t('Move Grade')}} :</label>
+                            <select name="move_grade" class="form-select" data-control="select2"
+                                    data-placeholder="{{t('Select Grade')}}" data-allow-clear="true">
+                                <option></option>
+                                <option value="1">1</option>
+                                <option value="-1">-1</option>
+                                <option value="2">2</option>
+                                <option value="-2">-2</option>
+                            </select>
+                        </div>
+                        <div class="mb-2">
                             <label>{{t('Grade')}} :</label>
                             <select name="grade" class="form-select" data-control="select2"
                                     data-placeholder="{{t('Select Grade')}}" data-allow-clear="true">

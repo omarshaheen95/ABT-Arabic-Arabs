@@ -93,7 +93,7 @@ class TeacherImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadin
     {
         return [
             'Name' => 'required',
-            'Email' => 'required',
+            'Email' => 'nullable',
             'Mobile' => 'nullable',
         ];
     }

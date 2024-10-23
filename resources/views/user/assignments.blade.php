@@ -49,7 +49,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if($student_assignment->completed)
+                                            @if($student_assignment->done_test_assignment)
                                                 مكتمل
                                             @else
                                                 غير مكتمل

@@ -364,6 +364,20 @@ class UserController extends Controller
             $data['archived'] = $request['users_grades']['archived'] != 2 ? 1 : 0;
         }
 
+        if (isset($request['users_grades']['move_grade']) && !is_null($request['users_grades']['move_grade'])) {
+            User::query()->filter($request)->get()->each(function ($user) use ($request) {
+                $new_grade = $request['users_grades']['move_grade'] > 0 ? $user->grade_id + $request['users_grades']['move_grade'] : $user->grade_id - abs($request['users_grades']['move_grade']);
+                if ($new_grade == 0)
+                {
+                    $new_grade = 13;
+                }
+                $user->update([
+                    'grade_id' => $new_grade,
+                ]);
+            });
+        }
+
+
 
         User::query()->filter($request)->update($data);
 
