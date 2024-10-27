@@ -37,7 +37,7 @@
                     </div>
                     <div class="col-lg-3">
                         <label class="mb-2">{{t('Password')}} :</label>
-                        <input name="password" type="password" placeholder="{{t('Password')}}"
+                        <input name="password" type="text" placeholder="{{t('Password')}}"
                                class="form-control"/>
                     </div>
                     <div class="col-lg-2">

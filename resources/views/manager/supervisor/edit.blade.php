@@ -87,7 +87,7 @@
                 <div class="col-6 mb-2">
                     <div class="form-group">
                         <label for="password" class="form-label">{{t('Password')}}</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="{{t('Password')}}" required>
+                        <input type="text" id="password" name="password" class="form-control" placeholder="{{t('Password')}}" required>
                     </div>
                 </div>
 

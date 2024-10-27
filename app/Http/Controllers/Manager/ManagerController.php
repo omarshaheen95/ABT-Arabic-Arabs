@@ -64,7 +64,7 @@ class ManagerController extends Controller
     public function store(ManagerRequest $request)
     {
         $data = $request->validated();
-        $data['password'] = bcrypt($request->get('password'));
+        $data['password'] = bcrypt($request->get('password', 123456));
         $data['active'] = $request->get('active', 0);
         Manager::query()->create($data);
         return redirect()->route('manager.manager.index')->with('message', t('Successfully Created'));
