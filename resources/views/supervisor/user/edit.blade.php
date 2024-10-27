@@ -86,7 +86,7 @@ WhatsApp +972592554320
                                 <div class="form-group row">
                                     <label class="col-xl-3 col-lg-3 col-form-label">{{ t('Password') }}</label>
                                     <div class="col-lg-9 col-xl-6">
-                                        <input class="form-control" name="password" type="password">
+                                        <input class="form-control" name="password" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group row">
