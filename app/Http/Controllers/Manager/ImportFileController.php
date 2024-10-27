@@ -345,19 +345,11 @@ class ImportFileController extends Controller
         $user_data_file = ImportFile::query()->findOrFail($data['student_data_file_id']);
         $counts = 0;
         $rows_num = [];
+
         foreach ($data['student'] as $std) {
             $user = new User($std);
 
 
-            //check row if has teacher
-            if (isset($std['teacher'])) {
-                $teacher = Teacher::query()->where('email', $std['teacher'])->where('school_id', $user_data_file->school_id)->first();
-                if ($teacher) {
-                    $user->teacherUser()->create([
-                        'teacher_id' => $teacher->id,
-                    ]);
-                }
-            }
 
 
             //Alternate Grade
@@ -379,7 +371,7 @@ class ImportFileController extends Controller
             $user->id_number = $std['student_id']?? null;
             $user->password =bcrypt('123456');
             $user->grade_id = $grade;
-            $user->alternate_grade_id = $alternative_grade;
+            $user->alternate_grade_id = $alternative_grade??null;
             $user->section = $std['section']?? null;
             $user->gender = $std['gender']?? null;
             $user->nationality = $std['nationality']?? null;
@@ -395,6 +387,17 @@ class ImportFileController extends Controller
             $user->import_file_id = $user_data_file->id;
 
             $user->save();
+
+            //check row if has teacher
+            if (isset($std['teacher'])) {
+                $teacher = Teacher::query()->where('id', $std['teacher'])->where('school_id', $user_data_file->school_id)->first();
+                if ($teacher) {
+                    $user->teacherUser()->create([
+                        'teacher_id' => $teacher->id,
+                    ]);
+                }
+            }
+
             $rows_num[] = $std['row_num'];
             $counts++;
         }

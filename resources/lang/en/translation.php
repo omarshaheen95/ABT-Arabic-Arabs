@@ -746,4 +746,5 @@ return
 	'Correct' => 'Correct',
 	'Please wait, saving ...' => 'Please wait, saving ...',
 	'The Final Mark From 100' => 'The Final Mark From 100',
+	'Move Grade' => 'Move Grade',
 ];

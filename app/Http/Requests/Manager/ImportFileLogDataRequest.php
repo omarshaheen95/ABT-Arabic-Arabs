@@ -25,14 +25,14 @@ class ImportFileLogDataRequest extends FormRequest
             'student.*.mobile' => 'sometimes',
             'student.*.password' => 'sometimes',
             'student.*.grade' => 'required|exists:grades,id',
-            'student.*.alternative_grade' => 'sometimes|exists:grades,id',
+            'student.*.alternative_grade' => 'nullable|exists:grades,id',
             'student.*.section' => 'sometimes',
             'student.*.gender' => 'sometimes|in:Boy,Girl',
             'student.*.active' => 'sometimes|in:1,0',
             'student.*.student_id' => 'required',
             'student.*.nationality' => 'sometimes',
             //'student.*.date_of_birth' => 'sometimes',
-            'student.*.teacher' => 'sometimes',
+            'student.*.teacher' => 'required',
 
         ];
     }
