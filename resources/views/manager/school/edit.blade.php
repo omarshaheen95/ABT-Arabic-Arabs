@@ -97,7 +97,7 @@
                     <div class="form-group">
                         <label for="password" class="form-label">{{t('Password')}}</label>
                         <input type="text" id="password" name="password" class="form-control"
-                               placeholder="{{t('Password')}}" required>
+                               placeholder="{{t('Password')}}" @if(!isset($school)) value="123456" @endif required>
                     </div>
                 </div>
 

@@ -37,8 +37,7 @@
                     </div>
                     <div class="col-lg-3">
                         <label class="mb-2">{{t('Password')}} :</label>
-                        <input name="password" type="text" placeholder="{{t('Password')}}"
-                               class="form-control"/>
+                        <input name="password" type="text" placeholder="{{t('Password')}}" class="form-control" @if(!isset($manager)) value="123456" @endif/>
                     </div>
                     <div class="col-lg-2">
                         <label class="mb-2">{{t(' Status')}} :</label>
