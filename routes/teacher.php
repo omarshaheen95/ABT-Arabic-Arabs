@@ -36,18 +36,18 @@ Route::group(['namespace' => 'Teacher'], function() {
     //Students Tests
     Route::get('lessons_tests', 'StudentTestController@lessonsIndex')->name('lessons_tests.index');
 //    Route::get('lessons_tests/{id}', 'StudentTestController@lessonsShow')->name('lessons_tests.show');
-    Route::get('lessons_tests/{id}', 'StudentTestController@show')->name('lessons_tests.show');
     Route::get('lessons_tests/{id}/preview', 'StudentTestController@preview')->name('lessons_tests.preview');
-    Route::post('lessons_tests/{id}', 'StudentTestController@correct')->name('lessons_tests.correct');
     Route::get('lessons_tests/{id}/certificate', 'StudentTestController@lessonsCertificate')->name('lessons_tests.certificate');
     Route::post('lessons_tests/export', 'StudentTestController@lessonsExportStudentsTestsExcel')->name('lessons_tests.export_excel');
+    Route::get('lessons_tests/{id}', 'StudentTestController@show')->name('lessons_tests.show');
+    Route::post('lessons_tests/{id}', 'StudentTestController@correct')->name('lessons_tests.correct');
 
 
     Route::get('stories_tests', 'StudentTestController@storiesIndex')->name('stories_tests.index');
-    Route::get('stories_tests/{id}', 'StudentTestController@storiesShow')->name('stories_tests.show');
     Route::delete('stories_tests', 'StudentTestController@storiesDestroy')->name('stories_tests.destroy');
     Route::get('stories_tests/{id}/certificate', 'StudentTestController@storiesCertificate')->name('stories_tests.certificate');
     Route::post('stories_tests/export', 'StudentTestController@exportStoriesTestsExcel')->name('stories_tests.export_excel');
+    Route::get('stories_tests/{id}', 'StudentTestController@storiesShow')->name('stories_tests.show');
 
     Route::get('stories_records', 'StudentTestController@storiesRecordsIndex')->name('stories_records.index');
     Route::get('stories_records/{id}', 'StudentTestController@storiesRecordsShow')->name('stories_records.show');
