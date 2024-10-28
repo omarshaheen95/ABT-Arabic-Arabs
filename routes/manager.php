@@ -181,7 +181,7 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::post('stories_records_tests/export', 'StudentTestController@exportStoriesRecordsExcel')->name('stories_records.export_excel');
 
     //Year
-    Route::resource('year','YearController');
+    Route::resource('year','YearController')->except('destroy');
     Route::delete('year', 'YearController@destroy')->name('year.destroy');
 
     //Login Sessions
