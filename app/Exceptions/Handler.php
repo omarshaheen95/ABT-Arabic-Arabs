@@ -62,7 +62,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if (strpos($request->url(), '/api/') !== false || strpos($request->url(), '/web/') !== false) {
+        if (request()->isXmlHttpRequest() || request()->ajax() || request()->isJson() || request()->wantsJson() || strpos($request->url(), '/web/') !== false) {
             \Log::debug('API Request Exception - '.$request->url().' - '.$exception->getMessage().(!empty($request->all()) ? ' - '.json_encode($request->except(['password'])) : ''));
 
             if ($exception instanceof AuthorizationException) {

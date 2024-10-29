@@ -423,12 +423,12 @@
         }
         @endcan
 
-        $('.modal').on('shown.bs.modal', function() {
-            let parent = $(this)
-            $('.form-select').select2({
-                dropdownParent: parent
-            }).focus();
-        });
+        // $('.modal').on('shown.bs.modal', function() {
+        //     let parent = $(this)
+        //     $('.form-select').select2({
+        //         dropdownParent: parent
+        //     }).focus();
+        // });
     </script>
 
     <script src="{{asset('assets_v1/js/datatable.js')}}?v={{time()}}"></script>
@@ -436,6 +436,7 @@
     <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
+        getAndSetDataOnSelectChange('teacher_school_id','users_teacher_id',getTeacherBySchoolURL)
         getTeacherBySchool()
         getSectionBySchool()
         getSectionByTeacher()

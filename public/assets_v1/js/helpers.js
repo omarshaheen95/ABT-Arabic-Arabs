@@ -93,6 +93,50 @@ function hideLoadingModal() {
     body.removeClass('modal-open')
     body.removeAttr('style')
 }
+function getAndSetDataOnSelectChange(on_change_name, to_select, getURL, multiple = 0, otherData = [], callback = null) {
+    if (typeof getURL !== 'undefined') {
+        $('select[name="' + on_change_name + '"]').change(function () {
+            var id = $(this).val();
+            if (id) {
+                var url = getURL;
+
+                var data = {
+                    multiple: multiple
+                }
+
+
+                if (!Array.isArray(id)){
+                    url = url.replace(':id', id);
+                }else {
+                    let name = on_change_name.replace('[]','')
+                    data[name] = id; //id is array
+                }
+
+
+                if (otherData.length > 0) {
+                    $.each(otherData, function (key, value) {
+                        console.log($('#' + value).val());
+                        data[value] = $('#' + value).val();
+                    });
+                }
+                $.ajax({
+                    type: "get",
+                    url: url,
+                    data: data,
+                }).done(function (data) {
+                    if (typeof callback === 'function') {
+                        callback(true);
+                    }
+                    $('select[name="' + to_select + '"]').html(data.html);
+                    $('select[name="' + to_select + '"]').select2({
+                        'width':'100%',
+                    });
+
+                });
+            }
+        });
+    }
+}
 
 function initializeDateRangePicker(id = "date_range_picker", range = []) {
     const dateRangePicker = $('#' + id);
