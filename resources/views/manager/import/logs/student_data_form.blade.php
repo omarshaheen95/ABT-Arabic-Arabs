@@ -90,7 +90,14 @@
                         </div>
                     </div>
                 </div>
-
+        @elseif($input['key'] == 'Password' )
+            <div class="col-3">
+                <label class="text-info">{{$input['key']}}</label>
+                <input required name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
+                       data-name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
+                       type="text" value="123456"
+                       class="form-control from-input-data from-input-data">
+            </div>
         @else
             <div class="col-3">
                 <label class="text-info">{{$input['key']}}</label>

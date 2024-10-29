@@ -126,7 +126,7 @@
                 <div class="col-4 mb-2">
                     <div class="form-group">
                         <label for="password" class="form-label">{{t('Password')}}</label>
-                        <input type="text" name="password" class="form-control" placeholder="{{t('Password')}}">
+                        <input type="text" name="password" class="form-control" placeholder="{{t('Password')}}" @if(!$user) value="123456" @endif>
                     </div>
                 </div>
 
