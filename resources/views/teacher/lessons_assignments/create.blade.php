@@ -123,15 +123,16 @@
         $('select[name="grade_id"]').change(function () {
             var id = $(this).val();
             var teacher = $('select[name="teacher_id"]').val();
-            $.ajax({
-                type: "get",
-                url: "{{route('teacher.getLessonsByGrade')}}",
-                data: {'_token': "{{csrf_token()}}", 'grade_id': id}
+            getStudentsData(teacher, id);
+            {{--$.ajax({--}}
+            {{--    type: "get",--}}
+            {{--    url: "{{route('teacher.getLessonsByGrade')}}",--}}
+            {{--    data: {'_token': "{{csrf_token()}}", 'grade_id': id}--}}
 
-            }).done(function (data) {
-                    $('select[name="lesson_id[]"]').html(data.html);
-            });
-                getStudentsData(teacher, id);
+            {{--}).done(function (data) {--}}
+            {{--        $('select[name="lesson_id[]"]').html(data.html);--}}
+            {{--});--}}
+
         });
 
         $('select[name="section[]"]').change(function () {

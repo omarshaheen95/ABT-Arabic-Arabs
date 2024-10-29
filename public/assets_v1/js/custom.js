@@ -8,7 +8,7 @@ function getLessonsByGrade(on_change_name = 'grade_id',callback=null) {
             let grade = $('select[name="' + on_change_name + '"]').val();
             let lesson_type = $('select[name="lesson_type"]').val();
             //value not null and not empty
-            if (grade !== null && grade !== '') {
+            if (grade !== null && grade !== '' && lesson_type !== null && lesson_type !== '') {
                 $.ajax({
                     type: "get",
                     url: getLessonsByGradeURL,
