@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Teacher;
 use App\Classes\GeneralFunctions;
 use App\Exports\StudentInformation;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\School\UserRequest;
+use App\Http\Requests\Teacher\UserRequest;
 use App\Models\Grade;
 use App\Models\Lesson;
 use App\Models\Package;
