@@ -45,6 +45,9 @@ class Lesson extends Model implements HasMedia
             })->when($value = $request->get('grade_id', false), function (Builder $query) use ($value) {
                 $query->where('grade_id', $value);
 
+            })->when($value = $request->get('grade', false), function (Builder $query) use ($value) {
+                $query->where('grade_id', $value);
+
             })->when($value = $request->get('name', false), function (Builder $query) use ($value) {
                 $query->where('name', $value);
 
