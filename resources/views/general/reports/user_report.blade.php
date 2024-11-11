@@ -232,15 +232,12 @@
                 @endif
                 <div class="row">
                     <div class="col-xs-12">
-                        <h4 class="text-center" style="font-weight: bold">{{$lesson['lesson']->getTranslation('name', 'en')}} - {{$lesson['lesson']->level->getTranslation('name', 'en')}} </h4>
+                        <h4 class="text-center" style="font-weight: bold">{{$lesson['lesson']->name}} - {{$lesson['lesson']->level}} </h4>
                         <table class="table table-bordered text-center lesson_table">
                             <thead>
                             <td>Assessment Score</td>
                             <td>Time Consumed</td>
                             <td>Assessment Date</td>
-                            <td>Reading Mark</td>
-                            <td>Speaking Mark</td>
-                            <td>Tasks Date</td>
                             </thead>
                             <tbody>
                             <tr>
@@ -251,16 +248,6 @@
 
                                 @else
 
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                @endif
-                                @if(isset($lesson['user_test']) && !is_null($lesson['user_lesson']))
-                                    <td>{{$lesson['user_lesson']->writing_mark}}</td>
-                                    <td>{{$lesson['user_lesson']->reading_mark}}</td>
-                                    <td>{{optional($lesson['user_lesson']->created_at)->format('d M Y')}}</td>
-
-                                @else
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -461,7 +448,6 @@
                 ['Learn', {{ $lesson['learnings'] }}],
                 ['Practise', {{ $lesson['trainings'] }}],
                 ['Assess your self', {{ $lesson['tests'] }}],
-                ['Play', {{ $lesson['games'] }}],
             ]
         }]
     });
