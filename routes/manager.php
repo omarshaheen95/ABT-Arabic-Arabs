@@ -236,6 +236,9 @@ Route::group(['namespace' => 'Manager'], function(){
 
     Route::get('copy_lessons', 'LessonController@copyLessons');
 
+    Route::get('copy-teacher-data', 'SettingController@copyTeacherData');
+
+
 
 });
 

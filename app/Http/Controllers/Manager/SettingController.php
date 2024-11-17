@@ -271,4 +271,106 @@ class SettingController extends Controller
 
         return true;
     }
+
+    public function copyTeacherData()
+    {
+        //from 883 to 1209
+        $from_teacher = Teacher::query()->find(457);
+        $to_teacher = Teacher::query()->find(9);
+
+        $users = User::query()
+//            ->where('archived', 1)
+            ->withoutGlobalScope('not_archived')
+            ->whereHas('teacherUser', function (Builder $query) use ($from_teacher){
+                $query->where('teacher_id', $from_teacher->id);
+            })
+            ->with(['user_tracker', 'user_tracker_story', 'user_test', 'user_story_tests', 'user_assignments', 'user_story_assignments', 'user_grades', 'user_lessons'])
+            ->get();
+
+        //copy users to new teacher
+        foreach ($users as $user)
+        {
+            $n_user = $user->replicate();
+            $n_user->archived = 0;
+            $n_user->school_id = $to_teacher->school_id;
+            $n_user->email = 'copy_'.$user->email;
+            //disable timestamps and set same created_at
+            $n_user->timestamps = false;
+            $n_user->created_at = $user->created_at;
+            $n_user->save();
+
+            $n_user->teacherUser()->create(['teacher_id' => $to_teacher->id]);
+
+            $user->user_tracker->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_tracker_story->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_test->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_story_tests->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_assignments->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_story_assignments->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_grades->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_lessons->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+        }
+
+        updateTeacherStatistics($to_teacher->id);
+
+        return 'done';
+
+    }
+
 }
