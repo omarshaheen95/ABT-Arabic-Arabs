@@ -44,8 +44,8 @@ class TeacherImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadin
 
     public function model(array $row)
     {
-        if (isset($row['Email']) && is_null($row['Email']))
-        {
+        if ((is_null($row['Email']) || empty($row['Email']) || $row['Email'] == '')) {
+
             $row['Email'] = $this->generateEmail($row);
         }else{
             $row['Email'] = strtolower($row['Email']);
