@@ -20,7 +20,7 @@
         <!--begin::Wrapper-->
         <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
 
-            @include(request()->get('current_guard').'.layout.sidebar')
+            @include(getGuard().'.layout.sidebar')
 
             <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
                 <!--begin::Content wrapper-->
@@ -45,10 +45,10 @@
 
                                 <!--Breadcrumb-->
                                 <ol class="breadcrumb breadcrumb-line text-muted fs-7 fw-semibold">
-                                    @if(Request::is(request()->get('current_guard').'/home'))
+                                    @if(Request::is(getGuard().'/home'))
                                         <li class="breadcrumb-item text-muted">{{t('Home')}}</li>
                                     @else
-                                        <li class="breadcrumb-item"><a href="{{route(request()->get('current_guard').'.home')}}" class=""> {{t('Home')}}</a></li>
+                                        <li class="breadcrumb-item"><a href="{{route(getGuard().'.home')}}" class=""> {{t('Home')}}</a></li>
                                     @endif
                                     @stack('breadcrumb')
                                 </ol>

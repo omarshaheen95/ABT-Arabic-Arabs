@@ -3,6 +3,8 @@
 use App\Http\Controllers\GeneralController;
 use Illuminate\Support\Facades\Route;
 
+require base_path('routes/general.php');
+
 Route::group(['namespace' => 'Teacher'], function() {
 
     Route::get('/home', 'SettingController@home')->name('home');

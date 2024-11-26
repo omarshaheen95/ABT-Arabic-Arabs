@@ -11,10 +11,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Teacher extends Authenticatable
 {
-    use Notifiable, SoftDeletes,CascadeSoftDeletes,LogsActivityTrait;
+    use Notifiable, SoftDeletes,CascadeSoftDeletes,LogsActivityTrait,HasRoles;
 
     protected $fillable = [
         'name', 'email', 'password', 'image', 'school_id', 'mobile', 'pending_tasks', 'corrected_tasks', 'returned_tasks',

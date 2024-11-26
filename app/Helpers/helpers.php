@@ -37,15 +37,28 @@ function schoolSections($school = false)
         ->get()->pluck('section')->unique()->values();
     return $sections;
 }
-function uploadFile($file, $path ,bool $new_name=true)
+function uploadFile($file, $path, $with_date = true)
 {
-    $file_original_name = $file->getClientOriginalName();
-    $file_new_name = Str::random(27) . '.' . $file->getClientOriginalExtension();
-    $path = $path.'/'.date("Y").'/'.date("m").'/'.date("d");
-    $destination = public_path($path);
-    $file->move($destination , $file_new_name);
-    return ['name'=>$new_name?$file_new_name:$file_original_name,'path'=>$path .'/'. $file_new_name];
+    $fileName = $file->getClientOriginalName();
+    $file_exe = $file->getClientOriginalExtension();
+    $file_size = $file->getSize();
+    $new_name = uniqid() . '.' . $file_exe;
+    if ($with_date) {
+        $directory = 'uploads' . '/' . $path . '/' . date("Y") . '/' . date("m") . '/' . date("d");
+    } else {
+        $directory = 'uploads' . '/' . $path;
+    }
+    $destination = public_path($directory);
+    $file->move($destination, $new_name);
+    $data['path'] = $directory . '/' . $new_name;
+    $data['name'] = $fileName;
+    $data['new_name'] = $new_name;
+    $data['extension'] = $file_exe;
+//    $data['size'] = formatBytes($file_size);
+    $data['size_num'] = $file_size;
+    return $data;
 }
+
 function getGradeName($grade)
 {
     switch($grade)
@@ -1644,4 +1657,57 @@ function teacherSections($teacher_id=null)
 function camelCaseText($text,$replace='_'):string
 {
     return Str::title(str_replace($replace, ' ', $text));
+}
+function getGuard()
+{
+    $guard = 'web';
+    if (request()->is('manager/*')) {
+        $guard = 'manager';
+    } elseif (request()->is('school/*')) {
+        $guard = 'school';
+    } elseif (request()->is('supervisor/*')) {
+        $guard = 'supervisor';
+    }elseif (request()->is('teacher/*')) {
+        $guard = 'teacher';
+    }
+    return $guard;
+}
+function guardIs($guard)
+{
+    return getGuard()==$guard;
+}
+function guardNotIs($guard)
+{
+    return getGuard()!=$guard;
+}
+
+function guardIn(array $guards)
+{
+    return in_array(getGuard(),$guards);
+}
+
+function guardHasPermission($permission)
+{
+    return \Auth::guard(getGuard())->user()->hasPermissionTo($permission);
+}
+function guardHasAnyPermission(array $permissions)
+{
+    return \Auth::guard(getGuard())->user()->hasAnyPermission($permissions);
+}
+
+function menuIsActive(array $paths)
+{
+    return collect($paths)->contains(function ($pattern){
+        return Request::is($pattern);
+    })?'here show' : ' ';
+}
+function menuLinkIsActive(array $paths)
+{
+    return collect($paths)->contains(function ($pattern){
+        return Request::is($pattern);
+    })?'active' : ' ';
+}
+function sysGuards()
+{
+    return ['manager','school','supervisor','teacher','user'];
 }

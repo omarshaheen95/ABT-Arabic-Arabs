@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\GeneralController;
 use Illuminate\Support\Facades\Route;
+
+require base_path('routes/general.php');
+
 Route::group(['namespace' => 'School'], function() {
 
     Route::get('/home', 'SettingController@home')->name('home');
@@ -17,10 +20,10 @@ Route::group(['namespace' => 'School'], function() {
     Route::post('password/update', 'SettingController@updatePassword')->name('update-password');
 
 
-    //Supervisor
-    Route::resource('supervisor', 'SupervisorController')->except(['destroy']);
-    Route::delete('supervisor/delete', 'SupervisorController@destroy')->name('supervisor.destroy');
-    Route::post('supervisor/export', 'SupervisorController@export')->name('supervisor.export');
+//    //Supervisor
+//    Route::resource('supervisor', 'SupervisorController')->except(['destroy']);
+//    Route::delete('supervisor/delete', 'SupervisorController@destroy')->name('supervisor.destroy');
+//    Route::post('supervisor/export', 'SupervisorController@export')->name('supervisor.export');
 
     //Teacher
     Route::resource('teacher', 'TeacherController')->except(['destroy','show']);

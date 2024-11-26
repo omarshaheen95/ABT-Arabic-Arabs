@@ -1,14 +1,14 @@
 @php
 
-if (request()->get('current_guard') == 'manager'){
+if (getGuard() == 'manager'){
     $notifiable_type = \App\Models\Manager::class;
-}elseif (request()->get('current_guard') == 'supervisor'){
+}elseif (getGuard() == 'supervisor'){
         $notifiable_type = \App\Models\Supervisor::class;
 
-}elseif (request()->get('current_guard') == 'school'){
+}elseif (getGuard() == 'school'){
         $notifiable_type = \App\Models\School::class;
 
-}elseif (request()->get('current_guard') == 'teacher'){
+}elseif (getGuard() == 'teacher'){
         $notifiable_type = \App\Models\Teacher::class;
 }
     $notifications = \App\Models\Notification::query()->where(function ($query){
@@ -33,7 +33,7 @@ if (request()->get('current_guard') == 'manager'){
             <div class="d-flex flex-column bgi-no-repeat rounded-top" style="background-image:url({{asset('assets_v1/images/menu-header-bg.jpg')}})">
                 <!--begin::Title-->
                 <h3 class="text-white fw-semibold px-9 mt-10 mb-6">{{t('Notifications')}}</h3>
-{{--                href="{{ route(request()->get('current_guard').'.notification.read_all') }}"--}}
+{{--                href="{{ route(getGuard().'.notification.read_all') }}"--}}
                 @if(isset($notifications) && count($notifications))
                     <a class="text-white align-self-end mx-2 mb-3" style="font-size: 8px" >{{t('All as read')}}</a>
                 @endif
@@ -43,7 +43,7 @@ if (request()->get('current_guard') == 'manager'){
                 @isset($notifications)
                     @foreach($notifications as $notification)
                         <!--begin::Item-->
-{{--                        href="{{ route(request()->get('current_guard').'.notification.show', $notification->id) }}"--}}
+{{--                        href="{{ route(getGuard().'.notification.show', $notification->id) }}"--}}
                         <a  class="fs-6 text-gray-800 text-hover-primary fw-bold">
                             <div class="d-flex flex-stack py-4">
                                 <!--begin::Section-->
