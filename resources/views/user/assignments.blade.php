@@ -23,36 +23,22 @@
                                 <tr>
                                     <td style="font-weight: bold">الدرس</td>
                                     <td style="font-weight: bold">المستوى</td>
-                                    <td style="font-weight: bold">-</td>
                                     <td style="font-weight: bold">تعيين اختبار</td>
-                                    <td style="font-weight: bold">الحالة</td>
                                     <td style="font-weight: bold">موعد التسليم</td>
                                 </tr>
                                 @foreach($student_assignments as $student_assignment)
                                     <tr>
-                                        <td>{{$student_assignment->lesson->name}}</td>
-                                        <td>الصف {{$student_assignment->lesson->grade_name}}</td>
                                         <td>
-                                            @if($student_assignment->lesson->lesson_type != 'writing' && $student_assignment->lesson->lesson_type != 'speaking')
-                                                <a href="{{route('lesson', [$student_assignment->lesson_id, 'learn'])}}#tasks">
-                                                    الذهاب للدرس</a>
-                                            @else
-                                            -
-                                            @endif
+                                            <a href="{{route('lesson', [$student_assignment->lesson_id, 'learn'])}}">{{$student_assignment->lesson->name}}</a>
                                         </td>
+                                        <td>الصف {{$student_assignment->lesson->grade_name}}</td>
+
                                         <td>@if($student_assignment->done_test_assignment)
                                                 مكتمل
                                             @elseif($student_assignment->test_assignment != 0)
                                                 <a href="{{route('lesson', [$student_assignment->lesson_id, 'test'])}}">الذهاب للاختبار</a>
                                             @else
                                                 -
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($student_assignment->done_test_assignment)
-                                                مكتمل
-                                            @else
-                                                غير مكتمل
                                             @endif
                                         </td>
                                         <td>

@@ -183,6 +183,7 @@ class HomeController extends Controller
         $title = 'واجبات الدروس المسندة';
         $student_assignments = UserAssignment::query()
             ->has('lesson')
+            ->with('lesson')
             ->where('user_id', Auth::user()->id)
             ->latest()->paginate(10);
 
