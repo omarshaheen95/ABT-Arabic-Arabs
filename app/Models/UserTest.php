@@ -77,8 +77,11 @@ class UserTest extends Model
     }
 
 
-    public function scopeFilter(Builder $query, Request $request): Builder
+    public function scopeFilter(Builder $query,$request = null): Builder
     {
+        if (!$request){
+            $request = \request();
+        }
 
         return $query
             ->when($value = $request->get('id', false), function (Builder $query) use ($value) {

@@ -25,27 +25,27 @@ Route::group(['namespace' => 'School'], function() {
 //    Route::delete('supervisor/delete', 'SupervisorController@destroy')->name('supervisor.destroy');
 //    Route::post('supervisor/export', 'SupervisorController@export')->name('supervisor.export');
 
-    //Teacher
-    Route::resource('teacher', 'TeacherController')->except(['destroy','show']);
-    Route::delete('teacher/delete', 'TeacherController@destroy')->name('teacher.destroy');
-    Route::post('teacher/export', 'TeacherController@export')->name('teacher.export');
-    Route::get('teacher/{id}/login', 'TeacherController@login')->name('teacher.login');
-    Route::get('teacher/statistics', 'TeacherController@teachersStatistics')->name('teacher.statistics');
-    Route::post('teacher/statistics/export', 'TeacherController@teachersStatisticsExport')->name('teacher.statistics_export');
-    Route::get('teacher/{id}/statistics/report', 'TeacherController@teachersStatisticsReport')->name('teacher.statistics_report');
+//    //Teacher
+//    Route::resource('teacher', 'TeacherController')->except(['destroy','show']);
+//    Route::delete('teacher/delete', 'TeacherController@destroy')->name('teacher.destroy');
+//    Route::post('teacher/export', 'TeacherController@export')->name('teacher.export');
+//    Route::get('teacher/{id}/login', 'TeacherController@login')->name('teacher.login');
+//    Route::get('teacher/statistics', 'TeacherController@teachersStatistics')->name('teacher.statistics');
+//    Route::post('teacher/statistics/export', 'TeacherController@teachersStatisticsExport')->name('teacher.statistics_export');
+//    Route::get('teacher/{id}/statistics/report', 'TeacherController@teachersStatisticsReport')->name('teacher.statistics_report');
 
-    //Students
-    Route::resource('student', 'StudentController')->except(['create','show', 'store', 'destroy']);
-    Route::post('student/export', 'StudentController@exportStudentsExcel')->name('user.export_students_excel');
-    Route::delete('student/delete', 'StudentController@destroy')->name('student.destroy');
-    Route::get('student/{id}/review', 'StudentController@review')->name('user.review');
-    Route::get('student/review-analytics', 'StudentController@reviewAnalytics')->name('student.review-analytics');
-    Route::get('student/{id}/story_review', 'StudentController@storyReview')->name('user.story-review');
-    Route::get('student/story-review-analytics', 'StudentController@storyReviewAnalytics')->name('student.story-review-analytics');
-    Route::get('student/{id}/report', 'StudentController@report')->name('user.report');
-    Route::get('student/cards', 'StudentController@cards')->name('user.cards-export');
-    Route::get('student/{id}/card', 'StudentController@userCard')->name('user.card');
-    Route::get('student/{id}/login', 'StudentController@login')->name('user.login');
+//    //Students
+//    Route::resource('student', 'StudentController')->except(['create','show', 'store', 'destroy']);
+//    Route::post('student/export', 'StudentController@exportStudentsExcel')->name('user.export_students_excel');
+//    Route::delete('student/delete', 'StudentController@destroy')->name('student.destroy');
+//    Route::get('student/{id}/review', 'StudentController@review')->name('user.review');
+//    Route::get('student/review-analytics', 'StudentController@reviewAnalytics')->name('student.review-analytics');
+//    Route::get('student/{id}/story_review', 'StudentController@storyReview')->name('user.story-review');
+//    Route::get('student/story-review-analytics', 'StudentController@storyReviewAnalytics')->name('student.story-review-analytics');
+//    Route::get('student/{id}/report', 'StudentController@report')->name('user.report');
+//    Route::get('student/cards', 'StudentController@cards')->name('user.cards-export');
+//    Route::get('student/{id}/card', 'StudentController@userCard')->name('user.card');
+//    Route::get('student/{id}/login', 'StudentController@login')->name('user.login');
 
 
     //Students Tests
@@ -86,9 +86,9 @@ Route::group(['namespace' => 'School'], function() {
     Route::get('pre_usage_report', 'SettingController@preUsageReport')->name('report.pre_usage_report');
     Route::get('usage_report', 'SettingController@usageReport')->name('report.usage_report');
 
-    //General
-    Route::get('getLessonsByGrade', [GeneralController::class,'getLessonsByGrade'])->name('getLessonsByGrade');
-    Route::get('getStoriesByGrade', [GeneralController::class,'getStoriesByGrade'])->name('getStoriesByGrade');
-    Route::get('getSectionByTeacher/{id}', [GeneralController::class,'getSectionByTeacher'])->name('getSectionByTeacher');
+//    //General
+//    Route::get('getLessonsByGrade', [GeneralController::class,'getLessonsByGrade'])->name('getLessonsByGrade');
+//    Route::get('getStoriesByGrade', [GeneralController::class,'getStoriesByGrade'])->name('getStoriesByGrade');
+//    Route::get('getSectionByTeacher/{id}', [GeneralController::class,'getSectionByTeacher'])->name('getSectionByTeacher');
 
 });

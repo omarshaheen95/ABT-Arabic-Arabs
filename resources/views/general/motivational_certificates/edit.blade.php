@@ -7,7 +7,7 @@
 @endpush
 @section('content')
     <form enctype="multipart/form-data" id="form_information"
-          action="{{ route(getGuard().'.motivational_certificate.store') }}" method="post">
+          action="{{ route(getGuard().'.motivational_certificates.store') }}" method="post">
         @csrf
 
         <div class="row">
@@ -45,7 +45,7 @@
 
             <div class="form-group col-6 mb-2">
                 <label class="form-label">{{ t('Section') }}</label>
-                <select class="form-select" name="sections[]" id="section"
+                <select class="form-select" name="section[]" id="section"
                         data-control="select2" data-placeholder="{{t('Select Section')}}" data-allow-clear="true"
                         multiple>
                     <option value="all">{{t('All')}}</option>
@@ -62,7 +62,7 @@
                 <label class="form-label">{{ t('Student Grade') }}</label>
                 <select class="form-select" data-control="select2"
                         data-placeholder="{{t('Select Grade')}}"
-                        data-allow-clear="true" name="grade_id" id="grade">
+                        data-allow-clear="true" name="grade_id" id="grade_id">
                     <option></option>
                     @foreach($grades as $grade)
                         <option value="{{$grade->id}}">{{$grade->name}}</option>

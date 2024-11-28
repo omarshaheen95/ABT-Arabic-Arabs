@@ -50,35 +50,35 @@ Route::group(['namespace' => 'Manager'], function(){
 //    Route::get('supervisor/{id}/login', 'SupervisorController@login')->name('supervisor.login');
 //    Route::post('supervisor/export', 'SupervisorController@export')->name('supervisor.export');
 
-    //User
-    Route::resource('user', 'UserController')->except(['destroy']);
-    Route::get('user/{id}/login', 'UserController@login')->name('user.login');
-    Route::delete('user/delete', 'UserController@destroy')->name('user.destroy');
-    Route::post('user/{id}/restore', 'UserController@restore')->name('user.restore');
-    Route::post('user/export', 'UserController@export')->name('user.export');
-    Route::get('duplicate_user', 'UserController@duplicateIndex')->name('user.duplicate_user');
-    Route::delete('duplicate_user', 'UserController@destroyDuplicate')->name('user.delete_duplicate_user');
-    Route::get('user_cards_and_qr', 'UserController@cards')->name('user.cards-export');
-    Route::get('user/{id}/card', 'UserController@userCard')->name('user.card');
-    Route::get('user/{id}/review', 'UserController@review')->name('user.review');
-    Route::get('user/{id}/story-review', 'UserController@storyReview')->name('user.story-review');
-    Route::get('user/{id}/report', 'UserController@report')->name('user.report');
-    Route::post('user/unassigned_teacher', 'UserController@unassignedUserTeacher')->name('user.unassigned-teacher');
-    Route::post('user/assigned_teacher', 'UserController@assignedUserToTeacher')->name('user.assigned-teacher');
-    Route::post('user/activation', 'UserController@activation')->name('user.activation');
-    Route::post('user/update_grades', 'UserController@updateGrades')->name('user.update_grades');
+//    //User
+//    Route::resource('user', 'UserController')->except(['destroy']);
+//    Route::get('user/{id}/login', 'UserController@login')->name('user.login');
+//    Route::delete('user/delete', 'UserController@destroy')->name('user.destroy');
+//    Route::post('user/{id}/restore', 'UserController@restore')->name('user.restore');
+//    Route::post('user/export', 'UserController@export')->name('user.export');
+//    Route::get('duplicate_user', 'UserController@duplicateIndex')->name('user.duplicate_user');
+//    Route::delete('duplicate_user', 'UserController@destroyDuplicate')->name('user.delete_duplicate_user');
+//    Route::get('user_cards_and_qr', 'UserController@cards')->name('user.cards-export');
+//    Route::get('user/{id}/card', 'UserController@userCard')->name('user.card');
+//    Route::get('user/{id}/review', 'UserController@review')->name('user.review');
+//    Route::get('user/{id}/story-review', 'UserController@storyReview')->name('user.story-review');
+//    Route::get('user/{id}/report', 'UserController@report')->name('user.report');
+//    Route::post('user/unassigned_teacher', 'UserController@unassignedUserTeacher')->name('user.unassigned-teacher');
+//    Route::post('user/assigned_teacher', 'UserController@assignedUserToTeacher')->name('user.assigned-teacher');
+//    Route::post('user/activation', 'UserController@activation')->name('user.activation');
+//    Route::post('user/update_grades', 'UserController@updateGrades')->name('user.update_grades');
 
-    //Teacher
-    Route::resource('teacher', 'TeacherController')->except('destroy');
-    Route::delete('teacher/delete', 'TeacherController@destroy')->name('teacher.destroy');
-    Route::post('teacher/activation', 'TeacherController@activation')->name('teacher.activation');
-    Route::post('teacher/export', 'TeacherController@export')->name('teacher.export');
-    Route::get('teacher/{id}/login', 'TeacherController@login')->name('teacher.login');
-    Route::get('teacher/users-unassign', 'TeacherController@usersUnsigned')->name('teacher.user-unsigned');
-
-    Route::get('tracking_teachers', 'TeacherController@teachersTracking')->name('teacher.tracking');
-    Route::post('tracking_teachers_export', 'TeacherController@teachersTrackingExport')->name('teacher.tracking_export');
-    Route::get('tracking_teachers_report/{id}', 'TeacherController@teachersTrackingReport')->name('teacher.tracking_report');
+//    //Teacher
+//    Route::resource('teacher', 'TeacherController')->except('destroy');
+//    Route::delete('teacher/delete', 'TeacherController@destroy')->name('teacher.destroy');
+//    Route::post('teacher/activation', 'TeacherController@activation')->name('teacher.activation');
+//    Route::post('teacher/export', 'TeacherController@export')->name('teacher.export');
+//    Route::get('teacher/{id}/login', 'TeacherController@login')->name('teacher.login');
+//    Route::get('teacher/users-unassign', 'TeacherController@usersUnsigned')->name('teacher.user-unsigned');
+//
+//    Route::get('tracking_teachers', 'TeacherController@teachersTracking')->name('teacher.tracking');
+//    Route::post('tracking_teachers_export', 'TeacherController@teachersTrackingExport')->name('teacher.tracking_export');
+//    Route::get('tracking_teachers_report/{id}', 'TeacherController@teachersTrackingReport')->name('teacher.tracking_report');
 
 
     //Activity Log Controller
@@ -159,16 +159,16 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::delete('students_works/delete', 'UserWorksController@destroy')->name('students_works.destroy');
     Route::post('students_works/export', 'UserWorksController@export')->name('students_works.export');
 
-    //Students Tests
-    Route::get('lessons_tests', 'StudentTestController@lessonsIndex')->name('lessons_tests.index');
-//    Route::get('lessons_tests/{id}', 'StudentTestController@lessonsShow')->name('lessons_tests.show');
-    Route::get('lessons_tests/{id}', 'StudentTestController@show')->name('lessons_tests.show');
-    Route::get('lessons_tests/{id}/preview', 'StudentTestController@preview')->name('lessons_tests.preview');
-    Route::post('lessons_tests/{id}', 'StudentTestController@correct')->name('lessons_tests.correct');
-    Route::delete('lessons_tests', 'StudentTestController@lessonsDestroy')->name('lessons_tests.destroy');
-    Route::get('lessons_tests/{id}/certificate', 'StudentTestController@lessonsCertificate')->name('lessons_tests.certificate');
-    Route::post('lessons_tests/export', 'StudentTestController@lessonsExportStudentsTestsExcel')->name('lessons_tests.export_excel');
-
+//    //Students Tests
+//    Route::get('lessons_tests', 'StudentTestController@lessonsIndex')->name('lessons_tests.index');
+////    Route::get('lessons_tests/{id}', 'StudentTestController@lessonsShow')->name('lessons_tests.show');
+//    Route::get('lessons_tests/{id}', 'StudentTestController@show')->name('lessons_tests.show');
+//    Route::get('lessons_tests/{id}/preview', 'StudentTestController@preview')->name('lessons_tests.preview');
+//    Route::post('lessons_tests/{id}', 'StudentTestController@correct')->name('lessons_tests.correct');
+//    Route::delete('lessons_tests', 'StudentTestController@lessonsDestroy')->name('lessons_tests.destroy');
+//    Route::get('lessons_tests/{id}/certificate', 'StudentTestController@lessonsCertificate')->name('lessons_tests.certificate');
+//    Route::post('lessons_tests/export', 'StudentTestController@lessonsExportStudentsTestsExcel')->name('lessons_tests.export_excel');
+//
     Route::get('stories_tests', 'StudentTestController@storiesIndex')->name('stories_tests.index');
     Route::get('stories_tests/{id}', 'StudentTestController@storiesShow')->name('stories_tests.show');
     Route::delete('stories_tests', 'StudentTestController@storiesDestroy')->name('stories_tests.destroy');
@@ -196,11 +196,11 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::resource('package', 'PackageController')->except(['destroy']);
     Route::delete('package/delete', 'PackageController@destroy')->name('package.destroy');
 
-    //MotivationalCertificate
-    Route::resource('motivational_certificate', 'MotivationalCertificateController')->except(['destroy', 'edit', 'update']);
-    Route::delete('motivational_certificate/delete', 'MotivationalCertificateController@destroy')->name('motivational_certificate.destroy');
-    Route::post('motivational_certificate/export', 'MotivationalCertificateController@export')->name('motivational_certificate.export');
-
+//    //MotivationalCertificate
+//    Route::resource('motivational_certificate', 'MotivationalCertificateController')->except(['destroy', 'edit', 'update']);
+//    Route::delete('motivational_certificate/delete', 'MotivationalCertificateController@destroy')->name('motivational_certificate.destroy');
+//    Route::post('motivational_certificate/export', 'MotivationalCertificateController@export')->name('motivational_certificate.export');
+//
 
 
     Route::get('seed',function (){

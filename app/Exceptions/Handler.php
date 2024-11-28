@@ -156,7 +156,7 @@ class Handler extends ExceptionHandler
             if (strpos($request->url(), '/api/') !== false){
                 return response()->json(['User have not permission for this page access.']);
             }else{
-                return redirect()->route('manager.home')->with('message', 'User have not permission for this page access.')->with('m-class', 'error');
+                return redirect()->route(getGuard().'.home')->with('message', 'User have not permission for this page access.')->with('m-class', 'error');
             }
 
         }

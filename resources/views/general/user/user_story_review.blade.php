@@ -261,7 +261,7 @@
     <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
-        var TABLE_URL = "{{ route($guard.'.user.story-review', $user->id) }}";
+        var TABLE_URL = "{{ route($guard.'.user.story_review', $user->id) }}";
         var TABLE_COLUMNS = [
             {data: 'id', name: 'id'},
             {data: 'story', name: 'story'},

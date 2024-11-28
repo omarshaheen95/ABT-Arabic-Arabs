@@ -17,23 +17,23 @@ Route::group(['namespace' => 'Teacher'], function() {
     Route::get('password/edit', 'SettingController@editPassword')->name('edit-password');
     Route::post('password/update', 'SettingController@updatePassword')->name('update-password');
 
-    //Student
-    Route::get('students_school', 'StudentController@index')->name('students_school.index');
-
-    Route::get('my_students', 'StudentController@myStudents')->name('student.my_students');
-    Route::get('my_students/{id}/edit', 'StudentController@edit')->name('student.edit');
-    Route::patch('my_students/{id}', 'StudentController@update')->name('student.update');
-
-    Route::get('students/cards', 'StudentController@cards')->name('student.student-cards-export');
-    Route::get('students/{id}/card', 'StudentController@userCard')->name('student.card');
-    Route::post('students/export', 'StudentController@exportStudentsExcel')->name('user.export_students_excel');
-
-    Route::post('student_assign', 'StudentController@studentAssign')->name('student.student_assign');
-    Route::post('delete_student_assign', 'StudentController@deleteStudentAssign')->name('student.delete_student_assign');
-
-    Route::get('student/{id}/review', 'StudentController@review')->name('user.review');
-    Route::get('student/{id}/story_review', 'StudentController@storyReview')->name('user.story-review');
-    Route::get('student/{id}/report', 'StudentController@report')->name('user.report');
+//    //Student
+//    Route::get('students_school', 'StudentController@index')->name('students_school.index');
+//
+//    Route::get('my_students', 'StudentController@myStudents')->name('student.my_students');
+//    Route::get('my_students/{id}/edit', 'StudentController@edit')->name('student.edit');
+//    Route::patch('my_students/{id}', 'StudentController@update')->name('student.update');
+//
+//    Route::get('students/cards', 'StudentController@cards')->name('student.student-cards-export');
+//    Route::get('students/{id}/card', 'StudentController@userCard')->name('student.card');
+//    Route::post('students/export', 'StudentController@exportStudentsExcel')->name('user.export_students_excel');
+//
+//    Route::post('student_assign', 'StudentController@studentAssign')->name('student.student_assign');
+//    Route::post('delete_student_assign', 'StudentController@deleteStudentAssign')->name('student.delete_student_assign');
+//
+//    Route::get('student/{id}/review', 'StudentController@review')->name('user.review');
+//    Route::get('student/{id}/story_review', 'StudentController@storyReview')->name('user.story-review');
+//    Route::get('student/{id}/report', 'StudentController@report')->name('user.report');
 
     //Students Tests
     Route::get('lessons_tests', 'StudentTestController@lessonsIndex')->name('lessons_tests.index');
@@ -75,11 +75,11 @@ Route::group(['namespace' => 'Teacher'], function() {
     Route::delete('story_assignment/delete', 'StoryAssignmentController@destroy')->name('story_assignment.destroy');
     Route::post('story_assignment/export', 'StoryAssignmentController@export')->name('story_assignment.export');
 
-    //MotivationalCertificate
-    Route::resource('motivational_certificate', 'MotivationalCertificateController')->except(['destroy', 'edit', 'update']);
-    Route::delete('motivational_certificate/delete', 'MotivationalCertificateController@destroy')->name('motivational_certificate.destroy');
-    Route::post('motivational_certificate/export', 'MotivationalCertificateController@export')->name('motivational_certificate.export');
-
+//    //MotivationalCertificate
+//    Route::resource('motivational_certificate', 'MotivationalCertificateController')->except(['destroy', 'edit', 'update']);
+//    Route::delete('motivational_certificate/delete', 'MotivationalCertificateController@destroy')->name('motivational_certificate.destroy');
+//    Route::post('motivational_certificate/export', 'MotivationalCertificateController@export')->name('motivational_certificate.export');
+//
 
     //Curriculum
     Route::get('curriculum/{grade}', 'CurriculumController@curriculum')->name('curriculum.home');

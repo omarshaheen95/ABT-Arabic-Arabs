@@ -43,6 +43,19 @@ class ManagerController extends Controller
                 ->addColumn('last_login', function ($row) {
                     return $row->login_sessions->count() ? Carbon::parse($row->login_sessions->first()->created_at)->toDateTimeString() : '-';
                 })
+                ->addColumn('role', function ($row) {
+                    $roles = '<div class="d-flex  gap-1">';
+                    if ($row->roles->count()>0){
+                        foreach ($row->roles as $role){
+                            $roles .= '<span class="badge badge-info">'.$role->name.'</span>';
+                        }
+                    }else{
+                        $roles .= '<span class="badge badge-warning">'.t('No Role').'</span>';
+                    }
+
+                    $roles .= '</div>';
+                    return $roles;
+                })
                 ->addColumn('active', function ($row) {
                     return $row->active ? '<div class="badge badge-primary">'.t('Active').'</div>' : '<div class="badge badge-warning">'.t('Non-Active').'</div>';
                 })

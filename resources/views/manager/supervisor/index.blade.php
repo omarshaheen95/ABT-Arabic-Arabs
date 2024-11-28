@@ -165,7 +165,7 @@
             $('#activation_modal').modal('hide')
             showLoadingModal()
             let data = getFilterData();
-            data['activation_data'] = getFormDataAsObject('activation_form')
+            data['activation_data'] = getFormData('activation_form')
             data['_token'] = '{{csrf_token()}}'
             $('#activation_form').find('select').val('').trigger('change')
             $.ajax({

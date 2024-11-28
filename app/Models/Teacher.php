@@ -33,23 +33,14 @@ class Teacher extends Authenticatable
     public function getActionButtonsAttribute()
     {
         $actions = [];
-        if (\request()->is('manager/*')) {
-            $actions = [
-                ['key' => 'edit', 'name' => t('Edit'), 'route' => route('manager.teacher.edit', $this->id), 'permission' => 'edit teachers'],
-                ['key' => 'login', 'name' => t('Login'), 'route' => route('manager.teacher.login', $this->id), 'permission' => 'teacher login'],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete teachers'],
-            ];
-        } elseif (\request()->is('school/*')) {
-            $actions = [
-                ['key' => 'edit', 'name' => t('Edit'), 'route' => route('school.teacher.edit', $this->id)],
-                ['key' => 'login', 'name' => t('Login'), 'route' => route('school.teacher.login', $this->id)],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id],
-            ];
-        } elseif (\request()->is('teacher/*')) {
-            $actions = [];
-        } elseif (\request()->is('supervisor/*')) {
-            $actions = [];
+        $actions[] = ['key' => 'edit', 'name' => t('Edit'), 'route' => route(getGuard() . '.teacher.edit', $this->id), 'permission' => 'edit teachers'];
+        $actions[] = ['key' => 'login', 'name' => t('Login'), 'route' => route(getGuard() . '.teacher.login', $this->id), 'permission' => 'teacher login'];
+        $actions[] = ['key' => 'blank', 'name' => t('Report'), 'route' => route(getGuard() . '.teacher.tracking_report', $this->id)];
+        if (in_array(getGuard(),['manager','school'])){
+            $actions[] = ['key' => 'blank', 'name' => t('Edit Permissions'), 'route' => route(getGuard().'.user_role_and_permission.edit',['user_guard'=>'teacher','id'=>$this->id]),'permission'=>'edit teachers permissions'];
+            $actions[] = ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete teachers'];
         }
+
         return view('general.action_menu')->with('actions', $actions);
 
     }

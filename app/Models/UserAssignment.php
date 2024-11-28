@@ -13,7 +13,7 @@ class UserAssignment extends Model
 {
     use SoftDeletes,LogsActivityTrait;
     protected $fillable = [
-        'user_id', 'lesson_id', 'tasks_assignment', 'test_assignment', 'done_tasks_assignment', 'done_test_assignment', 'completed', 'deadline', 'completed_at'
+        'user_id', 'lesson_id', 'test_assignment', 'done_test_assignment', 'completed', 'deadline', 'completed_at'
     ];
 
     public function getActionButtonsAttribute()

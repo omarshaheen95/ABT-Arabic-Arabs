@@ -81,8 +81,8 @@
                 </div>
 
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->url() == route('supervisor.student.index'))active @endif"
-                       href="{{ route('supervisor.student.index') }}">
+                    <a class="menu-link @if(request()->url() == route('supervisor.user.index'))active @endif"
+                       href="{{ route('supervisor.user.index') }}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-user fs-2">
                              <i class="path1"></i>

@@ -76,7 +76,9 @@ class MotivationalCertificateRepository implements MotivationalCertificateReposi
                 ->make();
         }
         $title = t('Motivational Certificates');
-        $compact = compact('title');
+        $grades = Grade::query()->get();
+
+        $compact = compact('title','grades');
         if (guardIs('manager')) {
             $compact['schools'] = School::query()->get();
         } elseif (guardIn(['school', 'supervisor'])) {
@@ -147,7 +149,7 @@ class MotivationalCertificateRepository implements MotivationalCertificateReposi
     public function show($id)
     {
         $title = t('Show Certificate');
-        $certificate = MotivationalCertificate::query()->filter(request())->findOrFail($id);
+        $certificate = MotivationalCertificate::query()->filter()->findOrFail($id);
         return view('general.motivational_certificates.certificate', compact('certificate', 'title'));
     }
 

@@ -93,10 +93,21 @@ function hideLoadingModal() {
     body.removeClass('modal-open')
     body.removeAttr('style')
 }
+//select loading
+function selectLoading(ele,status){
+    if (typeof ele !=='undefined') {
+        if (status){
+            ele.data('select2').$container.addClass('select2-container--loading');
+        }else {
+            ele.data('select2').$container.removeClass('select2-container--loading');
+        }
+    }
+}
 function getAndSetDataOnSelectChange(on_change_name, to_select, getURL, multiple = 0, otherData = [], callback = null) {
     if (typeof getURL !== 'undefined') {
         $('select[name="' + on_change_name + '"]').change(function () {
             var id = $(this).val();
+            var selectElement = $(this);
             if (id) {
                 var url = getURL;
 
@@ -119,6 +130,8 @@ function getAndSetDataOnSelectChange(on_change_name, to_select, getURL, multiple
                         data[value] = $('#' + value).val();
                     });
                 }
+                 // Add loading class
+                selectLoading(selectElement,true)
                 $.ajax({
                     type: "get",
                     url: url,
@@ -131,11 +144,16 @@ function getAndSetDataOnSelectChange(on_change_name, to_select, getURL, multiple
                     $('select[name="' + to_select + '"]').select2({
                         'width':'100%',
                     });
-
+                  selectLoading(selectElement,false)
                 });
             }
         });
     }
+}
+function clearSelection(selectId) {
+    let select = $('#' + selectId);
+    $(select).val([])
+    $(select).trigger('change');
 }
 
 function initializeDateRangePicker(id = "date_range_picker", range = []) {
@@ -265,18 +283,6 @@ function validateAndSubmit(form_class_name) {
 
 }
 
-
-//get data from form and convert data to object
-function getFormDataAsObject(formId) {
-    let formObj = {};
-    let inputs = $('#' + formId).serializeArray();
-    $.each(inputs, function (i, input) {
-        formObj[input.name] = input.value;
-    });
-    return formObj;
-}
-
-
 function generateUserName() {
     var numbers = [0, 1];
     var selected_number = numbers[Math.floor(Math.random() * numbers.length)];
@@ -364,6 +370,27 @@ function copyToClipboard(element) {
 
 }
 
+//get data from form and convert data to object
+function getFormData(form_id) {
+    let data = {};
+    var form_data = $('#' + form_id).serializeArray();
+
+    if (form_data) {
+        $.each(form_data, function (key, val) {
+            data[val.name] = val.value;
+        });
+    }
+    return data;
+}
+function resetForm(formId) {
+    let form = $('#'+formId);
+    form.trigger('reset'); // Reset to initial state
+    form.find('input[type="text"], input[type="password"], input[type="email"], textarea, select').val('');
+    // form.find('input, select, textarea').val(''); // Clear all fields
+    form.find('input[type="checkbox"], input[type="radio"]').prop('checked', false); // Uncheck checkboxes and radio buttons
+
+}
+
 if ($('.remove_spaces').length > 0){
     $(document).on('keyup','.remove_spaces',function () {
         let value = $(this).val()
@@ -373,3 +400,10 @@ if ($('.remove_spaces').length > 0){
         }
     })
 }
+
+$('.modal').on('shown.bs.modal', function() {
+    let parent = $(this)
+    $('.modal .form-select').select2({
+        dropdownParent: parent
+    }).focus();
+});

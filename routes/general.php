@@ -29,53 +29,49 @@ Route::group(['namespace' => 'General'], function () {
     Route::post('user_role_and_permission/{id}/update','RoleAndPermission\UserRoleAndPermissionController@update')->name('user_role_and_permission.update');
 
 
-//    //Teacher
-//    Route::resource('teacher', 'TeacherController')->except(['destroy','show']);
-//    Route::delete('teacher/destroy', 'TeacherController@destroy')->name('teacher.destroy');
+    //Teacher
+    Route::resource('teacher', 'TeacherController')->except(['destroy','show']);
+    Route::delete('teacher/destroy', 'TeacherController@destroy')->name('teacher.destroy');
 //    Route::get('teacher/update_statistics', 'SettingController@updateTeacherStatistics')->name('teacher.updateTeacherStatistics');
-//    Route::post('teacher/activation', 'TeacherController@activation')->name('teacher.activation');
-//    Route::post('teacher/delete_students', 'TeacherController@deleteStudents')->name('teacher.delete_students');
-//    Route::post('teacher/export', 'TeacherController@exportTeachersExcel')->name('teacher.export_teachers_excel');
-//    Route::get('teacher/{id}/login', 'TeacherController@login')->name('teacher.login');
-//    Route::get('teachers_import', 'TeacherController@importTeachersExcelView')->name('import.teachers_import_view');
-//    Route::post('teachers_import', 'TeacherController@importTeachersExcel')->name('import.teachers_import');
-//    Route::get('tracking_teachers', 'TeacherController@teachersTracking')->name('teacher.tracking');
-//    Route::post('tracking_teachers_export', 'TeacherController@teachersTrackingExport')->name('teacher.tracking_export');
-//    Route::get('tracking_teachers_report/{id}', 'TeacherController@teachersTrackingReport')->name('teacher.tracking_report');
-//    Route::get('teacher/edit-permissions/{id}', 'TeacherController@editPermissions')->name('teacher.edit-permissions');
-//    Route::post('teacher/update-permissions', 'TeacherController@updatePermissions')->name('teacher.update-permissions');
-//    Route::post('teacher/reset-passwords', 'TeacherController@resetPasswords')->name('teacher.reset-passwords');
+    Route::post('teacher/activation', 'TeacherController@activation')->name('teacher.activation');
+    Route::post('teacher/delete_students', 'TeacherController@deleteStudents')->name('teacher.delete_students');
+    Route::post('teacher/export', 'TeacherController@exportTeachersExcel')->name('teacher.export_teachers_excel');
+    Route::get('teacher/{id}/login', 'TeacherController@login')->name('teacher.login');
+    Route::get('tracking_teachers', 'TeacherController@teachersTracking')->name('teacher.tracking');
+    Route::post('tracking_teachers_export', 'TeacherController@teachersTrackingExport')->name('teacher.tracking_export');
+    Route::get('tracking_teachers_report/{id}', 'TeacherController@teachersTrackingReport')->name('teacher.tracking_report');
+    Route::post('teacher/reset-passwords', 'TeacherController@resetPasswords')->name('teacher.reset-passwords');
+
+
+    //User
+    Route::resource('user', 'UserController')->except(['destroy','show']);
+//    Route::get('duplicate_user', 'UserController@duplicateIndex')->name('user.duplicate_user');
+//    Route::delete('duplicate_user/{id}', 'UserController@destroyDuplicate')->name('user.delete_duplicate_user');
+    Route::post('user/export', 'UserController@export')->name('user.export');
+    Route::post('user/reset-passwords', 'UserController@resetPasswords')->name('user.reset-passwords');
+    Route::get('user/{id}/card', 'UserController@userCard')->name('user.card');
+    Route::get('user/cards_and_qr', 'UserController@cards')->name('user.cards-export');
+    Route::get('user/cards_and_qr_file', 'UserController@studentsImportFileCards')->name('user.studentsImportFileCards');
+    Route::get('user/lesson_review/{id}', 'UserController@lessonReview')->name('user.review');
+    Route::get('user/story_review/{id}', 'UserController@storyReview')->name('user.story_review');
+    Route::get('user/report/{id}', 'UserController@report')->name('user.report');
+    Route::get('user/{id}/login', 'UserController@login')->name('user.login');
+    Route::delete('user/destroy', 'UserController@destroy')->name('user.destroy');
+    Route::post('user/activation', 'UserController@userActivation')->name('user.activation');
+    Route::post('user/update_grades', 'UserController@updateGrades')->name('user.update_grades');
+    Route::post('user/update_learning_years', 'UserController@updateLearningYears')->name('user.update_learning_years');
+    Route::post('assigned_to_teacher', 'UserController@assignedToTeacher')->name('user.assigned_to_teacher');
+    Route::post('unassigned_user_teacher', 'UserController@unassignedUserTeacher')->name('user.unassigned_user_teacher');
+    Route::post('user/{id}/restore', 'UserController@restoreUser')->name('user.restore');
+    Route::get('my_students', 'UserController@myStudents')->name('my-students');
 //
 //
-//    //User
-//    Route::resource('user', 'UserController')->except(['destroy','show']);
-////    Route::get('duplicate_user', 'UserController@duplicateIndex')->name('user.duplicate_user');
-////    Route::delete('duplicate_user/{id}', 'UserController@destroyDuplicate')->name('user.delete_duplicate_user');
-//    Route::post('user/export', 'UserController@export')->name('user.export');
-//    Route::post('user/reset-passwords', 'UserController@resetPasswords')->name('user.reset-passwords');
-//    Route::get('user/{id}/card', 'UserController@userCard')->name('user.card');
-//    Route::get('user/cards_and_qr', 'UserController@studentsCards')->name('user.cards-export');
-//    Route::get('user/cards_and_qr_file', 'UserController@studentsImportFileCards')->name('user.studentsImportFileCards');
-//    Route::get('user/lesson_review/{id}', 'UserController@lessonReview')->name('user.review');
-//    Route::get('user/story_review/{id}', 'UserController@storyReview')->name('user.story_review');
-//    Route::get('user/report/{id}', 'UserController@report')->name('user.report');
-//    Route::get('user/{id}/login', 'UserController@login')->name('user.login');
-//    Route::delete('user/destroy', 'UserController@destroy')->name('user.destroy');
-//    Route::post('user/activation', 'UserController@userActivation')->name('user.activation');
-//    Route::post('user/update_grades', 'UserController@updateGrades')->name('user.update_grades');
-//    Route::post('user/update_learning_years', 'UserController@updateLearningYears')->name('user.update_learning_years');
-//    Route::post('assigned_to_teacher', 'UserController@assignedToTeacher')->name('user.assigned_to_teacher');
-//    Route::post('unassigned_user_teacher', 'UserController@unassignedUserTeacher')->name('user.unassigned_user_teacher');
-//    Route::post('user/{id}/restore', 'UserController@restoreUser')->name('user.restore');
-//    Route::get('my_students', 'UserController@myStudents')->name('my-students');
-//
-//
-//    //Lessons Test
-//    Route::resource('lessons_tests', 'LessonTestController')->except(['destroy']);
-//    Route::delete('lessons_tests/destroy', 'LessonTestController@destroy')->name('lessons_tests.destroy');
-//    Route::get('lessons_tests/certificate/{id}', 'LessonTestController@certificate')->name('lessons_tests.certificate');
-//    Route::post('lessons_tests/export', 'LessonTestController@export')->name('lessons_tests.export');
-//
+    //Lessons Test
+    Route::resource('lessons_tests', 'LessonTestController')->except(['destroy']);
+    Route::delete('lessons_tests/destroy', 'LessonTestController@destroy')->name('lessons_tests.destroy');
+    Route::get('lessons_tests/certificate/{id}', 'LessonTestController@certificate')->name('lessons_tests.certificate');
+    Route::post('lessons_tests/export', 'LessonTestController@export')->name('lessons_tests.export');
+
 //    //Story Test
 //    Route::resource('stories_tests', 'StoryTestController')->except(['destroy']);
 //    Route::delete('stories_tests/destroy', 'StoryTestController@destroy')->name('stories_tests.destroy');

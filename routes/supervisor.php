@@ -19,20 +19,20 @@ Route::group(['namespace' => 'Supervisor'], function () {
         Route::get('password/edit', 'SettingController@editPassword')->name('edit-password');
         Route::post('password/update', 'SettingController@updatePassword')->name('update-password');
 
-        //Teacher
-        Route::get('teacher', 'TeacherController@index')->name('teacher.index');
-        Route::post('teacher/export', 'TeacherController@exportTeachersExcel')->name('teacher.export');
-        Route::get('tracking_teachers', 'TeacherController@teachersTracking')->name('teacher.tracking');
-        Route::post('tracking_teachers_export', 'TeacherController@teachersTrackingExport')->name('teacher.tracking_export');
-        Route::get('tracking_teachers_report/{id}', 'TeacherController@teachersTrackingReport')->name('teacher.tracking_report');
+//        //Teacher
+//        Route::get('teacher', 'TeacherController@index')->name('teacher.index');
+//        Route::post('teacher/export', 'TeacherController@exportTeachersExcel')->name('teacher.export');
+//        Route::get('tracking_teachers', 'TeacherController@teachersTracking')->name('teacher.tracking');
+//        Route::post('tracking_teachers_export', 'TeacherController@teachersTrackingExport')->name('teacher.tracking_export');
+//        Route::get('tracking_teachers_report/{id}', 'TeacherController@teachersTrackingReport')->name('teacher.tracking_report');
 
-        //Students
-        Route::get('student', 'StudentController@index')->name('student.index');
-        Route::get('student/cards', 'StudentController@studentsCards')->name('user.student-cards-export');
-        Route::post('student/export', 'StudentController@exportStudentsExcel')->name('user.export_students_excel');
-        Route::get('student/{id}/review', 'StudentController@review')->name('user.review');
-        Route::get('student/{id}/story_review', 'StudentController@storyReview')->name('user.story-review');
-        Route::get('student/{id}/report', 'StudentController@report')->name('user.report');
+//        //Students
+//        Route::get('student', 'StudentController@index')->name('student.index');
+//        Route::get('student/cards', 'StudentController@studentsCards')->name('user.student-cards-export');
+//        Route::post('student/export', 'StudentController@exportStudentsExcel')->name('user.export_students_excel');
+//        Route::get('student/{id}/review', 'StudentController@review')->name('user.review');
+//        Route::get('student/{id}/story_review', 'StudentController@storyReview')->name('user.story-review');
+//        Route::get('student/{id}/report', 'StudentController@report')->name('user.report');
 
         //Lessons tests
         Route::get('lessons_tests', 'StudentTestController@lessonsIndex')->name('lessons_tests.index');
@@ -65,13 +65,13 @@ Route::group(['namespace' => 'Supervisor'], function () {
         Route::get('usage_report', 'SettingController@usageReport')->name('report.usage_report');
 
 
-        //General
-        Route::get('getLessonsByGrade', [GeneralController::class, 'getLessonsByGrade'])->name('getLessonsByGrade');
-        Route::get('getStoriesByGrade', [GeneralController::class, 'getStoriesByGrade'])->name('getStoriesByGrade');
-        Route::get('getTeacherBySchool/{id}', [GeneralController::class, 'getTeacherBySchool'])->name('getTeacherBySchool');
-        Route::get('getSectionBySchool/{id}', [GeneralController::class, 'getSectionBySchool'])->name('getSectionBySchool');
-        Route::get('getSectionByTeacher/{id}', [GeneralController::class, 'getSectionByTeacher'])->name('getSectionByTeacher');
-        Route::get('getStudentsByGrade/{id}', [GeneralController::class, 'getStudentsByGrade'])->name('getStudentsByGrade');
+//        //General
+//        Route::get('getLessonsByGrade', [GeneralController::class, 'getLessonsByGrade'])->name('getLessonsByGrade');
+//        Route::get('getStoriesByGrade', [GeneralController::class, 'getStoriesByGrade'])->name('getStoriesByGrade');
+//        Route::get('getTeacherBySchool/{id}', [GeneralController::class, 'getTeacherBySchool'])->name('getTeacherBySchool');
+//        Route::get('getSectionBySchool/{id}', [GeneralController::class, 'getSectionBySchool'])->name('getSectionBySchool');
+//        Route::get('getSectionByTeacher/{id}', [GeneralController::class, 'getSectionByTeacher'])->name('getSectionByTeacher');
+//        Route::get('getStudentsByGrade/{id}', [GeneralController::class, 'getStudentsByGrade'])->name('getStudentsByGrade');
 
 
     });

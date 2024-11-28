@@ -55,7 +55,7 @@ class UserRoleAndPermissionController extends Controller
 
         $user = $this->getModelClass($user_guard)::query()->find($id);
 
-        $title = t('Manage Roles & Permissions').' | '.$user->name.' ('.t(camelCaseText(getGuard())).')';
+        $title = t('Manage Roles & Permissions').' | '.$user->name.' ('.t(camelCaseText($user_guard)).')';
         $guard_id = $id;
 
         $compact = compact('title','user_guard','guard_id');

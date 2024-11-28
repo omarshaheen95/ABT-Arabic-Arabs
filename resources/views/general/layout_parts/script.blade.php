@@ -34,6 +34,7 @@
     var TOAST_DIRECTION = "{{app()->getLocale() == 'ar' ? 'toastr-top-left' : 'toastr-top-right'}}";
     var DatatableArabicURL = '{{asset('assets_v1/datatable_arabic.json')}}'
     var RTL = "{{app()->getLocale() == 'ar' ? true : false}}";
+    var CSRF = $('meta[name="csrf-token"]').attr('content');
 
     toastr.options = {
         "closeButton": true,

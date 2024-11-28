@@ -52,24 +52,14 @@
             <label>{{t('Email')}}:</label>
             <input type="text" name="email" class="form-control direct-search" placeholder="{{t('Email')}}">
         </div>
-        <div class="col-lg-2 mb-2">
-            <label>{{t('Learning Years')}} :</label>
-            <select name="year_learning" class="form-select" data-control="select2"
-                    data-placeholder="{{t('Select Year')}}" data-allow-clear="true">
-                <option></option>
-                @foreach(range(0,13) as $value)
-                    <option value="{{ $value }}">{{$value == 0 ? '-':$value }}</option>
-                @endforeach
-            </select>
-        </div>
+
         <div class="col-lg-3 mb-2">
             <label>{{t('Student Grade')}} :</label>
             <select name="student_grade" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"
                     data-allow-clear="true">
                 <option></option>
-                <option value="15">{{t('KG')}}/ {{t('Year')}} 1</option>
-                @foreach(range(1,10) as $grade)
-                    <option value="{{ $grade }}">{{ t('Grade').' '.$grade }} / {{t('Year')}} {{$grade + 1}}</option>
+                @foreach($grades as $grade)
+                    <option value="{{$grade->id}}">{{$grade->name}}</option>
                 @endforeach
             </select>
         </div>
@@ -200,8 +190,12 @@
         ];
         initializeDateRangePicker();
         initializeDateRangePicker('created');
+
+        getSectionBySchool()
+        getSectionByTeacher()
+        getTeacherBySchool()
+
     </script>
-    <script src="{{asset('assets_v1/js/general/users.js')}}"></script>
 
     <script src="{{asset('assets_v1/js/datatable.js')}}?v={{time()}}"></script>
 

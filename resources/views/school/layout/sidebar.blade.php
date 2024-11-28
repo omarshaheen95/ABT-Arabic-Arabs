@@ -80,8 +80,8 @@
                 </div>
 
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->url() == route('school.teacher.statistics'))active @endif"
-                       href="{{ route('school.teacher.statistics') }}">
+                    <a class="menu-link @if(request()->url() == route('school.teacher.tracking'))active @endif"
+                       href="{{ route('school.teacher.tracking') }}">
                                  <span class="menu-icon">
                                    <i class="ki-duotone ki-graph-2 fs-2">
                                      <i class="path1"></i>
@@ -89,13 +89,13 @@
                                      <i class="path3"></i>
                                     </i>
                                 </span>
-                        <span class="menu-title">{{t('Teachers statistics')}}</span>
+                        <span class="menu-title">{{t('Teachers tracking')}}</span>
                     </a>
                 </div>
 
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->url() == route('school.student.index'))active @endif"
-                       href="{{ route('school.student.index') }}">
+                    <a class="menu-link @if(request()->url() == route('school.user.index'))active @endif"
+                       href="{{ route('school.user.index') }}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-people fs-2">
                              <i class="path1"></i>

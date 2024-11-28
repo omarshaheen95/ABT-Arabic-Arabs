@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->url() == route('teacher.students_school.index'))active @endif" href="{{ route('teacher.students_school.index') }}">
+                    <a class="menu-link @if(request()->url() == route('teacher.user.index'))active @endif" href="{{ route('teacher.user.index') }}">
                                 <span class="menu-icon">
                                    <i class="ki-duotone ki-profile-user fs-2">
                                      <i class="path1"></i>
@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="menu-item">
-                    <a class="menu-link @if(request()->url() == route('teacher.student.my_students'))active @endif" href="{{ route('teacher.student.my_students') }}">
+                    <a class="menu-link @if(request()->url() == route('teacher.my-students'))active @endif" href="{{ route('teacher.my-students') }}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-people fs-2">
                              <i class="path1"></i>
@@ -192,7 +192,7 @@
 
 
                 <div class="menu-item">
-                    <a class="menu-link @if(Request::is('teacher/motivational_certificate*'))active @endif" href="{{ route('teacher.motivational_certificate.index') }}">
+                    <a class="menu-link @if(Request::is('teacher/motivational_certificates*'))active @endif" href="{{ route('teacher.motivational_certificates.index') }}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-teacher fs-2">
                                  <span class="path1"></span>
