@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 class MotivationalCertificate extends Model
 {
     use SoftDeletes,LogsActivityTrait;
+
     protected $fillable = [
         'teacher_id',
         'user_id',
@@ -20,8 +21,40 @@ class MotivationalCertificate extends Model
         'granted_in',
     ];
 
-    public function scopeFilter(Builder $query, Request $request): Builder
+
+
+
+    public function teacher()
     {
+        return $this->belongsTo(Teacher::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function model()
+    {
+        return $this->morphTo();
+    }
+
+    public function getActionButtonsAttribute()
+    {
+        $actions = [
+            ['key' => 'blank', 'name' => t('Certificate'), 'route' => route(getGuard().'.motivational_certificates.show', $this->id), 'permission' => 'show motivational certificate'],
+            ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete motivational certificate'],
+        ];
+
+        return view('general.action_menu')->with('actions', $actions);
+
+    }
+
+    public function scopeFilter(Builder $query,$request = null): Builder
+    {
+        if (!$request){
+            $request = \request();
+        }
         return $query
             ->has('user')
             ->has('teacher')
@@ -100,48 +133,4 @@ class MotivationalCertificate extends Model
                 $query->whereDate('created_at', '<=',$value);
             });
     }
-
-    public function getActionButtonsAttribute()
-    {
-        $actions = [];
-        if (\request()->is('manager/*')) {
-            $actions = [
-                ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('manager.motivational_certificate.show', $this->id), 'permission' => 'show motivational certificate'],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete motivational certificate'],
-            ];
-        } elseif (\request()->is('school/*')) {
-            $actions = [
-
-            ];
-
-        } elseif (\request()->is('teacher/*')) {
-            $actions = [
-                ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('teacher.motivational_certificate.show', $this->id)],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id],
-            ];
-        } elseif (\request()->is('supervisor/*')) {
-            $actions = [
-
-            ];
-        }
-        return view('general.action_menu')->with('actions', $actions);
-
-    }
-
-    public function teacher()
-    {
-        return $this->belongsTo(Teacher::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function model()
-    {
-        return $this->morphTo();
-    }
-
-
 }

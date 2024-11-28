@@ -3,11 +3,16 @@
 
 use App\Http\Controllers\GeneralController;
 
-Route::group(['namespace' => 'Supervisor'], function() {
+Route::group(['middleware' => [\App\Http\Middleware\ApprovedSupervisorMiddleware::class]], function () {
+    require base_path('routes/general.php');
+});
+
+Route::group(['namespace' => 'Supervisor'], function () {
 
     Route::get('home', 'SettingController@home')->name('home');
 
     Route::group(['middleware' => [\App\Http\Middleware\ApprovedSupervisorMiddleware::class]], function () {
+
         //Profile
         Route::get('profile/edit', 'SettingController@editProfile')->name('edit-profile');
         Route::post('profile/update', 'SettingController@updateProfile')->name('update-profile');
@@ -61,13 +66,12 @@ Route::group(['namespace' => 'Supervisor'], function() {
 
 
         //General
-        Route::get('getLessonsByGrade', [GeneralController::class,'getLessonsByGrade'])->name('getLessonsByGrade');
-        Route::get('getStoriesByGrade', [GeneralController::class,'getStoriesByGrade'])->name('getStoriesByGrade');
-        Route::get('getTeacherBySchool/{id}', [GeneralController::class,'getTeacherBySchool'])->name('getTeacherBySchool');
-        Route::get('getSectionBySchool/{id}', [GeneralController::class,'getSectionBySchool'])->name('getSectionBySchool');
-        Route::get('getSectionByTeacher/{id}', [GeneralController::class,'getSectionByTeacher'])->name('getSectionByTeacher');
-        Route::get('getStudentsByGrade/{id}', [GeneralController::class,'getStudentsByGrade'])->name('getStudentsByGrade');
-
+        Route::get('getLessonsByGrade', [GeneralController::class, 'getLessonsByGrade'])->name('getLessonsByGrade');
+        Route::get('getStoriesByGrade', [GeneralController::class, 'getStoriesByGrade'])->name('getStoriesByGrade');
+        Route::get('getTeacherBySchool/{id}', [GeneralController::class, 'getTeacherBySchool'])->name('getTeacherBySchool');
+        Route::get('getSectionBySchool/{id}', [GeneralController::class, 'getSectionBySchool'])->name('getSectionBySchool');
+        Route::get('getSectionByTeacher/{id}', [GeneralController::class, 'getSectionByTeacher'])->name('getSectionByTeacher');
+        Route::get('getStudentsByGrade/{id}', [GeneralController::class, 'getStudentsByGrade'])->name('getStudentsByGrade');
 
 
     });

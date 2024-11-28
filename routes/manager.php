@@ -9,6 +9,7 @@ use App\Http\Controllers\Manager\AssessmentController;
 use App\Http\Controllers\Manager\SettingController;
 use Spatie\Permission\Models\Permission;
 
+require base_path('routes/general.php');
 
 Route::group(['namespace' => 'Manager'], function(){
 
@@ -42,12 +43,12 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::get('password/edit', 'ManagerController@editPassword')->name('edit-password');
     Route::post('password/update', 'ManagerController@updatePassword')->name('update-password');
 
-    //Supervisors
-    Route::resource('supervisor', 'SupervisorController')->except(['destroy']);
-    Route::delete('supervisor/delete', 'SupervisorController@destroy')->name('supervisor.destroy');
-    Route::post('supervisor/activation', 'SupervisorController@activation')->name('supervisor.activation');
-    Route::get('supervisor/{id}/login', 'SupervisorController@login')->name('supervisor.login');
-    Route::post('supervisor/export', 'SupervisorController@export')->name('supervisor.export');
+//    //Supervisors
+//    Route::resource('supervisor', 'SupervisorController')->except(['destroy']);
+//    Route::delete('supervisor/delete', 'SupervisorController@destroy')->name('supervisor.destroy');
+//    Route::post('supervisor/activation', 'SupervisorController@activation')->name('supervisor.activation');
+//    Route::get('supervisor/{id}/login', 'SupervisorController@login')->name('supervisor.login');
+//    Route::post('supervisor/export', 'SupervisorController@export')->name('supervisor.export');
 
     //User
     Route::resource('user', 'UserController')->except(['destroy']);
@@ -201,13 +202,6 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::post('motivational_certificate/export', 'MotivationalCertificateController@export')->name('motivational_certificate.export');
 
 
-    //General
-    Route::get('getLessonsByGrade', [GeneralController::class,'getLessonsByGrade'])->name('getLessonsByGrade');
-    Route::get('getStoriesByGrade', [GeneralController::class,'getStoriesByGrade'])->name('getStoriesByGrade');
-    Route::get('getTeacherBySchool/{id}', [GeneralController::class,'getTeacherBySchool'])->name('getTeacherBySchool');
-    Route::get('getSectionBySchool/{id}', [GeneralController::class,'getSectionBySchool'])->name('getSectionBySchool');
-    Route::get('getSectionByTeacher/{id}', [GeneralController::class,'getSectionByTeacher'])->name('getSectionByTeacher');
-    Route::get('getStudentsByGrade/{id}', [GeneralController::class,'getStudentsByGrade'])->name('getStudentsByGrade');
 
     Route::get('seed',function (){
         Artisan::call('db:seed --class PermissionsTableSeeder');

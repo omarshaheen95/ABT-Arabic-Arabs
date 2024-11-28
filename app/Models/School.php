@@ -13,11 +13,12 @@ use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Traits\HasRoles;
 
 
 class School extends Authenticatable
 {
-    use Notifiable, SoftDeletes,LogsActivityTrait;
+    use Notifiable, SoftDeletes,LogsActivityTrait,HasRoles;
 
 
     protected $fillable = [

@@ -1,4 +1,4 @@
-@extends('manager.layout.container')
+@extends(getGuard().'.layout.container')
 @section('title',$title)
 @push('breadcrumb')
     <li class="breadcrumb-item b text-muted">
@@ -7,7 +7,7 @@
 @endpush
 @section('content')
     <form enctype="multipart/form-data" id="form_information"
-          action="{{ route('manager.motivational_certificate.store') }}" method="post">
+          action="{{ route(getGuard().'.motivational_certificate.store') }}" method="post">
         @csrf
 
         <div class="row">

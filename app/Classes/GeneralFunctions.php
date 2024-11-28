@@ -324,10 +324,10 @@ class GeneralFunctions
             'end_date' => 'required',
         ]);
 
-        if (request()->get('current_guard') == 'supervisor'){
+        if (getGuard() == 'supervisor'){
             $supervisor = Auth::guard('supervisor')->user();
             $school = $supervisor->school;
-        }elseif (request()->get('current_guard') == 'school'){
+        }elseif (getGuard() == 'school'){
             $school = Auth::guard('school')->user();
         }
 

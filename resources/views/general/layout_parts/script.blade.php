@@ -13,17 +13,17 @@
 <script src="{{asset('assets_v1/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <script src="{{asset('assets_v1/js/helpers.js')}}?v={{time()}}"></script>
 <script type="text/javascript">
-    @if(in_array(request()->get('current_guard'),['manager','supervisor']))
-    var getTeacherBySchoolURL= "{{route(request()->get('current_guard').'.getTeacherBySchool', ":id")}}"
-    var getSectionBySchoolURL= "{{route(request()->get('current_guard').'.getSectionBySchool', ":id")}}"
+    @if(in_array(getGuard(),['manager','supervisor']))
+    var getTeacherBySchoolURL= "{{route(getGuard().'.getTeacherBySchool', ":id")}}"
+    var getSectionBySchoolURL= "{{route(getGuard().'.getSectionBySchool', ":id")}}"
     @endif
 
-    @if(request()->get('current_guard') !== 'teacher')
-    var getSectionByTeacherURL= "{{route(request()->get('current_guard').'.getSectionByTeacher', ":id")}}"
+    @if(getGuard() !== 'teacher')
+    var getSectionByTeacherURL= "{{route(getGuard().'.getSectionByTeacher', ":id")}}"
     @endif
 
-    var getLessonsByGradeURL= "{{route(request()->get('current_guard').'.getLessonsByGrade')}}"
-    var getStoriesByGradeURL= "{{route(request()->get('current_guard').'.getStoriesByGrade')}}"
+    var getLessonsByGradeURL= "{{route(getGuard().'.getLessonsByGrade')}}"
+    var getStoriesByGradeURL= "{{route(getGuard().'.getStoriesByGrade')}}"
 
 
 
