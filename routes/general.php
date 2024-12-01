@@ -67,8 +67,14 @@ Route::group(['namespace' => 'General'], function () {
 //
 //
     //Lessons Test
-    Route::resource('lessons_tests', 'LessonTestController')->except(['destroy']);
+    Route::resource('lessons_tests', 'LessonTestController')->except(['destroy','show']);
     Route::delete('lessons_tests/destroy', 'LessonTestController@destroy')->name('lessons_tests.destroy');
+    Route::get('lessons_tests/preview_answers/{id}', 'LessonTestController@preview')->name('lessons_tests.preview_answers');
+    //For [writing,speaking]
+    Route::get('lessons_tests/correcting_feedback/{id}', 'LessonTestController@correctingAndFeedbackView')->name('lessons_tests.correcting_feedback_view');
+    Route::post('lessons_tests/correcting_feedback/{id}', 'LessonTestController@correctingAndFeedback')->name('lessons_tests.correcting_feedback');
+    Route::get('lessons_tests/correcting/{id}', 'LessonTestController@correctingUserTestView')->name('lessons_tests.correcting_view');
+    Route::post('lessons_tests/correcting/{id}', 'LessonTestController@correctingUserTest')->name('lessons_tests.correcting');
     Route::get('lessons_tests/certificate/{id}', 'LessonTestController@certificate')->name('lessons_tests.certificate');
     Route::post('lessons_tests/export', 'LessonTestController@export')->name('lessons_tests.export');
 

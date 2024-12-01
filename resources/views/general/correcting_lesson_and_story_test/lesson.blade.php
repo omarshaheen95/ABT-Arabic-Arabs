@@ -1,4 +1,4 @@
-@extends('general.lesson_and_story_test.preview.layout')
+@extends('general.correcting_lesson_and_story_test.layout')
 
 @section('content')
     <section class="login-home user-home lessons-section">
@@ -6,11 +6,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title mb-4">
-                        <h1 class="title"> {{$story->getTranslation('name', 'ar')}}
-                            - {{$story->getTranslation('name', 'en')}}  </h1>
+                        <h1 class="title"> {{$lesson->name}}</h1>
                         <h1 class="title"><p id="countdown" class="mb-0 text-danger" style="font-size:32px"></p></h1>
                         <nav class="breadcrumb">
-                            <a class="breadcrumb-item" href="{{route('stories.list', $story->grade)}}"> Stories </a>
+{{--                            <a class="breadcrumb-item" href="{{route('lessons', $lesson->level_id)}}"> Lessons </a>--}}
                             <span class="breadcrumb-item active" aria-current="page"> Test </span>
                         </nav>
                     </div>
@@ -19,7 +18,7 @@
             <div class="row">
                 <div class="exam-card box-shado-question" dir="rtl">
                     <div class="exam-body question-list">
-                        <form action="{{route('lesson_test', $story->id)}}" id="term_form" method="post">
+                        <form action="{{route('lesson_test', $lesson->id)}}" id="term_form" method="post">
                             {{csrf_field()}}
                             <input type="hidden" name="start_at" value="{{\Carbon\Carbon::now()}}">
                             <div class="justify-content-between align-items-center mb-4">
@@ -38,13 +37,17 @@
                                 @endphp
                                 @foreach($questions as $question)
                                     @if($question->type == 1)
-                                        @include('general.lesson_and_story_test.preview.questions.true_false')
+                                        @include('general.correcting_lesson_and_story_test.questions.true_false')
                                     @elseif($question->type == 2)
-                                        @include('general.lesson_and_story_test.preview.questions.options')
+                                        @include('general.correcting_lesson_and_story_test.questions.options')
                                     @elseif($question->type == 3)
-                                        @include('general.lesson_and_story_test.preview.questions.match')
+                                        @include('general.correcting_lesson_and_story_test.questions.match')
                                     @elseif($question->type == 4)
-                                        @include('general.lesson_and_story_test.preview.questions.sort')
+                                        @include('general.correcting_lesson_and_story_test.questions.sort')
+                                    @elseif($question->type == 5)
+                                        @include('general.correcting_lesson_and_story_test.questions.writing')
+                                    @elseif($question->type == 6)
+                                        @include('general.correcting_lesson_and_story_test.questions.speaking')
                                     @endif
                                     @php
                                         $counter ++;
@@ -58,13 +61,7 @@
                                                                         style="font-size: 18px">  Back </span>
                                     </button>
                                 </div>
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-theme d-none endExam" id="confirmed_modal"
-                                            data-toggle="modal" data-target="#endExam"
-                                            style="font-weight: bold;background-color: #0043b3;">
-                                        <span class="txt" style="font-size: 18px">End</span>
-                                    </button>
-                                </div>
+
                                 <div class="text-center">
                                     <button type="button" class="btn btn-theme"
                                             id="nextQuestion">
@@ -79,30 +76,6 @@
                             </div>
                             <!-- Modal -->
 
-                            <div class="modal fade" id="endExam" tabindex="-1" role="dialog"
-                                 aria-labelledby="endExamLabel" aria-hidden="true">
-
-                                <div class="modal-dialog">
-                                    <div class="modal-content" style="padding: 15px;">
-                                        <div class="modal-header border-0">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body text-center py-5"><h2 class="mb-0"
-                                                                                     style="direction: ltr">{{w('You are going to submitting your assessment,  are you sure ?')}} </h2>
-                                        </div>
-                                        <div class="modal-footer border-0 justify-content-center">
-                                            <button type="submit" class="btn btn-soft-danger me-3"
-                                                    id="save_assessment"><span
-                                                    class="txt"> {{w('Yes submit my assessment')}}</span></button>
-                                            <button type="button" class="btn btn-light border"
-                                                    data-bs-dismiss="modal"><span
-                                                    class="txt"> {{w('No i want to continue answering')}} </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -143,39 +116,6 @@
 
             });
         });
-
-        // Date.prototype.addHours = function (h) {
-        //     this.setTime(this.getTime() + (h * 60 * 60 * 1000));
-        //     return this;
-        // }
-        // // Set the date we're counting down to
-        // var countDownDate = new Date().addHours(0.1666666).getTime();
-        //
-        // // Update the count down every 1 second
-        // var x = setInterval(function () {
-        //
-        //     // Get today's date and time
-        //     var now = new Date().getTime();
-        //
-        //     // Find the distance between now and the count down date
-        //     var distance = countDownDate - now;
-        //
-        //     // Time calculations for days, hours, minutes and seconds
-        //     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        //     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        //     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        //     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        //
-        //     // Display the result in the element with id="countdown"
-        //     document.getElementById("countdown").innerHTML = minutes + ":" + seconds;
-        //     // console.log(distance);
-        //     // If the count down is finished, write some text
-        //     if (distance < 0) {
-        //         clearInterval(x);
-        //         $('term_form').submit();
-        //         document.getElementById("countdown").innerHTML = "EXPIRED";
-        //     }
-        // }, 1000);
 
 
         $(function () {

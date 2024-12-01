@@ -160,7 +160,7 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
 
                     @if(guardHasAnyPermission(['show lesson tests','show story tests']))
                         <div data-kt-menu-trigger="click"
-                             class="menu-item menu-accordion {{Request::is(getGuard().'/lessons_tests')|| Request::is(getGuard().'/stories_tests') ?'here show':''}}">
+                             class="menu-item menu-accordion {{menuIsActive([getGuard().'/lessons_tests',getGuard().'/lessons_tests/*',getGuard().'/stories_tests',getGuard().'/stories_tests/*'])}}">
                                            <span class="menu-link">
                                                 <span class="menu-icon">
                                                 <i class="ki-duotone ki-tablet-book fs-2">
@@ -175,7 +175,7 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
                             <div class="menu-sub menu-sub-accordion">
                                 @can('show lesson tests')
                                     <div class="menu-item">
-                                        <a class="menu-link @if(Request::is(getGuard().'/lessons_tests*') )active @endif"
+                                        <a class="menu-link {{menuLinkIsActive([getGuard().'/lessons_tests',getGuard().'/lessons_tests/*'])}}"
                                            href="{{ route(getGuard().'.lessons_tests.index') }}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
@@ -186,7 +186,7 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
                                 @endcan
                                 @can('show story tests')
                                     <div class="menu-item">
-                                        <a class="menu-link @if(Request::is(getGuard().'/stories_tests*') )active @endif"
+                                        <a class="menu-link {{menuLinkIsActive([getGuard().'/stories_tests',getGuard().'/stories_tests/*'])}}"
                                            href="{{ route(getGuard().'.stories_tests.index') }}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>

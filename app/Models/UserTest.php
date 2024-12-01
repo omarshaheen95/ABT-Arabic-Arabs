@@ -34,44 +34,19 @@ class UserTest extends Model
     public function getActionButtonsAttribute()
     {
         $actions = [];
-        if (\request()->is('manager/*')) {
 
-            $actions[] = ['key' => 'show', 'name' => t('Preview'), 'route' => route('manager.lessons_tests.preview', $this->id),'permission'=>'show lesson tests'];
-            if(in_array($this->lesson->lesson_type, ['writing', 'speaking'])) {
-                $actions []=  ['key' => 'show', 'name' => t('Correct'), 'route' => route('manager.lessons_tests.show', $this->id)];
-            }
-            if ($this->status == 'Pass') {
-                $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('manager.lessons_tests.certificate', $this->id),'permission'=>'lesson tests certificate'];
-            }
-            $actions[] = ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete lesson tests'];
-
-        } elseif (\request()->is('school/*')) {
-            $actions = [
-                ['key' => 'show', 'name' => t('Preview'), 'route' => route('school.lessons_tests.preview', $this->id)],
-            ];
-            if(in_array($this->lesson->lesson_type, ['writing', 'speaking'])) {
-                $actions []=  ['key' => 'show', 'name' => t('Correct'), 'route' => route('school.lessons_tests.show', $this->id)];
-            }
-            if ($this->status == 'Pass') {
-                $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('school.lessons_tests.certificate', $this->id)];
-            }
-        } elseif (\request()->is('teacher/*')) {
-            $actions = [
-                ['key' => 'show', 'name' => t('Preview'), 'route' => route('teacher.lessons_tests.preview', $this->id)],
-            ];
-            if(in_array($this->lesson->lesson_type, ['writing', 'speaking'])) {
-                $actions []=  ['key' => 'show', 'name' => t('Correct'), 'route' => route('teacher.lessons_tests.show', $this->id)];
-            }
-            if ($this->status == 'Pass') {
-                $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('teacher.lessons_tests.certificate', $this->id)];
-            }
-        } elseif (\request()->is('supervisor/*')) {
-            if ($this->status == 'Pass') {
-                $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('supervisor.lessons_tests.certificate', $this->id)];
-            }else{
-                return  '';
-            }
+        $actions[] = ['key' => 'show', 'name' => t('Preview Answers'), 'route' => route(getGuard().'.lessons_tests.preview_answers', $this->id), 'permission' => 'show lesson tests'];
+        if (in_array($this->lesson->lesson_type, ['writing', 'speaking'])) {
+            $actions [] = ['key' => 'show', 'name' => t('Correcting & Feedback'), 'route' => route(getGuard().'.lessons_tests.correcting_feedback_view', $this->id), 'permission' => 'show lesson tests'];
+        }else{
+            $actions [] = ['key' => 'show', 'name' => t('Correcting & Preview '), 'route' => route(getGuard().'.lessons_tests.correcting_view', $this->id), 'permission' => 'show lesson tests'];
         }
+        if ($this->status == 'Pass') {
+            $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route(getGuard().'.lessons_tests.certificate', $this->id), 'permission' => 'lesson tests certificate'];
+        }
+        $actions[] = ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete lesson tests'];
+
+
         return view('general.action_menu')->with('actions', $actions);
 
     }

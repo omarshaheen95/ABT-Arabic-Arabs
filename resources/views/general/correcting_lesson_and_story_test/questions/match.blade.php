@@ -138,7 +138,7 @@
                                                                 <li class="ui-state-default mb-2"
                                                                     data-id="{{$match->match_id}}">
                                                                     <div>
-                                                                        <text>{{$match->result->content}} </text>
+                                                                        <text>{{$match->result->result}} </text>
                                                                         <span
                                                                             class="float-right"></span>
                                                                         <input type="hidden"
@@ -148,7 +148,7 @@
                                                                                    name="re[{{$question->id}}][{{$match->match_id}}]"
                                                                                @endif
 
-                                                                               id="" value="">
+                                                                               id="" value="{{$loop->iteration}}">
                                                                     </div>
                                                                 </li>
                                                             @endforeach

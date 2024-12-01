@@ -327,6 +327,7 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'export user records', 'guard_name' => 'manager', 'group' => 'marking'],
 
             ['name' => 'show lesson tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
+            ['name' => 'correcting lesson tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
             ['name' => 'delete lesson tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
             ['name' => 'lesson tests certificate', 'guard_name' => 'manager', 'group' => 'users_tests'],
             ['name' => 'export lesson tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
@@ -440,6 +441,7 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'export user records', 'guard_name' => 'school', 'group' => 'marking'],
 
             ['name' => 'show lesson tests', 'guard_name' => 'school', 'group' => 'users_tests'],
+            ['name' => 'correcting lesson tests', 'guard_name' => 'school', 'group' => 'users_tests'],
             ['name' => 'delete lesson tests', 'guard_name' => 'school', 'group' => 'users_tests'],
             ['name' => 'lesson tests certificate', 'guard_name' => 'school', 'group' => 'users_tests'],
             ['name' => 'export lesson tests', 'guard_name' => 'school', 'group' => 'users_tests'],
@@ -505,6 +507,7 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'export user records', 'guard_name' => 'teacher', 'group' => 'marking'],
 
             ['name' => 'show lesson tests', 'guard_name' => 'teacher', 'group' => 'users_tests'],
+            ['name' => 'correcting lesson tests', 'guard_name' => 'teacher', 'group' => 'users_tests'],
             ['name' => 'delete lesson tests', 'guard_name' => 'teacher', 'group' => 'users_tests'],
             ['name' => 'lesson tests certificate', 'guard_name' => 'teacher', 'group' => 'users_tests'],
             ['name' => 'export lesson tests', 'guard_name' => 'teacher', 'group' => 'users_tests'],
@@ -574,16 +577,16 @@ class PermissionsTableSeeder extends Seeder
             Permission::query()->updateOrCreate($permission, $permission);
         }
 
-        $manager_role = Role::create(['name' => 'Manager','guard_name' => 'manager']);
+        $manager_role = Role::updateOrCreate(['name' => 'Manager','guard_name' => 'manager']);
         $manager_role->syncPermissions(collect($manager)->pluck('name'));
 
-        $school_role = Role::create(['name' => 'School','guard_name' => 'school']);
+        $school_role = Role::updateOrCreate(['name' => 'School','guard_name' => 'school']);
         $school_role->syncPermissions(collect($school)->pluck('name'));
 
-        $teacher_role =  Role::create(['name' => 'Teacher','guard_name' => 'teacher']);
+        $teacher_role =  Role::updateOrCreate(['name' => 'Teacher','guard_name' => 'teacher']);
         $teacher_role->syncPermissions(collect($teacher)->pluck('name'));
 
-        $supervisor_role = Role::create(['name' => 'Supervisor','guard_name' => 'supervisor']);
+        $supervisor_role = Role::updateOrCreate(['name' => 'Supervisor','guard_name' => 'supervisor']);
         $supervisor_role->syncPermissions(collect($supervisor)->pluck('name'));
 
 

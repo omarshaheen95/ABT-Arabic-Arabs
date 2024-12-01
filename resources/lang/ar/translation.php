@@ -879,4 +879,10 @@ return
 	'Export Hidden Stories' => 'Export Hidden Stories',
 	'Reports' => 'Reports',
 	'Students lessons tests' => 'Students lessons tests',
+	'Preview Test' => 'Preview Test',
+	'Preview & Correcting' => 'Preview & Correcting',
+	'Preview Answers' => 'Preview Answers',
+	'Correcting & Feedback' => 'Correcting & Feedback',
+	'Correcting & Preview' => 'Correcting & Preview',
+	'Test correcting successfully' => 'Test correcting successfully',
 ];
