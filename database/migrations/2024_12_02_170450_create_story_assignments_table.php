@@ -15,18 +15,19 @@ class CreateStoryAssignmentsTable extends Migration
     {
         Schema::create('story_assignments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('story_id');
-            $table->boolean('test_assignment')->default(0);
-            $table->boolean('done_test_assignment')->default(0);
-            $table->boolean('completed')->default(0);
+            $table->foreignId('teacher_id')->constrained('teachers')->cascadeOnDelete();
+            $table->text('stories_ids');
+            $table->text('sections')->nullable();
+            $table->tinyInteger('students_grade');
+            $table->tinyInteger('story_grade');
+            $table->dateTime('deadline');
+            $table->boolean('exclude_students');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreign('story_id')->references('id')->on('stories')->cascadeOnDelete();
         });
     }
+
 
     /**
      * Reverse the migrations.

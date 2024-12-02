@@ -95,19 +95,12 @@
         </div>
         <div class="col-lg-2 mb-2">
             <label>{{t('Grade')}} :</label>
-            <select name="grade" class="form-select get_levels" data-control="select2" data-placeholder="{{t('Select Grade')}}"
+            <select name="grade_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"
                     data-allow-clear="true">
                 <option></option>
                 @foreach($grades as $grade)
                     <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                 @endforeach
-            </select>
-        </div>
-
-        <div class="col-lg-3 mb-2">
-            <label>{{t('Level')}} :</label>
-            <select name="level_id" id="level_id" class="form-select get_lessons" data-control="select2" data-placeholder="{{t('Select Level')}}" data-allow-clear="true">
-                <option></option>
             </select>
         </div>
 
@@ -165,6 +158,8 @@
 
 
 @section('script')
+    <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
+
     <script>
         var DELETE_URL = "{{ route(getGuard().'.lessons_tests.destroy') }}";
         var TABLE_URL = "{{ route(getGuard().'.lessons_tests.index') }}";
@@ -177,8 +172,8 @@
             {data: 'actions', name: 'actions'},
         ];
         initializeDateRangePicker();
+        callAllEvents()
     </script>
-    <script src="{{asset('assets_v1/js/general/users.js')}}"></script>
 
     <script src="{{asset('assets_v1/js/datatable.js')}}?v={{time()}}"></script>
 

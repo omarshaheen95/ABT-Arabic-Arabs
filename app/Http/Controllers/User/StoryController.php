@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\StoryAssignment;
+use App\Models\UserStoryAssignment;
 use App\Models\StoryMatch;
 use App\Models\StoryMatchResult;
 use App\Models\StoryOption;
@@ -14,7 +14,6 @@ use App\Models\StorySortWord;
 use App\Models\StoryTrueFalse;
 use App\Models\StoryTrueFalseResult;
 use App\Models\StudentStoryTest;
-use App\Models\UserStoryAssignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -190,7 +189,7 @@ class StoryController extends Controller
                 ]);
         }
 
-        $user_assignment = StoryAssignment::query()->where('user_id', $student->id)
+        $user_assignment = UserStoryAssignment::query()->where('user_id', $student->id)
             ->where('story_id', $id)
             ->where('test_assignment', 1)
             ->where('done_test_assignment', 0)

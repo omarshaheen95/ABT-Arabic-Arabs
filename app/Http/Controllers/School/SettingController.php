@@ -8,7 +8,7 @@ use App\Http\Requests\School\SchoolPasswordRequest;
 use App\Http\Requests\School\SchoolProfileRequest;
 use App\Models\Grade;
 use App\Models\LoginSession;
-use App\Models\StoryAssignment;
+use App\Models\UserStoryAssignment;
 use App\Models\StudentStoryTest;
 use App\Models\UserTest;
 use App\Models\Supervisor;
@@ -75,7 +75,7 @@ class SettingController extends Controller
                ));
            $StoriesTests_data = ['categories' => $stories_tests->pluck('date'), 'data' => $stories_tests->pluck('counts'), 'total' => "(" . t('Total') . ' : ' . $stories_tests->sum('counts') . ")"];
 
-           $stories_assignments = StoryAssignment::query()->whereRelation('user', 'school_id', Auth::guard('school')->id())->groupBy('date')->orderBy('date')
+           $stories_assignments = UserStoryAssignment::query()->whereRelation('user', 'school_id', Auth::guard('school')->id())->groupBy('date')->orderBy('date')
                ->whereBetween('completed_at', [now()->startOfDay(), now()->endOfDay()])
                ->get(array(
                    DB::raw('DATE_FORMAT(completed_at, "%h:00 %p") as date'),
@@ -128,7 +128,7 @@ class SettingController extends Controller
                     DB::raw('COUNT(*) as counts')
                 ));
         } elseif ($model == 'StoriesAssignments') {
-            $items_data = StoryAssignment::query()->whereRelation('user', 'school_id', Auth::guard('school')->id())->groupBy('date')->orderBy('date')
+            $items_data = UserStoryAssignment::query()->whereRelation('user', 'school_id', Auth::guard('school')->id())->groupBy('date')->orderBy('date')
                 ->whereBetween('completed_at', [Carbon::parse($request->start_date)->startOfDay(), Carbon::parse($request->end_date)->endOfDay()])
                 ->get(array(
                     DB::raw('DATE_FORMAT(completed_at, "' . $format . '") as date'),

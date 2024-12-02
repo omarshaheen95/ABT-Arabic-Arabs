@@ -37,6 +37,33 @@ function schoolSections($school = false)
         ->get()->pluck('section')->unique()->values();
     return $sections;
 }
+function getSections($school_id=null,$teacher_id=null)
+{
+    $sections = \App\Models\User::query()
+        ->when($teacher = request()->get('teacher_id'), function (\Illuminate\Database\Eloquent\Builder $query) use ($teacher) {
+            $query->whereHas('teacher_student', function (Builder $query) use ($teacher) {
+                $query->where('teacher_id', $teacher);
+            });
+        })->when($teacher_id, function (\Illuminate\Database\Eloquent\Builder $query) use ($teacher_id) {
+            $query->whereHas('teacher_student', function (Builder $query) use ($teacher_id) {
+                $query->where('teacher_id', $teacher_id);
+            });
+        })
+        ->when($school = request()->get('school_id'), function (\Illuminate\Database\Eloquent\Builder $query) use ($school) {
+            $query->where('school_id', $school);
+        }) ->when($school_id, function (\Illuminate\Database\Eloquent\Builder $query) use ($school_id) {
+            $query->where('school_id', $school_id);
+        })
+        ->whereNotNull('section')
+        ->select('section')
+        ->orderBy('section')
+        ->get()
+        ->pluck('section')
+        ->unique()
+        ->values();
+    return $sections;
+}
+
 function uploadFile($file, $path, $with_date = true)
 {
     $fileName = $file->getClientOriginalName();

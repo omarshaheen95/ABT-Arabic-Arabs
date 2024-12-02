@@ -13,7 +13,7 @@ use App\Http\Requests\Teacher\StoryAssignmentRequest;
 use App\Models\Grade;
 use App\Models\School;
 use App\Models\User;
-use App\Models\StoryAssignment;
+use App\Models\UserStoryAssignment;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -25,7 +25,7 @@ class StoryAssignmentController extends Controller
     public function index(Request $request)
     {
         if (request()->ajax()) {
-            $rows = StoryAssignment::query()->has('user')->with(['story'])->filter($request)->latest();
+            $rows = UserStoryAssignment::query()->has('user')->with(['story'])->filter($request)->latest();
 
             return DataTables::make($rows)
                 ->escapeColumns([])
@@ -127,7 +127,7 @@ class StoryAssignmentController extends Controller
     public function destroy(Request $request)
     {
         $request->validate(['row_id' => 'required']);
-        StoryAssignment::destroy($request->get('row_id'));
+        UserStoryAssignment::destroy($request->get('row_id'));
         return $this->sendResponse(null, t('Deleted Successfully'));
     }
 

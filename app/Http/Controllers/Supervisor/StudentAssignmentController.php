@@ -11,7 +11,7 @@ use App\Exports\StudentAssignmentExport;
 use App\Exports\StudentStoryAssignmentExport;
 use App\Http\Controllers\Controller;
 use App\Models\Grade;
-use App\Models\StoryAssignment;
+use App\Models\UserStoryAssignment;
 use App\Models\Teacher;
 use App\Models\UserAssignment;
 use Carbon\Carbon;
@@ -89,7 +89,7 @@ class StudentAssignmentController extends Controller
     public function indexStoryAssignment(Request $request)
     {
         if (request()->ajax()) {
-            $rows = StoryAssignment::query()->has('user')->with(['user.grade', 'user.teacher', 'story'])->filter($request)->latest();
+            $rows = UserStoryAssignment::query()->has('user')->with(['user.grade', 'user.teacher', 'story'])->filter($request)->latest();
 
             return DataTables::make($rows)
                 ->escapeColumns([])

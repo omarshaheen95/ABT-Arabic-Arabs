@@ -1,6 +1,9 @@
 //Custom Functions -------------------------------------------------------------------------------------------------------
 const csrf = $('meta[name=csrf-token]').attr('content');
 
+$(document).ready(function () {
+
+})
 
 function getLessonsByGrade(on_change_name = 'grade_id',callback=null) {
     if (typeof getLessonsByGradeURL !== 'undefined') {
@@ -171,3 +174,20 @@ function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) {
     }
 }
 
+function callAllEvents() {
+    if (typeof $('select[name="grade_id"], select[name="lesson_type"]') !=='undefined'){
+        getLessonsByGrade()
+    }
+    if (typeof $('select[name="grade"]') !=='undefined'){
+        getStoriesByGrade()
+    }
+    if (typeof $('select[name="school_id"]') !=='undefined'){
+        getTeacherBySchool()
+    }
+    if (typeof $('select[name="school_id"]') !=='undefined'){
+        getSectionBySchool()
+    }
+    if (typeof $('select[name="teacher_id"]') !=='undefined'){
+        getSectionByTeacher()
+    }
+}

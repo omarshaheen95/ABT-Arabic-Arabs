@@ -33,7 +33,7 @@ class StudentStoryTest extends Model
     public function getActionButtonsAttribute()
     {
         $actions = [];
-        $actions[] = ['key' => 'blank', 'name' => t('Show'), 'route' => route(getGuard().'.stories_tests.show', $this->id), 'permission' => 'show story tests'];
+        $actions[] = ['key' => 'blank', 'name' => t('Correcting'), 'route' => route(getGuard().'.stories_tests.correcting_view', $this->id), 'permission' => 'correcting story tests'];
         if ($this->status == 'Pass') {
             $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route(getGuard().'.stories_tests.certificate', $this->id), 'permission' => 'story tests certificate'];
         }

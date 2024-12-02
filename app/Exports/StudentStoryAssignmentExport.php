@@ -2,10 +2,6 @@
 
 namespace App\Exports;
 
-use App\Models\StoryAssignment;
-use App\Models\StudentTest;
-use App\Models\User;
-use App\Models\UserAssignment;
 use App\Models\UserStoryAssignment;
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Responsable;
@@ -80,7 +76,7 @@ class StudentStoryAssignmentExport implements WithMapping,Responsable,WithHeadin
 
     public function collection()
     {
-        $students = StoryAssignment::query()->has('user')->with(['story', 'user.school','user.grade', 'user.teacher'])
+        $students = UserStoryAssignment::query()->has('user')->with(['story', 'user.school','user.grade', 'user.teacher'])
             ->filter($this->request)->latest();
         return $students->get();
     }

@@ -311,7 +311,7 @@ class User extends Authenticatable
 
     public function user_story_assignments()
     {
-        return $this->hasMany(StoryAssignment::class);
+        return $this->hasMany(UserStoryAssignment::class);
     }
     public function getGradeNameAttribute()
     {

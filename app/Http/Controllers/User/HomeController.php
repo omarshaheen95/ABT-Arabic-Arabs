@@ -8,7 +8,7 @@ use App\Models\Lesson;
 use App\Models\Question;
 use App\Models\School;
 use App\Models\Story;
-use App\Models\StoryAssignment;
+use App\Models\UserStoryAssignment;
 use App\Models\StoryQuestion;
 use App\Models\StoryUserRecord;
 use App\Models\TQuestion;
@@ -279,7 +279,7 @@ class HomeController extends Controller
     public function storiesAssignments()
     {
         $title = 'تعيينات القصص المسندة';
-        $student_assignments = StoryAssignment::query()
+        $student_assignments = UserStoryAssignment::query()
             ->has('story')
             ->where('user_id', Auth::user()->id)
             ->latest()->paginate(10);

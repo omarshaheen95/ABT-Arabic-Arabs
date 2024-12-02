@@ -12,10 +12,9 @@ use App\Exports\StudentStoryAssignmentExport;
 use App\Http\Controllers\Controller;
 use App\Models\Grade;
 use App\Models\School;
-use App\Models\StoryAssignment;
+use App\Models\UserStoryAssignment;
 use App\Models\Teacher;
 use App\Models\UserAssignment;
-use App\Models\UserStoryAssignment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -87,7 +86,7 @@ class AssignmentController extends Controller
     public function storiesIndex(Request $request)
     {
         if (request()->ajax()) {
-            $rows = StoryAssignment::query()->has('user')->with(['user.school', 'user.teacher', 'story'])->filter($request)->latest();
+            $rows = UserStoryAssignment::query()->has('user')->with(['user.school', 'user.teacher', 'story'])->filter($request)->latest();
 
             return DataTables::make($rows)
                 ->escapeColumns([])

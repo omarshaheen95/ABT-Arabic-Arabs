@@ -48,30 +48,30 @@ Route::group(['namespace' => 'School'], function() {
 //    Route::get('student/{id}/login', 'StudentController@login')->name('user.login');
 
 
-    //Students Tests
-    Route::get('lessons_tests', 'StudentTestController@lessonsIndex')->name('lessons_tests.index');
-//    Route::get('lessons_tests/{id}', 'StudentTestController@lessonsShow')->name('lessons_tests.show');
-    Route::get('lessons_tests/{id}', 'StudentTestController@show')->name('lessons_tests.show');
-    Route::get('lessons_tests/{id}/preview', 'StudentTestController@preview')->name('lessons_tests.preview');
-    Route::post('lessons_tests/{id}', 'StudentTestController@correct')->name('lessons_tests.correct');
-    Route::get('lessons_tests/certificate/{id}', 'StudentTestController@lessonsCertificate')->name('lessons_tests.certificate');
-    Route::post('lessons_tests/export', 'StudentTestController@lessonsExportStudentsTestsExcel')->name('lessons_tests.export_excel');
-
-    Route::get('stories_tests', 'StudentTestController@storiesIndex')->name('stories_tests.index');
-    Route::get('stories_tests/{id}', 'StudentTestController@storiesShow')->name('stories_tests.show');
-    Route::get('stories_tests/certificate/{id}', 'StudentTestController@storiesCertificate')->name('stories_tests.certificate');
-    Route::post('stories_test/export', 'StudentTestController@exportStoriesTestsExcel')->name('stories_tests.export_excel');
+//    //Students Tests
+//    Route::get('lessons_tests', 'StudentTestController@lessonsIndex')->name('lessons_tests.index');
+////    Route::get('lessons_tests/{id}', 'StudentTestController@lessonsShow')->name('lessons_tests.show');
+//    Route::get('lessons_tests/{id}', 'StudentTestController@show')->name('lessons_tests.show');
+//    Route::get('lessons_tests/{id}/preview', 'StudentTestController@preview')->name('lessons_tests.preview');
+//    Route::post('lessons_tests/{id}', 'StudentTestController@correct')->name('lessons_tests.correct');
+//    Route::get('lessons_tests/certificate/{id}', 'StudentTestController@lessonsCertificate')->name('lessons_tests.certificate');
+//    Route::post('lessons_tests/export', 'StudentTestController@lessonsExportStudentsTestsExcel')->name('lessons_tests.export_excel');
+//
+//    Route::get('stories_tests', 'StudentTestController@storiesIndex')->name('stories_tests.index');
+//    Route::get('stories_tests/{id}', 'StudentTestController@storiesShow')->name('stories_tests.show');
+//    Route::get('stories_tests/certificate/{id}', 'StudentTestController@storiesCertificate')->name('stories_tests.certificate');
+//    Route::post('stories_test/export', 'StudentTestController@exportStoriesTestsExcel')->name('stories_tests.export_excel');
     Route::get('stories_records', 'StudentTestController@storiesRecordsIndex')->name('stories_records.index');
     Route::post('stories_records/export', 'StudentTestController@exportStoriesRecordsExcel')->name('stories_records.export_excel');
     Route::get('students_works', 'StudentTestController@studentLessonIndex')->name('students_works.index');
     Route::post('students_works/export', 'StudentTestController@studentLessonExport')->name('students_works.export');
 
-    //Lessons Assignments
-    Route::get('lessons_assignments', 'AssignmentController@lessonsIndex')->name('lessons_assignments.index');
-    Route::post('lessons_assignments/export', 'AssignmentController@lessonsExport')->name('lessons_assignments.export');
-    //Stories Assignments
-    Route::get('stories_assignments', 'AssignmentController@storiesIndex')->name('stories_assignments.index');
-    Route::post('stories_assignments/export', 'AssignmentController@storiesExport')->name('stories_assignments.export');
+//    //Lessons Assignments
+//    Route::get('lessons_assignments', 'AssignmentController@lessonsIndex')->name('lessons_assignments.index');
+//    Route::post('lessons_assignments/export', 'AssignmentController@lessonsExport')->name('lessons_assignments.export');
+//    //Stories Assignments
+//    Route::get('stories_assignments', 'AssignmentController@storiesIndex')->name('stories_assignments.index');
+//    Route::post('stories_assignments/export', 'AssignmentController@storiesExport')->name('stories_assignments.export');
 
 
     //Lesson And Story (Hidden Control)

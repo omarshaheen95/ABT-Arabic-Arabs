@@ -333,6 +333,7 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'export lesson tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
 
             ['name' => 'show story tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
+            ['name' => 'correcting story tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
             ['name' => 'delete story tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
             ['name' => 'story tests certificate', 'guard_name' => 'manager', 'group' => 'users_tests'],
             ['name' => 'export story tests', 'guard_name' => 'manager', 'group' => 'users_tests'],
@@ -447,6 +448,7 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'export lesson tests', 'guard_name' => 'school', 'group' => 'users_tests'],
 
             ['name' => 'show story tests', 'guard_name' => 'school', 'group' => 'users_tests'],
+            ['name' => 'correcting story tests', 'guard_name' => 'school', 'group' => 'users_tests'],
             ['name' => 'delete story tests', 'guard_name' => 'school', 'group' => 'users_tests'],
             ['name' => 'story tests certificate', 'guard_name' => 'school', 'group' => 'users_tests'],
             ['name' => 'export story tests', 'guard_name' => 'school', 'group' => 'users_tests'],
@@ -513,6 +515,7 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'export lesson tests', 'guard_name' => 'teacher', 'group' => 'users_tests'],
 
             ['name' => 'show story tests', 'guard_name' => 'teacher', 'group' => 'users_tests'],
+            ['name' => 'correcting story tests', 'guard_name' => 'teacher', 'group' => 'users_tests'],
             ['name' => 'delete story tests', 'guard_name' => 'teacher', 'group' => 'users_tests'],
             ['name' => 'story tests certificate', 'guard_name' => 'teacher', 'group' => 'users_tests'],
             ['name' => 'export story tests', 'guard_name' => 'teacher', 'group' => 'users_tests'],

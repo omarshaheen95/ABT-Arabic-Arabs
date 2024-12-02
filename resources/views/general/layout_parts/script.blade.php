@@ -13,17 +13,12 @@
 <script src="{{asset('assets_v1/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <script src="{{asset('assets_v1/js/helpers.js')}}?v={{time()}}"></script>
 <script type="text/javascript">
-    @if(in_array(getGuard(),['manager','supervisor']))
     var getTeacherBySchoolURL= "{{route(getGuard().'.getTeacherBySchool', ":id")}}"
     var getSectionBySchoolURL= "{{route(getGuard().'.getSectionBySchool', ":id")}}"
-    @endif
-
-    @if(getGuard() !== 'teacher')
     var getSectionByTeacherURL= "{{route(getGuard().'.getSectionByTeacher', ":id")}}"
-    @endif
-
     var getLessonsByGradeURL= "{{route(getGuard().'.getLessonsByGrade')}}"
     var getStoriesByGradeURL= "{{route(getGuard().'.getStoriesByGrade')}}"
+    var getStudentsByGradeURL= "{{route(getGuard().'.getStudentsByGrade', ":id")}}"
 
 
 

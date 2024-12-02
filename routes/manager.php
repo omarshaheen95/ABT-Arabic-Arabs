@@ -127,11 +127,11 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::resource('hidden_lesson', 'HiddenLessonController')->except(['destroy', 'show', 'edit', 'update']);
     Route::delete('hidden_lesson/delete', 'HiddenLessonController@destroy')->name('hidden_lesson.destroy');
     Route::post('hidden_lesson/export', 'HiddenLessonController@export')->name('hidden_lesson.export');
-    //Lessons Assignments
-    Route::resource('lesson_assignment', 'LessonAssignmentController')->except(['destroy']);
-    Route::delete('lessons_assignments/delete', 'LessonAssignmentController@destroy')->name('lesson_assignment.destroy');
-    Route::post('lessons_assignments/export', 'LessonAssignmentController@export')->name('lesson_assignment.export');
-
+//    //Lessons Assignments
+//    Route::resource('lesson_assignment', 'LessonAssignmentController')->except(['destroy']);
+//    Route::delete('lessons_assignments/delete', 'LessonAssignmentController@destroy')->name('lesson_assignment.destroy');
+//    Route::post('lessons_assignments/export', 'LessonAssignmentController@export')->name('lesson_assignment.export');
+//
 
 
     //Story
@@ -149,10 +149,10 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::resource('hidden_story', 'HiddenStoryController')->except(['destroy', 'show', 'edit', 'update']);
     Route::delete('delete_hidden_story', 'HiddenStoryController@destroy')->name('hidden_story.destroy');
     Route::post('export_hidden_story', 'HiddenStoryController@export')->name('hidden_story.export');
-    //Stories Assignments
-    Route::resource('story_assignment', 'StoryAssignmentController')->except(['destroy']);
-    Route::delete('story_assignment/delete', 'StoryAssignmentController@destroy')->name('story_assignment.destroy');
-    Route::post('story_assignment/export', 'StoryAssignmentController@export')->name('story_assignment.export');
+//    //Stories Assignments
+//    Route::resource('story_assignment', 'StoryAssignmentController')->except(['destroy']);
+//    Route::delete('story_assignment/delete', 'StoryAssignmentController@destroy')->name('story_assignment.destroy');
+//    Route::post('story_assignment/export', 'StoryAssignmentController@export')->name('story_assignment.export');
 
     //Students Works
     Route::resource('students_works', 'UserWorksController')->except(['destroy']);
@@ -169,11 +169,11 @@ Route::group(['namespace' => 'Manager'], function(){
 //    Route::get('lessons_tests/{id}/certificate', 'StudentTestController@lessonsCertificate')->name('lessons_tests.certificate');
 //    Route::post('lessons_tests/export', 'StudentTestController@lessonsExportStudentsTestsExcel')->name('lessons_tests.export_excel');
 //
-    Route::get('stories_tests', 'StudentTestController@storiesIndex')->name('stories_tests.index');
-    Route::get('stories_tests/{id}', 'StudentTestController@storiesShow')->name('stories_tests.show');
-    Route::delete('stories_tests', 'StudentTestController@storiesDestroy')->name('stories_tests.destroy');
-    Route::get('stories_tests/{id}/certificate', 'StudentTestController@storiesCertificate')->name('stories_tests.certificate');
-    Route::post('stories_tests/export', 'StudentTestController@exportStoriesTestsExcel')->name('stories_tests.export_excel');
+//    Route::get('stories_tests', 'StudentTestController@storiesIndex')->name('stories_tests.index');
+//    Route::get('stories_tests/{id}', 'StudentTestController@storiesShow')->name('stories_tests.show');
+//    Route::delete('stories_tests', 'StudentTestController@storiesDestroy')->name('stories_tests.destroy');
+//    Route::get('stories_tests/{id}/certificate', 'StudentTestController@storiesCertificate')->name('stories_tests.certificate');
+//    Route::post('stories_tests/export', 'StudentTestController@exportStoriesTestsExcel')->name('stories_tests.export_excel');
 
     Route::get('stories_records', 'StudentTestController@storiesRecordsIndex')->name('stories_records.index');
     Route::get('stories_records/{id}', 'StudentTestController@storiesRecordsShow')->name('stories_records.show');
