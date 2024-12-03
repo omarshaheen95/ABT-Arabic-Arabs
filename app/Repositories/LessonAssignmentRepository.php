@@ -136,12 +136,13 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
         $students_array = $data['students'];
         $lessons = $data['lessons_ids'];
         $data['test_assignment'] = $request->get('test_assignment', 0);
+        $data['exclude_students'] = $request->get('exclude_students')!=2;
 
         $lesson_assignment = LessonAssignment::query()->create($data);
 
         if (!$data['test_assignment'])
         {
-            return redirect()->route(getGuard().'.lesson_assignment.index')->with('message',t('must select tasks assignment or test assignment at least'));
+            return redirect()->route(getGuard().'.lesson_assignment.index')->with('message',t('must select test assignment at least'))->with('m-class','error');
         }
         $students =  User::query()->with(['user_assignments'])
             ->when(count($students_array), function (Builder $query) use ($students_array){
@@ -231,7 +232,7 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
         $update_data = [
             'teacher_id'=>$data['teacher_id'],
             'deadline'=>$data['deadline'],
-            'exclude_students'=>$data['exclude_students'],
+            'exclude_students'=>$data['exclude_students']!=2,
             'test_assignment'=>$data['test_assignment'],
         ];
         if (isset($data['grade_id']) && $data['grade_id']){

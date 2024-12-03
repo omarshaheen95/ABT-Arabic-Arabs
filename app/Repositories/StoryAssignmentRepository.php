@@ -130,7 +130,7 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
         $data = $request->validated();
         $students_array = $data['students'];
         $stories = $data['stories_ids'];
-
+        $data['exclude_students'] = $request->get('exclude_students')!=2;
         $story_assignment = StoryAssignment::query()->create($data);
 
         $students =  User::query()->with(['user_story_assignments'])
@@ -177,7 +177,7 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
         $stories = Story::query()->where('grade',$assignment->story_grade)->get();
 
         $students = User::query()
-            ->whereRelation('teacher_student','teacher_id',$assignment->teacher_id)
+            ->whereRelation('teacherUser','teacher_id',$assignment->teacher_id)
             ->when(!is_null($assignment->sections), function (Builder $query) use ($assignment){
                 $query->whereIn('section',$assignment->sections);
             })
@@ -214,7 +214,7 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
             'students_grade'=>$data['students_grade'],
             'sections'=>$data['sections']??null,
             'deadline'=>$data['deadline'],
-            'exclude_students'=>$data['exclude_students'],
+            'exclude_students'=>$data['exclude_students']!=2,
         ];
         if (isset($data['sections']) && $data['sections']){
             $update_data['sections']=$data['sections'];

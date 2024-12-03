@@ -256,7 +256,9 @@ $('#kt_reset').on('click', function(e) {
         }else if($(this).is(':radio') && $(this).val() != ''){
             $(this).prop('checked', false);
         }else {
-            $(this).val('');
+            if ($(this).attr('name')!=='_token'){
+                $(this).val('');
+            }
         }
     });
     $(".filter select").each(function() {

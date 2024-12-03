@@ -106,9 +106,10 @@ function selectLoading(ele,status){
 function getAndSetDataOnSelectChange(on_change_name, to_select, getURL, multiple = 0, otherData = [], callback = null) {
     if (typeof getURL !== 'undefined') {
         $('select[name="' + on_change_name + '"]').change(function () {
-            var id = $(this).val();
+            let value = $(this).val();
             var selectElement = $(this);
-            if (id) {
+
+            if (value) {
                 var url = getURL;
 
                 var data = {
@@ -116,17 +117,17 @@ function getAndSetDataOnSelectChange(on_change_name, to_select, getURL, multiple
                 }
 
 
-                if (!Array.isArray(id)){
-                    url = url.replace(':id', id);
+                if (!Array.isArray(value) && url.includes(':id')){
+                    url = url.replace(':id', value);
                 }else {
                     let name = on_change_name.replace('[]','')
-                    data[name] = id; //id is array
+                    data[name] = value; //value is array
                 }
 
 
                 if (otherData.length > 0) {
                     $.each(otherData, function (key, value) {
-                        console.log($('#' + value).val());
+                        // console.log($('#' + value).val());
                         data[value] = $('#' + value).val();
                     });
                 }

@@ -60,6 +60,8 @@ class Story extends Model
                 $query->whereIn('id', $value);
             })->when($value = $request->get('grade', false), function (Builder $query) use ($value) {
                 $query->where('grade', $value);
+            })->when($value = $request->get('story_grade', false), function (Builder $query) use ($value) {
+                $query->where('grade', $value);
             })->when($value = $request->get('name', false), function (Builder $query) use ($value) {
                 $query->where('name', 'like', '%' . $value . '%');
 

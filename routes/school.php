@@ -61,10 +61,10 @@ Route::group(['namespace' => 'School'], function() {
 //    Route::get('stories_tests/{id}', 'StudentTestController@storiesShow')->name('stories_tests.show');
 //    Route::get('stories_tests/certificate/{id}', 'StudentTestController@storiesCertificate')->name('stories_tests.certificate');
 //    Route::post('stories_test/export', 'StudentTestController@exportStoriesTestsExcel')->name('stories_tests.export_excel');
-    Route::get('stories_records', 'StudentTestController@storiesRecordsIndex')->name('stories_records.index');
-    Route::post('stories_records/export', 'StudentTestController@exportStoriesRecordsExcel')->name('stories_records.export_excel');
-    Route::get('students_works', 'StudentTestController@studentLessonIndex')->name('students_works.index');
-    Route::post('students_works/export', 'StudentTestController@studentLessonExport')->name('students_works.export');
+//    Route::get('stories_records', 'StudentTestController@storiesRecordsIndex')->name('stories_records.index');
+//    Route::post('stories_records/export', 'StudentTestController@exportStoriesRecordsExcel')->name('stories_records.export_excel');
+//    Route::get('students_works', 'StudentTestController@studentLessonIndex')->name('students_works.index');
+//    Route::post('students_works/export', 'StudentTestController@studentLessonExport')->name('students_works.export');
 
 //    //Lessons Assignments
 //    Route::get('lessons_assignments', 'AssignmentController@lessonsIndex')->name('lessons_assignments.index');

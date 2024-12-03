@@ -41,11 +41,11 @@ function getSections($school_id=null,$teacher_id=null)
 {
     $sections = \App\Models\User::query()
         ->when($teacher = request()->get('teacher_id'), function (\Illuminate\Database\Eloquent\Builder $query) use ($teacher) {
-            $query->whereHas('teacher_student', function (Builder $query) use ($teacher) {
+            $query->whereHas('teacherUser', function (Builder $query) use ($teacher) {
                 $query->where('teacher_id', $teacher);
             });
         })->when($teacher_id, function (\Illuminate\Database\Eloquent\Builder $query) use ($teacher_id) {
-            $query->whereHas('teacher_student', function (Builder $query) use ($teacher_id) {
+            $query->whereHas('teacherUser', function (Builder $query) use ($teacher_id) {
                 $query->where('teacher_id', $teacher_id);
             });
         })

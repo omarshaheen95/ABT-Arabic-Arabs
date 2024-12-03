@@ -86,17 +86,11 @@ Route::group(['namespace' => 'General'], function () {
     Route::get('stories_tests/{id}/certificate', 'StoryTestController@certificate')->name('stories_tests.certificate');
     Route::post('stories_tests/export', 'StoryTestController@export')->name('stories_tests.export');
 
-//    //Story Record
-//    Route::resource('stories_records', 'StoryRecordController')->except(['destroy']);
-//    Route::delete('stories_records/destroy', 'StoryRecordController@destroy')->name('stories_records.destroy');
-//    Route::post('stories_records/export', 'StoryRecordController@export')->name('stories_records.export');
-//
-//    //Students Works
-//    Route::resource('students_works', 'StudentWorksController')->except(['destroy']);
-//    Route::delete('students_works/destroy', 'StudentWorksController@destroy')->name('students_works.destroy');
-//    Route::post('students_works/export', 'StudentWorksController@export')->name('students_works.export');
-//
-//
+    //Story Record
+    Route::resource('stories_records', 'StoryRecordController')->except(['destroy']);
+    Route::delete('stories_records/destroy', 'StoryRecordController@destroy')->name('stories_records.destroy');
+    Route::post('stories_records/export', 'StoryRecordController@export')->name('stories_records.export');
+
     //Lesson Assignment
     Route::resource('lesson_assignment','LessonAssignmentController')->except(['destroy']);
     Route::delete('lesson_assignment/destroy', 'LessonAssignmentController@destroy')->name('lesson_assignment.destroy');
@@ -121,19 +115,15 @@ Route::group(['namespace' => 'General'], function () {
     Route::resource('motivational_certificates', 'MotivationalCertificateController')->except(['destroy', 'edit', 'update']);
     Route::delete('motivational_certificates/destroy', 'MotivationalCertificateController@destroy')->name('motivational_certificates.destroy');
     Route::post('motivational_certificates/export', 'MotivationalCertificateController@export')->name('motivational_certificates.export');
-//
-//    Route::get('pre_usage_report', 'ReportController@preUsageReport')->name('report.pre_usage_report');
-//    Route::get('usage_report', 'ReportController@usageReport')->name('report.usage_report');
-//    Route::post('usage_report_excel', 'ReportController@exportUsageReport')->name('report.usage_report_excel');
-//
-//    //Roles And Permission
-//    Route::resource('role','RoleAndPermission\RoleController')->except(['destroy']);
-//    Route::delete('role', 'RoleAndPermission\RoleController@destroy')->name('role.destroy');
-//    Route::resource('permission','RoleAndPermission\PermissionController')->except(['destroy']);
-//    Route::delete('permission','RoleAndPermission\PermissionController@destroy')->name('permission.destroy');
-////    Route::get('user_role_and_permission','RoleAndPermission\UserRoleAndPermissionController@index')->name('user_role_and_permission.index');
-//    Route::get('user_role_and_permission/{user_guard}/{id}/edit','RoleAndPermission\UserRoleAndPermissionController@edit')->name('user_role_and_permission.edit');
-//    Route::post('user_role_and_permission/{id}/update','RoleAndPermission\UserRoleAndPermissionController@update')->name('user_role_and_permission.update');
+
+    //Roles And Permission
+    Route::resource('role','RoleAndPermission\RoleController')->except(['destroy']);
+    Route::delete('role', 'RoleAndPermission\RoleController@destroy')->name('role.destroy');
+    Route::resource('permission','RoleAndPermission\PermissionController')->except(['destroy']);
+    Route::delete('permission','RoleAndPermission\PermissionController@destroy')->name('permission.destroy');
+//    Route::get('user_role_and_permission','RoleAndPermission\UserRoleAndPermissionController@index')->name('user_role_and_permission.index');
+    Route::get('user_role_and_permission/{user_guard}/{id}/edit','RoleAndPermission\UserRoleAndPermissionController@edit')->name('user_role_and_permission.edit');
+    Route::post('user_role_and_permission/{id}/update','RoleAndPermission\UserRoleAndPermissionController@update')->name('user_role_and_permission.update');
 
 
     //Reports

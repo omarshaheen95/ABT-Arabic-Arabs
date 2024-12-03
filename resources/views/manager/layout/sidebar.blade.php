@@ -436,9 +436,9 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
                         </div>
                     @endif
 
-                @if(Auth::guard('manager')->user()->hasAnyDirectPermission(['show user works','show user records']))
+                @if(guardHasAnyPermission(['show user records']))
                     <div data-kt-menu-trigger="click"
-                         class="menu-item menu-accordion {{Request::is('manager/students_works')|| Request::is('manager/stories_records') ?'here show':''}}">
+                         class="menu-item menu-accordion {{menuIsActive([getGuard().'/stories_records*'])}}">
                                            <span class="menu-link">
                                                 <span class="menu-icon">
                                                 <i class="ki-duotone ki-questionnaire-tablet fs-2">
@@ -451,21 +451,10 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
 										</span>
                         <!--begin:Menu sub-->
                         <div class="menu-sub menu-sub-accordion">
-                            @can('show user works')
-                                <div class="menu-item">
-                                    <a href="{{route('manager.students_works.index')}}"
-                                       class="menu-link {{Request::is('manager/students_works*')?'active':''}}">
-                                                        <span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                                        <span class="menu-title">{{t('Students Works')}}</span>
-                                    </a>
-                                </div>
-                            @endcan
                             @can('show user records')
                                 <div class="menu-item">
                                     <a href="{{route('manager.stories_records.index')}}"
-                                       class="menu-link {{Request::is('manager/stories_records*')?'active':''}}">
+                                       class="menu-link {{menuLinkIsActive([getGuard().'/stories_records*'])}}">
                                                         <span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>

@@ -50,20 +50,20 @@ Route::group(['namespace' => 'Teacher'], function() {
 //    Route::get('stories_tests/{id}/certificate', 'StudentTestController@storiesCertificate')->name('stories_tests.certificate');
 //    Route::post('stories_tests/export', 'StudentTestController@exportStoriesTestsExcel')->name('stories_tests.export_excel');
 //    Route::get('stories_tests/{id}', 'StudentTestController@storiesShow')->name('stories_tests.show');
-
-    Route::get('stories_records', 'StudentTestController@storiesRecordsIndex')->name('stories_records.index');
-    Route::get('stories_records/{id}', 'StudentTestController@storiesRecordsShow')->name('stories_records.show');
-    Route::patch('stories_records/{id}', 'StudentTestController@storiesRecordsUpdate')->name('stories_records.update');
-    Route::delete('stories_records', 'StudentTestController@storiesRecordsDestroy')->name('stories_records.destroy');
-    Route::post('stories_records_tests/export', 'StudentTestController@exportStoriesRecordsExcel')->name('stories_records.export_excel');
-
-
-    //Students Works
-    Route::get('students_works', 'StudentWorksController@index')->name('students_works.index');
-    Route::get('students_works/{id}', 'StudentWorksController@show')->name('students_works.show');
-    Route::post('students_works/{id}', 'StudentWorksController@update')->name('students_works.update');
-    Route::delete('students_works', 'StudentWorksController@destroy')->name('students_works.destroy');
-    Route::post('students_works_export', 'StudentWorksController@studentLessonExport')->name('students_works.export');
+//
+//    Route::get('stories_records', 'StudentTestController@storiesRecordsIndex')->name('stories_records.index');
+//    Route::get('stories_records/{id}', 'StudentTestController@storiesRecordsShow')->name('stories_records.show');
+//    Route::patch('stories_records/{id}', 'StudentTestController@storiesRecordsUpdate')->name('stories_records.update');
+//    Route::delete('stories_records', 'StudentTestController@storiesRecordsDestroy')->name('stories_records.destroy');
+//    Route::post('stories_records_tests/export', 'StudentTestController@exportStoriesRecordsExcel')->name('stories_records.export_excel');
+//
+//
+//    //Students Works
+//    Route::get('students_works', 'StudentWorksController@index')->name('students_works.index');
+//    Route::get('students_works/{id}', 'StudentWorksController@show')->name('students_works.show');
+//    Route::post('students_works/{id}', 'StudentWorksController@update')->name('students_works.update');
+//    Route::delete('students_works', 'StudentWorksController@destroy')->name('students_works.destroy');
+//    Route::post('students_works_export', 'StudentWorksController@studentLessonExport')->name('students_works.export');
 
 //    //Lessons Assignments
 //    Route::resource('lesson_assignment', 'LessonAssignmentController')->except(['destroy']);
@@ -95,10 +95,10 @@ Route::group(['namespace' => 'Teacher'], function() {
     Route::get('sub_lessons/{id}/{type}/{level}', 'CurriculumController@subLessons')->name('sub_lessons');
 
 
-    //General
-    Route::get('getLessonsByGrade', [GeneralController::class,'getLessonsByGrade'])->name('getLessonsByGrade');
-    Route::get('getStoriesByGrade', [GeneralController::class,'getStoriesByGrade'])->name('getStoriesByGrade');
-    Route::get('getStudentsByGrade/{id}', [GeneralController::class,'getStudentsByGrade'])->name('getStudentsByGrade');
+//    //General
+//    Route::get('getLessonsByGrade', [GeneralController::class,'getLessonsByGrade'])->name('getLessonsByGrade');
+//    Route::get('getStoriesByGrade', [GeneralController::class,'getStoriesByGrade'])->name('getStoriesByGrade');
+//    Route::get('getStudentsByGrade/{id}', [GeneralController::class,'getStudentsByGrade'])->name('getStudentsByGrade');
 
     //Reports
     Route::get('usage_report', 'SettingController@usageReport')->name('report.usage_report');

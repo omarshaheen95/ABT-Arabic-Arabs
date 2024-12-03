@@ -896,4 +896,13 @@ return
 	'Delete Story Assignment' => 'Delete Story Assignment',
 	'Delete users story assignments when delete assignment' => 'Delete users story assignments when delete assignment',
 	'Add Story Assignment' => 'Add Story Assignment',
+	'Edit Lesson Assignment' => 'Edit Lesson Assignment',
+	'Edit Story Assignment' => 'Edit Story Assignment',
+	'must select test assignment at least' => 'must select test assignment at least',
+	'must select tasks assignment or test assignment at least' => 'must select tasks assignment or test assignment at least',
+	'Users Lessons Assignments' => 'Users Lessons Assignments',
+	'Add Lesson Assignment' => 'Add Lesson Assignment',
+	'Users Stories Assignments' => 'Users Stories Assignments',
+	'Students stories records' => 'Students stories records',
+	'Teachers Statistics' => 'Teachers Statistics',
 ];

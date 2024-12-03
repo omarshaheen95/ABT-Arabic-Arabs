@@ -175,11 +175,11 @@ Route::group(['namespace' => 'Manager'], function(){
 //    Route::get('stories_tests/{id}/certificate', 'StudentTestController@storiesCertificate')->name('stories_tests.certificate');
 //    Route::post('stories_tests/export', 'StudentTestController@exportStoriesTestsExcel')->name('stories_tests.export_excel');
 
-    Route::get('stories_records', 'StudentTestController@storiesRecordsIndex')->name('stories_records.index');
-    Route::get('stories_records/{id}', 'StudentTestController@storiesRecordsShow')->name('stories_records.show');
-    Route::patch('stories_records/{id}', 'StudentTestController@storiesRecordsUpdate')->name('stories_records.update');
-    Route::delete('stories_records', 'StudentTestController@storiesRecordsDestroy')->name('stories_records.destroy');
-    Route::post('stories_records_tests/export', 'StudentTestController@exportStoriesRecordsExcel')->name('stories_records.export_excel');
+//    Route::get('stories_records', 'StudentTestController@storiesRecordsIndex')->name('stories_records.index');
+//    Route::get('stories_records/{id}', 'StudentTestController@storiesRecordsShow')->name('stories_records.show');
+//    Route::patch('stories_records/{id}', 'StudentTestController@storiesRecordsUpdate')->name('stories_records.update');
+//    Route::delete('stories_records', 'StudentTestController@storiesRecordsDestroy')->name('stories_records.destroy');
+//    Route::post('stories_records_tests/export', 'StudentTestController@exportStoriesRecordsExcel')->name('stories_records.export_excel');
 
     //Year
     Route::resource('year','YearController')->except('destroy');

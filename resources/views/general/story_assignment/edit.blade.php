@@ -173,7 +173,7 @@
 
         function getStudentsData() {
             let teacher_id = $('select[name="teacher_id"]').val()
-            let grade_id = $('select[name="grade_id"]').val()
+            let grade_id = $('select[name="students_grade"]').val()
             if (teacher_id && grade_id) {
                 var students_url = '{{ route(getGuard().".getStudentsByGrade", ":id") }}';
                 students_url = students_url.replace(':id', grade_id);
@@ -195,15 +195,14 @@
 
         getSectionBySchool()
 
+       // getSectionByTeacher()
 
         getAndSetDataOnSelectChange('teacher_id','sections[]',getSectionByTeacherURL,1,function () {
             getStudentsData()
         })
 
-        getAndSetDataOnSelectChange('stories_ids[]','sections[]',getSectionByTeacherURL,1,function () {
-            getStudentsData()
-        })
-        getAndSetDataOnSelectChange('story_grade','stories_ids[]',getSectionByTeacherURL,1,function () {
+
+        getAndSetDataOnSelectChange('story_grade','stories_ids[]',getStoriesByGradeURL,1,function () {
             getStudentsData()
         })
 

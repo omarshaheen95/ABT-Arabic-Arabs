@@ -52,13 +52,13 @@ Route::group(['namespace' => 'Supervisor'], function () {
 //        Route::get('stories_assignments', 'StudentAssignmentController@indexStoryAssignment')->name('stories_assignments.index');
 //        Route::post('stories_assignments/export', 'StudentAssignmentController@exportStoryAssignment')->name('stories_assignments.export');
 //
-        //Marking
-        //Stories Records
-        Route::get('stories_records', 'StudentTestController@storiesRecordsIndex')->name('stories_records.index');
-        Route::post('stories_records/excel', 'StudentTestController@exportStoriesRecordsExcel')->name('stories_records.export_excel');
-        //Students Works
-        Route::get('students_works', 'StudentWorksController@index')->name('students_works.index');
-        Route::post('students_works/export', 'StudentWorksController@studentLessonExport')->name('students_works.export');
+//        //Marking
+//        //Stories Records
+//        Route::get('stories_records', 'StudentTestController@storiesRecordsIndex')->name('stories_records.index');
+//        Route::post('stories_records/excel', 'StudentTestController@exportStoriesRecordsExcel')->name('stories_records.export_excel');
+//        //Students Works
+//        Route::get('students_works', 'StudentWorksController@index')->name('students_works.index');
+//        Route::post('students_works/export', 'StudentWorksController@studentLessonExport')->name('students_works.export');
 
         //Usage Report
         Route::get('pre_usage_report', 'SettingController@preUsageReport')->name('report.pre_usage_report');
