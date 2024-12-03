@@ -43,44 +43,6 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::get('password/edit', 'ManagerController@editPassword')->name('edit-password');
     Route::post('password/update', 'ManagerController@updatePassword')->name('update-password');
 
-//    //Supervisors
-//    Route::resource('supervisor', 'SupervisorController')->except(['destroy']);
-//    Route::delete('supervisor/delete', 'SupervisorController@destroy')->name('supervisor.destroy');
-//    Route::post('supervisor/activation', 'SupervisorController@activation')->name('supervisor.activation');
-//    Route::get('supervisor/{id}/login', 'SupervisorController@login')->name('supervisor.login');
-//    Route::post('supervisor/export', 'SupervisorController@export')->name('supervisor.export');
-
-//    //User
-//    Route::resource('user', 'UserController')->except(['destroy']);
-//    Route::get('user/{id}/login', 'UserController@login')->name('user.login');
-//    Route::delete('user/delete', 'UserController@destroy')->name('user.destroy');
-//    Route::post('user/{id}/restore', 'UserController@restore')->name('user.restore');
-//    Route::post('user/export', 'UserController@export')->name('user.export');
-//    Route::get('duplicate_user', 'UserController@duplicateIndex')->name('user.duplicate_user');
-//    Route::delete('duplicate_user', 'UserController@destroyDuplicate')->name('user.delete_duplicate_user');
-//    Route::get('user_cards_and_qr', 'UserController@cards')->name('user.cards-export');
-//    Route::get('user/{id}/card', 'UserController@userCard')->name('user.card');
-//    Route::get('user/{id}/review', 'UserController@review')->name('user.review');
-//    Route::get('user/{id}/story-review', 'UserController@storyReview')->name('user.story-review');
-//    Route::get('user/{id}/report', 'UserController@report')->name('user.report');
-//    Route::post('user/unassigned_teacher', 'UserController@unassignedUserTeacher')->name('user.unassigned-teacher');
-//    Route::post('user/assigned_teacher', 'UserController@assignedUserToTeacher')->name('user.assigned-teacher');
-//    Route::post('user/activation', 'UserController@activation')->name('user.activation');
-//    Route::post('user/update_grades', 'UserController@updateGrades')->name('user.update_grades');
-
-//    //Teacher
-//    Route::resource('teacher', 'TeacherController')->except('destroy');
-//    Route::delete('teacher/delete', 'TeacherController@destroy')->name('teacher.destroy');
-//    Route::post('teacher/activation', 'TeacherController@activation')->name('teacher.activation');
-//    Route::post('teacher/export', 'TeacherController@export')->name('teacher.export');
-//    Route::get('teacher/{id}/login', 'TeacherController@login')->name('teacher.login');
-//    Route::get('teacher/users-unassign', 'TeacherController@usersUnsigned')->name('teacher.user-unsigned');
-//
-//    Route::get('tracking_teachers', 'TeacherController@teachersTracking')->name('teacher.tracking');
-//    Route::post('tracking_teachers_export', 'TeacherController@teachersTrackingExport')->name('teacher.tracking_export');
-//    Route::get('tracking_teachers_report/{id}', 'TeacherController@teachersTrackingReport')->name('teacher.tracking_report');
-
-
     //Activity Log Controller
     Route::get('activity-log', 'ActivityLogController@index')->name('activity-log.index');
     Route::get('activity-log/{id}', 'ActivityLogController@show')->name('activity-log.show');
@@ -127,12 +89,6 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::resource('hidden_lesson', 'HiddenLessonController')->except(['destroy', 'show', 'edit', 'update']);
     Route::delete('hidden_lesson/delete', 'HiddenLessonController@destroy')->name('hidden_lesson.destroy');
     Route::post('hidden_lesson/export', 'HiddenLessonController@export')->name('hidden_lesson.export');
-//    //Lessons Assignments
-//    Route::resource('lesson_assignment', 'LessonAssignmentController')->except(['destroy']);
-//    Route::delete('lessons_assignments/delete', 'LessonAssignmentController@destroy')->name('lesson_assignment.destroy');
-//    Route::post('lessons_assignments/export', 'LessonAssignmentController@export')->name('lesson_assignment.export');
-//
-
 
     //Story
     Route::resource('story', 'StoryController')->except('destroy');
@@ -145,41 +101,11 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::post('story_remove_attachment/{id}', 'StoryController@removeAttachment')->name('story.remove_attachment');
     Route::post('story_remove_sort_word/{id}', 'StoryController@removeSortWord')->name('story.remove_sort_word');
     Route::post('story_remove_match_attachment/{id}', 'StoryController@removeMatchAttachment')->name('story.remove_match_attachment');
+
     //Hidden story
     Route::resource('hidden_story', 'HiddenStoryController')->except(['destroy', 'show', 'edit', 'update']);
     Route::delete('delete_hidden_story', 'HiddenStoryController@destroy')->name('hidden_story.destroy');
     Route::post('export_hidden_story', 'HiddenStoryController@export')->name('hidden_story.export');
-//    //Stories Assignments
-//    Route::resource('story_assignment', 'StoryAssignmentController')->except(['destroy']);
-//    Route::delete('story_assignment/delete', 'StoryAssignmentController@destroy')->name('story_assignment.destroy');
-//    Route::post('story_assignment/export', 'StoryAssignmentController@export')->name('story_assignment.export');
-
-    //Students Works
-    Route::resource('students_works', 'UserWorksController')->except(['destroy']);
-    Route::delete('students_works/delete', 'UserWorksController@destroy')->name('students_works.destroy');
-    Route::post('students_works/export', 'UserWorksController@export')->name('students_works.export');
-
-//    //Students Tests
-//    Route::get('lessons_tests', 'StudentTestController@lessonsIndex')->name('lessons_tests.index');
-////    Route::get('lessons_tests/{id}', 'StudentTestController@lessonsShow')->name('lessons_tests.show');
-//    Route::get('lessons_tests/{id}', 'StudentTestController@show')->name('lessons_tests.show');
-//    Route::get('lessons_tests/{id}/preview', 'StudentTestController@preview')->name('lessons_tests.preview');
-//    Route::post('lessons_tests/{id}', 'StudentTestController@correct')->name('lessons_tests.correct');
-//    Route::delete('lessons_tests', 'StudentTestController@lessonsDestroy')->name('lessons_tests.destroy');
-//    Route::get('lessons_tests/{id}/certificate', 'StudentTestController@lessonsCertificate')->name('lessons_tests.certificate');
-//    Route::post('lessons_tests/export', 'StudentTestController@lessonsExportStudentsTestsExcel')->name('lessons_tests.export_excel');
-//
-//    Route::get('stories_tests', 'StudentTestController@storiesIndex')->name('stories_tests.index');
-//    Route::get('stories_tests/{id}', 'StudentTestController@storiesShow')->name('stories_tests.show');
-//    Route::delete('stories_tests', 'StudentTestController@storiesDestroy')->name('stories_tests.destroy');
-//    Route::get('stories_tests/{id}/certificate', 'StudentTestController@storiesCertificate')->name('stories_tests.certificate');
-//    Route::post('stories_tests/export', 'StudentTestController@exportStoriesTestsExcel')->name('stories_tests.export_excel');
-
-//    Route::get('stories_records', 'StudentTestController@storiesRecordsIndex')->name('stories_records.index');
-//    Route::get('stories_records/{id}', 'StudentTestController@storiesRecordsShow')->name('stories_records.show');
-//    Route::patch('stories_records/{id}', 'StudentTestController@storiesRecordsUpdate')->name('stories_records.update');
-//    Route::delete('stories_records', 'StudentTestController@storiesRecordsDestroy')->name('stories_records.destroy');
-//    Route::post('stories_records_tests/export', 'StudentTestController@exportStoriesRecordsExcel')->name('stories_records.export_excel');
 
     //Year
     Route::resource('year','YearController')->except('destroy');
@@ -196,12 +122,6 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::resource('package', 'PackageController')->except(['destroy']);
     Route::delete('package/delete', 'PackageController@destroy')->name('package.destroy');
 
-//    //MotivationalCertificate
-//    Route::resource('motivational_certificate', 'MotivationalCertificateController')->except(['destroy', 'edit', 'update']);
-//    Route::delete('motivational_certificate/delete', 'MotivationalCertificateController@destroy')->name('motivational_certificate.destroy');
-//    Route::post('motivational_certificate/export', 'MotivationalCertificateController@export')->name('motivational_certificate.export');
-//
-
 
     Route::get('seed',function (){
         Artisan::call('db:seed --class PermissionsTableSeeder');
@@ -212,12 +132,58 @@ Route::group(['namespace' => 'Manager'], function(){
         return redirect()->route('manager.home');
 
     });
+    Route::get('give_roles', function () {
 
+//            foreach (\App\Models\Manager::all() as $manager){
+//                $manager->syncRoles('Manager');
+//            }
+        foreach (\App\Models\School::all() as $school) {
+            $school->syncRoles('School');
+        }
+        foreach (\App\Models\Teacher::all() as $teacher) {
+            $teacher->syncRoles('Teacher');
+        }
+        foreach (\App\Models\Supervisor::all() as $supervisor) {
+            $supervisor->syncRoles('Supervisor');
+        }
+        return redirect()->route('manager.home')->with('message', 'The roles assigned successfully');
 
+    });
 
+    Route::get('give_all_permissions/{guard}', function ($guard) {
+        //Artisan::call('db:seed --class PermissionsTableSeeder');
+        //Artisan::call('db:seed --class SettingsTableSeeder');
+        if ($guard && in_array($guard, ['manager', 'school', 'teacher', 'supervisor'])) {
+
+            $all_permission = Permission::query()->where('guard_name', $guard)->get()->pluck('name')->toArray();
+            $users = [];
+            switch ($guard) {
+                case 'manager':
+                    $users = \App\Models\Manager::get();
+                    break;
+                case 'teacher':
+                    $users = \App\Models\Teacher::get();
+                    break;
+                case 'school':
+                    $users = \App\Models\School::get();
+                    break;
+                case 'supervisor':
+                    $users = \App\Models\Supervisor::get();
+                    break;
+
+            }
+
+            foreach ($users as $user) {
+                $user->syncPermissions($all_permission);
+            }
+            return redirect()->route('manager.home')->with('message', 'The ' . $guard . 's takes all permissions');
+
+        }
+        return redirect()->route('manager.home')->with('message', 'The (' . $guard . ') guard not found');
+
+    });
 
     //old
-
     Route::get('get_marks', function(){
         $lesson_assessment = Lesson::query()->withSum('questions', 'mark')->has('questions')->get()->where('questions_sum_mark', '>', 100)
             ->pluck('questions_sum_mark', 'id')->toArray();

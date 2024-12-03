@@ -288,7 +288,7 @@
 
 
                 <div data-kt-menu-trigger="click"
-                     class="menu-item menu-accordion {{Request::is('school/hidden_lesson')|| Request::is('school/hidden_story') ?'here show':''}}">
+                     class="menu-item menu-accordion {{Request::is('school/lessons')|| Request::is('school/stories') ?'here show':''}}">
                                            <span class="menu-link">
                                                 <span class="menu-icon">
                                                 <i class="ki-duotone ki-book-open fs-2">

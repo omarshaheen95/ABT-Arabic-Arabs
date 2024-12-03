@@ -905,4 +905,7 @@ return
 	'Users Stories Assignments' => 'Users Stories Assignments',
 	'Students stories records' => 'Students stories records',
 	'Teachers Statistics' => 'Teachers Statistics',
+	'ImportFileLog' => 'ImportFileLog',
+	'LessonAssignment' => 'LessonAssignment',
+	'UserStoryAssignment' => 'UserStoryAssignment',
 ];
