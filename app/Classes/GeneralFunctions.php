@@ -344,20 +344,20 @@ class GeneralFunctions
                     ->orWhereIn('alternate_grade_id', $grades);
             })
             ->where('school_id', $school->id)
-            ->where('created_at', '>=', $start_date)
-            ->where('created_at', '<=', $end_date)
+//            ->where('created_at', '>=', $start_date)
+//            ->where('created_at', '<=', $end_date)
             ->count();
 
         $data['total_teachers'] = Teacher::query()
             ->where('school_id', $school->id)
-            ->where('last_login', '>=', $start_date)
-            ->where('last_login', '<=', $end_date)
+//            ->where('last_login', '>=', $start_date)
+//            ->where('last_login', '<=', $end_date)
             ->count();
 
         $data['top_teacher'] = Teacher::query()
             ->where('school_id', $school->id)
-            ->where('last_login', '>=', $start_date)
-            ->where('last_login', '<=', $end_date)
+//            ->where('last_login', '>=', $start_date)
+//            ->where('last_login', '<=', $end_date)
             ->orderBy('passed_tests', 'desc')
             ->first();
         $data['top_student'] = User::query()
@@ -366,8 +366,8 @@ class GeneralFunctions
                     ->orWhereIn('alternate_grade_id', $grades);
             })
             ->where('school_id', $school->id)
-            ->where('created_at', '>=', $start_date)
-            ->where('created_at', '<=', $end_date)
+//            ->where('created_at', '>=', $start_date)
+//            ->where('created_at', '<=', $end_date)
             ->withCount(['user_test' => function ($query) {
                 $query->where('status', 'Pass');
             }])
@@ -446,8 +446,8 @@ class GeneralFunctions
 
         $teachers = Teacher::query()
             ->where('school_id', $school->id)
-            ->where('last_login', '>=', $start_date)
-            ->where('last_login', '<=', $end_date)
+//            ->where('last_login', '>=', $start_date)
+//            ->where('last_login', '<=', $end_date)
             ->get();
 
         $tracks = UserTracker::query()
@@ -466,21 +466,17 @@ class GeneralFunctions
             $data['learn'] = $tracks->where('type', 'learn')->count();
             $data['practise'] = $tracks->where('type', 'practise')->count();
             $data['test'] = $tracks->where('type', 'test')->count();
-            $data['play'] = $tracks->where('type', 'play')->count();
             $data['learn_avg'] = ($data['learn'] / $data['total_practice']) * 100;
             $data['practise_avg'] = ($data['practise'] / $data['total_practice']) * 100;
             $data['test_avg'] = ($data['test'] / $data['total_practice']) * 100;
-            $data['play_avg'] = ($data['play'] / $data['total_practice']) * 100;
         } else {
             $data['total_practice'] = 0;
             $data['learn'] = 0;
             $data['practise'] = 0;
             $data['test'] = 0;
-            $data['play'] = 0;
             $data['learn_avg'] = 0;
             $data['practise_avg'] = 0;
             $data['test_avg'] = 0;
-            $data['play_avg'] = 0;
         }
 
         $grades_data = [];
@@ -491,14 +487,14 @@ class GeneralFunctions
                         ->orWhere('alternate_grade_id', $grade);
                 })
                 ->where('school_id', $school->id)
-                ->where('created_at', '>=', $start_date)
-                ->where('created_at', '<=', $end_date)
+//                ->where('created_at', '>=', $start_date)
+//                ->where('created_at', '<=', $end_date)
                 ->count();
 
             $grades_data[$grade]['total_teachers'] = Teacher::query()
                 ->where('school_id', $school->id)
-                ->where('last_login', '>=', $start_date)
-                ->where('last_login', '<=', $end_date)
+//                ->where('last_login', '>=', $start_date)
+//                ->where('last_login', '<=', $end_date)
                 ->whereHas('teacher_users', function (Builder $query) use ($grade) {
                     $query->whereHas('user', function (Builder $query) use ($grade) {
                         $query->where('grade_id', $grade);
@@ -508,8 +504,8 @@ class GeneralFunctions
 
             $grades_data[$grade]['top_teacher'] = Teacher::query()
                 ->where('school_id', $school->id)
-                ->where('last_login', '>=', $start_date)
-                ->where('last_login', '<=', $end_date)
+//                ->where('last_login', '>=', $start_date)
+//                ->where('last_login', '<=', $end_date)
                 ->whereHas('teacher_users', function (Builder $query) use ($grade) {
                     $query->whereHas('user', function (Builder $query) use ($grade) {
                         $query->where('grade_id', $grade);
@@ -524,8 +520,8 @@ class GeneralFunctions
                         ->orWhere('alternate_grade_id', $grade);
                 })
                 ->where('school_id', $school->id)
-                ->where('created_at', '>=', $start_date)
-                ->where('created_at', '<=', $end_date)
+//                ->where('created_at', '>=', $start_date)
+//                ->where('created_at', '<=', $end_date)
                 ->withCount(['user_test' => function ($query) {
                     $query->where('status', 'Pass');
                 }])
@@ -618,21 +614,17 @@ class GeneralFunctions
                 $grades_data[$grade]['learn'] = $tracks->where('type', 'learn')->count();
                 $grades_data[$grade]['practise'] = $tracks->where('type', 'practise')->count();
                 $grades_data[$grade]['test'] = $tracks->where('type', 'test')->count();
-                $grades_data[$grade]['play'] = $tracks->where('type', 'play')->count();
                 $grades_data[$grade]['learn_avg'] = ($grades_data[$grade]['learn'] / $grades_data[$grade]['total_practice']) * 100;
                 $grades_data[$grade]['practise_avg'] = ($grades_data[$grade]['practise'] / $grades_data[$grade]['total_practice']) * 100;
                 $grades_data[$grade]['test_avg'] = ($grades_data[$grade]['test'] / $grades_data[$grade]['total_practice']) * 100;
-                $grades_data[$grade]['play_avg'] = ($grades_data[$grade]['play'] / $grades_data[$grade]['total_practice']) * 100;
             } else {
                 $grades_data[$grade]['total_practice'] = 0;
                 $grades_data[$grade]['learn'] = 0;
                 $grades_data[$grade]['practise'] = 0;
                 $grades_data[$grade]['test'] = 0;
-                $grades_data[$grade]['play'] = 0;
                 $grades_data[$grade]['learn_avg'] = 0;
                 $grades_data[$grade]['practise_avg'] = 0;
                 $grades_data[$grade]['test_avg'] = 0;
-                $grades_data[$grade]['play_avg'] = 0;
             }
         }
 

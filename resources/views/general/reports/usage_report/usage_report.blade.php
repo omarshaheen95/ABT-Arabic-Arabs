@@ -627,16 +627,16 @@
             type: 'pie',
             name: 'Rate',
             data: [
-                ['Learn', {{ $data['learn'] }}],
+                {{--['Learn', {{ $data['learn'] }}],--}}
                 ['Practise', {{ $data['practise'] }}],
                 ['Assess your self', {{ $data['test'] }}],
-                ['Play', {{ $data['play'] }}],
             ]
         }]
     });
 
 
     @foreach($grades_data as $key => $grade_data)
+        @if($key >= 1 && $key <= 15)
     Highcharts.chart("grade_tracker_{{$key}}", {
         chart: {
             plotBackgroundColor: null,
@@ -688,14 +688,13 @@
             type: 'pie',
             name: 'Rate',
             data: [
-                ['Learn', {{ $grade_data['learn'] }}],
+                {{--['Learn', {{ $grade_data['learn'] }}],--}}
                 ['Practise', {{ $grade_data['practise'] }}],
                 ['Assess your self', {{ $grade_data['test'] }}],
-                ['Play', {{ $grade_data['play'] }}],
             ]
         }]
     });
-
+    @endif
     @endforeach
 
 
