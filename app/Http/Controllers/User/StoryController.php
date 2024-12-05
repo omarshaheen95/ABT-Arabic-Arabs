@@ -51,36 +51,78 @@ class StoryController extends Controller
                 'student_story_test_id' => $test->id
             ]);
         }
-        foreach ($request->get('re', []) as $question => $options)
+
+
+        $matching = $request->get('matching', []);
+        $sorting = $request->get('sorting', []);
+
+        foreach ($matching as $key => $match)
         {
-            $matches = StoryMatch::query()->where('story_question_id', $question)->get()->pluck('id')->all();
-            foreach ($options as $key => $value)
+            $match_answers = StoryMatch::query()->where('story_question_id', $key)->get();
+            foreach ($match as $uid => $value)
             {
                 if (!is_null($value))
                 {
+                    $result_id = $match_answers->where('uid', $uid)->first()->id;
                     StoryMatchResult::create([
-                        'story_question_id' => $question,
-                        'story_match_id' => $matches[$value - 1],
-                        'story_result_id' => $key,
-                        'student_story_test_id' => $test->id
+                        'story_question_id' => $key,
+                        'story_match_id' => $value,
+                        'story_result_id' => $result_id,
+                        'student_story_test_id' => $test->id,
+                        'match_answer_uid' => $uid,
                     ]);
                 }
             }
         }
-        foreach ($request->get('sort', []) as $question => $words)
+        foreach($sorting as $key => $sort)
         {
-            foreach ($words as $key => $value)
+            $sort_words = StorySortWord::query()->where('story_question_id', $key)->get();
+            foreach ($sort as $uid => $value)
             {
                 if (!is_null($value))
                 {
+                    $result_id = $sort_words->where('uid', $uid)->first()->id;
                     StorySortResult::create([
-                        'story_question_id' => $question,
-                        'story_sort_word_id' => $key,
+                        'story_question_id' => $key,
+                        'story_sort_word_id' => $result_id,
                         'student_story_test_id' => $test->id,
+                        'story_sort_answer_uid' => $uid,
                     ]);
                 }
             }
         }
+
+
+//        foreach ($request->get('re', []) as $question => $options)
+//        {
+//            $matches = StoryMatch::query()->where('story_question_id', $question)->get()->pluck('id')->all();
+//            foreach ($options as $key => $value)
+//            {
+//                if (!is_null($value))
+//                {
+//                    StoryMatchResult::create([
+//                        'story_question_id' => $question,
+//                        'story_match_id' => $matches[$value - 1],
+//                        'story_result_id' => $key,
+//                        'student_story_test_id' => $test->id
+//                    ]);
+//                }
+//            }
+//        }
+//        foreach ($request->get('sort', []) as $question => $words)
+//        {
+//            foreach ($words as $key => $value)
+//            {
+//                if (!is_null($value))
+//                {
+//                    StorySortResult::create([
+//                        'story_question_id' => $question,
+//                        'story_sort_word_id' => $key,
+//                        'student_story_test_id' => $test->id,
+//                    ]);
+//                }
+//            }
+//        }
 
 
 

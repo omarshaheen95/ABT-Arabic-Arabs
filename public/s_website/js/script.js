@@ -118,23 +118,23 @@ if($('html').height()<=$(window).height()){
   });
 
 
-  $(document).on('click','.sortable1 li', function (){
-      var ele = $(this);
-      var next_answer_box_length = ele.parent().parent().parent().find('.sortable2 li').length+1;
-      var next_answer_box = ele.parent().parent().parent().find('.sortable2');
-      ele.find('input').val(next_answer_box_length);
-      ele.clone().appendTo(next_answer_box);
-      ele.remove();
-  });
-
-  $(document).on('click','.sortable2 li', function (){
-      console.log('test');
-      var ele = $(this);
-      var next_answer_box = ele.parent().parent().parent().parent().parent().parent().parent().find('.sortable1');
-      ele.find('input').val("");
-      ele.clone().appendTo(next_answer_box);
-      ele.remove();
-  });
+  // $(document).on('click','.sortable1 li', function (){
+  //     var ele = $(this);
+  //     var next_answer_box_length = ele.parent().parent().parent().find('.sortable2 li').length+1;
+  //     var next_answer_box = ele.parent().parent().parent().find('.sortable2');
+  //     ele.find('input').val(next_answer_box_length);
+  //     ele.clone().appendTo(next_answer_box);
+  //     ele.remove();
+  // });
+  //
+  // $(document).on('click','.sortable2 li', function (){
+  //     console.log('test');
+  //     var ele = $(this);
+  //     var next_answer_box = ele.parent().parent().parent().parent().parent().parent().parent().find('.sortable1');
+  //     ele.find('input').val("");
+  //     ele.clone().appendTo(next_answer_box);
+  //     ele.remove();
+  // });
 
 $('#questionNumber').html($('.question-list .question-item.active').attr('id'));
 $('#numberQuestions').html($('.question-list .question-item').length);

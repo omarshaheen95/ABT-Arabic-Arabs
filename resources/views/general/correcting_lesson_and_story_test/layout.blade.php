@@ -35,6 +35,7 @@
     @yield('pre_style')
     <link rel="stylesheet" href="{{asset('web_assets/css/custom.css')}}?v2">
     <link rel="stylesheet" href="{{asset('web_assets/css/resposive.css')}}">
+    <link rel="stylesheet" href="{{asset('web_assets/css/exam_questions.css')}}">
     <link href="{{ asset('assets/vendors/general/toastr/build/toastr.css') }}" rel="stylesheet" />
     @yield('style')
 
@@ -271,7 +272,7 @@
 
 <!-- Bootstrap JavaScript Libraries -->
 
-<script src="{{asset('cdn_files/jquery.min.js')}}"></script>
+<script src="{{asset('s_website/js/jquery-3.6.3.min.js')}}"></script>
 <script src="{{asset('cdn_files/popper.min.js')}}"></script>
 <script src="{{asset('cdn_files/bootstrap_5_0.min.js')}}"></script>
 <script src="{{asset('cdn_files/toastify-js.net_npm_toastify-js')}}"></script>
@@ -284,8 +285,11 @@
 <script src="{{asset('web_assets/js/recorder.js')}}"></script>
 <script src="{{asset('web_assets/js/recorder-app.js')}}"></script>
 <script src="{{asset('web_assets/js/custom.js')}}"></script>
-
+<script src="{{asset('s_website/js/jquery.ui.touch-punch.js')}}"></script>
+<script src="{{asset('s_website/js/jquery-ui.js')}}"></script>
 <script src="{{asset('s_website/js/script.js')}}"></script>
+<script src="{{asset('s_website/js/questions/matching.js')}}"></script>
+<script src="{{asset('s_website/js/questions/sorting.js')}}"></script>
 
 <script>
     toastr.options = {

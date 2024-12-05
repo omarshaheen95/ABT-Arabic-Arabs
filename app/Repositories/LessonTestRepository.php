@@ -136,6 +136,37 @@ class LessonTestRepository implements LessonTestRepositoryInterface
             ])->where('lesson_id', $student_test->lesson_id)->get();
             // dd($questions->toArray());
 
+//            foreach ($questions as $question){
+//                if ($question->type == 3){
+//                    foreach ($question->matches as $value){
+//                        $value->update(['uid' => \Str::uuid()]);
+//                    }
+//                }if ($question->type == 4){
+//                    foreach ($question->sortWords as $value){
+//                        $value->update(['uid' => \Str::uuid()]);
+//                    }
+//                }
+//                if ($question->type == 3){
+//                    foreach ($question->matches as $value){
+//                        foreach ($question->match_results as $result){
+//                            if ($result->match_id == $value->id ){
+//                                $result->update(['match_answer_uid' => $value->uid]);
+//                            }
+//                        }
+//                    }
+//                }
+//                if ($question->type == 4){
+//                    foreach ($question->sortWords as $value){
+//                        foreach ($question->sort_results as $result){
+//                            if ($result->sort_word_id == $value->id ){
+//                                $result->update(['sort_answer_uid' => $value->uid]);
+//                            }
+//                        }
+//                    }
+//                }
+
+//            }
+
             $lesson = $student_test->lesson;
             $user = $student_test->user;
             return view('general.correcting_lesson_and_story_test.lesson', compact('questions', 'student_test', 'lesson', 'user'));

@@ -316,6 +316,7 @@ class StoryController extends Controller
                     }
                     StoryMatch::create([
                         'story_question_id' => $question->id,
+                        'uid' => \Str::uuid(),
                         'content' => $m_q_option,
                         'result' => $result,
                         'image' => $image,
@@ -353,6 +354,7 @@ class StoryController extends Controller
                 foreach ($question_option as $m_a_key => $option) {
                     StorySortWord::create([
                         'story_question_id' => $question->id,
+                        'uid' => \Str::uuid(),
                         'content' => $option,
                         'ordered' => $counter,
                     ]);
@@ -474,6 +476,7 @@ class StoryController extends Controller
                         $counter++;
                         StorySortWord::create([
                             'story_question_id' => $question->id,
+                            'uid' => \Str::uuid(),
                             'content' => $option,
                             'ordered' => $counter,
                         ]);

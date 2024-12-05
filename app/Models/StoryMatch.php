@@ -12,7 +12,7 @@ class StoryMatch extends Model
 {
     use SoftDeletes, Pathable,LogsActivityTrait;
     protected $fillable = [
-        'story_question_id', 'content', 'image', 'result'
+        'story_question_id', 'content', 'image', 'result','uid'
     ];
     protected static $recordEvents = ['updated'];
     protected $pathAttribute = [

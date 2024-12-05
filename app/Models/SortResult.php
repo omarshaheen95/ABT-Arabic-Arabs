@@ -11,7 +11,7 @@ class SortResult extends Model
 {
     use SoftDeletes,LogsActivityTrait;
     protected $fillable = [
-        'question_id', 'sort_word_id', 'user_test_id'
+        'question_id', 'sort_word_id', 'user_test_id' ,'sort_answer_uid',
     ];
     protected static $recordEvents = ['updated'];
     public function user_test()

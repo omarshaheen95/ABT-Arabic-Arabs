@@ -1,40 +1,34 @@
-<div id="{{$counter}}" class="exercise-box @if($loop->first) active @endif  question-item">
-    <div class="exercise-box-header text-center">
-        <span class="number"> {{$counter}} : </span>
-        <span class="title"> اسحب الإجابات إلى الأماكن الصحيحة في الأسفل – Drag the answers in the
-                                        right places below </span>
-    </div>
-    <div class="exercise-box-body">
-        <div class="exercise-question">
-            <div class="exercise-question-data border-0">
-                <div class="info">
-                    {{$question->content}}
-                </div>
-                <div class="exercise-question-answer text-center my-4">
-                    @if(!is_null($question->attachment))
-                        <div class="row justify-content-center py-3">
-                            <div class="col-lg-6 col-md-8">
-                                @if(\Illuminate\Support\Str::contains($question->attachment, '.mp3'))
-                                    <div class="recorder-player"
-                                         id="voice_audio_2">
-                                        <div class="audio-player">
-                                            <audio crossorigin>
-                                                <source
-                                                    src="{{asset($question->attachment)}}"
-                                                    type="audio/mpeg">
-                                            </audio>
-                                        </div>
+<div class="exercise-box-body">
+    <div class="exercise-question">
+        <div class="exercise-question-data border-0">
+            <div class="info">
+                {{$question->content}}
+            </div>
+            <div class="exercise-question-answer text-center my-4">
+                @if(!is_null($question->attachment))
+                    <div class="row justify-content-center py-3">
+                        <div class="col-lg-6 col-md-8">
+                            @if(\Illuminate\Support\Str::contains($question->attachment, '.mp3'))
+                                <div class="recorder-player"
+                                     id="voice_audio_2">
+                                    <div class="audio-player">
+                                        <audio crossorigin>
+                                            <source
+                                                src="{{asset($question->attachment)}}"
+                                                type="audio/mpeg">
+                                        </audio>
                                     </div>
-                                @else
-                                    <div class="w-100 text-center">
-                                        <img
-                                            src="{{asset($question->attachment)}}"
-                                            width="300px">
-                                    </div>
-                                @endif
-                            </div>
+                                </div>
+                            @else
+                                <div class="w-100 text-center">
+                                    <img
+                                        src="{{asset($question->attachment)}}"
+                                        width="300px">
+                                </div>
+                            @endif
                         </div>
-                    @endif
+                    </div>
+                @endif
                     <div class="row">
                         <div class="col-md-12">
                             <div class="answer-box justify-content-center w-100 mt-2">
@@ -112,11 +106,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
-
 </div>
-
-
