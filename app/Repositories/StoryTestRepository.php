@@ -102,7 +102,7 @@ class StoryTestRepository implements StoryTestRepositoryInterface
                     $query->where('student_story_test_id',$id);
                 },
             ])->where('story_id',$student_test->story_id)->get();
-            // dd($questions->toArray());
+//             dd($questions->toArray());
 
             $story = $student_test->story;
             $user = $student_test->user;

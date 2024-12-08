@@ -44,7 +44,7 @@
                             type="radio" question-grop-name="q{{$counter}}"
                             name="tf[{{$question->id}}]" value="1"
                             id="true-{{$question->id}}" class="d-none"
-                            {{isset($question->true_false_results) && optional($question->true_false_results->first())->result==1?'checked':''}}>
+                            {{isset($question->true_false_results) && $question->true_false_results->first() && optional($question->true_false_results->first())->result==1?'checked':''}}>
                         <label for="true-{{$question->id}}"
                                class="option option-true">
                             <svg id="Group_68450" data-name="Group 68450"
@@ -62,8 +62,8 @@
                                         cx="41"
                                         cy="41" r="41"
                                         transform="translate(10 10)"
-                                        @if(isset($question->true_false_results) && optional($question->true_false_results->first())->result!=1 && $question->trueFalse->result==1|| !isset($question->true_false_results) &&
-                                        $question->trueFalse->result==1) style="fill: #ffcc03;stroke: #ffcc03" @else fill="#2ecc71" @endif/>
+                                        @if(isset($question->true_false_results) && optional($question->true_false_results->first())->result!=1 && $question->trueFalse->result==1|| isset($question->true_false_results) &&
+                                        !$question->true_false_results->first() && $question->trueFalse->result==1) style="fill: #ffcc03;stroke: #ffcc03" @else fill="#2ecc71" @endif/>
                                 <path id="Shape"
                                       d="M12.176,23.045,3.093,13.962,0,17.033,12.176,29.209,38.314,3.071,35.243,0Z"
                                       transform="translate(32.856 37.409)"
@@ -76,7 +76,7 @@
                             type="radio" question-grop-name="q{{$counter}}"
                             name="tf[{{$question->id}}]" value="0"
                             id="false-{{$question->id}}" class="d-none"
-                            {{isset($question->true_false_results) && optional($question->true_false_results->first())->result==0?'checked':''}}>
+                            {{isset($question->true_false_results) && $question->true_false_results->first() && $question->true_false_results->first()->result == 0?'checked':''}}>
                         <label for="false-{{$question->id}}"
                                class="option option-false">
                             <svg id="Group_68451" data-name="Group 68451"
@@ -94,8 +94,8 @@
                                         cx="41"
                                         cy="41" r="41"
                                         transform="translate(10 10)"
-                                        @if(isset($question->true_false_results) && optional($question->true_false_results->first())->result!=0 && $question->trueFalse->result==0 || !isset($question->true_false_results) &&
-                                        $question->trueFalse->result==0) style="fill: #ffcc03;stroke: #ffcc03" @else fill="#dc3545" @endif/>
+                                        @if(isset($question->true_false_results) && $question->true_false_results->first() && $question->true_false_results->first()->result!=0 && $question->trueFalse->result==0 || isset($question->true_false_results) &&
+                                        !$question->true_false_results->first() && $question->trueFalse->result==0) style="fill: #ffcc03;stroke: #ffcc03" @else fill="#dc3545" @endif/>
 
                                 <g id="close"
                                    transform="translate(38.938 38.938)">

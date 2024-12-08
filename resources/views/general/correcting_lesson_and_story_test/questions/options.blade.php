@@ -48,11 +48,19 @@
                                        name="option[{{$question->id}}]"
                                        value="{{$option->id}}"
                                        class="co_q d-none"
+                                @if(isset($story))
+                                    {{isset($question->option_results) && optional($question->option_results->first())->story_option_id==$option->id?'checked':''}}>
+                                @elseif(isset($lesson))
                                     {{isset($question->option_results) && optional($question->option_results->first())->option_id==$option->id?'checked':''}}>
+                                @endif
 
                                 <label for="option-{{$option->id}}"
                                        class="option option-true"
-                                       @if(isset($question->option_results) && optional($question->option_results->first())->option_id!=$option->id && $question->options->where('result',1)->first()->id==$option->id) style="background-color: #00b300" @endif
+                                    @if(isset($story))
+                                           @if(isset($question->option_results) && optional($question->option_results->first())->story_option_id!=$option->id && $question->options->where('result',1)->first()->id==$option->id) style="background-color: #ffcc03" @endif
+                                    @elseif(isset($lesson))
+                                        @if(isset($question->option_results) && optional($question->option_results->first())->option_id!=$option->id && $question->options->where('result',1)->first()->id==$option->id) style="background-color: #ffcc03" @endif
+                                    @endif
                                 >
                                     {{$option->content}}
                                 </label>

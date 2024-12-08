@@ -114,52 +114,52 @@
 
 
 
-        $(function () {
-            $(".sortable1, .sortable2").sortable({
-                connectWith: ".connectedSortable"
-            }).disableSelection();
-        });
-
-
-        $(".sortable2").droppable({
-            drop: function () {
-
-                $questionId = $(this).attr('question-id');
-                //alert($questionId);
-
-
-                setTimeout(function () {
-                    $i = 1;
-                    $('.sortable2[question-id = ' + $questionId + '] li span').each(function () {
-                        //$(this).html($i++ );
-                    });
-                }, 1);
-                setTimeout(function () {
-                    $i = 1;
-                    $('.sortable2[question-id = ' + $questionId + '] li input').each(function () {
-                        $(this).val($i++);
-                    });
-                }, 1);
-            }
-        });
-
-
-        $(".sortable1").droppable({
-            drop: function () {
-                setTimeout(function () {
-                    $('.sortable1 li span').each(function (i) {
-                        var humanNum = i + 1;
-                        $(this).html('');
-                    });
-                }, 1);
-                setTimeout(function () {
-                    $('.sortable1 li input').each(function (i) {
-                        var humanNum = i + 1;
-                        $(this).val('');
-                    });
-                }, 1);
-            }
-        });
+        // $(function () {
+        //     $(".sortable1, .sortable2").sortable({
+        //         connectWith: ".connectedSortable"
+        //     }).disableSelection();
+        // });
+        //
+        //
+        // $(".sortable2").droppable({
+        //     drop: function () {
+        //
+        //         $questionId = $(this).attr('question-id');
+        //         //alert($questionId);
+        //
+        //
+        //         setTimeout(function () {
+        //             $i = 1;
+        //             $('.sortable2[question-id = ' + $questionId + '] li span').each(function () {
+        //                 //$(this).html($i++ );
+        //             });
+        //         }, 1);
+        //         setTimeout(function () {
+        //             $i = 1;
+        //             $('.sortable2[question-id = ' + $questionId + '] li input').each(function () {
+        //                 $(this).val($i++);
+        //             });
+        //         }, 1);
+        //     }
+        // });
+        //
+        //
+        // $(".sortable1").droppable({
+        //     drop: function () {
+        //         setTimeout(function () {
+        //             $('.sortable1 li span').each(function (i) {
+        //                 var humanNum = i + 1;
+        //                 $(this).html('');
+        //             });
+        //         }, 1);
+        //         setTimeout(function () {
+        //             $('.sortable1 li input').each(function (i) {
+        //                 var humanNum = i + 1;
+        //                 $(this).val('');
+        //             });
+        //         }, 1);
+        //     }
+        // });
     </script>
 @endsection
 
