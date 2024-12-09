@@ -7,7 +7,7 @@
                 <div class="col-lg-12">
                     <div class="section-title mb-4">
                         <h1 class="title"> {{$lesson->name}}</h1>
-                        <h1 class="title"><p id="countdown" class="mb-0 text-danger" style="font-size:32px"></p></h1>
+
                         <nav class="breadcrumb">
 {{--                            <a class="breadcrumb-item" href="{{route('lessons', $lesson->level_id)}}"> Lessons </a>--}}
                             <span class="breadcrumb-item active" aria-current="page"> Test </span>
@@ -18,16 +18,10 @@
             <div class="row">
                 <div class="exam-card box-shado-question" dir="rtl">
                     <div class="exam-body question-list">
-                        <form action="{{route('lesson_test', $lesson->id)}}" id="term_form" method="post">
-                            {{csrf_field()}}
+                        <form action="{{route(getGuard().'.lessons_tests.correcting', $student_test->id)}}" id="term_form" method="post">
+                            @csrf
                             <input type="hidden" name="start_at" value="{{\Carbon\Carbon::now()}}">
                             <div class="justify-content-between align-items-center mb-4">
-
-{{--                                @if(!is_null($level))--}}
-{{--                                    <div class="exercise-box-header text-center text-danger" style="font-size: 18px;font-weight: 700;">--}}
-{{--                                        <span class="title">{{$level->level_note}}  </span>--}}
-{{--                                    </div>--}}
-{{--                                @endif--}}
 
                             </div>
 
@@ -54,17 +48,21 @@
                                     @endphp
                                 @endforeach
                             </div>
+
+
                             <div class="d-flex justify-content-center question-control btn-wizard">
                                 <div class="text-center">
-                                    <button type="button" class="d-none btn btn-light border"
-                                            id="previousQuestion"><span class="txt"
-                                                                        style="font-size: 18px">  Back </span>
+                                    <button type="button" class="d-none btn btn-light border" id="previousQuestion">
+                                        <span class="txt" style="font-size: 18px">  Back </span>
                                     </button>
                                 </div>
-
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-theme"
-                                            id="nextQuestion">
+                                    <button type="button" class="btn btn-theme d-none endExam correcting_exam" data-bs-toggle="modal" data-bs-target="#correcting-exam-modal" style="font-weight: bold;background-color: #0043b3;">
+                                        <span class="txt" style="font-size: 18px">تصحيح وحفظ التعديلات</span>
+                                    </button>
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-theme" id="nextQuestion">
                                         <span class="txt" style="font-size: 18px"> Next  </span></button>
                                 </div>
                             </div>
@@ -75,7 +73,7 @@
                                 </ul>
                             </div>
                             <!-- Modal -->
-
+                         @include('general.correcting_lesson_and_story_test.correcting_modal')
                         </form>
                     </div>
                 </div>
@@ -89,15 +87,12 @@
 
     <script>
         $(document).ready(function () {
-            // $('#confirmed_modal').click(function (e) {
-            //     $("#endExam").modal("show");
-            // });
-            // $('#save_assessment').click(function (e) {
-            //     e.preventDefault();
-            //     $(this).attr('disabled', true);
-            //     $('#confirmed_modal').attr('disabled', true);
-            //     $('#term_form').submit();
-            // })
+            $('#btn-modal-correcting').click(function (e) {
+                e.preventDefault();
+                $(this).attr('disabled', true);
+                $('#correcting-exam-modal').modal('hide');
+                $('#term_form').submit();
+            })
             $('.audio').click(function () {
                 var elem = $(this);
                 var data_id = $(this).attr('data-id');
@@ -114,53 +109,6 @@
             });
         });
 
-        //
-        // $(function () {
-        //     $(".sortable1, .sortable2").sortable({
-        //         connectWith: ".connectedSortable"
-        //     }).disableSelection();
-        // });
-        //
-        //
-        // $(".sortable2").droppable({
-        //     drop: function () {
-        //
-        //         $questionId = $(this).attr('question-id');
-        //         //alert($questionId);
-        //
-        //
-        //         setTimeout(function () {
-        //             $i = 1;
-        //             $('.sortable2[question-id = ' + $questionId + '] li span').each(function () {
-        //                 //$(this).html($i++ );
-        //             });
-        //         }, 1);
-        //         setTimeout(function () {
-        //             $i = 1;
-        //             $('.sortable2[question-id = ' + $questionId + '] li input').each(function () {
-        //                 $(this).val($i++);
-        //             });
-        //         }, 1);
-        //     }
-        // });
-        //
-        //
-        // $(".sortable1").droppable({
-        //     drop: function () {
-        //         setTimeout(function () {
-        //             $('.sortable1 li span').each(function (i) {
-        //                 var humanNum = i + 1;
-        //                 $(this).html('');
-        //             });
-        //         }, 1);
-        //         setTimeout(function () {
-        //             $('.sortable1 li input').each(function (i) {
-        //                 var humanNum = i + 1;
-        //                 $(this).val('');
-        //             });
-        //         }, 1);
-        //     }
-        // });
     </script>
 @endsection
 

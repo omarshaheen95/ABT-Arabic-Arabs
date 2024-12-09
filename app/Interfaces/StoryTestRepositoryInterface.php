@@ -16,6 +16,7 @@ interface StoryTestRepositoryInterface
 
     public function correctingView(Request $request, $id);
     public function correcting(Request $request, $id);
+    public function autocorrectingTests(Request $request);
 
     public function certificate(Request $request, $id);
 

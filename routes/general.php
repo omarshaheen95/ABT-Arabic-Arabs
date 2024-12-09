@@ -75,6 +75,7 @@ Route::group(['namespace' => 'General'], function () {
     Route::post('lessons_tests/correcting_feedback/{id}', 'LessonTestController@correctingAndFeedback')->name('lessons_tests.correcting_feedback');
     Route::get('lessons_tests/correcting/{id}', 'LessonTestController@correctingUserTestView')->name('lessons_tests.correcting_view');
     Route::post('lessons_tests/correcting/{id}', 'LessonTestController@correctingUserTest')->name('lessons_tests.correcting');
+    Route::post('lessons_tests/auto_correcting', 'LessonTestController@autoCorrectingUsersTests')->name('lessons_tests.auto_correcting');
     Route::get('lessons_tests/certificate/{id}', 'LessonTestController@certificate')->name('lessons_tests.certificate');
     Route::post('lessons_tests/export', 'LessonTestController@export')->name('lessons_tests.export');
 
@@ -82,6 +83,7 @@ Route::group(['namespace' => 'General'], function () {
     Route::resource('stories_tests', 'StoryTestController')->except(['destroy','show']);
     Route::get('stories_tests/correcting/{id}', 'StoryTestController@correctingView')->name('stories_tests.correcting_view');
     Route::post('stories_tests/correcting/{id}', 'StoryTestController@correcting')->name('stories_tests.correcting');
+    Route::post('stories_tests/auto_correcting', 'StoryTestController@autoCorrectingTests')->name('stories_tests.auto_correcting');
     Route::delete('stories_tests/destroy', 'StoryTestController@destroy')->name('stories_tests.destroy');
     Route::get('stories_tests/{id}/certificate', 'StoryTestController@certificate')->name('stories_tests.certificate');
     Route::post('stories_tests/export', 'StoryTestController@export')->name('stories_tests.export');

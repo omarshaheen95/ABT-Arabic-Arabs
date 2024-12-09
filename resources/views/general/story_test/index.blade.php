@@ -13,9 +13,10 @@
             @can('export story tests')
                 <li><a class="dropdown-item" href="#!"
                        onclick="excelExport('{{route(getGuard().'.stories_tests.export')}}')">{{t('Export')}}</a></li>
-
             @endcan
-
+            @can('correcting story tests')
+                <li><a class="dropdown-item d-none checked-visible" href="#!" onclick="autoCorrecting()">{{t('Auto Correcting')}}</a></li>
+            @endcan
             @can('delete story tests')
                 <li><a class="dropdown-item text-danger d-none checked-visible" href="#!" id="delete_rows">{{t('Delete')}}</a></li>
             @endcan
@@ -184,6 +185,35 @@
         ];
         initializeDateRangePicker();
         callAllEvents();
+        function autoCorrecting() {
+            let row_id = [];
+            $("input:checkbox[name='rows[]']:checked").each(function () {
+                row_id.push($(this).val());
+            });
+            var data = getFormData('filter');
+
+            data['row_id'] = row_id
+
+            if (row_id){
+                showLoadingModal();
+                $.ajax({
+                    type: "POST",
+                    url: '{{route(getGuard().'.stories_tests.auto_correcting')}}',
+                    data: data,
+                    success: function (result) {
+                        toastr.success(result.message, '', {timeOut: 5000})
+                        table.DataTable().draw(false);
+                        hideLoadingModal();
+                    },
+                    error: function (error) {
+                        toastr.error(error.responseJSON.message);
+                        hideLoadingModal();
+                    }
+                })
+            }
+
+        }
+
     </script>
 
     <script src="{{asset('assets_v1/js/datatable.js')}}?v={{time()}}"></script>

@@ -81,66 +81,17 @@
                 </div>
             </div>
 
-            <div class="fw-bold fs-5" style="width: 180px">
-                {{t('Total')}}: {{$student_test->total_per}} / {{t($student_test->status)}}
+            <div class="d-flex gap-4 align-items-center">
+                <button type="button" class="btn btn-theme correcting_exam" data-bs-toggle="modal" data-bs-target="#correcting-exam-modal" style="font-weight: bold;background-color: #0043b3;">
+                    <span class="txt" style="font-size: 18px">تصحيح</span>
+                </button>
+                <div class="fw-bold fs-5" style="width: 180px">
+                    {{t('Total')}}: {{$student_test->total_per}} / {{t($student_test->status)}}
+                </div>
+
             </div>
 
-{{--            <div class="collapse navbar-collapse justify-content-end" id="main-menu">--}}
-{{--                <ul class="navbar-nav">--}}
-{{--                    <li class="nav-item d-xl-none">--}}
-{{--                        <div class="navbar-logo text-end">--}}
-{{--                            <a href="#main-menu" class="navbar-close" data-bs-toggle="collapse"> &times; </a>--}}
-{{--                        </div>--}}
-{{--                    </li>--}}
-{{--                    @php--}}
-{{--                        $userAssignmentsCount = \App\Models\UserAssignment::query()--}}
-{{--->where('user_id', Auth::user()->id)--}}
-{{--->where('completed', 0)--}}
-{{--->count();--}}
-{{--                        $userStoryAssignmentsCount = \App\Models\UserStoryAssignment::query()--}}
-{{--->where('user_id', Auth::user()->id)--}}
-{{--->where('completed', 0)--}}
-{{--->count();--}}
 
-{{--                    $userAssignmentsCount += $userStoryAssignmentsCount;--}}
-{{--                    @endphp--}}
-{{--                    <li class="nav-item {{Request::is('/') || Request()->is('home') ? 'active':''}}">--}}
-{{--                        <a class="nav-link" href="/home">Home</a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item dropdown {{Request::is('certificates') || Request::is('story_certificates') ? 'active':''}}">--}}
-{{--                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{w('Certificates')}} </a>--}}
-{{--                        <div class="dropdown-menu" aria-labelledby="dropdownId">--}}
-{{--                            <a class="dropdown-item" href="{{ route('certificates') }}"> Lessons Certificates </a>--}}
-{{--                            <a class="dropdown-item" href="{{ route('story.certificates') }}"> Stories Certificates </a>--}}
-{{--                        </div>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item dropdown {{Request::is('assignments') || Request::is('stories_assignments') ? 'active':''}}">--}}
-{{--                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{w('Assignments')}} <span class="badge ms">{{$userAssignmentsCount}}</span></a>--}}
-{{--                        <div class="dropdown-menu" aria-labelledby="dropdownId">--}}
-{{--                            <a class="dropdown-item" href="{{ route('assignments') }}"> Lessons Assignments </a>--}}
-{{--                            <a class="dropdown-item" href="{{ route('stories_assignments') }}"> Stories Assignments </a>--}}
-{{--                        </div>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link" href="{{ route('package_upgrade') }}"> {{w('Subscription')}} </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{Request::is('profile') ? 'active':''}}">--}}
-{{--                        <a class="nav-link" href="{{ route('profile') }}"> {{w('Profile')}} </a>--}}
-{{--                    </li>--}}
-
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link btn btn-soft-danger btn-logout" href="#">--}}
-
-{{--                            Sign out--}}
-{{--                            <span class="icon me-3">--}}
-{{--                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.522" height="16.643" viewBox="0 0 16.522 16.643">--}}
-{{--                                            <path id="Path_98991" data-name="Path 98991" d="M7.06,7.737V1.29a1.29,1.29,0,0,1,2.579,0V7.737a1.29,1.29,0,1,1-2.579,0Zm6.4-5.846a.967.967,0,0,0-1.2,1.519,6.327,6.327,0,1,1-7.829,0,.967.967,0,0,0-1.2-1.519,8.261,8.261,0,1,0,10.225,0Z" transform="translate(-0.089)" fill="#dc3545"/>--}}
-{{--                                        </svg>--}}
-{{--                                    </span>--}}
-{{--                         </a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
         </div>
     </div>
 </nav>

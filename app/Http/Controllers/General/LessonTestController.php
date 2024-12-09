@@ -21,7 +21,7 @@ class LessonTestController extends Controller
     {
         $this->lessonTestRepository = $lessonTestRepository;
         $this->middleware('permission:show lesson tests')->only(['index']);
-        $this->middleware('permission:correcting lesson tests')->only(['correctingAndFeedbackView','correctingAndFeedback','correctingUserTestView','correctingUserTest']);
+        $this->middleware('permission:correcting lesson tests')->only(['correctingAndFeedbackView','correctingAndFeedback','correctingUserTestView','correctingUserTest','autoCorrectingUserTest']);
         $this->middleware('permission:delete lesson tests')->only(['destroy']);
         $this->middleware('permission:lesson tests certificate')->only(['certificate']);
         $this->middleware('permission:export lesson tests')->only('export');
@@ -70,5 +70,9 @@ class LessonTestController extends Controller
     public function correctingUserTest(Request $request, $id)
     {
         return $this->lessonTestRepository->correctingUserTest($request, $id);
+    }
+    public function autoCorrectingUsersTests(Request $request)
+    {
+        return $this->lessonTestRepository->autoCorrectingUsersTests($request);
     }
 }

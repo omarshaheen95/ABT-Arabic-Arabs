@@ -12,12 +12,18 @@ use App\Helpers\Response;
 use App\Interfaces\StoryTestRepositoryInterface;
 use App\Models\Grade;
 use App\Models\School;
+use App\Models\StoryMatchResult;
+use App\Models\StoryOptionResult;
 use App\Models\StoryQuestion;
+use App\Models\StorySortResult;
+use App\Models\StoryTrueFalseResult;
 use App\Models\StudentStoryTest;
 use App\Models\Teacher;
+use App\Models\UserStoryAssignment;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 
@@ -113,8 +119,248 @@ class StoryTestRepository implements StoryTestRepositoryInterface
 
     }
 
-    public function correcting(Request $request,$id){
+    public function correcting(Request $request, $id)
+    {
+        $test = StudentStoryTest::find($id);
+        $total = 0;
 
+        DB::transaction(function () use ($request, $id, $test,&$total) {
+
+            StoryMatchResult::where('student_story_test_id',$id)->delete();
+            StorySortResult::where('student_story_test_id',$id)->delete();
+
+            $questions = StoryQuestion::with(['trueFalse', 'matches', 'sort_words', 'options'])
+                ->where('story_id', $test->story_id)
+                ->get();
+
+
+
+            // True/False Results and Total
+            $tf_total = 0;
+            foreach ($request->get('tf', []) as $key => $result) {
+                $main_result = $questions->where('id', $key)->first()->trueFalse;
+                $mark = $main_result->result == $result ? $questions->where('id', $key)->first()->mark : 0;
+                $tf_total += $mark;
+                StoryTrueFalseResult::updateOrCreate(
+                    [
+                        'story_question_id' => $key,
+                        'student_story_test_id' => $test->id,
+                    ],
+                    [
+                        'result' => $result,
+                    ]
+                );
+            }
+            $total += $tf_total;
+
+            // Option Results and Total
+            $o_total = 0;
+            foreach ($request->get('option', []) as $key => $option) {
+                $main_result = $questions->where('id', $key)->first()->options->where('id', $option)->first();
+                $mark = optional($main_result)->result == 1 ? $questions->where('id', $key)->first()->mark : 0;
+                $o_total += $mark;
+
+                StoryOptionResult::updateOrCreate(
+                    [
+                        'story_question_id' => $key,
+                        'student_story_test_id' => $test->id,
+                    ],
+                    [
+                        'option_id' => $option,
+                    ]
+                );
+            }
+            $total += $o_total;
+
+            // Matching Results and Total
+            $m_total = 0;
+            $m_data = [];
+            foreach ($request->get('matching', []) as $key => $match) {
+                $matchMark = $questions->where('id', $key)->first()->mark / $questions->where('id', $key)->first()->matches->count();
+
+                foreach ($match as $uid => $match_id) {
+                    if (!is_null($match_id)) {
+                        $result_id = $questions->where('id', $key)->first()->matches->where('uid', $uid)->first()->id;
+                        $m_total += $match_id == $result_id ? $matchMark : 0;
+
+                        $m_data[] = [
+                            'story_question_id' => $key,
+                            'story_match_id' => $match_id,
+                            'story_result_id' => $result_id,
+                            'student_story_test_id' => $test->id,
+                            'match_answer_uid' => $uid,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
+                    }
+                }
+            }
+            StoryMatchResult::insert($m_data);
+            $total += $m_total;
+
+            // Sorting Results and Total
+            $s_total = 0;
+            $s_data = [];
+            foreach ($request->get('sorting', []) as $key => $sort) {
+                $sort_words = $questions->where('id',$key)->first()->sort_words->pluck('uid')->toArray();
+                $student_sort_words = collect($sort)->keys()->toArray();
+
+                if ($student_sort_words === $sort_words) {
+                    $mark = $questions->where('id',$key)->first()->mark;
+                    $s_total += $mark;
+                }
+
+                foreach ($sort as $uid => $value) {
+                    if (!is_null($value)) {
+                        $result_id = $questions->where('id',$key)->first()->sort_words->where('uid', $uid)->first()->id;
+                        $s_data[] = [
+                            'story_question_id' => $key,
+                            'story_sort_word_id' => $result_id,
+                            'student_story_test_id' => $test->id,
+                            'story_sort_answer_uid' => $uid,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
+                    }
+                }
+            }
+            StorySortResult::insert($s_data);
+            $total += $s_total;
+
+            // Update Test Total and Status
+
+            $mark = 25; // Passing mark
+            $test->update([
+                'total' => $total,
+                'status' => $total >= $mark ? 'Pass' : 'Fail',
+                'corrected' => 1
+            ]);
+
+            // Update Approved Tests
+            $student_tests = StudentStoryTest::where('total', '>=', $mark)
+                ->where('user_id', $test->user_id)
+                ->where('story_id', $id)
+                ->orderByDesc('total')
+                ->get();
+
+            if (optional($student_tests->first())->total >= $mark) {
+                $approved_test = $student_tests->first();
+
+                StudentStoryTest::where('user_id', $test->user_id)
+                    ->where('story_id', $id)
+                    ->where('id', '<>', $approved_test->id)
+                    ->update(['approved' => 0]);
+
+                $approved_test->update(['approved' => 1]);
+            }
+
+
+//            dd([$tf_total,$o_total,$m_total,$s_total]);
+
+        });
+        return redirect()->route(getGuard().'.stories_tests.index', $test->id)
+            ->with('message', "تم تعديل و حفظ الاختبار بنجاح , العلامة ".' : '.$total)
+            ->with('m-class', 'success');
+    }
+    public function autoCorrectingTests(Request $request)
+    {
+        $request->validate(['row_id'=>'required']);
+        $story_tests = StudentStoryTest::query()
+            ->with(['story', 'user','storyMatchResults', 'storyOptionResults', 'storyTrueFalseResults', 'storySortResults'])
+            ->filter()->get();
+
+        foreach ($story_tests as $test) {
+            $total = 0;
+            $tf_total = 0;
+            $o_total = 0;
+            $m_total = 0;
+            $s_total = 0;
+
+            $questions = StoryQuestion::with([
+                'trueFalse', 'options', 'matches', 'sort_words',
+                'true_false_results' => function ($query) use ($test) {
+                    $query->where('student_story_test_id', $test->id);
+                }, 'option_results' => function ($query) use ($test) {
+                    $query->where('student_story_test_id', $test->id);
+                }, 'match_results' => function ($query) use ($test) {
+                    $query->where('student_story_test_id', $test->id);
+                }, 'sort_results' => function ($query) use ($test) {
+                    $query->where('student_story_test_id', $test->id);
+                },
+            ])->where('story_id', $test->story_id)->get();
+
+
+            //True False Questions
+            foreach ($test->storyTrueFalseResults as $tf) {
+                $question = $questions->where('id', $tf->story_question_id)->first();
+                if ($question->trueFalse->result == $tf->result) {
+                    $tf_total += $question->mark;
+                    $total += $question->mark;
+                }
+            }
+
+            //Multiple Choice Questions
+            foreach ($test->storyOptionResults as $option) {
+                $question = $questions->where('id', $option->story_question_id)->first();
+                $correct = $question->options->where('id', $option->story_option_id)->first();
+                if ($correct && $correct->result == 1) {
+                    $o_total += $question->mark;
+                    $total += $question->mark;
+                }
+            }
+
+            //Matching Questions
+            foreach ($test->storyMatchResults as $match) {
+                $matchMark = $questions->where('id', $match->story_question_id)->first()->mark / $questions->where('id', $match->story_question_id)->first()->matches->count();
+                $result_id = optional($questions->where('id', $match->story_question_id)->first()->matches->where('uid', $match->match_answer_uid)->first())->id;
+                $mark = $match->story_match_id == $result_id ? $matchMark : 0;
+                $m_total += $mark;
+                $total += $mark;
+            }
+
+            //Sorting Questions
+            foreach ($test->storySortResults->pluck('story_question_id')->unique() as $question_id) {
+
+                $sort_words = $questions->where('id',$question_id)->first()->sort_words->pluck('uid')->toArray();
+                $student_sort_words = $questions->where('id',$question_id)->first()->sort_results->pluck('story_sort_answer_uid')->toArray();
+
+                if ($student_sort_words == $sort_words) {
+                    $mark = $questions->where('id',$question_id)->first()->mark;
+                    $s_total += $mark;
+                    $total += $mark;
+                }
+
+            }
+            // Update Test Total and Status
+            $mark = 25; // Passing mark
+            $test->update([
+                'total' => $total,
+                'status' => $total >= $mark ? 'Pass' : 'Fail',
+                'corrected' => 1
+            ]);
+
+            // Update Approved Tests
+            $student_tests = StudentStoryTest::where('total', '>=', $mark)
+                ->where('user_id', $test->user_id)
+                ->where('story_id', $test->story_id)
+                ->orderByDesc('total')
+                ->get();
+
+            if (optional($student_tests->first())->total >= $mark) {
+                $approved_test = $student_tests->first();
+
+                StudentStoryTest::where('user_id', $test->user_id)
+                    ->where('story_id', $test->story_id)
+                    ->where('id', '<>', $approved_test->id)
+                    ->update(['approved' => 0]);
+
+                $approved_test->update(['approved' => 1]);
+            }
+
+            //dd(['total'=>$total, 'tf_total'=>$tf_total, 'o_total'=>$o_total, 'm_total'=>$m_total, 's_total'=>$s_total]);
+
+        }
+        return Response::response(t('Tests Correcting Successfully').' : '.$story_tests->count());
     }
     public function certificate(Request $request,$id)
     {

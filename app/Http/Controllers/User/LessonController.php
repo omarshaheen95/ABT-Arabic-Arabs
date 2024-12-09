@@ -24,12 +24,13 @@ class LessonController extends Controller
     public function lessonTest(Request $request, $id)
     {
         $student = Auth::user();
+        $test = null;
 
         if ($student->demo) {
             return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
         }
 
-        DB::transaction(function () use ($request,$id,$student) {
+        DB::transaction(function () use ($request,$id,$student,&$test) {
             $questions = Question::with(['trueFalse', 'matches', 'sortWords', 'options'])->where('lesson_id', $id)->get();
 
             $test = UserTest::create([
@@ -45,7 +46,7 @@ class LessonController extends Controller
             $tf_total = 0;
             $tf_data = [];
             foreach ($request->get('tf', []) as $key => $result) {
-                $main_result = TrueFalse::where('question_id', $key)->first();
+                $main_result = $questions->where('id', $key)->first()->trueFalse;
                 $mark = optional($main_result)->result == $result ? $questions->where('id', $key)->first()->mark : 0;
                 $tf_total += $mark;
                 $tf_data[] = [
@@ -63,7 +64,7 @@ class LessonController extends Controller
             $o_total = 0;
             $o_data = [];
             foreach ($request->get('option', []) as $key => $option) {
-                $main_result = Option::find($option);
+                $main_result = $questions->where('id', $key)->first()->options->where('id',$option)->first();
                 $mark = optional($main_result)->result == 1 ? $questions->where('id', $key)->first()->mark : 0;
                 $o_total += $mark;
 
@@ -191,10 +192,10 @@ class LessonController extends Controller
                 ]);
             }
 
-            return redirect()->route('lesson_test_result', $test->id)->with('message', "تم حفظ الاختبار بنجاح")->with('m-class', 'success');
 
         });
-        }
+        return redirect()->route('lesson_test_result', $test->id)->with('message', "تم حفظ الاختبار بنجاح")->with('m-class', 'success');
+    }
 
 //    public function lessonTest(Request $request, $id)
 //    {

@@ -23,14 +23,14 @@ class StoryController extends Controller
     public function storyTest(Request $request, $id)
     {
         $student = Auth::user();
-
+        $test = null;
         //dd($request->toArray());
         if ($student->demo) {
             return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
         }
 
 
-      DB::transaction(function () use ($request,$id,$student){
+      DB::transaction(function () use ($request,$id,$student,&$test){
           $questions = StoryQuestion::with(['trueFalse', 'matches', 'sort_words', 'options'])->where('story_id', $id)->get();
 
           $test = StudentStoryTest::create([
@@ -176,11 +176,11 @@ class StoryController extends Controller
                   'completed' => 1,
               ]);
           }
-          return redirect()->route('story_test_result', $test->id)
-              ->with('message', "تم تقديم الاختبار بنجاح")
-              ->with('m-class', 'success');
-      });
 
+      });
+        return redirect()->route('story_test_result', $test->id)
+            ->with('message', "تم تقديم الاختبار بنجاح")
+            ->with('m-class', 'success');
     }
 
 //    public function storyTest(Request $request, $id)

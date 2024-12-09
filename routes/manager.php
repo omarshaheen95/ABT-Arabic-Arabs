@@ -260,6 +260,8 @@ Route::group(['namespace' => 'Manager'], function(){
 
 
         Route::get('update_sort_words', function () {
+            //7157
+//
         // Process StoryMatch in chunks
         \App\Models\SortWord::query()->whereNull('uid')->chunk(500, function ($sort_words) {
             foreach ($sort_words as $sort_word) {

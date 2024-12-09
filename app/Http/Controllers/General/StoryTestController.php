@@ -36,7 +36,10 @@ class StoryTestController extends Controller
     public function correcting(Request $request,$id){
         return $this->storyTestRepository->correcting($request,$id);
     }
-
+    public function autoCorrectingTests(Request $request)
+    {
+        return $this->storyTestRepository->autoCorrectingTests($request);
+    }
     public function certificate(Request $request,$id)
     {
         return $this->storyTestRepository->certificate($request,$id);

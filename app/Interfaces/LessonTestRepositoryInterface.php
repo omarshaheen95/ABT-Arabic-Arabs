@@ -25,6 +25,7 @@ interface LessonTestRepositoryInterface
     public function correctingUserTest(Request $request, $id);
 
     public function correctingAndFeedbackView(Request $request, $id);
+    public function autoCorrectingUsersTests(Request $request);
     public function correctingAndFeedback(Request $request, $id);
 
     public function destroy(Request $request);
