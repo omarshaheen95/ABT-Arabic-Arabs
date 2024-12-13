@@ -28,7 +28,8 @@ class UserRequest extends FormRequest
         $id = $this->route('student');
         return [
             'name' =>['required', new UserNameRule()],
-            'email' => ['required', 'email:rfc,dns', "unique:users,email,$id,id,deleted_at,NULL", new UserEmailRule()],
+            'id_number' => ['nullable'],
+            'email' => ['required', 'email:rfc,dns', "unique:users,email,$id,id,deleted_at,NULL,archived,0", new UserEmailRule()],
             'password' => 'nullable|min:6',
             'image' => 'nullable|image',
             'country_code' => 'required',

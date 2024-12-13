@@ -44,8 +44,8 @@ class TeacherImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadin
 
     public function model(array $row)
     {
-        if (isset($row['Email']) && is_null($row['Email']))
-        {
+        if ((is_null($row['Email']) || empty($row['Email']) || $row['Email'] == '')) {
+
             $row['Email'] = $this->generateEmail($row);
         }else{
             $row['Email'] = strtolower($row['Email']);
@@ -70,6 +70,7 @@ class TeacherImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadin
                 'school_id' => $this->request->get('school_id'),
                 'active' => 1,
                 'approved' => 1,
+                'active_to' => $this->created_file->other_data['active_to'],
                 'mobile' => isset($row['Mobile']) ? $row['Mobile']:'0500000000',
             ]);
         }else{
@@ -80,6 +81,7 @@ class TeacherImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadin
                 'school_id' => $this->request->get('school_id'),
                 'active' => 1,
                 'approved' => 1,
+                'active_to' => $this->created_file->other_data['active_to'],
                 'mobile' => isset($row['Mobile']) ? $row['Mobile']:'0500000000',
                 'import_file_id' => $this->created_file->id,
             ]);
@@ -91,7 +93,7 @@ class TeacherImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadin
     {
         return [
             'Name' => 'required',
-            'Email' => 'required',
+            'Email' => 'nullable',
             'Mobile' => 'nullable',
         ];
     }

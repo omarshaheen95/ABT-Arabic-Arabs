@@ -33,41 +33,22 @@ class StudentStoryTest extends Model
     public function getActionButtonsAttribute()
     {
         $actions = [];
-        if (\request()->is('manager/*')) {
-
-            $actions[] = ['key' => 'show', 'name' => t('Show'), 'route' => route('manager.stories_tests.show', $this->id), 'permission' => 'show story tests'];
-            if ($this->status == 'Pass') {
-                $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('manager.stories_tests.certificate', $this->id), 'permission' => 'story tests certificate'];
-            }
-            $actions[] = ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete story tests'];
-
-        } elseif (\request()->is('school/*')) {
-            $actions = [
-                ['key' => 'show', 'name' => t('Show'), 'route' => route('school.stories_tests.show', $this->id)],
-            ];
-            if ($this->status == 'Pass') {
-                $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('school.stories_tests.certificate', $this->id)];
-            }
-        } elseif (\request()->is('teacher/*')) {
-            $actions = [
-                ['key' => 'show', 'name' => t('Show'), 'route' => route('teacher.stories_tests.show', $this->id)],
-            ];
-            if ($this->status == 'Pass') {
-                $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('teacher.stories_tests.certificate', $this->id)];
-            }
-        } elseif (\request()->is('supervisor/*')) {
-            if ($this->status == 'Pass') {
-                $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('supervisor.stories_tests.certificate', $this->id)];
-            } else {
-                return '';
-            }
+        $actions[] = ['key' => 'blank', 'name' => t('Correcting'), 'route' => route(getGuard().'.stories_tests.correcting_view', $this->id), 'permission' => 'correcting story tests'];
+        if ($this->status == 'Pass') {
+            $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route(getGuard().'.stories_tests.certificate', $this->id), 'permission' => 'story tests certificate'];
         }
+        $actions[] = ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete story tests'];
+
         return view('general.action_menu')->with('actions', $actions);
 
     }
 
-    public function scopeFilter(Builder $query, Request $request): Builder
+    public function scopeFilter(Builder $query,$request = null): Builder
     {
+
+        if (!$request){
+            $request = \request();
+        }
 
         return $query->when($value = $request->get('id', false), function (Builder $query) use ($value) {
             $query->where('id', $value);

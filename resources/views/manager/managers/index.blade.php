@@ -80,6 +80,7 @@
                 <th class="text-start">{{t('ID')}}</th>
                 <th class="text-start">{{t('Name')}}</th>
                 <th class="text-start">{{t('Email')}}</th>
+                <th class="text-start">{{ t('Role') }}</th>
                 <th class="text-start">{{t('Last Login')}}</th>
                 <th class="text-start">{{t('Status')}}</th>
                 <th class="text-start">{{t('Actions')}}</th>
@@ -100,6 +101,7 @@
             {data: 'id', name: 'id'},
             {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
+            {data: 'role', name: 'role'},
             {data: 'last_login', name: 'last_login'},
             {data: 'active', name: 'active'},
             {data: 'actions', name: 'actions'}

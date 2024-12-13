@@ -126,7 +126,7 @@
                 <div class="col-2 mb-2">
                     <div class="form-group">
                         <label for="password" class="form-label">{{t('Password')}}</label>
-                        <input type="text" name="password" class="form-control" placeholder="{{t('Password')}}">
+                        <input type="text" name="password" class="form-control" placeholder="{{t('Password')}}" @if(!$user) value="123456" @endif>
                     </div>
                 </div>
 
@@ -143,7 +143,21 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-3 mb-2">
+                    <div class="form-group">
+                        <label for="" class="form-label">{{t('Grade')}}</label>
+                        <select class="form-select" name="grade_id" data-control="select2" data-allow-clear="true"
+                                data-placeholder="{{t('Select Grade')}}">
+                            <option value="" selected disabled>{{t('Select Grade')}}</option>
+                            @foreach($grades as $grade)
+                                <option
+                                    value="{{$grade->id}}" {{isset($user) && $user->grade_id == $grade->id ? 'selected':''}}>
+                                    {{$grade->name}}</option>
 
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <div class="col-3 mb-2">
                     <div class="form-group">
                         <label for="" class="form-label">{{t('Section')}}</label>

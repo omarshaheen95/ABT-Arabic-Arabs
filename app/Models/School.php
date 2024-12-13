@@ -13,11 +13,12 @@ use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Traits\HasRoles;
 
 
 class School extends Authenticatable
 {
-    use Notifiable, SoftDeletes,LogsActivityTrait;
+    use Notifiable, SoftDeletes,LogsActivityTrait,HasRoles;
 
 
     protected $fillable = [
@@ -49,17 +50,12 @@ class School extends Authenticatable
 
     public function getActionButtonsAttribute()
     {
-        $actions=[];
-        if (\request()->is('manager/*')){
-            $actions =  [
-                ['key'=>'edit','name'=>t('Edit'),'route'=>route('manager.school.edit', $this->id),'permission'=>'edit schools'],
-                ['key'=>'login','name'=>t('Login'),'route'=>route('manager.school.login', $this->id),'permission'=>'school login'],
-                ['key'=>'delete','name'=>t('Delete'),'route'=>$this->id,'permission'=>'delete schools'],
-            ];
-        }
-        elseif (\request()->is('supervisor/*')){
-            $actions =  [];
-        }
+        $actions =  [
+            ['key'=>'edit','name'=>t('Edit'),'route'=>route(getGuard() . '.school.edit', $this->id),'permission'=>'edit schools'],
+            ['key'=>'login','name'=>t('Login'),'route'=>route(getGuard() . '.school.login', $this->id),'permission'=>'school login'],
+            ['key' => 'blank', 'name' => t('Edit Permissions'), 'route' => route(getGuard().'.user_role_and_permission.edit',['user_guard'=>'school','id'=>$this->id]),'permission'=>'edit schools permissions'],
+            ['key'=>'delete','name'=>t('Delete'),'route'=>$this->id,'permission'=>'delete schools'],
+        ];
         return view('general.action_menu')->with('actions',$actions);
 
     }

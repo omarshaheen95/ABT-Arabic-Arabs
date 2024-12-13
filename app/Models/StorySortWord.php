@@ -11,7 +11,7 @@ class StorySortWord extends Model
 {
     use SoftDeletes,LogsActivityTrait;
     protected $fillable = [
-        'story_question_id', 'content', 'ordered',
+        'story_question_id', 'content', 'ordered','uid'
     ];
     protected static $recordEvents = ['updated'];
     public function question()

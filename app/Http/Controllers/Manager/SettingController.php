@@ -9,7 +9,7 @@ use App\Models\Package;
 use App\Models\School;
 use App\Models\Setting;
 use App\Models\Story;
-use App\Models\StoryAssignment;
+use App\Models\UserStoryAssignment;
 use App\Models\StudentStoryTest;
 use App\Models\Supervisor;
 use App\Models\Teacher;
@@ -82,7 +82,7 @@ class SettingController extends Controller
                 ));
             $StoriesTests_data = ['categories' => $stories_tests->pluck('date'), 'data' => $stories_tests->pluck('counts'), 'total' => "(" . t('Total') . ' : ' . $stories_tests->sum('counts') . ")"];
 
-            $stories_assignments = StoryAssignment::query()->groupBy('date')->orderBy('date')
+            $stories_assignments = UserStoryAssignment::query()->groupBy('date')->orderBy('date')
                 ->whereBetween('completed_at', [now()->startOfDay(), now()->endOfDay()])
                 ->get(array(
                     DB::raw('DATE_FORMAT(completed_at, "%h:00 %p") as date'),
@@ -139,7 +139,7 @@ class SettingController extends Controller
                     DB::raw('COUNT(*) as counts')
                 ));
         } elseif ($model == 'StoriesAssignments') {
-            $items_data = StoryAssignment::query()->groupBy('date')->orderBy('date')
+            $items_data = UserStoryAssignment::query()->groupBy('date')->orderBy('date')
                 ->whereBetween('completed_at', [Carbon::parse($request->start_date)->startOfDay(), Carbon::parse($request->end_date)->endOfDay()])
                 ->get(array(
                     DB::raw('DATE_FORMAT(completed_at, "' . $format . '") as date'),
@@ -271,4 +271,106 @@ class SettingController extends Controller
 
         return true;
     }
+
+    public function copyTeacherData()
+    {
+        //from 883 to 1209
+        $from_teacher = Teacher::query()->find(457);
+        $to_teacher = Teacher::query()->find(9);
+
+        $users = User::query()
+//            ->where('archived', 1)
+            ->withoutGlobalScope('not_archived')
+            ->whereHas('teacherUser', function (Builder $query) use ($from_teacher){
+                $query->where('teacher_id', $from_teacher->id);
+            })
+            ->with(['user_tracker', 'user_tracker_story', 'user_test', 'user_story_tests', 'user_assignments', 'user_story_assignments', 'user_grades', 'user_lessons'])
+            ->get();
+
+        //copy users to new teacher
+        foreach ($users as $user)
+        {
+            $n_user = $user->replicate();
+            $n_user->archived = 0;
+            $n_user->school_id = $to_teacher->school_id;
+            $n_user->email = 'copy_'.$user->email;
+            //disable timestamps and set same created_at
+            $n_user->timestamps = false;
+            $n_user->created_at = $user->created_at;
+            $n_user->save();
+
+            $n_user->teacherUser()->create(['teacher_id' => $to_teacher->id]);
+
+            $user->user_tracker->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_tracker_story->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_test->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_story_tests->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_assignments->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_story_assignments->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_grades->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+            $user->user_lessons->map(function ($item) use ($n_user){
+                $n_item = $item->replicate();
+                $n_item->user_id = $n_user->id;
+                $n_item->timestamps = false;
+                $n_item->created_at = $item->created_at;
+                $n_item->save();
+            });
+
+        }
+
+        updateTeacherStatistics($to_teacher->id);
+
+        return 'done';
+
+    }
+
 }

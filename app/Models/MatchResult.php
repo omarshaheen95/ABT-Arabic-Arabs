@@ -5,13 +5,14 @@ namespace App\Models;
 use App\Traits\LogsActivityTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MatchResult extends Model
 {
     use SoftDeletes,LogsActivityTrait;
     protected $fillable = [
-       'question_id', 'match_id', 'result_id', 'user_test_id'
+       'question_id', 'match_id', 'result_id', 'user_test_id', 'match_answer_uid'
     ];
     protected static $recordEvents = ['updated'];
     public function user_test()
@@ -32,5 +33,9 @@ class MatchResult extends Model
     public function result()
     {
         return $this->belongsTo(QMatch::class, 'result_id');
+    }
+    public function match_answer_uid(): BelongsTo
+    {
+        return $this->belongsTo(QMatch::class, 'match_answer_uid', 'uid');
     }
 }

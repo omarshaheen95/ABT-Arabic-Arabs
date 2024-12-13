@@ -52,6 +52,16 @@ class Handler extends ExceptionHandler
         });
     }
 
+    public function report(Throwable $exception)
+    {
+        if (!$exception instanceof NotFoundHttpException && !$exception instanceof ValidationException && !$exception instanceof UnauthorizedHttpException && !$exception instanceof AuthenticationException && !$exception instanceof TokenMismatchException)
+        {
+            $message = $exception->getMessage() .' Code: '.$exception->getCode() . ' File: '. $exception->getFile() . ' Line:'. $exception->getLine();
+            Log::channel('telegram')->critical($message);
+        }
+
+        parent::report($exception);
+    }
 
     /**
      * Render an exception into an HTTP response.
@@ -62,7 +72,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if (strpos($request->url(), '/api/') !== false || strpos($request->url(), '/web/') !== false) {
+        if (request()->isXmlHttpRequest() || request()->ajax() || request()->isJson() || request()->wantsJson() || strpos($request->url(), '/web/') !== false) {
             \Log::debug('API Request Exception - '.$request->url().' - '.$exception->getMessage().(!empty($request->all()) ? ' - '.json_encode($request->except(['password'])) : ''));
 
             if ($exception instanceof AuthorizationException) {
@@ -156,7 +166,7 @@ class Handler extends ExceptionHandler
             if (strpos($request->url(), '/api/') !== false){
                 return response()->json(['User have not permission for this page access.']);
             }else{
-                return redirect()->route('manager.home')->with('message', 'User have not permission for this page access.')->with('m-class', 'error');
+                return redirect()->route(getGuard().'.home')->with('message', 'User have not permission for this page access.')->with('m-class', 'error');
             }
 
         }

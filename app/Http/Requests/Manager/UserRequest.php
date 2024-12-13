@@ -31,6 +31,7 @@ class UserRequest extends FormRequest
     {
         $rules= [
             'name' =>['required', new UserNameRule()],
+            'id_number' => 'nullable',
             'password' => 'nullable|min:6',
             'image' => 'nullable|image',
             'school_id' => 'required|exists:schools,id',
@@ -51,9 +52,9 @@ class UserRequest extends FormRequest
         if (Route::currentRouteName() == 'manager.user.edit' || Route::currentRouteName() == 'manager.user.update')
         {
             $id = $this->route('user');
-            $rules['email'] = ['required','email:rfc,dns',"unique:users,email,$id,id,deleted_at,NULL",new UserEmailRule()];
+            $rules['email'] = ['required','email:rfc,dns',"unique:users,email,$id,id,deleted_at,NULL,archived,0",new UserEmailRule()];
         }else{
-            $rules['email'] = ['required','email:rfc,dns','unique:users,email,{$id},id,deleted_at,NULL',new UserEmailRule()];
+            $rules['email'] = ['required','email:rfc,dns','unique:users,email,{$id},id,deleted_at,NULL,archived,0',new UserEmailRule()];
         }
 
         return $rules;

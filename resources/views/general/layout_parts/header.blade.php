@@ -51,7 +51,7 @@
                 </div>
                 <!--end::Local-->
 
-                @if(in_array(request()->get('current_guard'),['manager','school','supervisor']))
+                @if(in_array(getGuard(),['manager','school','supervisor']))
                     @include('general.layout_parts.notifications')
                 @endif
 
@@ -180,11 +180,11 @@
                         <!--end::Menu separator-->
                         <!--begin::Menu item-->
                             <div class="menu-item px-5">
-                                <a href="{{route(request()->get('current_guard').'.edit-profile')}}" class="menu-link px-5">{{t('Profile')}}</a>
+                                <a href="{{route(getGuard().'.edit-profile')}}" class="menu-link px-5">{{t('Profile')}}</a>
                             </div>
 
                             <div class="menu-item px-5">
-                                <a href="{{route(request()->get('current_guard').'.edit-password')}}" class="menu-link px-5">{{t('Update Password')}}</a>
+                                <a href="{{route(getGuard().'.edit-password')}}" class="menu-link px-5">{{t('Update Password')}}</a>
                             </div>
                             <div class="menu-item px-5">
                         </div>
@@ -192,11 +192,11 @@
 
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <form id="logout-form" action="{{ url('/'.request()->get('current_guard').'/logout') }}" method="POST"
+                            <form id="logout-form" action="{{ url('/'.getGuard().'/logout') }}" method="POST"
                                   style="display: none;">
                                @csrf
                             </form>
-                            <a href="{{ url('/'.request()->get('current_guard').'/logout') }}" onclick="event.preventDefault();
+                            <a href="{{ url('/'.getGuard().'/logout') }}" onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();"
                                class="menu-link px-5">{{t('Sign Out')}}</a>
                         </div>

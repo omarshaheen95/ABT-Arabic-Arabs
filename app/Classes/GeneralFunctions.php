@@ -173,27 +173,24 @@ class GeneralFunctions
 
         foreach ($student_tests as $lesson) {
             $lesson_info = [];
-            $user_games = $user_tracker_data->where('type', 'play')->where('lesson_id', $lesson)->count();
             $user_tests = $user_tracker_data->where('type', 'test')->where('lesson_id', $lesson)->count();
             $user_learning = $user_tracker_data->where('type', 'learn')->where('lesson_id', $lesson)->count();
             $user_training = $user_tracker_data->where('type', 'practise')->where('lesson_id', $lesson)->count();
 
             $user_tracker = $user_tracker_data->where('lesson_id', $lesson)->count();
             if ($user_tracker) {
-                $lesson_info['games'] = round(($user_games / $user_tracker) * 100, 1);
                 $lesson_info['tests'] = round(($user_tests / $user_tracker) * 100, 1);
                 $lesson_info['trainings'] = round(($user_training / $user_tracker) * 100, 1);
                 $lesson_info['learnings'] = round(($user_learning / $user_tracker) * 100, 1);
                 $lesson_info['tracker'] = $user_tracker;
             } else {
-                $lesson_info['games'] = 0;
                 $lesson_info['tests'] = 0;
                 $lesson_info['trainings'] = 0;
                 $lesson_info['learnings'] = 0;
                 $lesson_info['tracker'] = 0;
             }
 
-            $lesson_info['user_test'] = $user_tests_data->where('lesson_id', $lesson)->latest('total')->first();
+            $user_test = $lesson_info['user_test'] = $user_tests_data->where('lesson_id', $lesson)->sortByDesc('total')->first();
 
             if (isset($user_test) && !is_null($user_test->start_at) && !is_null($user_test->end_at)) {
                 $time1 = new \DateTime($user_test->start_at);
@@ -208,7 +205,7 @@ class GeneralFunctions
 
             $lesson_info['user_lesson'] = $user_lessons_data->where('lesson_id', $lesson)->where('status', 'corrected')->first();
 
-            $lesson_info['lesson'] = $lessons->where('id',$lesson);
+            $lesson_info['lesson'] = $lessons->where('id',$lesson)->first();
 
             array_push($lessons_info, $lesson_info);
         }
@@ -327,10 +324,10 @@ class GeneralFunctions
             'end_date' => 'required',
         ]);
 
-        if (request()->get('current_guard') == 'supervisor'){
+        if (getGuard() == 'supervisor'){
             $supervisor = Auth::guard('supervisor')->user();
             $school = $supervisor->school;
-        }elseif (request()->get('current_guard') == 'school'){
+        }elseif (getGuard() == 'school'){
             $school = Auth::guard('school')->user();
         }
 

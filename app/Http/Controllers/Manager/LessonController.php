@@ -239,12 +239,16 @@ class LessonController extends Controller
     {
 
         $tests = UserTest::query()
-            ->whereRelation('lesson', 'grade_id', 13)
+//            ->where('id', 42898)
+//            ->whereRelation('lesson', 'grade_id', 5)
             ->whereHas('lesson', function (\Illuminate\Database\Eloquent\Builder $query) {
-                $query->whereIn('lesson_type', ['reading', 'listening']);
+                $query->whereNotIn('lesson_type', ['writing', 'speaking']);
             })
+            ->where('created_at', '>=', '2024-01-01')
+            ->has('user')
+            ->where('total', '>', 100)
             ->get();
-//        dd($tests->count());
+        dd($tests->count());
         foreach ($tests as $test) {
 
             $questions = Question::query()->with(['lesson'])->where('lesson_id', $test->lesson_id)->get();

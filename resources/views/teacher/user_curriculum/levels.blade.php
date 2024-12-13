@@ -85,7 +85,7 @@
                                     </div>
                                     <div class="content">
                                         <div class="title">  القواعد النحوية</div>
-                                        <a href="{{route('teacher.lessons', [$grade_steps->id, 'grammar'])}}"
+                                        <a href="{{route('teacher.lessons_levels', [$grade_steps->id, 'grammar'])}}"
                                            class="btn   btn-theme w-75 mb-4">
                                             دخول
                                         </a>
@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="content">
                                         <div class="title">  الإملاء</div>
-                                        <a href="{{route('teacher.lessons', [$grade_steps->id, 'dictation'])}}"
+                                        <a href="{{route('teacher.lessons_levels', [$grade_steps->id, 'dictation'])}}"
                                            class="btn   btn-theme w-75 mb-4">
                                             دخول
                                         </a>
@@ -117,7 +117,7 @@
                                     </div>
                                     <div class="content">
                                         <div class="title">  البلاغة</div>
-                                        <a href="{{route('teacher.lessons', [$grade_steps->id, 'rhetoric'])}}"
+                                        <a href="{{route('teacher.lessons_levels', [$grade_steps->id, 'rhetoric'])}}"
                                            class="btn   btn-theme w-75 mb-4">
                                             دخول
                                         </a>

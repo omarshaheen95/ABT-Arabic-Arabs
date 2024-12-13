@@ -24,34 +24,20 @@ class StoryUserRecord extends Model
 
     public function getActionButtonsAttribute()
     {
-        $actions=[];
-        if (\request()->is('manager/*')){
-            $actions =  [
-                ['key'=>'show','name'=>t('Show'),'route'=> route('manager.stories_records.show', $this->id),'permission'=>'show user records'],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete user records'],
+        $actions = [
+            ['key' => 'show', 'name' => t('Show'), 'route' => route(getGuard().'.stories_records.show', $this->id), 'permission' => 'show user records'],
+            ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete user records'],
+        ];
 
-            ];
-        }
-        elseif (\request()->is('school/*')){
-            $actions =  [
-//                ['key'=>'show','name'=>t('Show'),'route'=> route('school.students_record.show', $this->id)],
-
-            ];
-        }elseif (\request()->is('teacher/*')){
-            $actions = [
-                ['key'=>'show','name'=>t('Show'),'route'=> route('teacher.stories_records.show', $this->id)],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete students'],
-            ];
-        }elseif (\request()->is('supervisor/*')){
-            $actions =  [];
-        }
-        return view('general.action_menu')->with('actions',$actions);
+        return view('general.action_menu')->with('actions', $actions);
 
     }
 
-    public function scopeFilter(Builder $query, Request $request): Builder
+    public function scopeFilter(Builder $query,$request=null): Builder
     {
-
+        if (!$request){
+            $request = \request();
+        }
         return $query
             ->when($value = $request->get('id', false), function (Builder $query) use ($value) {
                 $query->where('id', $value);

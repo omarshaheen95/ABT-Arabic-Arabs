@@ -13,17 +13,12 @@
 <script src="{{asset('assets_v1/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <script src="{{asset('assets_v1/js/helpers.js')}}?v={{time()}}"></script>
 <script type="text/javascript">
-    @if(in_array(request()->get('current_guard'),['manager','supervisor']))
-    var getTeacherBySchoolURL= "{{route(request()->get('current_guard').'.getTeacherBySchool', ":id")}}"
-    var getSectionBySchoolURL= "{{route(request()->get('current_guard').'.getSectionBySchool', ":id")}}"
-    @endif
-
-    @if(request()->get('current_guard') !== 'teacher')
-    var getSectionByTeacherURL= "{{route(request()->get('current_guard').'.getSectionByTeacher', ":id")}}"
-    @endif
-
-    var getLessonsByGradeURL= "{{route(request()->get('current_guard').'.getLessonsByGrade')}}"
-    var getStoriesByGradeURL= "{{route(request()->get('current_guard').'.getStoriesByGrade')}}"
+    var getTeacherBySchoolURL= "{{route(getGuard().'.getTeacherBySchool', ":id")}}"
+    var getSectionBySchoolURL= "{{route(getGuard().'.getSectionBySchool', ":id")}}"
+    var getSectionByTeacherURL= "{{route(getGuard().'.getSectionByTeacher', ":id")}}"
+    var getLessonsByGradeURL= "{{route(getGuard().'.getLessonsByGrade')}}"
+    var getStoriesByGradeURL= "{{route(getGuard().'.getStoriesByGrade')}}"
+    var getStudentsByGradeURL= "{{route(getGuard().'.getStudentsByGrade', ":id")}}"
 
 
 
@@ -34,6 +29,7 @@
     var TOAST_DIRECTION = "{{app()->getLocale() == 'ar' ? 'toastr-top-left' : 'toastr-top-right'}}";
     var DatatableArabicURL = '{{asset('assets_v1/datatable_arabic.json')}}'
     var RTL = "{{app()->getLocale() == 'ar' ? true : false}}";
+    var CSRF = $('meta[name="csrf-token"]').attr('content');
 
     toastr.options = {
         "closeButton": true,

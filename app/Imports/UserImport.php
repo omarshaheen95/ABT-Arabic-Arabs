@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\ImportFile;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Rules\UserEmailRule;
@@ -33,7 +34,7 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
 
     private $duplicateEmails = [];
 
-    public function __construct(Request $request, $created_file)
+    public function __construct(Request $request, ImportFile $created_file)
     {
         $this->request = $request;
         $this->created_file = $created_file;
@@ -123,15 +124,54 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
 
     public function onFailure(Failure ...$failures)
     {
-        foreach ($failures as $failure) {
-            $this->failures[$failure->row()][] = $failure->errors()[0];
+        if (!in_array($this->created_file->process_type ,['delete','update'])) {
+            $row_num = 0;
+            $data_errors = [];
+            $data = [];
+            foreach ($failures as $failure) {
+                $row_num = $failure->row();
+                $this->log_errors[] = "Row " . $failure->row() . ' : ' . $failure->errors()[0];
+                $data['inputs'] = [];
+
+                foreach ($failure->values() as $key => $value) {
+                    //check if not number
+                    if (!is_numeric($key)) {
+                        $data['inputs'][] = [
+                            'key' => $key,
+                            'value' => $value,
+                        ];
+                    }
+                }
+                $data_errors[] = $failure->errors();
+            }
+            $data['errors'] = $data_errors;
+            $this->created_file->logs()->create([
+                'row_num' => $row_num,
+                'data' => $data,
+            ]);
+            $this->failed_rows_count++;
+        } else{
+            foreach ($failures as $failure) {
+                $this->failures[$failure->row()][] = $failure->errors()[0];
+            }
+            $this->failed_rows_count++;
         }
-        $this->failed_rows_count++;
     }
 
     public function onError(\Throwable $e)
     {
         $this->error = $e->getMessage();
+    }
+
+    public function prepareForValidation(array $row)
+    {
+        // Trim both keys (headers) and values (cell data)
+        $trimmedKeys = array_map('trim', array_keys($row));
+        $trimmedValues = array_map(function($value) {
+            return $value === null ? null : trim(str_replace(["'", '(', ')', ',', "`"], "", $value));
+        }, array_values($row));
+        // Rebuild the row with the trimmed keys and values
+        return array_combine($trimmedKeys, $trimmedValues);
     }
 
     public function rules(): array
@@ -149,7 +189,7 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
                 'Grade' => 'required|exists:grades,id',
                 'Alternative Grade' => 'nullable|exists:grades,id',
                 'Section' => 'sometimes',
-                'nationality' => 'sometimes',
+                'Nationality' => 'sometimes',
                 'Gender' => 'sometimes|in:Boy,Girl',
                 'Active' => 'sometimes|in:1,0',
                 'Student ID' => 'sometimes',
@@ -165,7 +205,7 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
                 'Grade' => 'required|exists:grades,id',
                 'Alternative Grade' => 'nullable|exists:grades,id',
                 'Section' => 'nullable',
-                'nationality' => 'nullable',
+                'Nationality' => 'nullable',
                 'Gender' => 'sometimes|in:Boy,Girl',
                 'Active' => 'nullable|in:1,0',
                 'Teacher' => 'nullable',

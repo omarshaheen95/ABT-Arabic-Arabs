@@ -139,25 +139,31 @@ class AssessmentController extends Controller
             case 1:
 //                dd($request->all());
                 $this->trueFalseAssessment($request, $lesson);
+                return redirect()->route('manager.lesson.assessment.edit', $lesson->id)->with('message', t('Successfully Updated'));
                 return $this->sendResponse(null,t('Successfully Updated'));
             case 2:
                 $this->optionsAssessment($request, $lesson);
+                return redirect()->route('manager.lesson.assessment.edit', $lesson->id)->with('message', t('Successfully Updated'));
                 return $this->sendResponse(null,t('Successfully Updated'));
             case 3:
 //                dd($request->all());
                 $this->matchAssessment($request, $lesson);
+                return redirect()->route('manager.lesson.assessment.edit', $lesson->id)->with('message', t('Successfully Updated'));
                 return $this->sendResponse(null,t('Successfully Updated'));
             case 4:
 //                dd($request->all());
                 $this->sortAssessment($request, $lesson);
+                return redirect()->route('manager.lesson.assessment.edit', $lesson->id)->with('message', t('Successfully Updated'));
                 return $this->sendResponse(null,t('Successfully Updated'));
             case 'writing':
 //                dd($request->all());
                 $this->writingAssessment($request, $lesson);
+                return redirect()->route('manager.lesson.assessment.edit', $lesson->id)->with('message', t('Successfully Updated'));
                 return $this->sendResponse(null,t('Successfully Updated'));
             case 'speaking':
 //                dd($request->all());
                 $this->speakingAssessment($request, $lesson);
+                return redirect()->route('manager.lesson.assessment.edit', $lesson->id)->with('message', t('Successfully Updated'));
                 return $this->sendResponse(null,t('Successfully Updated'));
         }
     }
@@ -215,6 +221,7 @@ class AssessmentController extends Controller
 //                        dd($m_q_option);
                 $match = QMatch::query()->create([
                     'question_id' => $question->id,
+                    'uid' => \Str::uuid(),
                     'content' => $m_q_option,
                     'result' => $result,
                 ]);
@@ -404,6 +411,7 @@ class AssessmentController extends Controller
                 SortWord::query()->create([
                     'question_id' => $question->id,
                     'content' => $option,
+                    'uid' => \Str::uuid(),
                     'ordered' => $counter,
                 ]);
                 $counter++;
@@ -435,6 +443,7 @@ class AssessmentController extends Controller
                     SortWord::query()->create([
                         'question_id' => $question->id,
                         'content' => $option,
+                        'uid' => \Str::uuid(),
                         'ordered' => $counter,
                     ]);
                 }
