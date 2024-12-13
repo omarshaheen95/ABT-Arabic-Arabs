@@ -12,3 +12,12 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+app_old
+old_v
+resources_old
+routes_old
+public/settings
+public/student-import-files
+public/students_imported_files
+public/teachers_imported_files
+public/uploads
