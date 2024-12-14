@@ -303,7 +303,7 @@ Route::group(['namespace' => 'Manager'], function(){
         return "تم تحديث البيانات بنجاح";
     });
 
-//    Route::get('update_story_sort_words', function () {
+//    Route::get('update_story_sort_words ', function () {
 //        // Process StoryMatch in chunks
 //        \App\Models\StorySortWord::query()->whereNull('uid')->chunk(500, function ($sort_words) {
 //            foreach ($sort_words as $sort_word) {
