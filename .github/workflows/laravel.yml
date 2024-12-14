@@ -33,7 +33,7 @@ jobs:
           SSHPASS: ${{ secrets.SERVER_PASSWORD }}
         run: |
           sshpass -e ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_ADDRESS }} "
-            cd /home/omar/websites/abt-data &&
+            cd /home/omar/websites/arabic-arabs &&
             git pull origin master &&
             php artisan migrate --force &&
             php artisan cache:clear &&
