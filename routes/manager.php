@@ -280,8 +280,9 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::get('update_sort_words', function () {
         $sort_words = \App\Models\SortWord::query()->whereNull('uid')->get();
         foreach ($sort_words as $sort_word) {
+
             $sort_word->update([
-                'uid' => \Illuminate\Support\Str::uuid(),
+                 'uid' => \Illuminate\Support\Str::uuid(),
             ]);
             \App\Models\SortResult::query()->where('sort_word_id', $sort_word->id)->update([
                 'sort_answer_uid' => $sort_word->uid,
