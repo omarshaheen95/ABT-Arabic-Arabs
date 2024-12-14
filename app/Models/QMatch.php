@@ -17,11 +17,7 @@ class QMatch extends Model implements HasMedia
     protected $table = 'matches';
 
     protected $fillable = [
-<<<<<<< HEAD
-        'question_id', 'content', 'result',
-=======
         'question_id', 'uid','content', 'result',
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     ];
     protected static $recordEvents = ['updated'];
     public function question()

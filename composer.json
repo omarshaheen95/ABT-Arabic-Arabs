@@ -6,10 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
-<<<<<<< HEAD
         "ext-json": "*",
-=======
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         "arcanedev/log-viewer": "^8.3",
         "barryvdh/laravel-debugbar": "^3.6",
         "dyrynda/laravel-cascade-soft-deletes": "^4.2",
@@ -24,20 +21,11 @@
         "maatwebsite/excel": "^3.1",
         "proengsoft/laravel-jsvalidation": "^4.7",
         "propaganistas/laravel-phone": "*",
-<<<<<<< HEAD
         "simplesoftwareio/simple-qrcode": "4",
         "spatie/laravel-activitylog": "*",
         "spatie/laravel-medialibrary": "^7.0.0",
         "spatie/laravel-permission": "^5.5",
         "yajra/laravel-datatables-oracle": "^9.19"
-=======
-        "simplesoftwareio/simple-qrcode": "^4.2",
-        "spatie/laravel-activitylog": "*",
-        "spatie/laravel-medialibrary": "^7.0.0",
-        "spatie/laravel-permission": "^5.5",
-        "yajra/laravel-datatables-oracle": "^9.19",
-        "ext-json": "*"
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     },
     "require-dev": {
         "facade/ignition": "^2.5",

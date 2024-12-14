@@ -1,16 +1,5 @@
 * text=auto
-<<<<<<< HEAD
-
-*.blade.php diff=html
-*.css diff=css
-*.html diff=html
-*.md diff=markdown
-*.php diff=php
-
-/.github export-ignore
-=======
 *.css linguist-vendored
 *.scss linguist-vendored
 *.js linguist-vendored
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 CHANGELOG.md export-ignore

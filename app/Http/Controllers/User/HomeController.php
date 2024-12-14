@@ -8,11 +8,7 @@ use App\Models\Lesson;
 use App\Models\Question;
 use App\Models\School;
 use App\Models\Story;
-<<<<<<< HEAD
-use App\Models\StoryAssignment;
-=======
 use App\Models\UserStoryAssignment;
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 use App\Models\StoryQuestion;
 use App\Models\StoryUserRecord;
 use App\Models\TQuestion;
@@ -187,10 +183,7 @@ class HomeController extends Controller
         $title = 'واجبات الدروس المسندة';
         $student_assignments = UserAssignment::query()
             ->has('lesson')
-<<<<<<< HEAD
-=======
             ->with('lesson')
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
             ->where('user_id', Auth::user()->id)
             ->latest()->paginate(10);
 
@@ -286,11 +279,7 @@ class HomeController extends Controller
     public function storiesAssignments()
     {
         $title = 'تعيينات القصص المسندة';
-<<<<<<< HEAD
-        $student_assignments = StoryAssignment::query()
-=======
         $student_assignments = UserStoryAssignment::query()
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
             ->has('story')
             ->where('user_id', Auth::user()->id)
             ->latest()->paginate(10);

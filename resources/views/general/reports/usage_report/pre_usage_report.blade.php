@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-@extends(request()->get('current_guard').'.layout.container')
-=======
 @extends(getGuard().'.layout.container')
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
 @push('breadcrumb')
     <li class="breadcrumb-item">
@@ -14,11 +10,7 @@
 @section('content')
 
     <div class="row">
-<<<<<<< HEAD
-        <form  action="{{route(request()->get('current_guard').'.report.usage_report')}}" id="filter">
-=======
         <form  action="{{route(getGuard().'.report.usage_report')}}" id="filter">
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
             {{csrf_field()}}
             <div class="row kt-margin-b-20">
                 <div class="col-lg-12 mb-2">

@@ -12,10 +12,7 @@ use Illuminate\Http\Request;
 class MotivationalCertificate extends Model
 {
     use SoftDeletes,LogsActivityTrait;
-<<<<<<< HEAD
-=======
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     protected $fillable = [
         'teacher_id',
         'user_id',
@@ -24,10 +21,6 @@ class MotivationalCertificate extends Model
         'granted_in',
     ];
 
-<<<<<<< HEAD
-    public function scopeFilter(Builder $query, Request $request): Builder
-    {
-=======
 
 
 
@@ -62,7 +55,6 @@ class MotivationalCertificate extends Model
         if (!$request){
             $request = \request();
         }
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         return $query
             ->has('user')
             ->has('teacher')
@@ -141,51 +133,4 @@ class MotivationalCertificate extends Model
                 $query->whereDate('created_at', '<=',$value);
             });
     }
-<<<<<<< HEAD
-
-    public function getActionButtonsAttribute()
-    {
-        $actions = [];
-        if (\request()->is('manager/*')) {
-            $actions = [
-                ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('manager.motivational_certificate.show', $this->id), 'permission' => 'show motivational certificate'],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete motivational certificate'],
-            ];
-        } elseif (\request()->is('school/*')) {
-            $actions = [
-
-            ];
-
-        } elseif (\request()->is('teacher/*')) {
-            $actions = [
-                ['key' => 'blank', 'name' => t('Certificate'), 'route' => route('teacher.motivational_certificate.show', $this->id)],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id],
-            ];
-        } elseif (\request()->is('supervisor/*')) {
-            $actions = [
-
-            ];
-        }
-        return view('general.action_menu')->with('actions', $actions);
-
-    }
-
-    public function teacher()
-    {
-        return $this->belongsTo(Teacher::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function model()
-    {
-        return $this->morphTo();
-    }
-
-
-=======
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 }

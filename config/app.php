@@ -55,11 +55,7 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
-<<<<<<< HEAD
-
-=======
     'languages' => ['ar', 'en'],
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -71,11 +67,7 @@ return [
     |
     */
 
-<<<<<<< HEAD
-    'timezone' => 'UTC',
-=======
     'timezone' => 'Asia/Dubai',
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
     /*
     |--------------------------------------------------------------------------
@@ -174,30 +166,20 @@ return [
          * Package Service Providers...
          */
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-<<<<<<< HEAD
-=======
         App\Providers\RepositoryServiceProvider::class,
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-<<<<<<< HEAD
-
-=======
         Spatie\Activitylog\ActivitylogServiceProvider::class
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
 
     ],

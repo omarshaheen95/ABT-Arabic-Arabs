@@ -16,11 +16,8 @@
     <link href="{{asset('assets_v1/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('assets_v1/css/style.bundle.css')}}?v={{time()}}" rel="stylesheet" type="text/css"/>
 @endif
-<<<<<<< HEAD
-=======
 <link href="{{asset('assets_v1/css/custom.css')}}?v={{time()}}" rel="stylesheet" type="text/css"/>
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 <!--end::Global Stylesheets Bundle-->
 <link rel="SHORTCUT ICON"  type="image/x-icon" href="{{!settingCache('logo_min')? asset('logo_min.svg'):asset(settingCache('logo_min'))}}" />
 

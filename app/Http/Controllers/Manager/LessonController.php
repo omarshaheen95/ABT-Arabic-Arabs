@@ -239,13 +239,6 @@ class LessonController extends Controller
     {
 
         $tests = UserTest::query()
-<<<<<<< HEAD
-            ->where('id', 74376)
-//            ->whereRelation('lesson', 'grade_id', 5)
-            ->has('user')
-            ->get();
-//        dd($tests->count());
-=======
 //            ->where('id', 42898)
 //            ->whereRelation('lesson', 'grade_id', 5)
             ->whereHas('lesson', function (\Illuminate\Database\Eloquent\Builder $query) {
@@ -256,7 +249,6 @@ class LessonController extends Controller
             ->where('total', '>', 100)
             ->get();
         dd($tests->count());
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         foreach ($tests as $test) {
 
             $questions = Question::query()->with(['lesson'])->where('lesson_id', $test->lesson_id)->get();

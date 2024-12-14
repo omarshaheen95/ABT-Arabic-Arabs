@@ -93,13 +93,6 @@ function hideLoadingModal() {
     body.removeClass('modal-open')
     body.removeAttr('style')
 }
-<<<<<<< HEAD
-function getAndSetDataOnSelectChange(on_change_name, to_select, getURL, multiple = 0, otherData = [], callback = null) {
-    if (typeof getURL !== 'undefined') {
-        $('select[name="' + on_change_name + '"]').change(function () {
-            var id = $(this).val();
-            if (id) {
-=======
 //select loading
 function selectLoading(ele,status){
     if (typeof ele !=='undefined') {
@@ -117,7 +110,6 @@ function getAndSetDataOnSelectChange(on_change_name, to_select, getURL, multiple
             var selectElement = $(this);
 
             if (value) {
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                 var url = getURL;
 
                 var data = {
@@ -125,37 +117,22 @@ function getAndSetDataOnSelectChange(on_change_name, to_select, getURL, multiple
                 }
 
 
-<<<<<<< HEAD
-                if (!Array.isArray(id)){
-                    url = url.replace(':id', id);
-                }else {
-                    let name = on_change_name.replace('[]','')
-                    data[name] = id; //id is array
-=======
                 if (!Array.isArray(value) && url.includes(':id')){
                     url = url.replace(':id', value);
                 }else {
                     let name = on_change_name.replace('[]','')
                     data[name] = value; //value is array
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                 }
 
 
                 if (otherData.length > 0) {
                     $.each(otherData, function (key, value) {
-<<<<<<< HEAD
-                        console.log($('#' + value).val());
-                        data[value] = $('#' + value).val();
-                    });
-                }
-=======
                         // console.log($('#' + value).val());
                         data[value] = $('#' + value).val();
                     });
                 }
                  // Add loading class
                 selectLoading(selectElement,true)
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                 $.ajax({
                     type: "get",
                     url: url,
@@ -168,24 +145,17 @@ function getAndSetDataOnSelectChange(on_change_name, to_select, getURL, multiple
                     $('select[name="' + to_select + '"]').select2({
                         'width':'100%',
                     });
-<<<<<<< HEAD
-
-=======
                   selectLoading(selectElement,false)
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                 });
             }
         });
     }
 }
-<<<<<<< HEAD
-=======
 function clearSelection(selectId) {
     let select = $('#' + selectId);
     $(select).val([])
     $(select).trigger('change');
 }
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
 function initializeDateRangePicker(id = "date_range_picker", range = []) {
     const dateRangePicker = $('#' + id);
@@ -314,21 +284,6 @@ function validateAndSubmit(form_class_name) {
 
 }
 
-<<<<<<< HEAD
-
-//get data from form and convert data to object
-function getFormDataAsObject(formId) {
-    let formObj = {};
-    let inputs = $('#' + formId).serializeArray();
-    $.each(inputs, function (i, input) {
-        formObj[input.name] = input.value;
-    });
-    return formObj;
-}
-
-
-=======
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 function generateUserName() {
     var numbers = [0, 1];
     var selected_number = numbers[Math.floor(Math.random() * numbers.length)];
@@ -416,8 +371,6 @@ function copyToClipboard(element) {
 
 }
 
-<<<<<<< HEAD
-=======
 //get data from form and convert data to object
 function getFormData(form_id) {
     let data = {};
@@ -439,7 +392,6 @@ function resetForm(formId) {
 
 }
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 if ($('.remove_spaces').length > 0){
     $(document).on('keyup','.remove_spaces',function () {
         let value = $(this).val()
@@ -449,8 +401,6 @@ if ($('.remove_spaces').length > 0){
         }
     })
 }
-<<<<<<< HEAD
-=======
 
 $('.modal').on('shown.bs.modal', function() {
     let parent = $(this)
@@ -458,4 +408,3 @@ $('.modal').on('shown.bs.modal', function() {
         dropdownParent: parent
     }).focus();
 });
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9

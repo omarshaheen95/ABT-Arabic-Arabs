@@ -13,11 +13,7 @@ class AddDeadlineColumnToStoryAssignmentsTable extends Migration
      */
     public function up()
     {
-<<<<<<< HEAD
-        Schema::table('story_assignments', function (Blueprint $table) {
-=======
         Schema::table('user_story_assignments', function (Blueprint $table) {
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
             $table->dateTime('deadline')->nullable()->after('completed');
             $table->dateTime('completed_at')->nullable()->after('deadline');
         });
@@ -30,11 +26,7 @@ class AddDeadlineColumnToStoryAssignmentsTable extends Migration
      */
     public function down()
     {
-<<<<<<< HEAD
-        Schema::table('story_assignments', function (Blueprint $table) {
-=======
         Schema::table('user_story_assignments', function (Blueprint $table) {
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
             $table->dropColumn('deadline');
             $table->dropColumn('completed_at');
         });

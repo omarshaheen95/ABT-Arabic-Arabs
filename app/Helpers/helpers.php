@@ -37,17 +37,6 @@ function schoolSections($school = false)
         ->get()->pluck('section')->unique()->values();
     return $sections;
 }
-<<<<<<< HEAD
-function uploadFile($file, $path ,bool $new_name=true)
-{
-    $file_original_name = $file->getClientOriginalName();
-    $file_new_name = Str::random(27) . '.' . $file->getClientOriginalExtension();
-    $path = $path.'/'.date("Y").'/'.date("m").'/'.date("d");
-    $destination = public_path($path);
-    $file->move($destination , $file_new_name);
-    return ['name'=>$new_name?$file_new_name:$file_original_name,'path'=>$path .'/'. $file_new_name];
-}
-=======
 function getSections($school_id=null,$teacher_id=null)
 {
     $sections = \App\Models\User::query()
@@ -97,7 +86,6 @@ function uploadFile($file, $path, $with_date = true)
     return $data;
 }
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 function getGradeName($grade)
 {
     switch($grade)
@@ -1697,8 +1685,6 @@ function camelCaseText($text,$replace='_'):string
 {
     return Str::title(str_replace($replace, ' ', $text));
 }
-<<<<<<< HEAD
-=======
 function getGuard()
 {
     $guard = 'web';
@@ -1752,4 +1738,3 @@ function sysGuards()
 {
     return ['manager','school','supervisor','teacher','user'];
 }
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9

@@ -34,14 +34,11 @@ class ImportFile extends Model
         return $this->belongsTo(School::class);
     }
 
-<<<<<<< HEAD
-=======
     public function logs()
     {
         return $this->hasMany(ImportFileLog::class);
     }
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     public function scopeFilter(Builder $query, Request $request)
     {
         return $query
@@ -63,34 +60,21 @@ class ImportFile extends Model
     public function getActionButtonsAttribute()
     {
         $actions = [];
-<<<<<<< HEAD
-=======
 
         if ($this->status == 'Failures' || $this->status == 'Errors'|| $this->logs()->count() > 0) {
             $actions[]= ['key' => 'show', 'name' => t('Show Errors'), 'route' => route('manager.import_files.show_logs', [$this->id])];
         }
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         if($this->created_rows_count > 0)
         {
             $actions[] = ['key' => 'excel', 'name' => t('Excel'), 'route' => '#', 'permission' => 'import files', 'onclick' => "excelExport('".route('manager.import_files.export_excel', ['import_file_id' => $this->id])."')"];
         }
-<<<<<<< HEAD
-=======
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         if($this->created_rows_count > 0 && $this->model_type == "User")
         {
             $actions[] = ['key' => 'cards', 'name' => t('Cards'), 'route' => route('manager.import_files.users_cards', ['id' => $this->id]), 'permission' => 'import files'];
         }
-<<<<<<< HEAD
-        if ($this->status == 'Failures' || $this->status == 'Errors') {
-            $actions [] =
-                ['key' => 'show', 'name' => t('Show Errors'), 'route' => route('manager.import_files.show', [$this->id]), 'permission' => 'import files'];
-        }
-=======
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
         $actions[] = ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete import files'];
         return view('general.action_menu')->with('actions',$actions);

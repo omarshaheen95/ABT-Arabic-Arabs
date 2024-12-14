@@ -11,11 +11,7 @@ class StorySortResult extends Model
 {
     use SoftDeletes,LogsActivityTrait;
     protected $fillable = [
-<<<<<<< HEAD
-        'story_question_id', 'story_sort_word_id', 'student_story_test_id'
-=======
         'story_question_id', 'story_sort_word_id', 'student_story_test_id', 'story_sort_answer_uid'
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     ];
     protected static $recordEvents = ['updated'];
     public function student_story_test()

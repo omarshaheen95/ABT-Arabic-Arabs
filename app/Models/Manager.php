@@ -45,11 +45,7 @@ class Manager extends Authenticatable
     {
         $actions =  [
             ['key'=>'edit','name'=>t('Edit'),'route'=>route('manager.manager.edit', $this->id),'permission'=>'edit managers'],
-<<<<<<< HEAD
-            ['key'=>'edit_permissions','name'=>t('Edit Permissions'),'route'=>route('manager.edit-permissions', $this->id),'permission'=>'edit managers permissions'],
-=======
             ['key' => 'blank', 'name' => t('Edit Permissions'), 'route' => route(getGuard().'.user_role_and_permission.edit',['user_guard'=>'manager','id'=>$this->id]),'permission'=>'edit schools permissions'],
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
             ['key'=>'track_logs','name'=>t('Track Activity'),'route'=>route('manager.activity-log.index', ['causedByManager'=>$this->id]),'permission'=>'show activity logs'],
             ['key'=>'delete','name'=>t('Delete'),'route'=>$this->id,'permission'=>'delete managers'],
         ];

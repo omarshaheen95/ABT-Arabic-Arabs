@@ -48,25 +48,6 @@
                     </a>
                 </div>
 
-<<<<<<< HEAD
-                <div class="menu-item">
-                    <a class="menu-link @if(request()->url() == route('teacher.students_school.index'))active @endif" href="{{ route('teacher.students_school.index') }}">
-                                <span class="menu-icon">
-                                   <i class="ki-duotone ki-profile-user fs-2">
-                                     <i class="path1"></i>
-                                     <i class="path2"></i>
-                                     <i class="path3"></i>
-                                     <i class="path4"></i>
-                                    </i>
-                                </span>
-                        <span class="menu-title">{{t('School Students')}}</span>
-                    </a>
-                </div>
-
-                <div class="menu-item">
-                    <a class="menu-link @if(request()->url() == route('teacher.student.my_students'))active @endif" href="{{ route('teacher.student.my_students') }}">
-                        <span class="menu-icon">
-=======
                 @can('show users')
                     <div class="menu-item">
                         <a class="menu-link {{menuLinkIsActive([getGuard().'/user/*',getGuard().'/user'])}}"
@@ -85,7 +66,6 @@
                         <a class="menu-link @if(Request::is(getGuard().'/my_students'))active @endif "
                            href="{{ route(getGuard().'.my-students') }}">
                            <span class="menu-icon">
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                             <i class="ki-duotone ki-people fs-2">
                              <i class="path1"></i>
                              <i class="path2"></i>
@@ -94,128 +74,6 @@
                              <i class="path5"></i>
                             </i>
                         </span>
-<<<<<<< HEAD
-                        <span class="menu-title">{{t('My Students')}}</span>
-                    </a>
-                </div>
-
-
-
-                <div data-kt-menu-trigger="click"
-                     class="menu-item menu-accordion {{Request::is('teacher/lessons_tests')|| Request::is('teacher/stories_tests') ?'here show':''}}">
-                                           <span class="menu-link">
-                                                <span class="menu-icon">
-                                                <i class="ki-duotone ki-tablet-book fs-2">
-                                        <i class="path1"></i>
-                                        <i class="path2"></i>
-                                    </i>
-                                            </span>
-											<span class="menu-title">{{t('Student Tests')}}</span>
-											<span class="menu-arrow"></span>
-										</span>
-                    <!--begin:Menu sub-->
-                    <div class="menu-sub menu-sub-accordion">
-                        <div class="menu-item">
-                            <a class="menu-link @if(Request::is('teacher/lessons_tests*') )active @endif"
-                               href="{{ route('teacher.lessons_tests.index') }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                                <span class="menu-title">{{t('Lessons Tests')}}</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link @if(Request::is('teacher/stories_tests*') )active @endif"
-                               href="{{ route('teacher.stories_tests.index') }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                                <span class="menu-title">{{t('Stories Tests')}}</span>
-                            </a>
-                        </div>
-                    </div>
-                    <!--end:Menu sub-->
-                </div>
-
-                <div data-kt-menu-trigger="click"
-                     class="menu-item menu-accordion {{Request::is('teacher/lesson_assignment')|| Request::is('teacher/story_assignment') ?'here show':''}}">
-                                           <span class="menu-link">
-                                                <span class="menu-icon">
-                                                <i class="ki-duotone ki-some-files fs-2">
-                                        <i class="path1"></i>
-                                        <i class="path2"></i>
-                                    </i>
-                                            </span>
-											<span class="menu-title">{{t('Student Assignments')}}</span>
-											<span class="menu-arrow"></span>
-										</span>
-                    <!--begin:Menu sub-->
-                    <div class="menu-sub menu-sub-accordion">
-                        <div class="menu-item">
-                            <a class="menu-link @if(Request::is('teacher/lesson_assignment*') )active @endif"
-                               href="{{ route('teacher.lesson_assignment.index') }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                                <span class="menu-title">{{t('Lessons Assignments')}}</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link @if(Request::is('teacher/story_assignment*') )active @endif"
-                               href="{{ route('teacher.story_assignment.index') }}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                                <span class="menu-title">{{t('Stories Assignments')}}</span>
-                            </a>
-                        </div>
-                    </div>
-                    <!--end:Menu sub-->
-                </div>
-
-
-                <div data-kt-menu-trigger="click"
-                     class="menu-item menu-accordion {{Request::is('teacher/students_works*')|| Request::is('teacher/stories_records*') ?'here show':''}}">
-                                           <span class="menu-link">
-                                                <span class="menu-icon">
-                                                <i class="ki-duotone ki-questionnaire-tablet fs-2">
-                                        <i class="path1"></i>
-                                        <i class="path2"></i>
-                                    </i>
-                                            </span>
-											<span class="menu-title">{{t('Marking')}}</span>
-											<span class="menu-arrow"></span>
-										</span>
-                    <!--begin:Menu sub-->
-                    <div class="menu-sub menu-sub-accordion">
-{{--                        <div class="menu-item">--}}
-{{--                            <a href="{{route('teacher.students_works.index')}}"--}}
-{{--                               class="menu-link {{Request::is('teacher/students_works*')?'active':''}}">--}}
-{{--                        <span class="menu-bullet">--}}
-{{--														<span class="bullet bullet-dot"></span>--}}
-{{--													</span>--}}
-{{--                                <span class="menu-title">{{t('Students Works')}}</span>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-
-
-                        <div class="menu-item">
-                            <a href="{{route('teacher.stories_records.index')}}"
-                               class="menu-link {{Request::is('teacher/stories_records*')?'active':''}}">
-                        <span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                                <span class="menu-title">{{t('Stories Recodes')}}</span>
-                            </a>
-                        </div>
-                    </div>
-                    <!--end:Menu sub-->
-                </div>
-
-
-                <div class="menu-item">
-                    <a class="menu-link @if(Request::is('teacher/motivational_certificate*'))active @endif" href="{{ route('teacher.motivational_certificate.index') }}">
-=======
                             <span class="menu-title">{{t('My Students')}}</span>
                         </a>
                     </div>
@@ -391,24 +249,17 @@
                     <div class="menu-item">
                         <a class="menu-link {{menuLinkIsActive([getGuard().'/motivational_certificates*'])}}"
                            href="{{ route(getGuard().'.motivational_certificates.index') }}">
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                         <span class="menu-icon">
                             <i class="ki-duotone ki-teacher fs-2">
                                  <span class="path1"></span>
                                  <span class="path2"></span>
                                 </i>
                         </span>
-<<<<<<< HEAD
-                        <span class="menu-title">{{t('Motivational Certificates')}}</span>
-                    </a>
-                </div>
-=======
                             <span class="menu-title">{{t('Motivational Certificates')}}</span>
                         </a>
                     </div>
                 @endcan
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion">

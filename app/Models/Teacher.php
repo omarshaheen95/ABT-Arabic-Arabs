@@ -11,18 +11,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
-<<<<<<< HEAD
-
-class Teacher extends Authenticatable
-{
-    use Notifiable, SoftDeletes,CascadeSoftDeletes,LogsActivityTrait;
-=======
 use Spatie\Permission\Traits\HasRoles;
 
 class Teacher extends Authenticatable
 {
     use Notifiable, SoftDeletes,CascadeSoftDeletes,LogsActivityTrait,HasRoles;
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
     protected $fillable = [
         'name', 'email', 'password', 'image', 'school_id', 'mobile', 'pending_tasks', 'corrected_tasks', 'returned_tasks',
@@ -40,25 +33,6 @@ class Teacher extends Authenticatable
     public function getActionButtonsAttribute()
     {
         $actions = [];
-<<<<<<< HEAD
-        if (\request()->is('manager/*')) {
-            $actions = [
-                ['key' => 'edit', 'name' => t('Edit'), 'route' => route('manager.teacher.edit', $this->id), 'permission' => 'edit teachers'],
-                ['key' => 'login', 'name' => t('Login'), 'route' => route('manager.teacher.login', $this->id), 'permission' => 'teacher login'],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete teachers'],
-            ];
-        } elseif (\request()->is('school/*')) {
-            $actions = [
-                ['key' => 'edit', 'name' => t('Edit'), 'route' => route('school.teacher.edit', $this->id)],
-                ['key' => 'login', 'name' => t('Login'), 'route' => route('school.teacher.login', $this->id)],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id],
-            ];
-        } elseif (\request()->is('teacher/*')) {
-            $actions = [];
-        } elseif (\request()->is('supervisor/*')) {
-            $actions = [];
-        }
-=======
         $actions[] = ['key' => 'edit', 'name' => t('Edit'), 'route' => route(getGuard() . '.teacher.edit', $this->id), 'permission' => 'edit teachers'];
         $actions[] = ['key' => 'login', 'name' => t('Login'), 'route' => route(getGuard() . '.teacher.login', $this->id), 'permission' => 'teacher login'];
         $actions[] = ['key' => 'blank', 'name' => t('Report'), 'route' => route(getGuard() . '.teacher.tracking_report', $this->id)];
@@ -67,7 +41,6 @@ class Teacher extends Authenticatable
             $actions[] = ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete teachers'];
         }
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         return view('general.action_menu')->with('actions', $actions);
 
     }

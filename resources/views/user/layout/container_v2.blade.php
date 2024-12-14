@@ -14,21 +14,12 @@
     <meta name="geo.placename" content="">
     <meta name="geo.region" content="">
 
-<<<<<<< HEAD
-    <meta property="og:type" content="" />
-    <meta property="og:title" content="{{ isset($title) ? $title. " | ":''  }}منصة لغتي الأولى" />
-    <meta property="og:description" content="" />
-    <meta property="og:image" content="{{asset('web_assets/img/logo.svg')}}" />
-    <meta property="og:url" content="" />
-    <meta property="og:site_name" content="" />
-=======
     <meta property="og:type" content=""/>
     <meta property="og:title" content="{{ isset($title) ? $title. " | ":''  }}منصة لغتي الأولى"/>
     <meta property="og:description" content=""/>
     <meta property="og:image" content="{{asset('web_assets/img/logo.svg')}}"/>
     <meta property="og:url" content=""/>
     <meta property="og:site_name" content=""/>
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
     <meta name="twitter:title" content="{{ isset($title) ? $title. " | ":''  }}منصة لغتي الأولى">
     <meta name="twitter:description" content="">
@@ -36,11 +27,7 @@
     <meta name="twitter:site" content="">
     <meta name="twitter:creator" content="">
 
-<<<<<<< HEAD
-    <link rel="canonical" href="" />
-=======
     <link rel="canonical" href=""/>
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     <link rel="shortcut icon" href="{{asset('web_assets/img/logo.svg')}}" type="image/x-icon">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap CSS v5.0.2 -->
@@ -48,11 +35,7 @@
     @yield('pre_style')
     <link rel="stylesheet" href="{{asset('web_assets/css/custom.css')}}?v2">
     <link rel="stylesheet" href="{{asset('web_assets/css/resposive.css')}}">
-<<<<<<< HEAD
-    <link href="{{ asset('assets/vendors/general/toastr/build/toastr.css') }}" rel="stylesheet" />
-=======
     <link href="{{ asset('assets/vendors/general/toastr/build/toastr.css') }}" rel="stylesheet"/>
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     @yield('style')
 
 </head>
@@ -65,13 +48,9 @@
             <div class="user-box">
                 <div class="pic">
                     <svg xmlns="http://www.w3.org/2000/svg" width="23.589" height="31.195" viewBox="0 0 23.589 31.195">
-<<<<<<< HEAD
-                        <path id="Path_66479" data-name="Path 66479" d="M26.665,31.26l5.481,2.99a4.926,4.926,0,0,1,.88.626,18.359,18.359,0,0,1-23.589.061,4.863,4.863,0,0,1,.966-.647l5.87-2.934a2.238,2.238,0,0,0,1.237-2v-2.3a8.863,8.863,0,0,1-.555-.714,13.506,13.506,0,0,1-1.825-3.677,1.844,1.844,0,0,1-1.307-1.754V18.447a1.835,1.835,0,0,1,.614-1.362V13.531S13.707,8,21.2,8s6.759,5.53,6.759,5.53v3.554a1.833,1.833,0,0,1,.614,1.362v2.458a1.843,1.843,0,0,1-.85,1.547,12.2,12.2,0,0,1-2.223,4.6V29.3A2.241,2.241,0,0,0,26.665,31.26Z" transform="translate(-9.437 -8.001)" fill="#d9e3fd"/>
-=======
                         <path id="Path_66479" data-name="Path 66479"
                               d="M26.665,31.26l5.481,2.99a4.926,4.926,0,0,1,.88.626,18.359,18.359,0,0,1-23.589.061,4.863,4.863,0,0,1,.966-.647l5.87-2.934a2.238,2.238,0,0,0,1.237-2v-2.3a8.863,8.863,0,0,1-.555-.714,13.506,13.506,0,0,1-1.825-3.677,1.844,1.844,0,0,1-1.307-1.754V18.447a1.835,1.835,0,0,1,.614-1.362V13.531S13.707,8,21.2,8s6.759,5.53,6.759,5.53v3.554a1.833,1.833,0,0,1,.614,1.362v2.458a1.843,1.843,0,0,1-.85,1.547,12.2,12.2,0,0,1-2.223,4.6V29.3A2.241,2.241,0,0,0,26.665,31.26Z"
                               transform="translate(-9.437 -8.001)" fill="#d9e3fd"/>
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                     </svg>
                 </div>
                 <div class="content">
@@ -80,11 +59,7 @@
                 </div>
             </div>
             <div class="user-box">
-<<<<<<< HEAD
-                <div class="content"  dir="ltr">
-=======
                 <div class="content" dir="ltr">
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                     <h3 class="username">{{auth()->user()->mobile}}</h3>
                     <p class="info"> آخر دخول: {{auth()->user()->last_login}} </p>
                 </div>
@@ -96,24 +71,15 @@
 <nav class="navbar navbar-expand-xl navbar-light">
     <div class="container">
         <div class="navbar-container">
-<<<<<<< HEAD
-            <div class="navbar-header d-flex justify-content-between aling-items-center w-100" >
-=======
             <div class="navbar-header d-flex justify-content-between aling-items-center w-100">
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                 <a class="logo" href="/home">
                     <img src="{{asset('web_assets/img/logo.svg')}}" alt="">
                 </a>
                 <div class="btn-collapse ms-3 d-xl-none" data-bs-toggle="collapse" data-bs-target="#main-menu">
-<<<<<<< HEAD
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="45" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-=======
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="45" fill="currentColor"
                          class="bi bi-list" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                               d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                     </svg>
                 </div>
             </div>
@@ -130,11 +96,7 @@
 ->where('user_id', Auth::user()->id)
 ->where('completed', 0)
 ->count();
-<<<<<<< HEAD
-                        $userStoryAssignmentsCount = \App\Models\StoryAssignment::query()
-=======
                         $userStoryAssignmentsCount = \App\Models\UserStoryAssignment::query()
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 ->where('user_id', Auth::user()->id)
 ->where('completed', 0)
 ->count();
@@ -145,17 +107,6 @@
                         <a class="nav-link" href="/home">الرئيسة</a>
                     </li>
                     <li class="nav-item dropdown {{Request::is('certificates') || Request::is('story_certificates') ? 'active':''}}">
-<<<<<<< HEAD
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> الشهادات </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item" href="{{ route('certificates') }}"> شهادات الدروس </a>
-                            <a class="dropdown-item" href="{{ route('story.certificates') }}"> شهادات القصص </a>
-                            <a class="dropdown-item" href="{{ route('motivational.certificates') }}"> شهادات التحفيز </a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown {{Request::is('assignments') || Request::is('stories_assignments') ? 'active':''}}">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> الواجبات <span class="badge ms">{{$userAssignmentsCount}}</span></a>
-=======
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false"> الشهادات </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
@@ -169,7 +120,6 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false"> الواجبات <span
                                     class="badge ms">{{$userAssignmentsCount}}</span></a>
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item" href="{{ route('assignments') }}"> واجبات الدروس </a>
                             <a class="dropdown-item" href="{{ route('stories_assignments') }}"> واجبات القصص </a>
@@ -184,11 +134,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link btn btn-soft-danger btn-logout" href="#">
-<<<<<<< HEAD
-                           تسجيل الخروج
-=======
                             تسجيل الخروج
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
                         </a>
                     </li>
@@ -214,13 +160,8 @@
             @endif
         </div>
     </div>
-<<<<<<< HEAD
-@yield('content')
-<!-- End user-home -->
-=======
     @yield('content')
     <!-- End user-home -->
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 </main>
 <!-- End Main -->
 <!-- Start Footer -->
@@ -240,17 +181,10 @@
                         <a href="mailto:Support@abt-assessments.com">
                             <span dir="ltr"> Support@abt-assessments.com</span>
                         </a>
-<<<<<<< HEAD
-{{--                        <span class="mx-4"> - </span>--}}
-{{--                        <a href="mailto:Support@Non-Arabs.com">--}}
-{{--                            <span dir="ltr"> Support@Non-Arabs.com</span>--}}
-{{--                        </a>--}}
-=======
                         {{--                        <span class="mx-4"> - </span>--}}
                         {{--                        <a href="mailto:Support@Non-Arabs.com">--}}
                         {{--                            <span dir="ltr"> Support@Non-Arabs.com</span>--}}
                         {{--                        </a>--}}
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                     </div>
                     <div class="footer-box">
                         <ul class="nav nav-social-media">
@@ -314,13 +248,9 @@
                 <div class="logout-box">
                     <div class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 16.522 16.643">
-<<<<<<< HEAD
-                            <path id="Path_98991" data-name="Path 98991" d="M7.06,7.737V1.29a1.29,1.29,0,0,1,2.579,0V7.737a1.29,1.29,0,1,1-2.579,0Zm6.4-5.846a.967.967,0,0,0-1.2,1.519,6.327,6.327,0,1,1-7.829,0,.967.967,0,0,0-1.2-1.519,8.261,8.261,0,1,0,10.225,0Z" transform="translate(-0.089)" fill="#dc3545"/>
-=======
                             <path id="Path_98991" data-name="Path 98991"
                                   d="M7.06,7.737V1.29a1.29,1.29,0,0,1,2.579,0V7.737a1.29,1.29,0,1,1-2.579,0Zm6.4-5.846a.967.967,0,0,0-1.2,1.519,6.327,6.327,0,1,1-7.829,0,.967.967,0,0,0-1.2-1.519,8.261,8.261,0,1,0,10.225,0Z"
                                   transform="translate(-0.089)" fill="#dc3545"/>
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                         </svg>
                     </div>
                     <h2 class="title">تسجيل خروج</h2>
@@ -332,14 +262,9 @@
                     </form>
                     <div class="text-center">
                         <button onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-<<<<<<< HEAD
-                                type="button" class="btn btn-soft-danger me-3"> تسجيل الخروج</button>
-                        <button type="button" class="btn btn-light border" data-bs-dismiss="modal"> إلغاء </button>
-=======
                                 type="button" class="btn btn-soft-danger me-3"> تسجيل الخروج
                         </button>
                         <button type="button" class="btn btn-light border" data-bs-dismiss="modal"> إلغاء</button>
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                     </div>
                 </div>
             </div>
@@ -436,11 +361,7 @@
 @yield('script')
 
 <script>
-<<<<<<< HEAD
-    $(document).on("click", ".btn-logout", function(){
-=======
     $(document).on("click", ".btn-logout", function () {
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         $("#logout-modal").modal("show");
     });
 </script>

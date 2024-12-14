@@ -9,18 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
-<<<<<<< HEAD
-
-class Supervisor extends Authenticatable
-{
-    use Notifiable, SoftDeletes,LogsActivityTrait;
-=======
 use Spatie\Permission\Traits\HasRoles;
 
 class Supervisor extends Authenticatable
 {
     use Notifiable, SoftDeletes,LogsActivityTrait,HasRoles;
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
     protected $fillable = [
         'name', 'email','image', 'password', 'school_id', 'active', 'active_to', 'approved','lang','last_login','last_login_info'
@@ -32,27 +25,6 @@ class Supervisor extends Authenticatable
 
     public function getActionButtonsAttribute()
     {
-<<<<<<< HEAD
-        $actions = [];
-        if (\request()->is('manager/*')) {
-            $actions = [
-                ['key' => 'edit', 'name' => t('Edit'), 'route' => route('manager.supervisor.edit', $this->id), 'permission' => 'edit supervisors'],
-                ['key' => 'login', 'name' => t('Login'), 'route' => route('manager.supervisor.login', $this->id), 'permission' => 'supervisors login'],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete supervisors'],
-            ];
-        } elseif (\request()->is('school/*')) {
-            $actions = [
-                ['key' => 'edit', 'name' => t('Edit'), 'route' => route('school.supervisor.edit', $this->id)],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id],
-            ];
-        } else {
-            return '';
-        }
-        return view('general.action_menu')->with('actions', $actions);
-
-    }
-
-=======
         $actions = [
             ['key' => 'edit', 'name' => t('Edit'), 'route' => route(getGuard().'.supervisor.edit', $this->id), 'permission' => 'edit supervisors'],
             ['key' => 'login', 'name' => t('Login'), 'route' => route(getGuard().'.supervisor.login', $this->id), 'permission' => 'supervisors login'],
@@ -63,7 +35,6 @@ class Supervisor extends Authenticatable
         return view('general.action_menu')->with('actions', $actions);
 
     }
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     public function scopeFilter(Builder $query, $request =null): Builder
     {
         if (!$request){

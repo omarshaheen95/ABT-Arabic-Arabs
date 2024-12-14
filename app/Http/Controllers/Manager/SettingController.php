@@ -9,11 +9,7 @@ use App\Models\Package;
 use App\Models\School;
 use App\Models\Setting;
 use App\Models\Story;
-<<<<<<< HEAD
-use App\Models\StoryAssignment;
-=======
 use App\Models\UserStoryAssignment;
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 use App\Models\StudentStoryTest;
 use App\Models\Supervisor;
 use App\Models\Teacher;
@@ -86,11 +82,7 @@ class SettingController extends Controller
                 ));
             $StoriesTests_data = ['categories' => $stories_tests->pluck('date'), 'data' => $stories_tests->pluck('counts'), 'total' => "(" . t('Total') . ' : ' . $stories_tests->sum('counts') . ")"];
 
-<<<<<<< HEAD
-            $stories_assignments = StoryAssignment::query()->groupBy('date')->orderBy('date')
-=======
             $stories_assignments = UserStoryAssignment::query()->groupBy('date')->orderBy('date')
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                 ->whereBetween('completed_at', [now()->startOfDay(), now()->endOfDay()])
                 ->get(array(
                     DB::raw('DATE_FORMAT(completed_at, "%h:00 %p") as date'),
@@ -147,11 +139,7 @@ class SettingController extends Controller
                     DB::raw('COUNT(*) as counts')
                 ));
         } elseif ($model == 'StoriesAssignments') {
-<<<<<<< HEAD
-            $items_data = StoryAssignment::query()->groupBy('date')->orderBy('date')
-=======
             $items_data = UserStoryAssignment::query()->groupBy('date')->orderBy('date')
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                 ->whereBetween('completed_at', [Carbon::parse($request->start_date)->startOfDay(), Carbon::parse($request->end_date)->endOfDay()])
                 ->get(array(
                     DB::raw('DATE_FORMAT(completed_at, "' . $format . '") as date'),

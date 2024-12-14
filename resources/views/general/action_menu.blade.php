@@ -10,29 +10,6 @@
     <ul class="dropdown-menu">
         @if(isset($actions))
             @foreach($actions as $action)
-<<<<<<< HEAD
-              @if($action)
-                    @if($action['key'] == 'delete')
-                        @if(isset($action['permission']))
-                            @can($action['permission'])
-                                <li><button type="button" class="dropdown-item text-danger delete_row" data-id="{{$action['route']}}" >{{$action['name']}}</button></li>
-                            @endcan
-
-                        @else
-                            <li><button type="button" class="dropdown-item text-danger delete_row" data-id="{{$action['route']}}" >{{$action['name']}}</button></li>
-                        @endif
-                    @else
-                        @if(isset($action['permission']))
-                            @can($action['permission'])
-                                <li><a class="dropdown-item" @if($action['key']=='login'||$action['key']=='blank') target="_blank" @endif @isset($action['onclick']) onclick="{{$action['onclick']}}" @endisset href="{{$action['route']}}">{{$action['name']}}</a></li>
-                            @endcan
-
-                        @else
-                            <li><a class="dropdown-item" @if($action['key']=='login'||$action['key']=='blank') target="_blank"@endif @isset($action['onclick']) onclick="{{$action['onclick']}}" @endisset href="{{$action['route']}}">{{$action['name']}}</a></li>
-                        @endif
-                    @endif
-              @endif
-=======
                 @if($action)
 
                     {{--<li><a class="dropdown-item" @if($action['key']=='login'||$action['key']=='blank') target="_blank"@endif @isset($action['onclick']) onclick="{{$action['onclick']}}" @endisset href="{{$action['route']}}">{{$action['name']}}</a></li>--}}
@@ -59,15 +36,12 @@
                         @endif
                     @endif
                 @endif
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
             @endforeach
         @endif
     </ul>
 </div>
 
 
-<<<<<<< HEAD
-=======
 
 
 
@@ -111,4 +85,3 @@
 {{--</div>--}}
 
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9

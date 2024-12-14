@@ -150,47 +150,6 @@ class User extends Authenticatable
 
     public function getActionButtonsAttribute()
     {
-<<<<<<< HEAD
-        $actions = [];
-        if (\request()->is('manager/*')) {
-            if ($this->deleted_at && Auth::guard('manager')->user()->hasDirectPermission('restore deleted users')) { //
-                return '<button  onclick="restore(' . $this->id . ')" class="btn btn-warning d-flex justify-content-center align-items-center h-35px w-90px btn_restore">' . t('Restore') . '</button>';
-            } else {
-                $actions = [
-                    ['key' => 'edit', 'name' => t('Edit'), 'route' => route('manager.user.edit', $this->id), 'permission' => 'edit users'],
-                    ['key' => 'login', 'name' => t('Card'), 'route' => route('manager.user.card', $this->id)],
-                    ['key' => 'review', 'name' => t('Review'), 'route' => route('manager.user.review', $this->id), 'permission' => 'review users'],
-                    ['key' => 'story review', 'name' => t('Story Review'), 'route' => route('manager.user.story-review', $this->id), 'permission' => 'review users'],
-                    ['key' => 'login', 'name' => t('Login'), 'route' => route('manager.user.login', $this->id), 'permission' => 'users login'],
-                    ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete users'],
-                ];
-            }
-        } elseif (\request()->is('school/*')) {
-            $student_login = \Auth::guard('school')->user()->student_login;
-            $actions = [
-                ['key' => 'edit', 'name' => t('Edit'), 'route' => route('school.student.edit', $this->id)],
-                ['key' => 'login', 'name' => t('Card'), 'route' => route('school.user.card', $this->id)],
-                $student_login?['key' => 'login', 'name' => t('Login'), 'route' => route('school.user.login', $this->id)]:null,
-                ['key' => 'review', 'name' => t('Review'), 'route' => route('school.user.review', $this->id)],
-                ['key' => 'story_review', 'name' => t('Story Review'), 'route' => route('school.user.story-review', $this->id)],
-                ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id],
-            ];
-
-        } elseif (\request()->is('teacher/*')) {
-            $actions = [
-                ['key' => 'edit', 'name' => t('Edit'), 'route' => route('teacher.student.edit', $this->id)],
-                ['key' => 'login', 'name' => t('Card'), 'route' => route('teacher.student.card', $this->id)],
-                ['key' => 'edit', 'name' => t('Report'), 'route' => route('teacher.user.report', $this->id)],
-                ['key' => 'review', 'name' => t('Review'), 'route' => route('teacher.user.review', $this->id)],
-                ['key' => 'story_review', 'name' => t('Story Review'), 'route' => route('teacher.user.story-review', $this->id)],
-            ];
-        } elseif (\request()->is('supervisor/*')) {
-            $actions = [
-                ['key' => 'review', 'name' => t('Review'), 'route' => route('supervisor.user.review', $this->id)],
-                ['key' => 'story_review', 'name' => t('Story Review'), 'route' => route('supervisor.user.story-review', $this->id)],
-            ];
-        }
-=======
         $actions = [
             ['key' => 'edit', 'name' => t('Edit'), 'route' => route(getGuard().'.user.edit', $this->id),'permission' => 'edit users'],
             ['key' => 'blank', 'name' => t('Card'), 'route' => route(getGuard().'.user.card', $this->id), 'permission' => 'export users'],
@@ -207,7 +166,6 @@ class User extends Authenticatable
             }
         }
 
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         return view('general.action_menu')->with('actions', $actions);
 
     }
@@ -353,11 +311,7 @@ class User extends Authenticatable
 
     public function user_story_assignments()
     {
-<<<<<<< HEAD
-        return $this->hasMany(StoryAssignment::class);
-=======
         return $this->hasMany(UserStoryAssignment::class);
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     }
     public function getGradeNameAttribute()
     {

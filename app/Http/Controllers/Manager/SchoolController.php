@@ -44,8 +44,6 @@ class SchoolController extends Controller
                 ->addColumn('name', function ($row){
                     return $row->name;
                 })
-<<<<<<< HEAD
-=======
                 ->addColumn('role', function ($row) {
                     $roles = '<div class="d-flex  gap-1">';
                     if ($row->roles->count()>0){
@@ -59,7 +57,6 @@ class SchoolController extends Controller
                     $roles .= '</div>';
                     return $roles;
                 })
->>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                 ->addColumn('last_login', function ($row){
                     return $row->login_sessions->count() ? Carbon::parse($row->login_sessions->first()->created_at)->toDateTimeString() : '-';
                 })
