@@ -21,3 +21,5 @@ public/student-import-files
 public/students_imported_files
 public/teachers_imported_files
 public/uploads
+resources/lang
+/composer.lock
