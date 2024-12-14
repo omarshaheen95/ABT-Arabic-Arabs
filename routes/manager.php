@@ -290,20 +290,20 @@ Route::group(['namespace' => 'Manager'], function(){
         return "تم تحديث البيانات بنجاح";
     });
 
-    Route::get('update_story_sort_words', function () {
-        $sort_words = \App\Models\StorySortWord::query()->whereNull('uid')->get();
-        foreach ($sort_words as $sort_word) {
-            $sort_word->update([
-                'uid' => \Illuminate\Support\Str::uuid(),
-            ]);
-            \App\Models\StorySortResult::query()->where('story_sort_word_id', $sort_word->id)->update([
-                'story_sort_answer_uid' => $sort_word->uid,
-            ]);
-        }
-        return "تم تحديث البيانات بنجاح";
-    });
-
 //    Route::get('update_story_sort_words', function () {
+//        $sort_words = \App\Models\StorySortWord::query()->whereNull('uid')->get();
+//        foreach ($sort_words as $sort_word) {
+//            $sort_word->update([
+//                'uid' => \Illuminate\Support\Str::uuid(),
+//            ]);
+//            \App\Models\StorySortResult::query()->where('story_sort_word_id', $sort_word->id)->update([
+//                'story_sort_answer_uid' => $sort_word->uid,
+//            ]);
+//        }
+//        return "تم تحديث البيانات بنجاح";
+//    });
+
+//    Route::get('update_story_sort_words ', function () {
 //        // Process StoryMatch in chunks
 //        \App\Models\StorySortWord::query()->whereNull('uid')->chunk(500, function ($sort_words) {
 //            foreach ($sort_words as $sort_word) {
