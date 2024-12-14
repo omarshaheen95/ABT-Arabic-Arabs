@@ -244,82 +244,82 @@ Route::group(['namespace' => 'Manager'], function(){
 //        return "تم تحديث البيانات بنجاح";
 //    });
 
-//    Route::get('update_stories_matches', function () {
-//        $matches = \App\Models\StoryMatch::query()->whereNull('uid')->get();
-//        foreach ($matches as $match) {
-//            $match->update([
-//                'uid' => \Illuminate\Support\Str::uuid(),
-//            ]);
-//            \App\Models\StoryMatchResult::query()->where('story_match_id', $match->id)->update([
-//                'match_answer_uid' => $match->uid,
-//            ]);
-//        }
-//        return "تم تحديث البيانات بنجاح";
-//    });
-
-
-
-        Route::get('update_sort_words', function () {
-            //7157
-//
-        // Process StoryMatch in chunks
-        \App\Models\SortWord::query()->whereNull('uid')->chunk(500, function ($sort_words) {
-            foreach ($sort_words as $sort_word) {
-                // Generate UID for the current match
-                $uid = Str::uuid();
-                $sort_word->update(['uid' => $uid]);
-
-                // Update related StoryMatchResult in bulk
-                \App\Models\SortResult::query()
-                    ->where('sort_word_id', $sort_word->id)
-                    ->update(['sort_answer_uid' => $uid]);
-            }
-        });
-
+    Route::get('update_stories_matches', function () {
+        $matches = \App\Models\StoryMatch::query()->whereNull('uid')->get();
+        foreach ($matches as $match) {
+            $match->update([
+                'uid' => \Illuminate\Support\Str::uuid(),
+            ]);
+            \App\Models\StoryMatchResult::query()->where('story_match_id', $match->id)->update([
+                'match_answer_uid' => $match->uid,
+            ]);
+        }
         return "تم تحديث البيانات بنجاح";
     });
-//    Route::get('update_sort_words', function () {
-//        $sort_words = \App\Models\SortWord::query()->whereNull('uid')->get();
-//        foreach ($sort_words as $sort_word) {
-//            $sort_word->update([
-//                'uid' => \Illuminate\Support\Str::uuid(),
-//            ]);
-//            \App\Models\SortResult::query()->where('sort_word_id', $sort_word->id)->update([
-//                'sort_answer_uid' => $sort_word->uid,
-//            ]);
-//        }
-//        return "تم تحديث البيانات بنجاح";
-//    });
 
-//    Route::get('update_story_sort_words', function () {
-//        $sort_words = \App\Models\StorySortWord::query()->whereNull('uid')->get();
-//        foreach ($sort_words as $sort_word) {
-//            $sort_word->update([
-//                'uid' => \Illuminate\Support\Str::uuid(),
-//            ]);
-//            \App\Models\StorySortResult::query()->where('story_sort_word_id', $sort_word->id)->update([
-//                'story_sort_answer_uid' => $sort_word->uid,
-//            ]);
-//        }
+
+
+//        Route::get('update_sort_words', function () {
+//            //7157
+////
+//        // Process StoryMatch in chunks
+//        \App\Models\SortWord::query()->whereNull('uid')->chunk(500, function ($sort_words) {
+//            foreach ($sort_words as $sort_word) {
+//                // Generate UID for the current match
+//                $uid = Str::uuid();
+//                $sort_word->update(['uid' => $uid]);
+//
+//                // Update related StoryMatchResult in bulk
+//                \App\Models\SortResult::query()
+//                    ->where('sort_word_id', $sort_word->id)
+//                    ->update(['sort_answer_uid' => $uid]);
+//            }
+//        });
+//
 //        return "تم تحديث البيانات بنجاح";
 //    });
+    Route::get('update_sort_words', function () {
+        $sort_words = \App\Models\SortWord::query()->whereNull('uid')->get();
+        foreach ($sort_words as $sort_word) {
+            $sort_word->update([
+                'uid' => \Illuminate\Support\Str::uuid(),
+            ]);
+            \App\Models\SortResult::query()->where('sort_word_id', $sort_word->id)->update([
+                'sort_answer_uid' => $sort_word->uid,
+            ]);
+        }
+        return "تم تحديث البيانات بنجاح";
+    });
 
     Route::get('update_story_sort_words', function () {
-        // Process StoryMatch in chunks
-        \App\Models\StorySortWord::query()->whereNull('uid')->chunk(500, function ($sort_words) {
-            foreach ($sort_words as $sort_word) {
-                // Generate UID for the current match
-                $uid = Str::uuid();
-                $sort_word->update(['uid' => $uid]);
-
-                // Update related StoryMatchResult in bulk
-                \App\Models\StorySortResult::query()
-                    ->where('story_sort_word_id', $sort_word->id)
-                    ->update(['story_sort_answer_uid' => $uid]);
-            }
-        });
-
+        $sort_words = \App\Models\StorySortWord::query()->whereNull('uid')->get();
+        foreach ($sort_words as $sort_word) {
+            $sort_word->update([
+                'uid' => \Illuminate\Support\Str::uuid(),
+            ]);
+            \App\Models\StorySortResult::query()->where('story_sort_word_id', $sort_word->id)->update([
+                'story_sort_answer_uid' => $sort_word->uid,
+            ]);
+        }
         return "تم تحديث البيانات بنجاح";
     });
+
+//    Route::get('update_story_sort_words', function () {
+//        // Process StoryMatch in chunks
+//        \App\Models\StorySortWord::query()->whereNull('uid')->chunk(500, function ($sort_words) {
+//            foreach ($sort_words as $sort_word) {
+//                // Generate UID for the current match
+//                $uid = Str::uuid();
+//                $sort_word->update(['uid' => $uid]);
+//
+//                // Update related StoryMatchResult in bulk
+//                \App\Models\StorySortResult::query()
+//                    ->where('story_sort_word_id', $sort_word->id)
+//                    ->update(['story_sort_answer_uid' => $uid]);
+//            }
+//        });
+//
+//        return "تم تحديث البيانات بنجاح";
+//    });
 });
 
