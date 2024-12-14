@@ -39,7 +39,7 @@ class SettingController extends Controller
         $title = t('Dashboard');
 
         //Auth::guard('manager')->user()->active && Auth::guard('manager')->user()->hasDirectPermission('show statistics')
-        if (Auth::guard('manager')->user()->active && Auth::guard('manager')->user()->hasDirectPermission('show statistics')) {
+        if (Auth::guard('manager')->user()->active &&guardHasPermission('show statistics')) {
             $data['students'] = User::query()->count();
             $data['lessons'] = Lesson::query()->count();
 //            $data['levels'] = Level::query()->count();

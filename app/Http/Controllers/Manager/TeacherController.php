@@ -196,7 +196,7 @@ class TeacherController extends Controller
     {
         if (request()->ajax()) {
             $rows = Teacher::query()->with(['school'])->withCount(['students'])->filter($request)->latest();
-            $has_permission = Auth::guard('manager')->user()->hasDirectPermission('teacher tracking report');
+            $has_permission = guardHasPermission('teacher tracking report');
             return DataTables::make($rows)
                 ->escapeColumns([])
                 ->addColumn('teacher', function ($row) {
