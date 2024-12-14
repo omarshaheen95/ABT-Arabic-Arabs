@@ -9,7 +9,9 @@
         {{$title}}
     </li>
 @endpush
-
+@section('style')
+    <link href="{{ asset('assets_v1/lib/multiselect/multiselect-rtl.css') }}" rel="stylesheet" type="text/css" />
+@endsection
 @section('content')
     <form
         action="{{ isset($role) ? route(getGuard().'.role.update', $role->id): route(getGuard().'.role.store') }}"

@@ -3,6 +3,12 @@
 namespace App\Providers;
 
 use App\Listeners\UserEventSubscriber;
+use App\Models\School;
+use App\Models\Supervisor;
+use App\Models\Teacher;
+use App\Observers\SchoolObserver;
+use App\Observers\SupervisorObserver;
+use App\Observers\TeacherObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -32,6 +38,9 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        School::observe(SchoolObserver::class);
+        Teacher::observe(TeacherObserver::class);
+        Supervisor::observe(SupervisorObserver::class);
+
     }
 }
