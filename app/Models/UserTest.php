@@ -34,6 +34,7 @@ class UserTest extends Model
     public function getActionButtonsAttribute()
     {
         $actions = [];
+<<<<<<< HEAD
         if (\request()->is('manager/*')) {
 
             $actions[] = ['key' => 'show', 'name' => t('Preview'), 'route' => route('manager.lessons_tests.preview', $this->id),'permission'=>'show lesson tests'];
@@ -72,13 +73,36 @@ class UserTest extends Model
                 return  '';
             }
         }
+=======
+
+        $actions[] = ['key' => 'show', 'name' => t('Preview Answers'), 'route' => route(getGuard().'.lessons_tests.preview_answers', $this->id), 'permission' => 'show lesson tests'];
+        if (in_array($this->lesson->lesson_type, ['writing', 'speaking'])) {
+            $actions [] = ['key' => 'show', 'name' => t('Correcting & Feedback'), 'route' => route(getGuard().'.lessons_tests.correcting_feedback_view', $this->id), 'permission' => 'show lesson tests'];
+        }else{
+            $actions [] = ['key' => 'show', 'name' => t('Correcting & Preview '), 'route' => route(getGuard().'.lessons_tests.correcting_view', $this->id), 'permission' => 'show lesson tests'];
+        }
+        if ($this->status == 'Pass') {
+            $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route(getGuard().'.lessons_tests.certificate', $this->id), 'permission' => 'lesson tests certificate'];
+        }
+        $actions[] = ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete lesson tests'];
+
+
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         return view('general.action_menu')->with('actions', $actions);
 
     }
 
 
+<<<<<<< HEAD
     public function scopeFilter(Builder $query, Request $request): Builder
     {
+=======
+    public function scopeFilter(Builder $query,$request = null): Builder
+    {
+        if (!$request){
+            $request = \request();
+        }
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
         return $query
             ->when($value = $request->get('id', false), function (Builder $query) use ($value) {

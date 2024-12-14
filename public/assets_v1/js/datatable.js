@@ -155,7 +155,11 @@ $(document).on('click', '.delete_row', (function () {
                     data: request_data, //set data
                     success:function (data) {
                         hideLoadingModal()
+<<<<<<< HEAD
                         if(data.success)
+=======
+                        if(data.status)
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                         {
                             table.DataTable().draw(true);
                             Swal.fire("", data.message, "success")
@@ -208,7 +212,11 @@ $(document).on('click', '#delete_rows', (function () {
                     data:request_data , //set data
                     success:function (data) {
                         hideLoadingModal()
+<<<<<<< HEAD
                         if(data.success)
+=======
+                        if(data.status)
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                         {
                             $('.group-checkable').prop('checked', false);
                             checkedVisible(false)
@@ -256,7 +264,13 @@ $('#kt_reset').on('click', function(e) {
         }else if($(this).is(':radio') && $(this).val() != ''){
             $(this).prop('checked', false);
         }else {
+<<<<<<< HEAD
             $(this).val('');
+=======
+            if ($(this).attr('name')!=='_token'){
+                $(this).val('');
+            }
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         }
     });
     $(".filter select").each(function() {

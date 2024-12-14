@@ -3,17 +3,30 @@
 
 use App\Http\Controllers\GeneralController;
 
+<<<<<<< HEAD
 Route::group(['namespace' => 'Supervisor'], function() {
+=======
+Route::group(['middleware' => [\App\Http\Middleware\ApprovedSupervisorMiddleware::class]], function () {
+    require base_path('routes/general.php');
+});
+
+Route::group(['namespace' => 'Supervisor'], function () {
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
     Route::get('home', 'SettingController@home')->name('home');
 
     Route::group(['middleware' => [\App\Http\Middleware\ApprovedSupervisorMiddleware::class]], function () {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         //Profile
         Route::get('profile/edit', 'SettingController@editProfile')->name('edit-profile');
         Route::post('profile/update', 'SettingController@updateProfile')->name('update-profile');
         Route::get('password/edit', 'SettingController@editPassword')->name('edit-password');
         Route::post('password/update', 'SettingController@updatePassword')->name('update-password');
 
+<<<<<<< HEAD
         //Teacher
         Route::get('teacher', 'TeacherController@index')->name('teacher.index');
         Route::post('teacher/export', 'TeacherController@exportTeachersExcel')->name('teacher.export');
@@ -55,11 +68,14 @@ Route::group(['namespace' => 'Supervisor'], function() {
         Route::get('students_works', 'StudentWorksController@index')->name('students_works.index');
         Route::post('students_works/export', 'StudentWorksController@studentLessonExport')->name('students_works.export');
 
+=======
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         //Usage Report
         Route::get('pre_usage_report', 'SettingController@preUsageReport')->name('report.pre_usage_report');
         Route::get('usage_report', 'SettingController@usageReport')->name('report.usage_report');
 
 
+<<<<<<< HEAD
         //General
         Route::get('getLessonsByGrade', [GeneralController::class,'getLessonsByGrade'])->name('getLessonsByGrade');
         Route::get('getStoriesByGrade', [GeneralController::class,'getStoriesByGrade'])->name('getStoriesByGrade');
@@ -70,6 +86,8 @@ Route::group(['namespace' => 'Supervisor'], function() {
 
 
 
+=======
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     });
 
 });

@@ -2,6 +2,12 @@
 
 use App\Http\Controllers\GeneralController;
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
+=======
+
+require base_path('routes/general.php');
+
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 Route::group(['namespace' => 'School'], function() {
 
     Route::get('/home', 'SettingController@home')->name('home');
@@ -17,6 +23,7 @@ Route::group(['namespace' => 'School'], function() {
     Route::post('password/update', 'SettingController@updatePassword')->name('update-password');
 
 
+<<<<<<< HEAD
     //Supervisor
     Route::resource('supervisor', 'SupervisorController')->except(['destroy']);
     Route::delete('supervisor/delete', 'SupervisorController@destroy')->name('supervisor.destroy');
@@ -71,6 +78,8 @@ Route::group(['namespace' => 'School'], function() {
     Route::post('stories_assignments/export', 'AssignmentController@storiesExport')->name('stories_assignments.export');
 
 
+=======
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     //Lesson And Story (Hidden Control)
     Route::get('lessons', 'HiddenController@indexLessons')->name('lessons.index');
     Route::post('hide_lessons', 'HiddenController@hideLessons')->name('lessons.hide');
@@ -83,9 +92,12 @@ Route::group(['namespace' => 'School'], function() {
     Route::get('pre_usage_report', 'SettingController@preUsageReport')->name('report.pre_usage_report');
     Route::get('usage_report', 'SettingController@usageReport')->name('report.usage_report');
 
+<<<<<<< HEAD
     //General
     Route::get('getLessonsByGrade', [GeneralController::class,'getLessonsByGrade'])->name('getLessonsByGrade');
     Route::get('getStoriesByGrade', [GeneralController::class,'getStoriesByGrade'])->name('getStoriesByGrade');
     Route::get('getSectionByTeacher/{id}', [GeneralController::class,'getSectionByTeacher'])->name('getSectionByTeacher');
 
+=======
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 });

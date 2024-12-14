@@ -195,7 +195,11 @@
                     </tr>
                     <tr>
                         <td width="40%">Grade</td>
+<<<<<<< HEAD
                         <td>{{$student->grade}}</td>
+=======
+                        <td>{{$student->grade->grade_name}}</td>
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                     </tr>
                     </tbody>
                 </table>
@@ -232,15 +236,22 @@
                 @endif
                 <div class="row">
                     <div class="col-xs-12">
+<<<<<<< HEAD
                         <h4 class="text-center" style="font-weight: bold">{{$lesson['lesson']->getTranslation('name', 'en')}} - {{$lesson['lesson']->level->getTranslation('name', 'en')}} </h4>
+=======
+                        <h4 class="text-center" style="font-weight: bold">{{$lesson['lesson']->name}} - {{$lesson['lesson']->level}} </h4>
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                         <table class="table table-bordered text-center lesson_table">
                             <thead>
                             <td>Assessment Score</td>
                             <td>Time Consumed</td>
                             <td>Assessment Date</td>
+<<<<<<< HEAD
                             <td>Reading Mark</td>
                             <td>Speaking Mark</td>
                             <td>Tasks Date</td>
+=======
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                             </thead>
                             <tbody>
                             <tr>
@@ -255,6 +266,7 @@
                                     <td></td>
                                     <td></td>
                                 @endif
+<<<<<<< HEAD
                                 @if(isset($lesson['user_test']) && !is_null($lesson['user_lesson']))
                                     <td>{{$lesson['user_lesson']->writing_mark}}</td>
                                     <td>{{$lesson['user_lesson']->reading_mark}}</td>
@@ -265,6 +277,8 @@
                                     <td></td>
                                     <td></td>
                                 @endif
+=======
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                             </tr>
                             </tbody>
                         </table>
@@ -461,7 +475,10 @@
                 ['Learn', {{ $lesson['learnings'] }}],
                 ['Practise', {{ $lesson['trainings'] }}],
                 ['Assess your self', {{ $lesson['tests'] }}],
+<<<<<<< HEAD
                 ['Play', {{ $lesson['games'] }}],
+=======
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
             ]
         }]
     });

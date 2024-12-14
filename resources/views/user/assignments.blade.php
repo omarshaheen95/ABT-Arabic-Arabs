@@ -29,7 +29,10 @@
                                 @foreach($student_assignments as $student_assignment)
                                     <tr>
                                         <td>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                                             <a href="{{route('lesson', [$student_assignment->lesson_id, 'learn'])}}">{{$student_assignment->lesson->name}}</a>
                                         </td>
                                         <td>الصف {{$student_assignment->lesson->grade_name}}</td>

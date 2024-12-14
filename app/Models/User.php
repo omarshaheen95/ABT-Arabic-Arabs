@@ -150,6 +150,7 @@ class User extends Authenticatable
 
     public function getActionButtonsAttribute()
     {
+<<<<<<< HEAD
         $actions = [];
         if (\request()->is('manager/*')) {
             if ($this->deleted_at && Auth::guard('manager')->user()->hasDirectPermission('restore deleted users')) { //
@@ -189,6 +190,24 @@ class User extends Authenticatable
                 ['key' => 'story_review', 'name' => t('Story Review'), 'route' => route('supervisor.user.story-review', $this->id)],
             ];
         }
+=======
+        $actions = [
+            ['key' => 'edit', 'name' => t('Edit'), 'route' => route(getGuard().'.user.edit', $this->id),'permission' => 'edit users'],
+            ['key' => 'blank', 'name' => t('Card'), 'route' => route(getGuard().'.user.card', $this->id), 'permission' => 'export users'],
+            ['key' => 'blank', 'name' => t('Lessons Review'), 'route' => route(getGuard().'.user.review', $this->id), 'permission' => 'review users'],
+            ['key' => 'blank', 'name' => t('Stories Review'), 'route' => route(getGuard().'.user.story_review', $this->id), 'permission' => 'review users'],
+            ['key' => 'login', 'name' => t('Login'), 'route' => route(getGuard().'.user.login', $this->id), 'permission' => 'users login'],
+            ['key' => 'blank', 'name' => t('Report'), 'route' => route(getGuard().'.user.report', $this->id)],
+            ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete users'],
+        ];
+
+        if (\request()->is('manager/*') && $this->deleted_at ) {
+            if (Auth::guard('manager')->user()->hasPermissionTo('restore deleted users')) { //
+                return '<button  onclick="restore(' . $this->id . ')" class="btn btn-warning d-flex justify-content-center align-items-center h-35px w-90px btn_restore">' . t('Restore') . '</button>';
+            }
+        }
+
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         return view('general.action_menu')->with('actions', $actions);
 
     }
@@ -334,7 +353,11 @@ class User extends Authenticatable
 
     public function user_story_assignments()
     {
+<<<<<<< HEAD
         return $this->hasMany(StoryAssignment::class);
+=======
+        return $this->hasMany(UserStoryAssignment::class);
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     }
     public function getGradeNameAttribute()
     {

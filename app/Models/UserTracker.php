@@ -12,7 +12,11 @@ use Illuminate\Http\Request;
 class UserTracker extends Model
 {
     use SoftDeletes;
+<<<<<<< HEAD
     //Type 'learn', 'practise', 'test', 'play'
+=======
+    //Type 'learn', 'practise', 'test'
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     protected $fillable = [
         'user_id', 'lesson_id', 'type', 'color', 'start_at', 'end_at'
     ];

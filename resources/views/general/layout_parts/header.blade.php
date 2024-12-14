@@ -51,7 +51,11 @@
                 </div>
                 <!--end::Local-->
 
+<<<<<<< HEAD
                 @if(in_array(request()->get('current_guard'),['manager','school','supervisor']))
+=======
+                @if(in_array(getGuard(),['manager','school','supervisor']))
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                     @include('general.layout_parts.notifications')
                 @endif
 
@@ -180,11 +184,19 @@
                         <!--end::Menu separator-->
                         <!--begin::Menu item-->
                             <div class="menu-item px-5">
+<<<<<<< HEAD
                                 <a href="{{route(request()->get('current_guard').'.edit-profile')}}" class="menu-link px-5">{{t('Profile')}}</a>
                             </div>
 
                             <div class="menu-item px-5">
                                 <a href="{{route(request()->get('current_guard').'.edit-password')}}" class="menu-link px-5">{{t('Update Password')}}</a>
+=======
+                                <a href="{{route(getGuard().'.edit-profile')}}" class="menu-link px-5">{{t('Profile')}}</a>
+                            </div>
+
+                            <div class="menu-item px-5">
+                                <a href="{{route(getGuard().'.edit-password')}}" class="menu-link px-5">{{t('Update Password')}}</a>
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                             </div>
                             <div class="menu-item px-5">
                         </div>
@@ -192,11 +204,19 @@
 
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
+<<<<<<< HEAD
                             <form id="logout-form" action="{{ url('/'.request()->get('current_guard').'/logout') }}" method="POST"
                                   style="display: none;">
                                @csrf
                             </form>
                             <a href="{{ url('/'.request()->get('current_guard').'/logout') }}" onclick="event.preventDefault();
+=======
+                            <form id="logout-form" action="{{ url('/'.getGuard().'/logout') }}" method="POST"
+                                  style="display: none;">
+                               @csrf
+                            </form>
+                            <a href="{{ url('/'.getGuard().'/logout') }}" onclick="event.preventDefault();
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                                                  document.getElementById('logout-form').submit();"
                                class="menu-link px-5">{{t('Sign Out')}}</a>
                         </div>

@@ -13,7 +13,11 @@ class UserAssignment extends Model
 {
     use SoftDeletes,LogsActivityTrait;
     protected $fillable = [
+<<<<<<< HEAD
         'user_id', 'lesson_id', 'tasks_assignment', 'test_assignment', 'done_tasks_assignment', 'done_test_assignment', 'completed', 'deadline', 'completed_at'
+=======
+        'user_id', 'lesson_id', 'test_assignment', 'done_test_assignment', 'completed', 'deadline', 'completed_at','lesson_assignment_id'
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     ];
 
     public function getActionButtonsAttribute()
@@ -56,6 +60,11 @@ class UserAssignment extends Model
             });
         })->when($value = $request->get('lesson_id', false), function (Builder $query) use ($value) {
             $query->where('lesson_id', $value);
+<<<<<<< HEAD
+=======
+        })->when($value = $request->get('lesson_assignment_id', false), function (Builder $query) use ($value) {
+            $query->where('lesson_assignment_id', $value);
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         })->when($value = $request->get('start_date', false), function (Builder $query) use ($value) {
             $query->whereDate('created_at', '>=', $value);
         })->when($value = $request->get('end_date', false), function (Builder $query) use ($value) {
@@ -123,7 +132,14 @@ class UserAssignment extends Model
     {
         return $this->belongsTo(Lesson::class);
     }
+<<<<<<< HEAD
 
+=======
+    public function lessonAssignment()
+    {
+        return $this->belongsTo(LessonAssignment::class);
+    }
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
     public function getSubmitStatusAttribute()
     {

@@ -3,6 +3,12 @@
     WhatsApp +972592554320
     --}}
 @extends('user.layout.container_v2')
+<<<<<<< HEAD
+=======
+@section('style')
+    <link rel="stylesheet" href="{{asset('web_assets/css/exam_questions.css')}}">
+@endsection
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
 @section('content')
     <section class="login-home user-home lessons-section">
@@ -221,6 +227,7 @@
                                             </div>
                                         </div>
                                     @elseif($question->type == 3)
+<<<<<<< HEAD
                                         <div id="{{$counter}}" class="exercise-box @if($loop->first) active @endif question-item">
                                             <div class="exercise-box-header text-center">
                                                 <span class="number"> {{$counter}} : </span>
@@ -453,6 +460,24 @@
                                             </div>
 
 
+=======
+                                        <div id="{{$counter}}" class="exercise-box @if($loop->first) active @endif  question-item">
+                                            <div class="exercise-box-header text-center">
+                                                <span class="number"> {{$counter}} : </span>
+                                                <span class="title"> اسحب الإجابات إلى الأماكن الصحيحة في الأسفل – Drag the answers in the right places below </span>
+                                            </div>
+
+                                            @include('user.lesson.questions.matching', ['question' => $question])
+
+                                        </div>
+                                    @elseif($question->type == 4)
+                                        <div id="{{$counter}}" class="exercise-box @if($loop->first) active @endif  question-item">
+                                            <div class="exercise-box-header text-center">
+                                                <span class="number"> {{$counter}} : </span>
+                                                <span class="title"> اسحب الإجابات إلى الأماكن الصحيحة في الأسفل –  Drag and order the answers in the below box</span>
+                                            </div>
+                                            @include('user.lesson.questions.sorting', ['question' => $question])
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                                         </div>
                                     @endif
                                     @php
@@ -523,9 +548,17 @@
 @endsection
 @section('script')
 
+<<<<<<< HEAD
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{asset('s_website/js/jquery.ui.touch-punch.js')}}"></script>
+=======
+    <script src="{{asset('s_website/js/jquery-3.6.3.min.js')}}"></script>
+    <script src="{{asset('s_website/js/jquery.ui.touch-punch.js')}}"></script>
+    <script src="{{asset('s_website/js/jquery-ui.js')}}"></script>
+    <script src="{{asset('s_website/js/questions/matching.js')}}"></script>
+    <script src="{{asset('s_website/js/questions/sorting.js')}}"></script>
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
     <script>
         $(document).ready(function () {
@@ -586,6 +619,7 @@
                 document.getElementById("countdown").innerHTML = "EXPIRED";
             }
         }, 1000);
+<<<<<<< HEAD
         $(function () {
             $(".sortable1, .sortable2").sortable({
                 connectWith: ".connectedSortable"
@@ -632,6 +666,9 @@
                 }, 1);
             }
         });
+=======
+
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     </script>
 @endsection
 

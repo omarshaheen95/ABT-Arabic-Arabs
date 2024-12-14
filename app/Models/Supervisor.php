@@ -9,10 +9,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
+<<<<<<< HEAD
 
 class Supervisor extends Authenticatable
 {
     use Notifiable, SoftDeletes,LogsActivityTrait;
+=======
+use Spatie\Permission\Traits\HasRoles;
+
+class Supervisor extends Authenticatable
+{
+    use Notifiable, SoftDeletes,LogsActivityTrait,HasRoles;
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
     protected $fillable = [
         'name', 'email','image', 'password', 'school_id', 'active', 'active_to', 'approved','lang','last_login','last_login_info'
@@ -24,6 +32,7 @@ class Supervisor extends Authenticatable
 
     public function getActionButtonsAttribute()
     {
+<<<<<<< HEAD
         $actions = [];
         if (\request()->is('manager/*')) {
             $actions = [
@@ -43,6 +52,18 @@ class Supervisor extends Authenticatable
 
     }
 
+=======
+        $actions = [
+            ['key' => 'edit', 'name' => t('Edit'), 'route' => route(getGuard().'.supervisor.edit', $this->id), 'permission' => 'edit supervisors'],
+            ['key' => 'login', 'name' => t('Login'), 'route' => route(getGuard().'.supervisor.login', $this->id), 'permission' => 'supervisors login'],
+            ['key' => 'blank', 'name' => t('Edit Permissions'), 'route' => route(getGuard().'.user_role_and_permission.edit',['user_guard'=>'supervisor','id'=>$this->id]),'permission'=>'edit supervisors permissions'],
+            ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete supervisors'],
+        ];
+
+        return view('general.action_menu')->with('actions', $actions);
+
+    }
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     public function scopeFilter(Builder $query, $request =null): Builder
     {
         if (!$request){

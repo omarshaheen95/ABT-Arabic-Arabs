@@ -13,11 +13,19 @@ use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\Traits\LogsActivity;
+<<<<<<< HEAD
+=======
+use Spatie\Permission\Traits\HasRoles;
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
 
 class School extends Authenticatable
 {
+<<<<<<< HEAD
     use Notifiable, SoftDeletes,LogsActivityTrait;
+=======
+    use Notifiable, SoftDeletes,LogsActivityTrait,HasRoles;
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
 
     protected $fillable = [
@@ -49,6 +57,7 @@ class School extends Authenticatable
 
     public function getActionButtonsAttribute()
     {
+<<<<<<< HEAD
         $actions=[];
         if (\request()->is('manager/*')){
             $actions =  [
@@ -60,6 +69,14 @@ class School extends Authenticatable
         elseif (\request()->is('supervisor/*')){
             $actions =  [];
         }
+=======
+        $actions =  [
+            ['key'=>'edit','name'=>t('Edit'),'route'=>route(getGuard() . '.school.edit', $this->id),'permission'=>'edit schools'],
+            ['key'=>'login','name'=>t('Login'),'route'=>route(getGuard() . '.school.login', $this->id),'permission'=>'school login'],
+            ['key' => 'blank', 'name' => t('Edit Permissions'), 'route' => route(getGuard().'.user_role_and_permission.edit',['user_guard'=>'school','id'=>$this->id]),'permission'=>'edit schools permissions'],
+            ['key'=>'delete','name'=>t('Delete'),'route'=>$this->id,'permission'=>'delete schools'],
+        ];
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         return view('general.action_menu')->with('actions',$actions);
 
     }

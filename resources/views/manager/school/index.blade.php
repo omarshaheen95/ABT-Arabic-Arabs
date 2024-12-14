@@ -78,6 +78,10 @@
             <tr class="fw-semibold fs-6 text-gray-800">
                 <th class="text-start"></th>
                 <th class="text-start">{{ t('School') }}</th>
+<<<<<<< HEAD
+=======
+                <th class="text-start">{{ t('Role') }}</th>
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                 <th class="text-start">{{ t('Teachers Count') }}</th>
                 <th class="text-start">{{ t('Students Count') }}</th>
                 <th class="text-start">{{ t('Status') }}</th>
@@ -134,6 +138,10 @@
         var TABLE_COLUMNS = [
             {data: 'id', name: 'id'},
             {data: 'school', name: 'school'},
+<<<<<<< HEAD
+=======
+            {data: 'role', name: 'role'},
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
             {data: 'teachers_count', name: 'teachers_count'},
             {data: 'students_count', name: 'students_count'},
             {data: 'active', name: 'active'},
@@ -145,7 +153,11 @@
             $('#school_activation_modal').modal('hide')
             showLoadingModal()
             let data = getFilterData();
+<<<<<<< HEAD
             data['activation_data'] = getFormDataAsObject('activation_form')
+=======
+            data['activation_data'] = getFormData('activation_form')
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
             data['_token'] = '{{csrf_token()}}'
             $('#activation_form').find('select').val('').trigger('change')
             $.ajax({

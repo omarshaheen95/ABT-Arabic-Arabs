@@ -221,6 +221,10 @@ class AssessmentController extends Controller
 //                        dd($m_q_option);
                 $match = QMatch::query()->create([
                     'question_id' => $question->id,
+<<<<<<< HEAD
+=======
+                    'uid' => \Str::uuid(),
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                     'content' => $m_q_option,
                     'result' => $result,
                 ]);
@@ -410,6 +414,10 @@ class AssessmentController extends Controller
                 SortWord::query()->create([
                     'question_id' => $question->id,
                     'content' => $option,
+<<<<<<< HEAD
+=======
+                    'uid' => \Str::uuid(),
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                     'ordered' => $counter,
                 ]);
                 $counter++;
@@ -441,6 +449,10 @@ class AssessmentController extends Controller
                     SortWord::query()->create([
                         'question_id' => $question->id,
                         'content' => $option,
+<<<<<<< HEAD
+=======
+                        'uid' => \Str::uuid(),
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                         'ordered' => $counter,
                     ]);
                 }

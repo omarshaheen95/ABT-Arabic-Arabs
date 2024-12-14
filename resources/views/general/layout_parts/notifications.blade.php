@@ -1,5 +1,6 @@
 @php
 
+<<<<<<< HEAD
 if (request()->get('current_guard') == 'manager'){
     $notifiable_type = \App\Models\Manager::class;
 }elseif (request()->get('current_guard') == 'supervisor'){
@@ -9,6 +10,17 @@ if (request()->get('current_guard') == 'manager'){
         $notifiable_type = \App\Models\School::class;
 
 }elseif (request()->get('current_guard') == 'teacher'){
+=======
+if (getGuard() == 'manager'){
+    $notifiable_type = \App\Models\Manager::class;
+}elseif (getGuard() == 'supervisor'){
+        $notifiable_type = \App\Models\Supervisor::class;
+
+}elseif (getGuard() == 'school'){
+        $notifiable_type = \App\Models\School::class;
+
+}elseif (getGuard() == 'teacher'){
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         $notifiable_type = \App\Models\Teacher::class;
 }
     $notifications = \App\Models\Notification::query()->where(function ($query){
@@ -33,7 +45,11 @@ if (request()->get('current_guard') == 'manager'){
             <div class="d-flex flex-column bgi-no-repeat rounded-top" style="background-image:url({{asset('assets_v1/images/menu-header-bg.jpg')}})">
                 <!--begin::Title-->
                 <h3 class="text-white fw-semibold px-9 mt-10 mb-6">{{t('Notifications')}}</h3>
+<<<<<<< HEAD
 {{--                href="{{ route(request()->get('current_guard').'.notification.read_all') }}"--}}
+=======
+{{--                href="{{ route(getGuard().'.notification.read_all') }}"--}}
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                 @if(isset($notifications) && count($notifications))
                     <a class="text-white align-self-end mx-2 mb-3" style="font-size: 8px" >{{t('All as read')}}</a>
                 @endif
@@ -43,7 +59,11 @@ if (request()->get('current_guard') == 'manager'){
                 @isset($notifications)
                     @foreach($notifications as $notification)
                         <!--begin::Item-->
+<<<<<<< HEAD
 {{--                        href="{{ route(request()->get('current_guard').'.notification.show', $notification->id) }}"--}}
+=======
+{{--                        href="{{ route(getGuard().'.notification.show', $notification->id) }}"--}}
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                         <a  class="fs-6 text-gray-800 text-hover-primary fw-bold">
                             <div class="d-flex flex-stack py-4">
                                 <!--begin::Section-->

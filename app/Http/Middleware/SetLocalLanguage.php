@@ -13,12 +13,18 @@ class SetLocalLanguage
     /**
      * Handle an incoming request.
      *
+<<<<<<< HEAD
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
+=======
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
+<<<<<<< HEAD
         if(\request()->is('manager/*') && Auth::guard('manager')->check() ){
 //            $locale = isAPI()? request()->header('Accept-Language') : Auth::guard('manager')->user()->lang ;
             $request['current_guard'] = 'manager';
@@ -44,6 +50,22 @@ class SetLocalLanguage
 //        if(!$locale || !in_array($locale,['ar','en'])) $locale = 'ar';
         app()->setLocale('ar');
         //dd($locale);
+=======
+        if (\request()->is('manager/*') && Auth::guard('manager')->check()) {
+            $request->merge(['guard' => 'manager', 'manager_id' => Auth::guard('manager')->user()->id]);
+        } else if (\request()->is('school/*') && Auth::guard('school')->check()) {
+            $request->merge(['guard' => 'school', 'school_id' => Auth::guard('school')->user()->id]);
+        } else if (\request()->is('supervisor/*') && Auth::guard('supervisor')->check()) {
+            $guard = Auth::guard('supervisor')->user();
+            $request->merge(['guard' => 'supervisor', 'supervisor_id' => $guard->id, 'school_id' => $guard->school_id]);
+        } else if (\request()->is('teacher/*') && Auth::guard('teacher')->check()) {
+            $guard = Auth::guard('teacher')->user();
+            $request->merge(['guard' => 'teacher', 'teacher_id' => $guard->id, 'school_id' => $guard->school_id]);
+        } else {
+            $request['guard'] = null;
+        }
+        app()->setLocale('ar');
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         return $next($request);
     }
 }

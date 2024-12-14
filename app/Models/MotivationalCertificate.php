@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 class MotivationalCertificate extends Model
 {
     use SoftDeletes,LogsActivityTrait;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     protected $fillable = [
         'teacher_id',
         'user_id',
@@ -20,8 +24,45 @@ class MotivationalCertificate extends Model
         'granted_in',
     ];
 
+<<<<<<< HEAD
     public function scopeFilter(Builder $query, Request $request): Builder
     {
+=======
+
+
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function model()
+    {
+        return $this->morphTo();
+    }
+
+    public function getActionButtonsAttribute()
+    {
+        $actions = [
+            ['key' => 'blank', 'name' => t('Certificate'), 'route' => route(getGuard().'.motivational_certificates.show', $this->id), 'permission' => 'show motivational certificate'],
+            ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete motivational certificate'],
+        ];
+
+        return view('general.action_menu')->with('actions', $actions);
+
+    }
+
+    public function scopeFilter(Builder $query,$request = null): Builder
+    {
+        if (!$request){
+            $request = \request();
+        }
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
         return $query
             ->has('user')
             ->has('teacher')
@@ -100,6 +141,7 @@ class MotivationalCertificate extends Model
                 $query->whereDate('created_at', '<=',$value);
             });
     }
+<<<<<<< HEAD
 
     public function getActionButtonsAttribute()
     {
@@ -144,4 +186,6 @@ class MotivationalCertificate extends Model
     }
 
 
+=======
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 }

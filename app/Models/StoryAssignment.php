@@ -6,12 +6,18 @@ use App\Traits\LogsActivityTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
+=======
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
 class StoryAssignment extends Model
 {
     use SoftDeletes,LogsActivityTrait;
+<<<<<<< HEAD
     protected $fillable = [
         'user_id', 'story_id', 'test_assignment', 'done_test_assignment', 'completed', 'deadline', 'completed_at', 'deadline', 'completed_at'
     ];
@@ -138,4 +144,64 @@ class StoryAssignment extends Model
     }
 
 
+=======
+
+    protected $fillable = ['teacher_id','students_grade','stories_ids','sections','deadline', 'exclude_students','story_grade'];
+
+    protected $casts = [
+        'sections'=>'json',
+        'stories_ids'=>'json'
+    ];
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+
+    public function userStoryAssignments()
+    {
+        return $this->hasMany(UserStoryAssignment::class, 'story_assignment_id');
+    }
+
+    public function grade(): BelongsTo
+    {
+        return $this->belongsTo(Grade::class,'students_grade');
+    }
+
+    public function getActionButtonsAttribute()
+    {
+        $actions = [
+            ['key' => 'edit', 'name' => t('Edit'), 'route' => route(getGuard().'.story_assignment.edit',$this->id), 'permission' => 'delete story assignments'],
+            ['key' => 'blank', 'name' => t('Users Assignments'), 'route' => route(getGuard().'.user_story_assignment.index',['story_assignment_id'=>$this->id]), 'permission' => 'show user story assignments'],
+            ['key' => 'event', 'name' => t('Delete'), 'route' => $this->id,'class'=>'text-danger delete_assignment', 'permission' => 'delete story assignments'],
+        ];
+
+        return view('general.action_menu')->with('actions', $actions);
+
+    }
+
+    public function scopeFilter(Builder $query,$request = null): Builder
+    {
+        if (!$request){
+            $request = \request();
+        }
+        return $query->when($value = $request->get('id', false), function (Builder $query) use ($value) {
+            $query->where('id', $value);
+        })->when($value = $request->get('story_id', false), function (Builder $query) use ($value) {
+            $query->whereJsonContains('stories_ids', $value);
+        })->when($value = $request->get('school_id', false), function (Builder $query) use ($value) {
+            $query->whereRelation('teacher.school','id',$value);
+        })->when($value = $request->get('teacher_id', false), function (Builder $query) use ($value) {
+            $query->whereRelation('teacher','id',$value);
+        })->when($value = $request->get('section', false), function (Builder $query) use ($value) {
+            $query->whereJsonContains('sections', $value);
+        })->when($value = $request->get('students_grade', false), function (Builder $query) use ($value) {
+            $query->where('students_grade', $value);
+        })->when($value = $request->get('story_grade', false), function (Builder $query) use ($value) {
+            $query->where('story_grade', $value);
+        })->when($value = $request->get('row_id', []), function (Builder $query) use ($value) {
+            $query->whereIn('id', $value);
+        });
+    }
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 }

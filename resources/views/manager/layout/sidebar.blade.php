@@ -61,6 +61,7 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
                 @endcan
 
 
+<<<<<<< HEAD
                 @can('show managers')
                     <div class="menu-item">
                         <a class="menu-link @if(Request::is('manager/manager*') ) active @endif"
@@ -181,12 +182,68 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
                     <div class="menu-item">
                         <a class="menu-link @if(Request::routeIs('manager.story.index') || Request::is('manager/story/*'))active @endif "
                            href="{{route('manager.story.index')}}">
+=======
+                    @can('show managers')
+                        <div class="menu-item">
+                            <a class="menu-link {{menuLinkIsActive([getGuard().'/user_role_and_permission/manager/*',getGuard().'/manager*'])}}"
+                               href="{{ route(getGuard().'.manager.index') }}">
+                                <span class="menu-icon">
+                                   <i class="ki-duotone ki-shield-tick fs-2">
+                                     <span class="path1"></span>
+                                     <span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">{{t('Managers')}}</span>
+                            </a>
+                        </div>
+                    @endcan
+
+                    @can('show schools')
+                        <div class="menu-item">
+                            <a class="menu-link {{menuLinkIsActive([getGuard().'/user_role_and_permission/school/*',getGuard().'/school*'])}}"
+                               href="{{ route(getGuard().'.school.index') }}">
+                                <span class="menu-icon">
+                                   <i class="ki-duotone ki-home-3 fs-2">
+                                     <i class="path1"></i>
+                                     <i class="path2"></i>
+                                    </i>
+                                </span>
+                                <span class="menu-title">{{t('Schools')}}</span>
+                            </a>
+                        </div>
+                    @endcan
+
+                    @can('show supervisors')
+
+                        <div class="menu-item">
+                            <a class="menu-link {{menuLinkIsActive([getGuard().'/user_role_and_permission/supervisor/*',getGuard().'/supervisor*'])}}"
+                               href="{{ route(getGuard().'.supervisor.index') }}">
+                                <span class="menu-icon">
+                                   <i class="ki-duotone ki-people fs-2">
+                                     <span class="path1"></span>
+                                     <span class="path2"></span>
+                                     <span class="path3"></span>
+                                     <span class="path4"></span>
+                                     <span class="path5"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">{{t('Supervisors')}}</span>
+                            </a>
+                        </div>
+                    @endcan
+
+                    @can('show teachers')
+                        <div class="menu-item">
+                            <a class="menu-link {{menuLinkIsActive([getGuard().'/user_role_and_permission/teacher/*',getGuard().'/teacher*'])}}"
+                               href="{{ route(getGuard().'.teacher.index') }}">
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                                 <span class="menu-icon">
                                    <i class="ki-duotone ki-user-tick fs-2">
                                      <span class="path1"></span>
                                      <span class="path2"></span>
                                      <span class="path3"></span>
                                     </i>
+<<<<<<< HEAD
                                 </span>
                             <span class="menu-title">{{t('Stories')}}</span>
                         </a>
@@ -245,10 +302,196 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
                                         <i class="path1"></i>
                                         <i class="path2"></i>
                                     </i>
+=======
+                                    </span>
+                                <span class="menu-title">{{t('Teachers')}}</span>
+                            </a>
+                        </div>
+                    @endcan
+
+                    @can('teacher tracking')
+
+                        <div class="menu-item">
+                            <a class="menu-link @if(Request::is(getGuard().'/tracking_teachers*'))active @endif "
+                               href="{{ route(getGuard().'.teacher.tracking') }}">
+                                <span class="menu-icon">
+                                   <i class="ki-duotone ki-graph-2 fs-2">
+                                     <i class="path1"></i>
+                                     <i class="path2"></i>
+                                     <i class="path3"></i>
+                                    </i>
+                                </span>
+                                <span class="menu-title">{{t('Track Teachers')}}</span>
+                            </a>
+                        </div>
+                    @endcan
+
+                    @can('show users')
+                        <div class="menu-item">
+                            <a class="menu-link {{menuLinkIsActive([getGuard().'/user/*',getGuard().'/user'])}} "
+                               href="{{ route(getGuard().'.user.index') }}">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-user fs-2">
+                             <i class="path1"></i>
+                             <i class="path2"></i>
+                            </i>
+                        </span>
+                                <span class="menu-title">{{t('Students')}}</span>
+                            </a>
+                        </div>
+                    @endcan
+
+                    @if(guardHasAnyPermission(['show lesson tests','show story tests']))
+                        <div data-kt-menu-trigger="click"
+                             class="menu-item menu-accordion {{menuIsActive([getGuard().'/lessons_tests',getGuard().'/lessons_tests/*',getGuard().'/stories_tests',getGuard().'/stories_tests/*'])}}">
+                                           <span class="menu-link">
+                                                <span class="menu-icon">
+                                                <i class="ki-duotone ki-tablet-book fs-2">
+                                                    <i class="path1"></i>
+                                                    <i class="path2"></i>
+                                                </i>
+                                                </span>
+											<span class="menu-title">{{t('Student Tests')}}</span>
+											<span class="menu-arrow"></span>
+										</span>
+                            <!--begin:Menu sub-->
+                            <div class="menu-sub menu-sub-accordion">
+                                @can('show lesson tests')
+                                    <div class="menu-item">
+                                        <a class="menu-link {{menuLinkIsActive([getGuard().'/lessons_tests',getGuard().'/lessons_tests/*'])}}"
+                                           href="{{ route(getGuard().'.lessons_tests.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                                            <span class="menu-title">{{t('Lessons Tests')}}</span>
+                                        </a>
+                                    </div>
+                                @endcan
+                                @can('show story tests')
+                                    <div class="menu-item">
+                                        <a class="menu-link {{menuLinkIsActive([getGuard().'/stories_tests',getGuard().'/stories_tests/*'])}}"
+                                           href="{{ route(getGuard().'.stories_tests.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                                            <span class="menu-title">{{t('Stories Tests')}}</span>
+                                        </a>
+                                    </div>
+                                @endcan
+                            </div>
+                            <!--end:Menu sub-->
+                        </div>
+                    @endif
+
+                    @if(guardHasAnyPermission(['show lesson assignments','show story assignments']))
+                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion
+                        {{menuIsActive([getGuard().'/lesson_assignment*',getGuard().'/story_assignment'])}}">
+                                           <span class="menu-link">
+                                                <span class="menu-icon">
+                                                <i class="ki-duotone ki-some-files fs-2">
+                                                <i class="path1"></i>
+                                                <i class="path2"></i>
+                                            </i>
+                                            </span>
+											<span class="menu-title">{{t('Assignments')}}</span>
+											<span class="menu-arrow"></span>
+										</span>
+                            <!--begin:Menu sub-->
+                            <div class="menu-sub menu-sub-accordion">
+                                @can('show lesson assignments')
+                                    <div class="menu-item">
+                                        <a class="menu-link @if(Request::is(getGuard().'/lesson_assignment*') )active @endif"
+                                           href="{{ route(getGuard().'.lesson_assignment.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                                            <span class="menu-title">{{t('Lessons')}}</span>
+                                        </a>
+                                    </div>
+                                @endcan
+
+
+
+
+                                @can('show story assignments')
+                                    <div class="menu-item">
+                                        <a class="menu-link @if(Request::is(getGuard().'/story_assignment*') )active @endif"
+                                           href="{{ route(getGuard().'.story_assignment.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                                            <span class="menu-title">{{t('Stories')}}</span>
+                                        </a>
+                                    </div>
+                                @endcan
+
+                            </div>
+                            <!--end:Menu sub-->
+                        </div>
+                    @endif
+
+                    @if(guardHasAnyPermission(['show roles','show permissions']))
+                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion
+                        {{menuIsActive([getGuard().'/role*',getGuard().'/permission'])}}">
+                                           <span class="menu-link">
+                                                <span class="menu-icon">
+                                             <i class="ki-duotone ki-lock-3 fs-1">
+                                             <span class="path1"></span>
+                                             <span class="path2"></span>
+                                             <span class="path3"></span>
+                                            </i>
+                                            </span>
+											<span class="menu-title">{{t('Roles & Permissions')}}</span>
+											<span class="menu-arrow"></span>
+										</span>
+                            <!--begin:Menu sub-->
+                            <div class="menu-sub menu-sub-accordion">
+                                @can('show roles')
+                                    <div class="menu-item">
+                                        <a class="menu-link @if(Request::is(getGuard().'/role*') )active @endif"
+                                           href="{{ route(getGuard().'.role.index') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                            <span class="menu-title">{{t('Roles')}}</span>
+                                        </a>
+                                    </div>
+                                @endcan
+
+
+
+                                @can('show permissions')
+                                    <div class="menu-item">
+                                        <a class="menu-link @if(Request::is(getGuard().'/permission*') )active @endif"
+                                           href="{{ route(getGuard().'.permission.index') }}">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">{{t('Permissions')}}</span>
+                                        </a>
+                                    </div>
+                                @endcan
+
+                            </div>
+                            <!--end:Menu sub-->
+                        </div>
+                    @endif
+
+                    @if(guardHasAnyPermission(['show user story assignments','show user lesson assignments']))
+                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion
+                        {{menuIsActive([getGuard().'/user_story_assignment*',getGuard().'/user_lesson_assignment*'])}}">
+                                           <span class="menu-link">
+                                                <span class="menu-icon">
+                                                <i class="ki-duotone ki-some-files fs-2">
+                                                <i class="path1"></i>
+                                                <i class="path2"></i>
+                                            </i>
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                                             </span>
 											<span class="menu-title">{{t('Student Assignments')}}</span>
 											<span class="menu-arrow"></span>
 										</span>
+<<<<<<< HEAD
                         <!--begin:Menu sub-->
                         <div class="menu-sub menu-sub-accordion">
                             @can('show lesson assignments')
@@ -290,13 +533,100 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
                             </i>
                     </span>
                             <span class="menu-title">{{t('Motivational Certificates')}}</span>
+=======
+                            <!--begin:Menu sub-->
+                            <div class="menu-sub menu-sub-accordion">
+
+                                @can('show user lesson assignments')
+                                    <div class="menu-item">
+                                        <a class="menu-link @if(Request::is(getGuard().'/user_lesson_assignment*') )active @endif"
+                                           href="{{ route(getGuard().'.user_lesson_assignment.index') }}">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                                            <span class="menu-title">{{t('Lessons')}}</span>
+                                        </a>
+                                    </div>
+                                @endcan
+
+                                @can('show user story assignments')
+                                    <div class="menu-item">
+                                        <a class="menu-link @if(Request::is(getGuard().'/user_story_assignment*') )active @endif"
+                                           href="{{ route(getGuard().'.user_story_assignment.index') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                            <span class="menu-title">{{t('Stories')}}</span>
+                                        </a>
+                                    </div>
+                                @endcan
+
+                            </div>
+                            <!--end:Menu sub-->
+                        </div>
+                    @endif
+
+
+                @can('show lessons')
+                    <div class="menu-item">
+                        <a class="menu-link @if(Request::routeIs('manager.lesson.index') || Request::is('manager/assessment*')|| Request::is('manager/lesson/*'))active @endif "
+                           href="{{route('manager.lesson.index')}}">
+                                <span class="menu-icon">
+                                   <i class="ki-duotone ki-user-tick fs-2">
+                                     <span class="path1"></span>
+                                     <span class="path2"></span>
+                                     <span class="path3"></span>
+                                    </i>
+                                </span>
+                            <span class="menu-title">{{t('Lessons')}}</span>
                         </a>
                     </div>
                 @endcan
 
+
+                @can('show stories')
+                    <div class="menu-item">
+                        <a class="menu-link @if(Request::routeIs('manager.story.index') || Request::is('manager/story/*'))active @endif "
+                           href="{{route('manager.story.index')}}">
+                                <span class="menu-icon">
+                                   <i class="ki-duotone ki-user-tick fs-2">
+                                     <span class="path1"></span>
+                                     <span class="path2"></span>
+                                     <span class="path3"></span>
+                                    </i>
+                                </span>
+                            <span class="menu-title">{{t('Stories')}}</span>
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
+                        </a>
+                    </div>
+                @endcan
+
+<<<<<<< HEAD
                 @if(Auth::guard('manager')->user()->hasAnyDirectPermission(['show hidden lessons','show hidden stories']))
                     <div data-kt-menu-trigger="click"
                          class="menu-item menu-accordion {{Request::is('manager/hidden_lesson')|| Request::is('manager/hidden_story') ?'here show':''}}">
+=======
+
+
+                    @can('show motivational certificate')
+                        <div class="menu-item">
+                            <a class="menu-link {{menuLinkIsActive([getGuard().'/motivational_certificates*'])}}"
+                               href="{{ route(getGuard().'.motivational_certificates.index') }}">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-teacher fs-2">
+                                 <span class="path1"></span>
+                                 <span class="path2"></span>
+                                </i>
+                        </span>
+                                <span class="menu-title">{{t('Motivational Certificates')}}</span>
+                            </a>
+                        </div>
+                    @endcan
+
+                    @if(guardHasAnyPermission(['show hidden lessons','show hidden stories']))
+                        <div data-kt-menu-trigger="click"
+                             class="menu-item menu-accordion {{Request::is(getGuard().'/hidden_lesson')|| Request::is(getGuard().'/hidden_story') ?'here show':''}}">
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                                            <span class="menu-link">
                                                 <span class="menu-icon">
                                                 <i class="ki-duotone ki-book-open fs-2">
@@ -306,6 +636,7 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
                                         <i class="path4"></i>
                                     </i>
                                             </span>
+<<<<<<< HEAD
                                             <span class="menu-title">{{t('Hiding control')}}</span>
                                             <span class="menu-arrow"></span>
                                         </span>
@@ -344,6 +675,45 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
                 @if(Auth::guard('manager')->user()->hasAnyDirectPermission(['show user works','show user records']))
                     <div data-kt-menu-trigger="click"
                          class="menu-item menu-accordion {{Request::is('manager/students_works')|| Request::is('manager/stories_records') ?'here show':''}}">
+=======
+											<span class="menu-title">{{t('Hiding control')}}</span>
+											<span class="menu-arrow"></span>
+										</span>
+                            <!--begin:Menu sub-->
+                            <div class="menu-sub menu-sub-accordion">
+
+                                @can('show hidden lessons')
+                                    <div class="menu-item">
+                                        <a href="{{route(getGuard().'.hidden_lesson.index')}}"
+                                           class="menu-link {{Request::is(getGuard().'/hidden_lesson*')?'active':''}}">
+                                                        <span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                                            <span class="menu-title">{{t('Hidden Lessons')}}</span>
+                                        </a>
+                                    </div>
+                                @endcan
+                                @can('show hidden stories')
+                                    <div class="menu-item">
+                                        <a href="{{route(getGuard().'.hidden_story.index')}}"
+                                           class="menu-link {{Request::is(getGuard().'/hidden_story*')?'active':''}}">
+                                                        <span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+                                            <span class="menu-title">{{t('Hidden Stories')}}</span>
+                                        </a>
+                                    </div>
+                                @endcan
+
+                            </div>
+                            <!--end:Menu sub-->
+                        </div>
+                    @endif
+
+                @if(guardHasAnyPermission(['show user records']))
+                    <div data-kt-menu-trigger="click"
+                         class="menu-item menu-accordion {{menuIsActive([getGuard().'/stories_records*'])}}">
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                                            <span class="menu-link">
                                                 <span class="menu-icon">
                                                 <i class="ki-duotone ki-questionnaire-tablet fs-2">
@@ -356,6 +726,7 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
 										</span>
                         <!--begin:Menu sub-->
                         <div class="menu-sub menu-sub-accordion">
+<<<<<<< HEAD
                             @can('show user works')
                                 <div class="menu-item">
                                     <a href="{{route('manager.students_works.index')}}"
@@ -371,6 +742,12 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
                                 <div class="menu-item">
                                     <a href="{{route('manager.stories_records.index')}}"
                                        class="menu-link {{Request::is('manager/stories_records*')?'active':''}}">
+=======
+                            @can('show user records')
+                                <div class="menu-item">
+                                    <a href="{{route('manager.stories_records.index')}}"
+                                       class="menu-link {{menuLinkIsActive([getGuard().'/stories_records*'])}}">
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
                                                         <span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>

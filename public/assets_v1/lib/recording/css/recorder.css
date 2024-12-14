@@ -1,0 +1,75 @@
+@import url("../css/green-audio-player.min.css");
+/*
+    audio-player
+*/
+
+.audio-player{
+    direction: ltr;
+}
+.audio-player {
+    width: 50%;
+    border-radius: 40px;
+    margin: auto;
+    height: 70px;
+}
+.audio-player .slider .gap-progress,
+.audio-player .slider .gap-progress .pin{
+    background-color: #662D91;
+}
+.audio-player .volume .volume__button.open path{
+    fill: #662D91;
+}
+.audio-player .volume .volume__controls {
+    background-color: #EAEAEA;
+}
+
+.speaking .audio-player .slider .gap-progress,
+.speaking .audio-player .slider .gap-progress .pin{
+    background-color: #138944;
+}
+.speaking .audio-player .volume .volume__button.open path{
+    fill: #138944;
+}
+
+/*
+       recorder-box
+   */
+
+.recorder-box {
+    margin-top: 2rem;
+}
+.recorder-box .controls{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.recorder-box .timer,
+.recorder-box .icon{
+    min-width: 40px;
+    height: 40px;
+    background-color: #EAEAEA;
+    border-radius: 25px;
+    line-height: 40px;
+    padding: 0 2rem;
+    font-size: 14px;
+    text-align: center;
+    color: #220836;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+.recorder-box .icon:hover{
+    color: #fff;
+    background-color: #138944;
+}
+.recorder-box .icon.remove-voice,
+.recorder-box .icon.remove-voice:hover{
+    background: #D54B65;
+    color: #fff;
+}
+.recorder-box .audio-player{
+    max-width: 100%;
+}
+.recorder-box .audio-player .controls{
+    margin-bottom: 0;
+}

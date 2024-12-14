@@ -3,6 +3,11 @@
 use App\Http\Controllers\GeneralController;
 use Illuminate\Support\Facades\Route;
 
+<<<<<<< HEAD
+=======
+require base_path('routes/general.php');
+
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 Route::group(['namespace' => 'Teacher'], function() {
 
     Route::get('/home', 'SettingController@home')->name('home');
@@ -15,6 +20,7 @@ Route::group(['namespace' => 'Teacher'], function() {
     Route::get('password/edit', 'SettingController@editPassword')->name('edit-password');
     Route::post('password/update', 'SettingController@updatePassword')->name('update-password');
 
+<<<<<<< HEAD
     //Student
     Route::get('students_school', 'StudentController@index')->name('students_school.index');
 
@@ -78,6 +84,8 @@ Route::group(['namespace' => 'Teacher'], function() {
     Route::delete('motivational_certificate/delete', 'MotivationalCertificateController@destroy')->name('motivational_certificate.destroy');
     Route::post('motivational_certificate/export', 'MotivationalCertificateController@export')->name('motivational_certificate.export');
 
+=======
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
     //Curriculum
     Route::get('curriculum/{grade}', 'CurriculumController@curriculum')->name('curriculum.home');
@@ -92,12 +100,15 @@ Route::group(['namespace' => 'Teacher'], function() {
     Route::get('lesson/{id}/{key}', 'CurriculumController@lesson')->name('lesson');
     Route::get('sub_lessons/{id}/{type}/{level}', 'CurriculumController@subLessons')->name('sub_lessons');
 
+<<<<<<< HEAD
 
     //General
     Route::get('getLessonsByGrade', [GeneralController::class,'getLessonsByGrade'])->name('getLessonsByGrade');
     Route::get('getStoriesByGrade', [GeneralController::class,'getStoriesByGrade'])->name('getStoriesByGrade');
     Route::get('getStudentsByGrade/{id}', [GeneralController::class,'getStudentsByGrade'])->name('getStudentsByGrade');
 
+=======
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
     //Reports
     Route::get('usage_report', 'SettingController@usageReport')->name('report.usage_report');
     Route::get('pre_usage_report', 'SettingController@preUsageReport')->name('report.pre_usage_report');

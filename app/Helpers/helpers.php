@@ -37,6 +37,7 @@ function schoolSections($school = false)
         ->get()->pluck('section')->unique()->values();
     return $sections;
 }
+<<<<<<< HEAD
 function uploadFile($file, $path ,bool $new_name=true)
 {
     $file_original_name = $file->getClientOriginalName();
@@ -46,6 +47,57 @@ function uploadFile($file, $path ,bool $new_name=true)
     $file->move($destination , $file_new_name);
     return ['name'=>$new_name?$file_new_name:$file_original_name,'path'=>$path .'/'. $file_new_name];
 }
+=======
+function getSections($school_id=null,$teacher_id=null)
+{
+    $sections = \App\Models\User::query()
+        ->when($teacher = request()->get('teacher_id'), function (\Illuminate\Database\Eloquent\Builder $query) use ($teacher) {
+            $query->whereHas('teacherUser', function (Builder $query) use ($teacher) {
+                $query->where('teacher_id', $teacher);
+            });
+        })->when($teacher_id, function (\Illuminate\Database\Eloquent\Builder $query) use ($teacher_id) {
+            $query->whereHas('teacherUser', function (Builder $query) use ($teacher_id) {
+                $query->where('teacher_id', $teacher_id);
+            });
+        })
+        ->when($school = request()->get('school_id'), function (\Illuminate\Database\Eloquent\Builder $query) use ($school) {
+            $query->where('school_id', $school);
+        }) ->when($school_id, function (\Illuminate\Database\Eloquent\Builder $query) use ($school_id) {
+            $query->where('school_id', $school_id);
+        })
+        ->whereNotNull('section')
+        ->select('section')
+        ->orderBy('section')
+        ->get()
+        ->pluck('section')
+        ->unique()
+        ->values();
+    return $sections;
+}
+
+function uploadFile($file, $path, $with_date = true)
+{
+    $fileName = $file->getClientOriginalName();
+    $file_exe = $file->getClientOriginalExtension();
+    $file_size = $file->getSize();
+    $new_name = uniqid() . '.' . $file_exe;
+    if ($with_date) {
+        $directory = 'uploads' . '/' . $path . '/' . date("Y") . '/' . date("m") . '/' . date("d");
+    } else {
+        $directory = 'uploads' . '/' . $path;
+    }
+    $destination = public_path($directory);
+    $file->move($destination, $new_name);
+    $data['path'] = $directory . '/' . $new_name;
+    $data['name'] = $fileName;
+    $data['new_name'] = $new_name;
+    $data['extension'] = $file_exe;
+//    $data['size'] = formatBytes($file_size);
+    $data['size_num'] = $file_size;
+    return $data;
+}
+
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 function getGradeName($grade)
 {
     switch($grade)
@@ -1645,3 +1697,59 @@ function camelCaseText($text,$replace='_'):string
 {
     return Str::title(str_replace($replace, ' ', $text));
 }
+<<<<<<< HEAD
+=======
+function getGuard()
+{
+    $guard = 'web';
+    if (request()->is('manager/*')) {
+        $guard = 'manager';
+    } elseif (request()->is('school/*')) {
+        $guard = 'school';
+    } elseif (request()->is('supervisor/*')) {
+        $guard = 'supervisor';
+    }elseif (request()->is('teacher/*')) {
+        $guard = 'teacher';
+    }
+    return $guard;
+}
+function guardIs($guard)
+{
+    return getGuard()==$guard;
+}
+function guardNotIs($guard)
+{
+    return getGuard()!=$guard;
+}
+
+function guardIn(array $guards)
+{
+    return in_array(getGuard(),$guards);
+}
+
+function guardHasPermission($permission)
+{
+    return \Auth::guard(getGuard())->user()->hasPermissionTo($permission);
+}
+function guardHasAnyPermission(array $permissions)
+{
+    return \Auth::guard(getGuard())->user()->hasAnyPermission($permissions);
+}
+
+function menuIsActive(array $paths)
+{
+    return collect($paths)->contains(function ($pattern){
+        return Request::is($pattern);
+    })?'here show' : ' ';
+}
+function menuLinkIsActive(array $paths)
+{
+    return collect($paths)->contains(function ($pattern){
+        return Request::is($pattern);
+    })?'active' : ' ';
+}
+function sysGuards()
+{
+    return ['manager','school','supervisor','teacher','user'];
+}
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9

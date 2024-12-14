@@ -52,6 +52,19 @@ class Handler extends ExceptionHandler
         });
     }
 
+<<<<<<< HEAD
+=======
+    public function report(Throwable $exception)
+    {
+        if (!$exception instanceof NotFoundHttpException && !$exception instanceof ValidationException && !$exception instanceof UnauthorizedHttpException && !$exception instanceof AuthenticationException && !$exception instanceof TokenMismatchException)
+        {
+            $message = $exception->getMessage() .' Code: '.$exception->getCode() . ' File: '. $exception->getFile() . ' Line:'. $exception->getLine();
+            Log::channel('telegram')->critical($message);
+        }
+
+        parent::report($exception);
+    }
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
 
     /**
      * Render an exception into an HTTP response.
@@ -156,7 +169,11 @@ class Handler extends ExceptionHandler
             if (strpos($request->url(), '/api/') !== false){
                 return response()->json(['User have not permission for this page access.']);
             }else{
+<<<<<<< HEAD
                 return redirect()->route('manager.home')->with('message', 'User have not permission for this page access.')->with('m-class', 'error');
+=======
+                return redirect()->route(getGuard().'.home')->with('message', 'User have not permission for this page access.')->with('m-class', 'error');
+>>>>>>> 7868823d29dcd1321ee7452cefbd01a89c2655b9
             }
 
         }
