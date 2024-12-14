@@ -124,14 +124,14 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth']], function (){
         Route::get('stories/{id}/{key}', 'HomeController@story')->name('stories.show');
         Route::post('stories/{id}/record', 'HomeController@recordStory')->name('stories.record');
 
-        Route::post('story_test/{id}', 'StoryController@storyTest')->name('story_test');
+        Route::post('story_test/{id}/save', 'StoryController@storyTest')->name('story_test');
         Route::get('story_test/{id}/result', 'StoryController@storyTestResult')->name('story_test_result');
 
         Route::get('lessons/{id}/{type}', 'HomeController@lessons')->name('lessons');
         Route::get('sub_lessons/{id}/{type}/{level}', 'HomeController@subLessons')->name('sub_lessons');
         Route::get('lesson/{id}/{key}', 'HomeController@lesson')->name('lesson');
 
-        Route::post('lesson_test/{id}', 'LessonController@lessonTest')->name('lesson_test');
+        Route::post('lesson_test/{id}/save', 'LessonController@lessonTest')->name('lesson_test');
         Route::post('lesson_writing_test/{id}', 'LessonController@lessonWritingTest')->name('lesson_writing_test');
         Route::post('lesson_speaking_test/{id}', 'LessonController@lessonSpeakingTest')->name('lesson_speaking_test');
         Route::get('lesson_test/{id}/result', 'LessonController@lessonTestResult')->name('lesson_test_result');
