@@ -243,7 +243,6 @@ Route::group(['namespace' => 'Manager'], function(){
 //
 //        return "تم تحديث البيانات بنجاح";
 //    });
-
     Route::get('update_stories_matches', function () {
         $matches = \App\Models\StoryMatch::query()->whereNull('uid')->get();
         foreach ($matches as $match) {
