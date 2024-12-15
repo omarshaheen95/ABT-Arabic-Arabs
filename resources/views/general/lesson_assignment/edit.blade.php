@@ -78,8 +78,19 @@
                     @endisset
                 </select>
             </div>
-
-            <div class="form-group col-12 mb-2">
+               <div class="form-group col-3 mb-2">
+                   <label class="form-label">{{ t('Lesson Type') }}</label>
+                   <select class="form-select" data-control="select2"
+                           data-placeholder="{{t('Select Lesson')}}"
+                           data-allow-clear="true" id="lesson_type" @isset($assignment) disabled @endisset>
+                       <option></option>
+                           @foreach(\App\Models\Lesson::lessonsTypes() as $type=>$name)
+                               <option value="{{$type}}"
+                                   {{isset($assignment) && isset($lesson_type) &&$lesson_type == $type?'selected':''}}>{{$name}}</option>
+                           @endforeach
+                   </select>
+               </div>
+            <div class="form-group col-9 mb-2">
                 <label class="form-label">{{ t('Lesson') }}</label>
                 <select class="form-select assignment_lesson" data-control="select2" multiple
                         data-placeholder="{{t('Select Lesson')}}"
@@ -196,7 +207,7 @@
 
         getSectionBySchool()
 
-        getAndSetDataOnSelectChange('grade_id','lessons_ids[]',getLessonsByGradeURL,1,[],function () {
+        getAndSetDataOnSelectChange('grade_id','lessons_ids[]',getLessonsByGradeURL,1,['lesson_type'],function () {
             getStudentsData()
         })
         getAndSetDataOnSelectChange('teacher_id','sections[]',getSectionByTeacherURL,1,[],function () {
@@ -206,6 +217,9 @@
 
         $('select[name="sections[]"]').change(function () {
             getStudentsData();
+        });
+        $('#lesson_type').change(function () {
+            $('select[name="grade_id"]').trigger('change')
         });
     </script>
 

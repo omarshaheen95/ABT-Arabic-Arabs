@@ -197,6 +197,12 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
 
         $compact = compact('title','assignment','grades','lessons','students');
 
+        //get lesson type for this assignment
+        $lesson_type = $lessons->whereIn('id',$assignment->lessons_ids)->groupBy('lesson_type')->keys();
+        if ($lesson_type->count() == 1){
+            $compact['lesson_type'] = $lesson_type->first();
+        }
+
         if (guardIs('manager')) {
             $compact['schools'] = School::query()->get();
         }

@@ -233,6 +233,10 @@ class Lesson extends Model implements HasMedia
     {
         return['reading', 'writing', 'listening', 'speaking', 'grammar', 'dictation', 'rhetoric'];
     }
+    public static function lessonsTypes()
+    {
+        return['reading'=>'القراءة', 'writing'=>'الكتابة', 'listening'=>'الاستماع', 'speaking'=>'التحدث', 'grammar'=>'القواعد النحوية', 'dictation'=>'الإملاء', 'rhetoric'=>'البلاغة'];
+    }
     public static function sectionTypes()
     {
         return['informative', 'literary'];
