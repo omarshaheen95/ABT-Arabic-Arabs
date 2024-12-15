@@ -11,7 +11,7 @@
 @endpush
 
 @section('content')
-    <form action="{{route('teacher.profile.update')}}" method="post" class="form" id="form-profile-save"
+    <form action="{{route('teacher.update-profile')}}" method="post" class="form" id="form-profile-save"
           enctype="multipart/form-data">
         @csrf
         <div class="row">
