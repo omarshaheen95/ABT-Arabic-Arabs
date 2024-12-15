@@ -135,15 +135,12 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
         $data = $request->validated();
         $students_array = $data['students'];
         $lessons = $data['lessons_ids'];
-        $data['test_assignment'] = $request->get('test_assignment', 0);
+        $data['test_assignment'] = true;
         $data['exclude_students'] = $request->get('exclude_students')!=2;
 
         $lesson_assignment = LessonAssignment::query()->create($data);
 
-        if (!$data['test_assignment'])
-        {
-            return redirect()->route(getGuard().'.lesson_assignment.index')->with('message',t('must select test assignment at least'))->with('m-class','error');
-        }
+
         $students =  User::query()->with(['user_assignments'])
             ->when(count($students_array), function (Builder $query) use ($students_array){
                 $query->whereIn('id', $students_array);
@@ -219,15 +216,8 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
         $assignment = LessonAssignment::find($id);
         $students_array = $data['students'];
         $lessons = $assignment->lessons_ids;
-        $data['test_assignment'] = $request->get('test_assignment', 0);
+        $data['test_assignment'] = true;
 
-
-        if (!$data['test_assignment'])
-        {
-            return redirect()->route(getGuard().'.lesson_assignment.index')
-                ->with('message',t('must select test assignment at least'))
-                ->with('m-class','error');
-        }
 
         $update_data = [
             'teacher_id'=>$data['teacher_id'],

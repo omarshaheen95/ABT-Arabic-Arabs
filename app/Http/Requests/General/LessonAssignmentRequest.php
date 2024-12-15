@@ -24,7 +24,7 @@ class LessonAssignmentRequest extends FormRequest
             'students' => ['required', 'array', ''],
             'deadline' => ['nullable'],
             'exclude_students' => ['required', 'in:1,2'],
-            'test_assignment' => ['sometimes'],
+//            'test_assignment' => ['sometimes'],
         ];
 
         if (Route::currentRouteName() == getGuard().'.lesson_assignment.store' || Route::currentRouteName() == getGuard().'.lesson_assignment.create')
