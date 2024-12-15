@@ -196,9 +196,9 @@
 
         getSectionBySchool()
 
-        // getAndSetDataOnSelectChange('grade_id','lessons_ids[]',getLessonsByGradeURL,1,function () {
-        //     getStudentsData()
-        // })
+        getAndSetDataOnSelectChange('grade_id','lessons_ids[]',getLessonsByGradeURL,1,function () {
+            getStudentsData()
+        })
         getAndSetDataOnSelectChange('teacher_id','sections[]',getSectionByTeacherURL,1,function () {
             getStudentsData()
         })
