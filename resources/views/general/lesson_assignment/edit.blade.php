@@ -164,7 +164,6 @@
     <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
-
         onSelectAllClick('section')
 
         $('input[name="deadline"]').flatpickr();
