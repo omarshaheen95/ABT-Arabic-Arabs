@@ -139,7 +139,7 @@
             <div class="d-flex align-items-center col-6 pt-4 gap-3">
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" name="test_assignment" {{isset($assignment) &&  $assignment->test_assignment?'checked':''}}/>
+                    <input class="form-check-input" type="checkbox" checked value="1" name="test_assignment" {{isset($assignment) &&  $assignment->test_assignment?'checked':''}}/>
                     <label class="form-check-label text-dark">
                         {{ t('Test assignment') }}
                     </label>
