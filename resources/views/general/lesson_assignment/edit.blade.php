@@ -139,7 +139,7 @@
             <div class="d-flex align-items-center col-6 pt-4 gap-3">
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" name="test_assignment" {{isset($assignment) &&  $assignment->test_assignment?'checked':''}}/>
+                    <input class="form-check-input" type="checkbox" checked value="1" name="test_assignment" {{isset($assignment) &&  $assignment->test_assignment?'checked':''}}/>
                     <label class="form-check-label text-dark">
                         {{ t('Test assignment') }}
                     </label>
@@ -164,7 +164,6 @@
     <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
-
         onSelectAllClick('section')
 
         $('input[name="deadline"]').flatpickr();
@@ -174,7 +173,9 @@
         function getStudentsData() {
             let teacher_id = $('#teacher_id').val()
             let grade_id = $('select[name="grade_id"]').val()
+            console.log(teacher_id, grade_id)
             if (teacher_id && grade_id) {
+                console.log('getStudentsData')
                 var students_url = '{{ route(getGuard().".getStudentsByGrade", ":id") }}';
                 students_url = students_url.replace(':id', grade_id);
                 $.ajax({
