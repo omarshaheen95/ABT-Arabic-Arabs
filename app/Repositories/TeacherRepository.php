@@ -31,7 +31,11 @@ class TeacherRepository implements TeacherRepositoryInterface
     public function index(Request $request)
     {
         if (request()->ajax()) {
-            $rows = Teacher::query()->with(['school','login_sessions'])->withCount('students')->filter($request)->latest();
+            $rows = Teacher::query()->with(['school','login_sessions'])->withCount(['students' => function ($q)
+            {
+                $q->whereHas('user');
+            }
+            ])->filter($request)->latest();
             return DataTables::make($rows)
                 ->escapeColumns([])
                 ->addColumn('created_at', function ($row) {
