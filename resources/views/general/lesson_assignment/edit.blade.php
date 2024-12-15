@@ -173,7 +173,9 @@
         function getStudentsData() {
             let teacher_id = $('select[name="teacher_id"]').val()
             let grade_id = $('select[name="grade_id"]').val()
+            console.log(teacher_id, grade_id)
             if (teacher_id && grade_id) {
+                console.log('getStudentsData')
                 var students_url = '{{ route(getGuard().".getStudentsByGrade", ":id") }}';
                 students_url = students_url.replace(':id', grade_id);
                 $.ajax({
