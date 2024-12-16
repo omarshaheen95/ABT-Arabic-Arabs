@@ -92,9 +92,10 @@ class StoryRecordRepository implements StoryRecordRepositoryInterface
     }
 
     public function update(UpdateUserRecordRequest $request,$id){
-        $student_record = StoryUserRecord::query()->with(['story','user'])->filter()->findOrFail($id);
         $data = $request->validated();
+        $student_record = StoryUserRecord::query()->with(['story','user'])->filter()->findOrFail($id);
         $data['approved'] = $request->get('approved', 0);
+        $data['status'] = $request->get('s_status', 0);
         $student_record->update($data);
         return redirect()->route(getGuard().'.stories_records.index')->with('message', t('Successfully Updated'));
     }

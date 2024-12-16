@@ -25,7 +25,7 @@ class UpdateUserRecordRequest extends FormRequest
     public function rules()
     {
         return  [
-            'status' => 'required|in:pending,corrected,returned',
+            's_status' => 'required|in:pending,corrected,returned',
             'mark' => 'required|integer|min:0|max:10',
         ];
 

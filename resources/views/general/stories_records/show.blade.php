@@ -32,15 +32,15 @@
                 <div class="col-6">
                     <div class="d-flex gap-2 p-4 border-secondary ms-1" style="border: 1px solid;border-radius: 5px;">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" value="pending" @if($user_record->status == 'pending') checked @endif>
+                            <input class="form-check-input" type="radio" name="s_status" value="pending" @if($user_record->status == 'pending') checked @endif>
                             <label class="form-check-label" for="section">{{t(ucfirst('Waiting list'))}}</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" value="corrected"  @if($user_record->status == 'corrected') checked @endif>
+                            <input class="form-check-input" type="radio" name="s_status" value="corrected"  @if($user_record->status == 'corrected') checked @endif>
                             <label class="form-check-label" for="section">{{t(ucfirst('Marking Completed'))}}</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" value="returned" @if($user_record->status == 'returned') checked @endif>
+                            <input class="form-check-input" type="radio" name="s_status" value="returned" @if($user_record->status == 'returned') checked @endif>
                             <label class="form-check-label" for="section">{{t(ucfirst('Send back'))}}</label>
                         </div>
                     </div>

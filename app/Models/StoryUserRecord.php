@@ -56,15 +56,10 @@ class StoryUserRecord extends Model
                     $query->where('gender', $value);
                 });
             })->when($value = $request->get('school_id', false), function (Builder $query) use ($value) {
-                $query->whereHas('user', function (Builder $query) use ($value) {
-                    $query->where('school_id', $value);
-                });
+                $query->whereRelation('user','school_id', $value);
             })->when($value = $request->get('teacher_id', false), function (Builder $query) use ($value) {
-                $query->whereHas('user', function (Builder $query) use ($value) {
-                    $query->whereHas('teacherUser', function (Builder $query) use ($value) {
-                        $query->where('teacher_id', $value);
-                    });
-                });
+                $query->whereRelation('user.teacherUser', 'teacher_id', $value);
+
             })->when($value = $request->get('section', false), function (Builder $query) use ($value) {
                 $query->whereHas('user', function (Builder $query) use ($value) {
                     $query->where('section', $value);
