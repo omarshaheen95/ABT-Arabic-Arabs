@@ -41,6 +41,8 @@
                         @endisset
                     </select>
                 </div>
+            @else
+                <input type="hidden" id="teacher_id" value="{{\Illuminate\Support\Facades\Auth::guard('teacher')->id()}}">
             @endif
 
             <div class="form-group col-6 mb-2">
@@ -141,10 +143,14 @@
         $('input[name="granted_in"]').flatpickr();
 
         @if($cer_type == 'lesson')
-
-        getLessonsByGrade()
+        getAndSetDataOnSelectChange('grade_id', 'lesson_id', getLessonsByGradeURL, 1, [], function (callback) {
+            getStudentsData()
+        })
 
         @else
+        $('select[name="grade_id"]').change(function () {
+            getStudentsData()
+        })
 
         getStoriesByGrade()
 
@@ -155,7 +161,7 @@
 
         function getStudentsData() {
             let grade = $('select[name="grade_id"]').val();
-            let teacher = $('select[name="teacher_id"]').val();
+            let teacher = $('#teacher_id').val();
             if (teacher && grade) {
                 var students_url = '{{ route("manager.getStudentsByGrade", ":id") }}';
                 students_url = students_url.replace(':id', grade);
@@ -174,9 +180,6 @@
         }
 
 
-        $('select[name="grade_id"]').change(function () {
-            getStudentsData();
-        });
         getAndSetDataOnSelectChange('school_id','teacher_id',getTeacherBySchoolURL,1,[],function (callback) {
             getStudentsData()
         })
