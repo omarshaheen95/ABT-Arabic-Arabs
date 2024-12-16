@@ -31,7 +31,7 @@ class UserRepository implements UserRepositoryInterface
             unset($request['teacher_id']);
         }
         if (request()->ajax()) {
-            $rows = User::query()->with(['school', 'package', 'teacher', 'year','grade'])->filter($request)->latest();
+            $rows = User::query()->with(['school', 'package', 'teacher', 'year','grade','login_sessions'])->filter($request)->latest();
 
             $datatable =  DataTables::make($rows)
                 ->escapeColumns([])
@@ -66,7 +66,7 @@ class UserRepository implements UserRepositoryInterface
                 ->addColumn('dates', function ($row) {
                     $register_date = Carbon::parse($row->created_at)->format('Y-m-d');
                     $active_to = $row->active_to ? optional($row->active_to)->format('Y-m-d') : t('unpaid');
-                    $last_login = $row->last_login ? Carbon::parse($row->last_login)->format('Y-m-d H:i') : '';
+                    $last_login = $row->login_sessions->count() ? Carbon::parse($row->login_sessions->last()->created_at)->toDateTimeString() : '-';
                     if ($row->active == 0) {
                         $status = '<span class="text-danger">' . t('Suspend') . '</span>';
                     } elseif ($row->active == 1 && !is_null($row->active_to) && optional($row->active_to)->format('Y-m-d') <= now()) {
