@@ -163,7 +163,7 @@
             let grade = $('select[name="grade_id"]').val();
             let teacher = $('#teacher_id').val();
             if (teacher && grade) {
-                var students_url = '{{ route("manager.getStudentsByGrade", ":id") }}';
+                var students_url = '{{ route(getGuard().".getStudentsByGrade", ":id") }}';
                 students_url = students_url.replace(':id', grade);
                 $.ajax({
                     type: "get",
