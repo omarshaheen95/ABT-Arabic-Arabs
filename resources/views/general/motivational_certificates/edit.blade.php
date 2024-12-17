@@ -46,6 +46,17 @@
             @endif
 
             <div class="form-group col-6 mb-2">
+                <label class="form-label">{{ t('Student Grade') }}</label>
+                <select class="form-select" data-control="select2"
+                        data-placeholder="{{t('Select Grade')}}"
+                        data-allow-clear="true" name="grade_id" id="grade_id">
+                    <option></option>
+                    @foreach($grades as $grade)
+                        <option value="{{$grade->id}}">{{$grade->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group col-6 mb-2">
                 <label class="form-label">{{ t('Section') }}</label>
                 <select class="form-select" name="section[]" id="section"
                         data-control="select2" data-placeholder="{{t('Select Section')}}" data-allow-clear="true"
@@ -60,17 +71,7 @@
                 </select>
             </div>
 
-            <div class="form-group col-6 mb-2">
-                <label class="form-label">{{ t('Student Grade') }}</label>
-                <select class="form-select" data-control="select2"
-                        data-placeholder="{{t('Select Grade')}}"
-                        data-allow-clear="true" name="grade_id" id="grade_id">
-                    <option></option>
-                    @foreach($grades as $grade)
-                        <option value="{{$grade->id}}">{{$grade->name}}</option>
-                    @endforeach
-                </select>
-            </div>
+
             @if($cer_type == 'lesson')
                 <div class="form-group col-6 mb-2">
                     <label class="form-label">{{ t('Lesson') }}</label>
