@@ -189,7 +189,7 @@ class SettingController extends Controller
     public function updatePassword(SchoolPasswordRequest $request)
     {
         $data = $request->validated();
-        $manager = Auth::guard('manager')->user();
+        $manager = Auth::guard('school')->user();
         if (Hash::check($request->get('old_password'), $manager->password)) {
             $data['password'] = bcrypt($request->get('password'));
             $manager->update($data);
