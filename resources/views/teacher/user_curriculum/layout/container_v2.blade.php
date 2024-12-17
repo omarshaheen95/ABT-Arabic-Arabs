@@ -260,9 +260,9 @@
 <script src="{{asset('web_assets/js/green-audio-player.min.js')}}"></script>
 <script src="{{asset('web_assets/js/recorder.js')}}"></script>
 <script src="{{asset('web_assets/js/recorder-app.js')}}"></script>
-<script src="{{asset('web_assets/js/custom.js')}}"></script>
+<script src="{{asset('web_assets/js/custom.js')}}?v={{time()}}"></script>
 
-<script src="{{asset('s_website/js/script.js')}}"></script>
+<script src="{{asset('s_website/js/script.js')}}?v={{time()}}"></script>
 <script src="{{ asset("js/push.min.js") }}" type="text/javascript"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
