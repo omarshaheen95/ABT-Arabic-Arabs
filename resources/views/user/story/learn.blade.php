@@ -62,5 +62,24 @@
             file: '{{asset($story->alternative_video)}}',
         });
         @endif
+        $(document).ready(function () {
+            setTimeout(function () {
+                let csrf = $('meta[name="csrf-token"]').attr('content');
+                var url = '{{route('track_story', [$story->id, 'watching'])}}';
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        '_token': csrf,
+                    },
+                    success: function (data) {
+                    },
+                    error: function (errMsg) {
+                    }
+                });
+
+            }, 10000);
+        });
+
     </script>
 @endsection

@@ -145,6 +145,14 @@ class StoryController extends Controller
               'status' => $total >= $mark ? 'Pass' : 'Fail',
           ]);
 
+          $student->user_tracker_story()->create([
+              'story_id' => $id,
+              'type' => 'test',
+              'color' => 'danger',
+              'start_at' => $request->get('start_at', now()),
+              'end_at' => now(),
+          ]);
+
           // Update Approved Tests
           $student_tests = StudentStoryTest::where('total', '>=', $mark)
               ->where('user_id', $student->id)

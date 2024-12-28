@@ -8,6 +8,7 @@ use App\Models\Lesson;
 use App\Models\Package;
 use App\Models\Payment;
 use App\Models\School;
+use App\Models\Story;
 use App\Models\UserAssignment;
 use App\Models\UserLesson;
 use App\Models\UserTracker;
@@ -424,6 +425,43 @@ class UserController extends Controller
                     'lesson_id' => $lesson->id,
                     'type' => 'play',
                     'color' => 'success',
+                    'start_at' => now(),
+                ]);
+                break;
+        }
+        return $this->sendResponse(true);
+    }
+
+    public function trackStory($id, $type)
+    {
+        $user =  Auth::user();
+        if ($user->demo){
+            return response()->json("(Demo)تمت العملية بنجاح",'200');
+        }
+        $story = Story::query()->findOrFail($id);
+        switch ($type)
+        {
+            case 'watching':
+                $user->user_tracker_story()->create([
+                    'story_id' => $story->id,
+                    'type' => 'watching',
+                    'color' => 'warning',
+                    'start_at' => now(),
+                ]);
+                break;
+            case 'reading':
+                $user->user_tracker_story()->create([
+                    'story_id' => $story->id,
+                    'type' => 'reading',
+                    'color' => 'primary',
+                    'start_at' => now(),
+                ]);
+                break;
+            case 'test':
+                $user->user_tracker()->create([
+                    'story_id' => $story->id,
+                    'type' => 'test',
+                    'color' => 'danger',
                     'start_at' => now(),
                 ]);
                 break;

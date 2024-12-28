@@ -335,5 +335,24 @@
             $(".exercise-card .nav-link").removeClass("active");
             $(this).addClass("active");
         });
+        $(document).ready(function () {
+            setTimeout(function () {
+                let csrf = $('meta[name="csrf-token"]').attr('content');
+                var url = '{{route('track_story', [$story->id, 'reading'])}}';
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        '_token': csrf,
+                    },
+                    success: function (data) {
+                    },
+                    error: function (errMsg) {
+                    }
+                });
+
+            }, 10000);
+        });
+
     </script>
 @endsection

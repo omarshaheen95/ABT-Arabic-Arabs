@@ -153,6 +153,9 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth']], function (){
 
         Route::post('track_lesson/{id}/{type}', 'UserController@trackLesson')->name('track_lesson');
         Route::post('user_lesson/{id}', 'UserController@userLesson')->name('user_lesson');
+
+        Route::post('track_story/{id}/{type}', 'UserController@trackStory')->name('track_story');
+
     });
 
     Route::get('profile', 'UserController@profile')->name('profile');
