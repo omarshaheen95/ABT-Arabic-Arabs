@@ -91,6 +91,7 @@ class StudentReport
 
 
         $user_lessons_trackers = [];
+        dd($data);
         foreach ($data as $trackType)
         {
             foreach ($types as $type)
