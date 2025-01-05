@@ -60,7 +60,7 @@
     <script>
         $(document).ready(function () {
 
-            initializeDateRangePicker('date_range')
+            initializeDateRangePicker('date_range', ["{{$date_range['start']}}", "{{$date_range['end']}}"])
 
 
             onSelectAllClick('grades')

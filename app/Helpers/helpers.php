@@ -1738,3 +1738,39 @@ function sysGuards()
 {
     return ['manager','school','supervisor','teacher','user'];
 }
+
+function checkDateRangeForCurrentYear($date) {
+    // Parse the input date with Carbon
+    $inputDate = \Carbon\Carbon::parse($date)->format('Y-m-d');
+
+    // Check if the input date was created successfully
+    if (!$inputDate) {
+        return "Invalid date format. Please use 'Y-m-d'.";
+    }
+
+    // Get the month and year from the input date
+    $month = (int)\Carbon\Carbon::parse($inputDate)->format('m');
+    $year = (int)\Carbon\Carbon::parse($inputDate)->format('Y');
+
+
+    // Set start and end years based on the month
+    if (in_array($month, [9, 10, 11, 12])) {
+        $startYear = $year;
+        $endYear = $year + 1;
+    } else {
+        $startYear = $year - 1;
+        $endYear = $year;
+
+    }
+
+    // Define the start and end dates using Carbon
+    $startDate = \Carbon\Carbon::create($startYear, 9, 1)->format('Y-m-d');
+    $endDate = \Carbon\Carbon::create($endYear, 7, 1)->format('Y-m-d');
+
+    // Check if the date is within the range (inclusive)
+    if ($inputDate >= $startDate && $inputDate <= $endDate) {
+        return ['start' => $startDate, 'end' => $endDate];
+    } else {
+        throw new Exception("The date is not within the current academic year.");
+    }
+}
