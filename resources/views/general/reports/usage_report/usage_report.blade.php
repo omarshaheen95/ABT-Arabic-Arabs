@@ -414,6 +414,121 @@
             ]
         }]
     });
+    @if(getGuard() != 'teacher')
+    @foreach($teachers as $key => $teachers_chunk)
+    Highcharts.chart('teacher_tests_{{$key}}', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                @foreach($teachers_chunk as $teacher)
+                    "{{$teacher->name}}",
+                @endforeach
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            }
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal',
+                pointWidth: 30,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y}',
+                    // rotation: -90,
+                    x: 10,
+                    color: '#000',
+                    style: {
+                        fontSize: '10px',
+
+                    }
+
+                }
+            }
+        },
+        series: [{
+            name: 'Below',
+            data: [@foreach($teachers_chunk as $teacher)
+                {{$teacher->failed_tests_statictics}},
+                @endforeach]
+        }, {
+            name: 'Above',
+            data: [
+                @foreach($teachers_chunk as $teacher)
+                    {{$teacher->passed_tests_statictics}},
+                @endforeach
+            ]
+        }]
+    });
+
+    Highcharts.chart('teacher_stories_tests_{{$key}}', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                @foreach($teachers_chunk as $teacher)
+                    "{{$teacher->name}}",
+                @endforeach
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            }
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal',
+                pointWidth: 30,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y}',
+                    // rotation: -90,
+                    x: 10,
+                    color: '#000',
+                    style: {
+                        fontSize: '10px',
+
+                    }
+
+                }
+            }
+        },
+        series: [{
+            name: 'Below',
+            data: [@foreach($teachers_chunk as $teacher)
+                {{$teacher->failed_story_tests_statictics}},
+                @endforeach]
+        }, {
+            name: 'Above',
+            data: [
+                @foreach($teachers_chunk as $teacher)
+                    {{$teacher->passed_story_tests_statictics}},
+                @endforeach
+            ]
+        }]
+    });
+    @endforeach
+    @endif
     @foreach($grades_data as $key => $grade_data)
     @if(is_int($key))
     Highcharts.chart("grade_tracker_{{$key}}", {
