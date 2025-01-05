@@ -220,11 +220,11 @@
         <div class="page">
             <div class="subpage-w">
                 <div class="row text-center justify-content-center">
-                    @if($key != 15 && is_int($key))
+                    @if($key != 13 && is_int($key))
                         <div class="col-xs-12">
                             <h5 class="section-title">Grade {{$key}} / Year {{$key + 1}}</h5>
                         </div>
-                    @elseif($key == 15)
+                    @elseif($key == 13)
                         <div class="col-xs-12">
                             <h5 class="section-title">Grade KG / Year 1</h5>
                         </div>
