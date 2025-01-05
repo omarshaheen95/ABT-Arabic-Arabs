@@ -38,8 +38,10 @@
                     <label>{{t('Select date')}} :</label>
                     <input autocomplete="disabled" class="form-control form-control-solid" id="date_range"
                            name="date_range_report" value="" placeholder="{{t('Pick date range')}}"/>
-                    <input type="hidden" name="start_date" id="start_date_range"/>
-                    <input type="hidden" name="end_date" id="end_date_range"/>
+                    <input type="hidden" name="start_date" id="start_date_range"
+                           value="{{isset($date_range['start']) ? $date_range['start']:''}}"/>
+                    <input type="hidden" name="end_date" id="end_date_range"
+                           value="{{isset($date_range['end']) ? $date_range['end']:''}}"/>
                 </div>
 
                 <div class="separator my-4"></div>
