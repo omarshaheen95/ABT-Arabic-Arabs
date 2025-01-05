@@ -70,7 +70,6 @@ class StudentReport
             $months->push($current->format('m/Y'));
             $current->addMonth();
         }
-        dd($types, $months, $current, $end);
 
         // Prepare the query
         $data = collect($types)->flatMap(function ($type) use ($months) {
@@ -92,7 +91,6 @@ class StudentReport
 
 
         $user_lessons_trackers = [];
-        dd($data);
         foreach ($data as $trackType)
         {
             foreach ($types as $type)
@@ -106,7 +104,6 @@ class StudentReport
                     ->count();
             }
         }
-        dd($user_lessons_trackers);
         $types = ['watching', 'reading', 'test'];
         $data = collect($types)->flatMap(function ($type) use ($months) {
             return $months->map(function ($month) use ($type) {
