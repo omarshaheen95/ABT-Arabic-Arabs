@@ -45,7 +45,7 @@ class UsageReport
         }
 
         $selected_grades = $request->get('grades', []);
-        $sysGrade = [15, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        $sysGrade = [13, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
         $grades = array_intersect($selected_grades, $sysGrade);
 
         $start_date = $request->get('start_date', false);
