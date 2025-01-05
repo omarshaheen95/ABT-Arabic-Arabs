@@ -328,6 +328,7 @@ class GeneralFunctions
             'school_id' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
+            'year_id' => 'required',
         ]);
         $report = New UsageReport($request);
         return $report->report();
