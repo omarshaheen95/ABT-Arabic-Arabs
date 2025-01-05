@@ -85,4 +85,25 @@ class UserTracker extends Model
                 return $this->type;
         }
     }
+
+
+    // Filter by users (schools, grades, year, guard, and guard_user)
+    public function scopeFilterByUsers(Builder $query, $schools, $grades, $year, $guard, $guard_user)
+    {
+        return $query->whereHas('user', function (Builder $query) use ($schools, $grades, $year, $guard, $guard_user) {
+            $query->filterByGradeAndYear($grades, $year)
+                ->filterBySchools($schools)
+                ->filterByGuard($guard, $guard_user);
+        });
+    }
+
+    // Filter by date range
+    public function scopeFilterByDateRange(Builder $query, $start_date, $end_date)
+    {
+        return $query->when($start_date, function (Builder $query) use ($start_date) {
+            $query->whereDate('created_at', '>=', $start_date);
+        })->when($end_date, function (Builder $query) use ($end_date) {
+            $query->whereDate('created_at', '<=', $end_date);
+        });
+    }
 }

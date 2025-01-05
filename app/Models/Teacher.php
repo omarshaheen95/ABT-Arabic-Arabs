@@ -143,5 +143,36 @@ class Teacher extends Authenticatable
         return $this->hasMany(SupervisorTeacher::class);
     }
 
+    // Filter by schools
+    public function scopeFilterBySchools(Builder $query, $schools)
+    {
+        return $query->whereIn('school_id', $schools->pluck('id'));
+    }
+
+    // Filter by supervisor
+    public function scopeFilterBySupervisor(Builder $query, $guard, $guard_user)
+    {
+        if ($guard === 'supervisor') {
+            $query->whereHas('supervisor_teachers', function (Builder $query) use ($guard_user) {
+                $query->where('supervisor_id', $guard_user->id);
+            });
+        }
+
+        return $query;
+    }
+
+    // Filter by grade
+    public function scopeFilterByGrade(Builder $query, $grade)
+    {
+        return $query->whereHas('teacher_students', function (Builder $query) use ($grade) {
+            $query->whereHas('user', function (Builder $query) use ($grade) {
+                $query->where(function (Builder $query) use ($grade) {
+                    $query->where('grade', $grade)
+                        ->orWhere('alternate_grade', $grade);
+                });
+            });
+        });
+    }
+
 
 }

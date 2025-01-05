@@ -13,6 +13,7 @@ use App\Models\UserTest;
 use App\Models\UserTracker;
 use App\Models\UserTrackerStory;
 use App\Reports\StudentReport;
+use App\Reports\UsageReport;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -324,9 +325,12 @@ class GeneralFunctions
     public function usageReport(Request $request)
     {
         $request->validate([
+            'school_id' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
         ]);
+        $report = New UsageReport($request);
+        return $report->report();
 
         if (getGuard() == 'supervisor'){
             $supervisor = Auth::guard('supervisor')->user();

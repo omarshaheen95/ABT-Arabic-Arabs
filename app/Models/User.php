@@ -353,5 +353,50 @@ class User extends Authenticatable
         $this->attributes['email'] = trim(strtolower($value));
     }
 
+    // Filter by grades and year
+    public function scopeFilterByGradeAndYear(Builder $query, array $grades, $year)
+    {
+        return $query->where(function (Builder $query) use ($grades) {
+            $query->whereIn('grade', $grades)
+                ->orWhereIn('alternate_grade', $grades);
+        })->where('year_id', $year->id);
+    }
+
+    // Filter by schools
+    public function scopeFilterBySchools(Builder $query, $schools)
+    {
+        return $query->whereIn('school_id', $schools->pluck('id'));
+    }
+
+    // Filter by guard (teacher/supervisor)
+    public function scopeFilterByGuard(Builder $query, $guard, $guard_user)
+    {
+        if ($guard === 'teacher') {
+            $query->whereHas('teacher_student', function (Builder $query) use ($guard_user) {
+                $query->where('teacher_id', $guard_user->id);
+            });
+        }
+
+        if ($guard === 'supervisor') {
+            $query->whereHas('teacher_student.teacher.supervisor_teachers', function (Builder $query) use ($guard_user) {
+                $query->where('supervisor_id', $guard_user->id);
+            });
+        }
+
+        return $query;
+    }
+
+    // Filter by date range
+    public function scopeFilterByDateRange(Builder $query, $start_date, $end_date)
+    {
+        return $query->when($start_date, function (Builder $query) use ($start_date) {
+            $query->whereDate('created_at', '>=', $start_date);
+        })->when($end_date, function (Builder $query) use ($end_date) {
+            $query->whereDate('created_at', '<=', $end_date);
+        });
+    }
+
+
+
 
 }
