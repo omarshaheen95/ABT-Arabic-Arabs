@@ -167,8 +167,8 @@ class Teacher extends Authenticatable
         return $query->whereHas('teacher_students', function (Builder $query) use ($grade) {
             $query->whereHas('user', function (Builder $query) use ($grade) {
                 $query->where(function (Builder $query) use ($grade) {
-                    $query->where('grade', $grade)
-                        ->orWhere('alternate_grade', $grade);
+                    $query->where('grade_id', $grade)
+                        ->orWhere('alternate_grade_id', $grade);
                 });
             });
         });

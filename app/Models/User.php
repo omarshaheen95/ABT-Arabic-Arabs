@@ -357,8 +357,8 @@ class User extends Authenticatable
     public function scopeFilterByGradeAndYear(Builder $query, array $grades, $year)
     {
         return $query->where(function (Builder $query) use ($grades) {
-            $query->whereIn('grade', $grades)
-                ->orWhereIn('alternate_grade', $grades);
+            $query->whereIn('grade_id', $grades)
+                ->orWhereIn('alternate_grade_id', $grades);
         })->where('year_id', $year->id);
     }
 
