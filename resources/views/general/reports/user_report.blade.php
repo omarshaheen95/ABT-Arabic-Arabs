@@ -428,12 +428,10 @@
     const learnData = [];
     const practiseData = [];
     const testData = [];
-    const playData = [];
     lessonsCategories.forEach(month => {
         learnData.push(userLessonsTrackers[month]['learn']);
         practiseData.push(userLessonsTrackers[month]['practise']);
         testData.push(userLessonsTrackers[month]['test']);
-        playData.push(userLessonsTrackers[month]['play']);
     });
 
     // Create the chart
@@ -473,10 +471,6 @@
                 name: 'Test',
                 data: testData
             },
-            {
-                name: 'Play',
-                data: playData
-            }
         ]
     });
 

@@ -58,7 +58,7 @@ class StudentReport
 
         $startDate = $student->created_at->format('Y-m-d');
         $endDate = now()->format('Y-m-d');
-        $types = ['learn', 'practise', 'test', 'play'];
+        $types = ['learn', 'practise', 'test'];
         // Generate a list of all months within the range
         $months = collect();
         $current = Carbon::parse($startDate);
@@ -104,6 +104,7 @@ class StudentReport
                     ->count();
             }
         }
+        dd($user_lessons_trackers);
         $types = ['watching', 'reading', 'test'];
         $data = collect($types)->flatMap(function ($type) use ($months) {
             return $months->map(function ($month) use ($type) {
@@ -147,7 +148,6 @@ class StudentReport
         $user_tracker = 0;
         $lessons_info = [];
         $d_user_tracker = UserTracker::query()->where('user_id', $student->id)->filter()->get();
-        dd($d_user_tracker);
         foreach ($student_lessons as $lesson)
         {
             $lesson_info  = [];
