@@ -219,48 +219,6 @@ class UsageReport
                 $teacher->failed_tests_statictics = $teacher_tests_statistics->where('status', 'Fail')->count();
 
                 $teacher->passed_tests_statictics = $teacher_tests_statistics->where('status', 'Pass')->count();
-
-                $tasks_statistics = UserLesson::query()
-                    ->whereHas('user', function (Builder $query) use ($schools, $grades, $year, $teacher, $guard, $guard_user) {
-                        $query->where(function (Builder $query) use ($grades, $teacher) {
-                            $query->whereIn('grade_id', $grades)
-                                ->orWhereIn('alternate_grade_id', $grades);
-                        })
-                            ->where('year_id', $year->id)
-                            ->whereIn('school_id', $schools->pluck('id'))
-                            ->whereHas('teacher_student', function (Builder $query) use ($teacher) {
-                                $query->where('teacher_id', $teacher->id);
-                            })
-                            ->when($guard == 'teacher', function (Builder $query) use ($guard_user) {
-                                $query->whereHas('teacher_student', function (Builder $query) use ($guard_user) {
-                                    $query->where('teacher_id', $guard_user->id);
-                                });
-                            })
-                            ->when($guard == 'supervisor', function (Builder $query) use ($guard_user) {
-                                $query->whereHas('teacher_student', function (Builder $query) use ($guard_user) {
-                                    $query->whereHas('teacher', function (Builder $query) use ($guard_user) {
-                                        $query->whereHas('supervisor_teachers', function (Builder $query) use ($guard_user) {
-                                            $query->where('supervisor_id', $guard_user->id);
-                                        });
-                                    });
-                                });
-                            });
-                    })
-                    ->whereDate('updated_at', '>=', $start_date)
-                    ->whereDate('updated_at', '<=', $end_date)
-                    ->get();
-
-                $teacher->corrected_tasks_statistics = $tasks_statistics
-                    ->where('status', 'corrected')
-                    ->count();
-
-                $teacher->returned_tasks_statistics = $tasks_statistics
-                    ->where('status', 'returned')
-                    ->count();
-
-                $teacher->pending_tasks_statistics = $tasks_statistics
-                    ->where('status', 'pending')
-                    ->count();
             }
             $teachers = $teachers->chunk(20);
         }else{
@@ -391,12 +349,10 @@ class UsageReport
                 $grades_data[$grade]['learn'] = $tracks->where('type', 'learn')->count();
                 $grades_data[$grade]['practise'] = $tracks->where('type', 'practise')->count();
                 $grades_data[$grade]['test'] = $tracks->where('type', 'test')->count();
-                $grades_data[$grade]['play'] = $tracks->where('type', 'play')->count();
 
                 $grades_data[$grade]['learn_avg'] = ($grades_data[$grade]['learn'] / $grades_data[$grade]['total_practice']) * 100;
                 $grades_data[$grade]['practise_avg'] = ($grades_data[$grade]['practise'] / $grades_data[$grade]['total_practice']) * 100;
                 $grades_data[$grade]['test_avg'] = ($grades_data[$grade]['test'] / $grades_data[$grade]['total_practice']) * 100;
-                $grades_data[$grade]['play_avg'] = ($grades_data[$grade]['play'] / $grades_data[$grade]['total_practice']) * 100;
             } else {
                 // القيم الافتراضية في حال عدم وجود نتائج
                 $grades_data[$grade] = array_merge($grades_data[$grade], [
@@ -404,11 +360,9 @@ class UsageReport
                     'learn' => 0,
                     'practise' => 0,
                     'test' => 0,
-                    'play' => 0,
                     'learn_avg' => 0,
                     'practise_avg' => 0,
                     'test_avg' => 0,
-                    'play_avg' => 0,
                 ]);
             }
 
