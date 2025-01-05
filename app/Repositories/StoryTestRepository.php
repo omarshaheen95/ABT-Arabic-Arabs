@@ -384,7 +384,7 @@ class StoryTestRepository implements StoryTestRepositoryInterface
         $tests = StudentStoryTest::query()->when($value = $request->get('school_id'), function (Builder $query) use ($value){
             $query-> whereRelation('user','school_id',$value);
         })->when($value = $request->get('teacher_id'), function (Builder $query) use ($value){
-            $query-> whereRelation('user.teacher_student','teacher_id',$value);
+            $query-> whereRelation('user.teacherUser','teacher_id',$value);
         })->whereIn('id',$request->get('row_id'))->get();
 
         foreach ($tests as $test){

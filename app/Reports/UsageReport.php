@@ -162,16 +162,16 @@ class UsageReport
                         })
                             ->where('year_id', $year->id)
                             ->whereIn('school_id', $schools->pluck('id'))
-                            ->whereHas('teacher_student', function (Builder $query) use ($teacher) {
+                            ->whereHas('teacherUser', function (Builder $query) use ($teacher) {
                                 $query->where('teacher_id', $teacher->id);
                             })
                             ->when($guard == 'teacher', function (Builder $query) use ($guard_user) {
-                                $query->whereHas('teacher_student', function (Builder $query) use ($guard_user) {
+                                $query->whereHas('teacherUser', function (Builder $query) use ($guard_user) {
                                     $query->where('teacher_id', $guard_user->id);
                                 });
                             })
                             ->when($guard == 'supervisor', function (Builder $query) use ($guard_user) {
-                                $query->whereHas('teacher_student', function (Builder $query) use ($guard_user) {
+                                $query->whereHas('teacherUser', function (Builder $query) use ($guard_user) {
                                     $query->whereHas('teacher', function (Builder $query) use ($guard_user) {
                                         $query->whereHas('supervisor_teachers', function (Builder $query) use ($guard_user) {
                                             $query->where('supervisor_id', $guard_user->id);
@@ -194,16 +194,16 @@ class UsageReport
                         })
                             ->where('year_id', $year->id)
                             ->whereIn('school_id', $schools->pluck('id'))
-                            ->whereHas('teacher_student', function (Builder $query) use ($teacher) {
+                            ->whereHas('teacherUser', function (Builder $query) use ($teacher) {
                                 $query->where('teacher_id', $teacher->id);
                             })
                             ->when($guard == 'teacher', function (Builder $query) use ($guard_user) {
-                                $query->whereHas('teacher_student', function (Builder $query) use ($guard_user) {
+                                $query->whereHas('teacherUser', function (Builder $query) use ($guard_user) {
                                     $query->where('teacher_id', $guard_user->id);
                                 });
                             })
                             ->when($guard == 'supervisor', function (Builder $query) use ($guard_user) {
-                                $query->whereHas('teacher_student', function (Builder $query) use ($guard_user) {
+                                $query->whereHas('teacherUser', function (Builder $query) use ($guard_user) {
                                     $query->whereHas('teacher', function (Builder $query) use ($guard_user) {
                                         $query->whereHas('supervisor_teachers', function (Builder $query) use ($guard_user) {
                                             $query->where('supervisor_id', $guard_user->id);
