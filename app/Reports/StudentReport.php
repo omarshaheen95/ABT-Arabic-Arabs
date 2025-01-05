@@ -66,7 +66,7 @@ class StudentReport
 
 
         //check month of start date and end date
-        while ($current->month  <= $end->month ) {
+        while ($current  <= $end ) {
             $months->push($current->format('m/Y'));
             $current->addMonth();
         }
