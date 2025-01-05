@@ -372,13 +372,13 @@ class User extends Authenticatable
     public function scopeFilterByGuard(Builder $query, $guard, $guard_user)
     {
         if ($guard === 'teacher') {
-            $query->whereHas('teacher_student', function (Builder $query) use ($guard_user) {
+            $query->whereHas('teacherUser', function (Builder $query) use ($guard_user) {
                 $query->where('teacher_id', $guard_user->id);
             });
         }
 
         if ($guard === 'supervisor') {
-            $query->whereHas('teacher_student.teacher.supervisor_teachers', function (Builder $query) use ($guard_user) {
+            $query->whereHas('teacherUser.teacher.supervisor_teachers', function (Builder $query) use ($guard_user) {
                 $query->where('supervisor_id', $guard_user->id);
             });
         }

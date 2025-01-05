@@ -164,7 +164,7 @@ class Teacher extends Authenticatable
     // Filter by grade
     public function scopeFilterByGrade(Builder $query, $grade)
     {
-        return $query->whereHas('teacher_students', function (Builder $query) use ($grade) {
+        return $query->whereHas('teacher_users', function (Builder $query) use ($grade) {
             $query->whereHas('user', function (Builder $query) use ($grade) {
                 $query->where(function (Builder $query) use ($grade) {
                     $query->where('grade_id', $grade)
