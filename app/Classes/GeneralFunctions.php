@@ -12,6 +12,7 @@ use App\Models\UserLesson;
 use App\Models\UserTest;
 use App\Models\UserTracker;
 use App\Models\UserTrackerStory;
+use App\Reports\StudentReport;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -144,6 +145,9 @@ class GeneralFunctions
 
     public function userReport(Request $request, $id)
     {
+        $student = User::query()->with(['school', 'teacher'])->filter()->findOrFail($id);
+        $report = New StudentReport($student);
+        return $report->report();
         $title = t('Student report');
         $student = User::query()->filter($request)->findOrFail($id);
         if ($student->teacherUser && $student->teacherUser->teacher) {

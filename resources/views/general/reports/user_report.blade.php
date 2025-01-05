@@ -5,272 +5,384 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $student->name }}</title>
-    <meta name="description" content="{{ isset(cached()->name) ? cached()->name:config('app.name') }}">
+    <title>Student Report | {{$student->name}}</title>
+    <meta name="description" content="{{ isset(cached()->name) ? cached()->name:'Arabic-Arabs student report' }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="{{ asset('print/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('print/css/blue.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('print/css/custom-rtl.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('print/css/print.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets_v1/web_assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('report_assets/css/print.css') }}?v={{time()}}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('report_assets/css/report.css') }}?v={{time()}}" rel="stylesheet" type="text/css"/>
+    <script src="{{ asset('report_assets/js/print/new_highcharts.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('report_assets/js/print/highcharts-more.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('report_assets/js/print/rounded-corners.js') }}" type="text/javascript"></script>
 
     <!-- Favicon -->
     @if(isset(cached()->logo_min))
         <link rel="shortcut icon" href="{{ asset(cached()->logo_min) }}"/>
     @endif
-    <script src="{{ asset('print/js/highcharts.js') }}"></script>
-    <style>
-        tspan {
-            font-weight: bold;
-        }
-
-        .highcharts-plot-line-label-s {
-            font-weight: bold !important;
-        }
-
-        .table thead tr td, .table tbody tr td {
-            font-size: 16px !important;
-            font-weight: bold !important;
-            border: 3px solid #00FF00 !important;
-        }
-
-        .logo-name {
-            font-weight: bolder !important;
-            font-size: 45px !important;
-            color: #223F99 !important;
-            text-align: center !important
-        }
-
-        .table.lesson_table tr td {
-            font-size: 12px !important;
-            font-weight: bold;
-            border: 1px solid #000 !important;
-
-        }
-
-        .table.lesson_table:first-child thead tr {
-            background-color: #ffd75d !important;
-        }
-
-        .table.lesson_table thead tr td {
-            background-color: #ffd75d !important;
-        }
-
-        @media print {
-            tspan {
-                font-weight: bold !important;
-            }
-
-            .highcharts-plot-line-label-s {
-                font-weight: bold !important;
-            }
-
-            .table thead tr td, .table tbody tr td {
-                font-size: 16px !important;
-                font-weight: bold !important;
-                border: 3px solid #00FF00 !important;
-            }
-
-            .table.lesson_table tr td {
-                font-size: 12px !important;
-                font-weight: bold;
-                border: 1px solid #000 !important;
-            }
-
-            .table.lesson_table:first-child thead tr {
-                background-color: #ffd75d !important;
-            }
-
-            .table.lesson_table thead tr td {
-                background-color: #ffd75d !important;
-            }
-
-
-            .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
-                float: left !important;
-            }
-
-            .col-sm-12 {
-                width: 100% !important;
-            }
-
-            .col-sm-11 {
-                width: 91.66666667% !important;
-            }
-
-            .col-sm-10 {
-                width: 83.33333333% !important;
-            }
-
-            .col-sm-9 {
-                width: 75% !important;
-            }
-
-            .col-sm-8 {
-                width: 66.66666667% !important;
-            }
-
-            .col-sm-7 {
-                width: 58.33333333% !important;
-            }
-
-            .col-sm-6 {
-                width: 50% !important;
-            }
-
-            .col-sm-5 {
-                width: 41.66666667% !important;
-            }
-
-            .col-sm-4 {
-                width: 33.33333333% !important;
-            }
-
-            .col-sm-3 {
-                width: 25% !important;
-            }
-
-            .col-sm-2 {
-                width: 16.66666667% !important;
-            }
-
-            .col-sm-1 {
-                width: 8.33333333% !important;
-            }
-        }
-    </style>
-    <title>{{ $student->name }}</title>
-    <style>
-        body{
-            width: 100%;
-            /* height: 100%; */
-            margin: 0;
-            padding: 0;
-            justify-content: center;
-            margin: 0 auto;
-            background: transparent;
-        }
-    </style>
 
 </head>
-<body id="capture">
+<body>
 
 
 <div class="page">
-    <div class="subpage-w" style="padding-bottom: 0">
-        <div class="row" style="margin-top:20px;">
-            <div class="col-xs-12">
-                <h1 class="text-center text-red" style="font-weight: bold; font-size: 40px">Student Report</h1>
+    <div class="subpage-w">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-8 justify-content-center text-center">
+                <img src="{{!settingCache('logo')? asset('logo.svg?v=1'):asset(settingCache('logo'))}}" width="100%"
+                     alt="">
             </div>
-            <div class="col-xs-8 col-xs-offset-2">
-                <div class="text-center">
-                    <img width="80%" src="{{ asset('logo.svg') }}"/>
+        </div>
+        <div class="row text-center justify-content-center mt-5">
+            <div class="col-6">
+                <h1 class="main-color">Student Report</h1>
+            </div>
+            <div class="col-6">
+                <h1 class="main-color">تقرير الطالب</h1>
+            </div>
+
+
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <img src="{{asset('report_assets/images/attainment_report_1_arabs_page.svg')}}"
+                     style="max-height: 350px; width: 50%" alt="">
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <h4 class="main-color my-2">School : {{$student->school->name}} </h4>
+                <h4 class="main-color my-2">Teacher : {{optional($student->teacher)->name}} </h4>
+                <br />
+                <h5>{{t('Release Date')}} : {{now()->format('Y-m-d')}}</h5>
+                <h5>www.abt-assessments.com</h5>
+                <h5>support@abt-assessments.com</h5>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <img src="{{asset('report_assets/images/footer-logos.svg')}}?v=1" width="100%" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page">
+    <div class="subpage-w">
+        <div class="row text-center justify-content-center">
+            <div class="col-11">
+                <h5 class="section-title">{{t('Student Report - Basic Data') }}</h5>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-11">
+                <div class="table-container">
+                    <table class="table m-0">
+                        <tbody>
+                        <tr class="text-center">
+                            <td class="sub-td">Student</td>
+                            <td>{{$student->name}}</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="sub-td">Email</td>
+                            <td>{{$student->email}}</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="sub-td">Student ID</td>
+                            <td>{{$student->id_number}}</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="sub-td" width="45%">School</td>
+                            <td>
+                                {{$student->school->name}}
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="sub-td">Teacher</td>
+                            <td>{{optional($student->teacher)->name}}</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="sub-td">Grade</td>
+                            <td>{{$student->grade_name}}</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="sub-td">Section</td>
+                            <td>{{$student->section}}</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="sub-td">Gender</td>
+                            <td>{{$student->gender}}</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="sub-td">Nationality</td>
+                            <td>{{$student->nationality}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <div class="row">
-            <div class="col-xs-12 text-center">
-                <table class="table table-bordered text-center">
-                    <tbody>
-                    <tr>
-                        <td width="40%">Student Name</td>
-                        <td>{{$student->name}}</td>
-                    </tr>
-                    <tr>
-                        <td width="40%">Email</td>
-                        <td>{{$student->email}}</td>
-                    </tr>
-                    <tr>
-                        <td width="40%">Teacher Name</td>
-                        <td>{{$teacher->name ?? ''}}</td>
-                    </tr>
-                    <tr>
-                        <td width="40%">School</td>
-                        <td>{{$student->school->name}}</td>
-                    </tr>
-                    <tr>
-                        <td width="40%">Grade</td>
-                        <td>{{$student->grade->grade_name}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+    </div>
+</div>
+<div class="page">
+    <div class="subpage-w">
+        <div class="row text-center justify-content-center">
+            <div class="col-11">
+                <h5 class="section-title">{{t('Student Report - Overall Data') }}</h5>
             </div>
         </div>
-        <br/>
-        <div class="row text-center">
-            <img src="{{asset('website/images/features.bmp')}}" width="80%">
+        <div class="row text-center justify-content-center">
+            <div class="col-11">
+                <h5>{{t('Lessons - Overall Data') }}</h5>
+            </div>
         </div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <div class="row text-center">
-            <h5 style="font-weight: bold">Powered by A.B.T Education.</h5>
+        <div class="row justify-content-center">
+            <div class="col-11">
+                <div class="table-container">
+                    <table class="table m-0">
+                        <thead>
+                        <tr class="text-center">
+                            <th class="above-td">Above</th>
+                            <th class="below-td">Below</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-center">
+                            <td>{{$passed_lessons}}</td>
+                            <td>{{$failed_lessons}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <br/>
-        <br/>
-        <br/>
-        <div class="row text-center">
-            <img src="{{asset('website/images/logos_banner.bmp')}}" width="100%">
+        <div class="row text-center justify-content-center mt-4">
+            <div class="col-11">
+                <h5>{{t('Stories - Overall Data') }}</h5>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-11">
+                <div class="table-container">
+                    <table class="table m-0">
+                        <thead>
+                        <tr class="text-center">
+                            <th class="above-td">Above</th>
+                            <th class="below-td">Below</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-center">
+                            <td>{{$passed_stories}}</td>
+                            <td>{{$failed_stories}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center justify-content-center mt-4">
+            <div class="col-11">
+                <h5>{{t('Lessons Assignments - Overall Data') }}</h5>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-11">
+                <div class="table-container">
+                    <table class="table m-0">
+                        <thead>
+                        <tr class="text-center">
+                            <th class="above-td">Completed</th>
+                            <th class="below-td">Uncompleted</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-center">
+                            <td>{{$completed_lessons}}</td>
+                            <td>{{$uncompleted_lessons}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center justify-content-center mt-4">
+            <div class="col-11">
+                <h5>{{t('Stories Assignments - Overall Data') }}</h5>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-11">
+                <div class="table-container">
+                    <table class="table m-0">
+                        <thead>
+                        <tr class="text-center">
+                            <th class="above-td">Completed</th>
+                            <th class="below-td">Uncompleted</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-center">
+                            <td>{{$completed_stories}}</td>
+                            <td>{{$uncompleted_stories}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center justify-content-center mt-4">
+            <div class="col-11">
+                <h5>{{t('Stories Records - Overall Data') }}</h5>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-11">
+                <div class="table-container">
+                    <table class="table m-0">
+                        <thead>
+                        <tr class="text-center">
+                            <th class="inline-td">
+                                Pending
+                            </th>
+                            <th class="above-td">
+                                Corrected
+                            </th>
+                            <th class="below-td">
+                                Returned
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-center">
+                            <td>{{$pending_stories}}</td>
+                            <td>{{$corrected_stories}}</td>
+                            <td>{{$returned_stories}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page">
+    <div class="subpage-w">
+        <div class="row text-center justify-content-center">
+            <div class="col-11">
+                <h5 class="section-title">{{t('Tracking Overall Data') }}</h5>
+            </div>
+        </div>
+        <div class="row text-center justify-content-center">
+            <div class="col-11">
+                <h5>{{t('Tracking Lessons') }}</h5>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div id="lessons_tacking"></div>
+            </div>
+        </div>
+        <hr />
+        <div class="row text-center justify-content-center">
+            <div class="col-11">
+                <h5>{{t('Tracking Stories') }}</h5>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div id="stories_tacking"></div>
+            </div>
         </div>
     </div>
 </div>
 @foreach($lessons_info as $lessons)
     <div class="page">
-        <div class="subpage-w" style="padding-bottom: 0;padding-top: 0; ">
-            @foreach($lessons as $lesson)
-                @if($loop->last && !$loop->first)
-                    <hr style="border-top: 2px solid #c5c5c5;"/>
-                @endif
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h4 class="text-center" style="font-weight: bold">{{$lesson['lesson']->name}} - {{$lesson['lesson']->level}} </h4>
-                        <table class="table table-bordered text-center lesson_table">
-                            <thead>
-                            <td>Assessment Score</td>
-                            <td>Time Consumed</td>
-                            <td>Assessment Date</td>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                @if(isset($lesson['user_test']) && !is_null($lesson['user_test']))
-                                    <td>{{$lesson['user_test']->total_per}}</td>
-                                    <td>{{$lesson['time_consumed']}}</td>
-                                    <td>{{optional($lesson['user_test']->created_at)->format('d M Y')}}</td>
+        <div class="subpage-w">
+            <div class="row text-center justify-content-center">
+                <h5 class="section-title">{{t('Student interaction with lessons') }}</h5>
+            </div>
+            <br>
+            <br>
+            <div class="row justify-content-center">
+                <table class="table m-0">
+                    <thead>
+                    <tr class="text-center">
+                        <th class="main-td">Lesson</th>
+                        <th class="main-td small-2x">Assessment Score</th>
+                        <th class="main-td small-2x">Time Consumed</th>
+                        <th class="main-td small-2x">Assessment Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($lessons as $lesson)
+                        <tr class="text-center">
+                            <td>{{$lesson['lesson']->name}}</td>
+                            @if(isset($lesson['user_test']) && !is_null($lesson['user_test']))
+                                <td class="small-2x">{{$lesson['user_test']->total_per}}</td>
+                                <td class="small-2x">{{$lesson['time_consumed']}}</td>
+                                <td class="small-2x">{{optional($lesson['user_test']->created_at)->format('d M Y')}}</td>
 
-                                @else
+                            @else
 
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                @endif
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-xs-5">
-                        <div id="container_lesson_bar_{{ optional($lesson['user_test'])->id }}"
-                             style="height: 330px"></div>
-                    </div>
-                    <div class="col-xs-7">
-                        <div id="lesson_tracker_{{ optional($lesson['lesson'])->id }}"
-                             style="height: 330px"></div>
-                    </div>
+                                <td class="small-2x"></td>
+                                <td class="small-2x"></td>
+                                <td class="small-2x"></td>
+                            @endif
 
-                </div>
-            @endforeach
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endforeach
+@foreach($stories_info as $stories)
+    <div class="page">
+        <div class="subpage-w">
+            <div class="row text-center justify-content-center">
+                <h5 class="section-title">{{t('Student interaction with stories') }}</h5>
+            </div>
+            <br>
+            <br>
+            <div class="row justify-content-center">
+                <table class="table m-0">
+                    <thead>
+                    <tr class="text-center">
+                        <th class="main-td">Story</th>
+                        <th class="main-td small-2x">Assessment Score</th>
+                        <th class="main-td small-2x">Time Consumed</th>
+                        <th class="main-td small-2x">Assessment Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($stories as $story)
+                        <tr class="text-center">
+                            <td>{{$story['story']->name}}</td>
+                            @if(isset($story['user_test']) && !is_null($story['user_test']))
+                                <td class="small-2x">{{$story['user_test']->total_per}}</td>
+                                <td class="small-2x">{{$story['time_consumed']}}</td>
+                                <td class="small-2x">{{optional($story['user_test']->created_at)->format('d M Y')}}</td>
 
+                            @else
+
+                                <td class="small-2x"></td>
+                                <td class="small-2x"></td>
+                                <td class="small-2x"></td>
+                            @endif
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+@endforeach
 
 <script src="{{ asset('assets/vendors/general/jquery/dist/jquery.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/vendors/general/bootstrap/dist/js/bootstrap.min.js') }}" type="text/javascript"></script>
@@ -280,7 +392,9 @@
 
 
 <script type="text/javascript">
+
     $(document).ready(function () {
+
         //window.print();
     });
 </script>
@@ -305,179 +419,119 @@
         }
     };
     var colors = ['#2525ef', '#0fee00', '#f16e31', '#c8018b',];
-    @foreach($lessons_info as $lessons)
-    @foreach($lessons as $lesson)
-    @if($lesson['user_test'])
-    new Highcharts.Chart({
+    Highcharts.setOptions({
+        colors: ['#ec4102', '#47e51c', '#24CBE5', '#FFF263', '#FF9655', '#FFF263', '#6AF9C4']
+    });
+    const userLessonsTrackers = <?php echo json_encode($user_lessons_trackers); ?>;
+    // Extract categories (months) and series data
+    const lessonsCategories = Object.keys(userLessonsTrackers);
+    const learnData = [];
+    const practiseData = [];
+    const testData = [];
+    const playData = [];
+    lessonsCategories.forEach(month => {
+        learnData.push(userLessonsTrackers[month]['learn']);
+        practiseData.push(userLessonsTrackers[month]['practise']);
+        testData.push(userLessonsTrackers[month]['test']);
+        playData.push(userLessonsTrackers[month]['play']);
+    });
 
+    // Create the chart
+    Highcharts.chart('lessons_tacking', {
         chart: {
-            renderTo: 'container_lesson_bar_{{ $lesson['user_test']->id }}',
-            type: 'column'
+            type: 'line'
         },
-
+        title: {
+            text: 'Monthly Activity Tracker'
+        },
         xAxis: {
-            categories: [
-                '',
-            ],
-            labels: {
-                style: {
-                    color: "#F00",
-                    fontSize: "6px",
-                }
-            },
-
+            categories: lessonsCategories // Months as categories
         },
-
         yAxis: {
             title: {
-                text: ''
-            },
-            tickInterval: 10,
-            min: 0,
-            max: 100,
-
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0,
-                events: {
-                    legendItemClick: function () {
-                        return false;
-                    }
-                }
-            },
-            allowPointSelect: false,
-            series: {
-                animation: false,
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.y} %',
-                    color: '#000'
-                }
+                text: 'Activity Count'
             }
         },
-
-        title: {
-            text: ' ',
-            useHTML: Highcharts.hasBidiBug
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: true
+            }
         },
-
-        legend: {
-            useHTML: Highcharts.hasBidiBug
-        },
-
-        tooltip: {
-            useHTML: true
-        },
-
         series: [
             {
-                name: "{{$lesson['lesson']->name}}",
-                colorByPoint: true,
-                data: [
-                    {
-                        name: "{{$lesson['lesson']->name}}", y: {{$lesson['user_test']->total * 2}}, color: '#C50FF7'
-                    }
-                ]
+                name: 'Learn',
+                data: learnData
+            },
+            {
+                name: 'Practise',
+                data: practiseData
+            },
+            {
+                name: 'Test',
+                data: testData
+            },
+            {
+                name: 'Play',
+                data: playData
             }
-            ]
-
-
-
-            });
-    @endif
-    Highcharts.setOptions({
-        colors: ['#f0f303', '#00a5ee', '#ec4102', '#47e51c',  '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+        ]
     });
-    @if($lesson['tracker'])
-        Highcharts.chart("lesson_tracker_{{ $lesson['lesson']->id }}", {
+
+    const userStoriesTrackers = <?php echo json_encode($user_stories_trackers); ?>;
+    // Extract categories (months) and series data
+    const storiesCategories = Object.keys(userStoriesTrackers);
+    const watchingData = [];
+    const readingData = [];
+    const testStoryData = [];
+    storiesCategories.forEach(month => {
+        watchingData.push(userStoriesTrackers[month]['watching']);
+        readingData.push(userStoriesTrackers[month]['reading']);
+        testStoryData.push(userStoriesTrackers[month]['test']);
+    });
+
+    // Create the chart
+    Highcharts.chart('stories_tacking', {
         chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
+            type: 'line'
         },
         title: {
-            color: "#F00",
-            text: null,
-            style: {
-                font: 'bold 15px "Trebuchet MS", Verdana, sans-serif',
-                color: '#000',
+            text: 'Monthly Activity Tracker'
+        },
+        xAxis: {
+            categories: storiesCategories // Months as categories
+        },
+        yAxis: {
+            title: {
+                text: 'Activity Count'
             }
-        },
-        legend: {
-            align:'center',
-            itemStyle: {
-                fontSize:'14px',
-                color: '#000',
-                align:'center',
-            },
-        },
-        tooltip: {
-            pointFormat: '<b>{point.percentage:.1f}%</b>'
         },
         plotOptions: {
-            pie: {
-                allowPointSelect: false,
-                cursor: 'pointer',
+            line: {
                 dataLabels: {
-                    enabled: true,
-                    format: '<br>{point.percentage:.1f} %',
-                    distance: -50,
-                    style: {
-                        font: 'bold 11px "Trebuchet MS", Verdana, sans-serif',
-                        color: "#000",
-                        textOutline: 0
-                    }
+                    enabled: true
                 },
-                showInLegend: true,
-            },
-            series: {
-                animation: false
+                enableMouseTracking: true
             }
         },
-
-
-
-        series: [{
-            type: 'pie',
-            name: 'Rate',
-            data: [
-                ['Learn', {{ $lesson['learnings'] }}],
-                ['Practise', {{ $lesson['trainings'] }}],
-                ['Assess your self', {{ $lesson['tests'] }}],
-            ]
-        }]
+        series: [
+            {
+                name: 'Watching',
+                data: watchingData
+            },
+            {
+                name: 'Reading',
+                data: readingData
+            },
+            {
+                name: 'Test Story',
+                data: testStoryData
+            }
+        ]
     });
-    @endif
-    @endforeach
-    @endforeach
 
 
 </script>
-{{--<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>--}}
-{{--<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>--}}
-{{--<script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>--}}
-{{--<script>--}}
-{{--    html2canvas(document.querySelector("#capture")).then(canvas => {--}}
-{{--        document.body.appendChild(canvas);--}}
-{{--        console.log('test');--}}
-{{--        html2canvas(canvas, {--}}
-{{--            onrendered: function(canvas) {--}}
-{{--                var imgData = canvas.toDataURL(--}}
-{{--                    'image/png');--}}
-{{--                var doc = new jsPDF('p', 'mm');--}}
-{{--                doc.addImage(imgData, 'PNG', 10, 10);--}}
-{{--                doc.save('sample-file.pdf');--}}
-{{--            }--}}
-{{--        });--}}
-{{--    });--}}
-{{--    // html2canvas(document.querySelector("#capture")).then(canvas => {--}}
-{{--    //     document.body.appendChild(canvas)--}}
-{{--    // });--}}
-
-{{--</script>--}}
-
 </body>
