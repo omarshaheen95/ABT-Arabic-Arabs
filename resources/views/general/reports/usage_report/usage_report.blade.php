@@ -464,7 +464,7 @@
         xAxis: {
             categories: [
                 @foreach($teachers as $teacher)
-                    "{{$teacher->name}}",
+                    "{{trim($teacher->name)}}",
                 @endforeach
             ]
         },
@@ -522,7 +522,7 @@
         xAxis: {
             categories: [
                 @foreach($teachers as $teacher)
-                    "{{$teacher->name}}",
+                    "{{trim($teacher->name)}}",
                 @endforeach
             ]
         },
