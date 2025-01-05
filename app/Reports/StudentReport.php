@@ -147,6 +147,7 @@ class StudentReport
         $user_tracker = 0;
         $lessons_info = [];
         $d_user_tracker = UserTracker::query()->where('user_id', $student->id)->filter()->get();
+        dd($d_user_tracker);
         foreach ($student_lessons as $lesson)
         {
             $lesson_info  = [];
