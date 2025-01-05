@@ -70,6 +70,7 @@ class StudentReport
             $months->push($current->format('m/Y'));
             $current->addMonth();
         }
+        dd($types, $months, $current, $end);
 
         // Prepare the query
         $data = collect($types)->flatMap(function ($type) use ($months) {
