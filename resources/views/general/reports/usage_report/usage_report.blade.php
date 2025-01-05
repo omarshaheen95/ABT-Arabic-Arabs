@@ -213,24 +213,7 @@
             </div>
         </div>
     @endforeach
-    @foreach($teachers as $key => $teachers_chunk)
-        <div class="page">
-            <div class="subpage-w">
-                <div class="row text-center justify-content-center">
-                    <div class="col-11">
-                        <h5 class="section-title">{{t('Assignment Status') }}</h5>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <div class="row justify-content-center">
-                    <div class="col-11">
-                        <div id="teacher_assignments_{{$key}}" style="height: 650px"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
+
 @endif
 @foreach($grades_data as $key => $grade_data)
     @if($key >= 1 && $key <= 15)
