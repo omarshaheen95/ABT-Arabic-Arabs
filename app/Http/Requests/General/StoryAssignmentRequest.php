@@ -23,7 +23,7 @@ class StoryAssignmentRequest extends FormRequest
             'stories_ids.*' => ['exists:stories,id'],
             'sections' => ['nullable', 'array'],
             'students' => ['required', 'array',],
-            'deadline' => ['nullable'],
+            'deadline' => ['required'],
             'exclude_students' => ['required','in:1,2'],
         ];
         if (Route::currentRouteName() == getGuard().'.story_assignment.store' || Route::currentRouteName() == getGuard().'.story_assignment.create')

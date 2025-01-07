@@ -22,7 +22,7 @@ class LessonAssignmentRequest extends FormRequest
             'lessons_ids.*' => ['exists:lessons,id'],
             'sections' => ['nullable', 'array'],
             'students' => ['required', 'array', ''],
-            'deadline' => ['nullable'],
+            'deadline' => ['required'],
             'exclude_students' => ['required', 'in:1,2'],
 //            'test_assignment' => ['sometimes'],
         ];
