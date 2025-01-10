@@ -35,6 +35,8 @@ Route::group(['namespace' => 'Teacher'], function() {
     Route::get('usage_report', 'SettingController@usageReport')->name('report.usage_report');
     Route::get('pre_usage_report', 'SettingController@preUsageReport')->name('report.pre_usage_report');
 
+    Route::post('student_assign', [\App\Http\Controllers\Teacher\StudentController::class, 'studentAssign'])->name('student.student_assign');
+
 
 
 
