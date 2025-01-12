@@ -53,7 +53,7 @@
                             <div class="d-flex justify-content-center question-control btn-wizard">
                                 <div class="text-center">
                                     <button type="button" class="d-none btn btn-light border" id="previousQuestion">
-                                        <span class="txt" style="font-size: 18px">  Back </span>
+                                        <span class="txt" style="font-size: 18px">  السابق </span>
                                     </button>
                                 </div>
                                 <div class="text-center">
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="text-center">
                                     <button type="button" class="btn btn-theme" id="nextQuestion">
-                                        <span class="txt" style="font-size: 18px"> Next  </span></button>
+                                        <span class="txt" style="font-size: 18px"> التالي  </span></button>
                                 </div>
                             </div>
 
