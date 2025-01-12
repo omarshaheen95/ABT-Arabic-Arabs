@@ -511,6 +511,31 @@
         getTeacherBySchool()
         getSectionBySchool()
         getSectionByTeacher()
+        $('#students_assign').on('click',function () {
+            showAlert('{{t('Students Assign')}}','{{t('Do you really want to assign students?')}}','warning','{{t('Yes')}}','{{t('No')}}',(callback)=>{
+                if (callback){
+                    showLoadingModal()
+                    $.ajax({
+                        url: "{{route('teacher.student.student_assign')}}",
+                        type: 'POST',
+                        data: {
+                            '_token': '{{csrf_token()}}',
+                            user_id: getSelectedRows(),
+                        },
+                        success: function (response) {
+                            table.DataTable().draw(true);
+                            toastr.success(response.message);
+                            hideLoadingModal()
+                        },
+                        error: function (error) {
+                            toastr.error(error.responseJSON.message);
+                            hideLoadingModal()
+                        }
+                    });
+                }
+            })
+        })
+
     </script>
 
 @endsection
