@@ -158,10 +158,10 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth']], function (){
 
     });
 
-    Route::get('profile', 'UserController@profile')->name('profile');
-    Route::post('profile_update', 'UserController@profileUpdate')->name('profile_update');
-    Route::get('update_password', 'UserController@updatePasswordView')->name('update_password_view');
-    Route::post('update_password', 'UserController@updatePassword')->name('update_password');
+//    Route::get('profile', 'UserController@profile')->name('profile');
+//    Route::post('profile_update', 'UserController@profileUpdate')->name('profile_update');
+//    Route::get('update_password', 'UserController@updatePasswordView')->name('update_password_view');
+//    Route::post('update_password', 'UserController@updatePassword')->name('update_password');
 
 
 

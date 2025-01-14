@@ -128,9 +128,9 @@
                     {{--                    <li class="nav-item">--}}
                     {{--                        <a class="nav-link" href="{{ route('package_upgrade') }}"> {{w('Subscription')}} </a>--}}
                     {{--                    </li>--}}
-                    <li class="nav-item {{Request::is('profile') ? 'active':''}}">
-                        <a class="nav-link" href="{{ route('profile') }}"> الملف الشخصي </a>
-                    </li>
+{{--                    <li class="nav-item {{Request::is('profile') ? 'active':''}}">--}}
+{{--                        <a class="nav-link" href="{{ route('profile') }}"> الملف الشخصي </a>--}}
+{{--                    </li>--}}
 
                     <li class="nav-item">
                         <a class="nav-link btn btn-soft-danger btn-logout" href="#">
