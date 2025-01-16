@@ -421,10 +421,9 @@ class UserRepository implements UserRepositoryInterface
             'grade_id' => 'required',
         ]);
 
-        $school_id = $request->get('school_id');
-
-        $students = User::with(['year'])
-            ->where('school_id', $school_id)->filter()
+        $students = User::query()
+            ->with(['year'])
+            ->filter()
             ->select(['id', 'name as student_name', 'id_number as std_id'])->get()->values()->toArray();
 //        dd($students);
 
