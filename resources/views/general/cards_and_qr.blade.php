@@ -5,8 +5,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{{ asset('assets_v1/lib/bootstrap-5.0.2/css/bootstrap.rtl.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets_v1/print/print.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets_v1/print/student_card.css') }}?v={{time()}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('report_assets/css/print.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('report_assets/css/student_card.css') }}?v={{time()}}" rel="stylesheet" type="text/css" />
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{!settingCache('logo_min')? asset('logo_m.svg'):asset(settingCache('logo_min'))}}" />
 
