@@ -50,7 +50,7 @@
                 @endcan
                     @can('export users')
                         <li><a class="dropdown-item not-deleted-students" href="#!"
-                               onclick="excelExport('{{ route("school.reports.pdfReports") }}')">{{t('Students Bulk Reports')}}</a>
+                               onclick="excelExport('{{ route(getGuard().".reports.pdfReports") }}')">{{t('Students Bulk Reports')}}</a>
                     @endif
                 @can('delete users')
                     <li><a class="dropdown-item text-danger d-none checked-visible" href="#!" id="delete_rows">{{t('Delete')}}</a></li>
