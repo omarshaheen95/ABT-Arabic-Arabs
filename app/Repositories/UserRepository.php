@@ -417,13 +417,8 @@ class UserRepository implements UserRepositoryInterface
     public function pdfReports(Request $request)
     {
         $request->validate([
-            'year_id' => 'required',
-            'level_id' => 'required|array|min:1|max:1',
-        ], [
-            'year_id.required' => 'The year field is required.',
-            'level_id.required' => 'The level field is required.',
-            'level_id.min' => 'The level must be at least 1.',
-            'level_id.max' => 'The level may not be greater than 1.',
+            'school_id' => 'required',
+            'grade_id' => 'required',
         ]);
 
         $school_id = Auth::guard('school')->user()->id;

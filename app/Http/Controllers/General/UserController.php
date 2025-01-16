@@ -228,10 +228,6 @@ class UserController extends Controller
 
     public function pdfReports(Request $request)
     {
-        $request->validate([
-            'school_id' => 'required',
-            'grade_id' => 'required',
-            ]);
         return $this->userRepository->pdfReports($request);
     }
 }
