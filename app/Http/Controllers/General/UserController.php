@@ -225,4 +225,13 @@ class UserController extends Controller
     {
         return $this->userRepository->resetPasswords($request);
     }
+
+    public function pdfReports(Request $request)
+    {
+        $request->validate([
+            'school_id' => 'required',
+            'grade_id' => 'required',
+            ]);
+        return $this->userRepository->pdfReports($request);
+    }
 }

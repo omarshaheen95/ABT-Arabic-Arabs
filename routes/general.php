@@ -64,6 +64,7 @@ Route::group(['namespace' => 'General'], function () {
     Route::post('unassigned_user_teacher', 'UserController@unassignedUserTeacher')->name('user.unassigned_user_teacher');
     Route::post('user/{id}/restore', 'UserController@restoreUser')->name('user.restore');
     Route::get('my_students', 'UserController@myStudents')->name('my-students');
+    Route::post('/pdfReports', 'UserController@pdfReports')->name('reports.pdfReports');
 //
 //
     //Lessons Test

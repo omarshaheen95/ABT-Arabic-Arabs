@@ -189,3 +189,4 @@ Route::get('update_users', function () {
 
 
 });
+Route::get('user/{id}/report', 'General\UserController@report')->name('user.report');

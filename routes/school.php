@@ -32,4 +32,7 @@ Route::group(['namespace' => 'School'], function() {
     Route::get('pre_usage_report', 'SettingController@preUsageReport')->name('report.pre_usage_report');
     Route::get('usage_report', 'SettingController@usageReport')->name('report.usage_report');
 
+
+
+
 });

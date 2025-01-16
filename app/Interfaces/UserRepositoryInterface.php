@@ -43,5 +43,6 @@ interface UserRepositoryInterface
 
     public function restoreUser($id);
     public function resetPasswords(Request $request);
+    public function pdfReports(Request $request);
 
 }

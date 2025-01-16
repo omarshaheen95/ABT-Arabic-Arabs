@@ -10,6 +10,7 @@ use App\Interfaces\UserRepositoryInterface;
 use App\Models\Grade;
 use App\Models\Package;
 use App\Models\School;
+use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\TeacherUser;
 use App\Models\User;
@@ -412,4 +413,50 @@ class UserRepository implements UserRepositoryInterface
         $update = User::query()->filter()->update(['password' => bcrypt($password)]);
         return Response::response(t('Password Reset Successfully').': '.$password.' for ('.$update.') '.t('user'));
     }
+
+    public function pdfReports(Request $request)
+    {
+        $request->validate([
+            'year_id' => 'required',
+            'level_id' => 'required|array|min:1|max:1',
+        ], [
+            'year_id.required' => 'The year field is required.',
+            'level_id.required' => 'The level field is required.',
+            'level_id.min' => 'The level must be at least 1.',
+            'level_id.max' => 'The level may not be greater than 1.',
+        ]);
+
+        $school_id = Auth::guard('school')->user()->id;
+
+        $students = User::with(['year'])
+            ->where('school_id', $school_id)->filter()
+            ->select(['id', 'name as student_name', 'id_number as std_id'])->get()->values()->toArray();
+//        dd($students);
+
+        $client = new \GuzzleHttp\Client([
+            'timeout'  => 36000,
+        ]);
+
+        $data = [];
+        $res = $client->request('POST', 'https://pdfservice.arabic-uae.com/getpdf.php', [
+            'form_params' => [
+                'platform' => 'arabic-arabs',
+                'studentid' => $students,
+                'data' => $data,
+            ],
+        ]);
+        $data = json_decode($res->getBody());
+        $url = $data->url;
+        $fileContent = file_get_contents($url);
+        if ($fileContent === false) {
+            throw new \Exception('Unable to download file');
+        }else{
+            return response($fileContent, 200, [
+                'Content-Type' => 'application/zip',
+                'Content-Disposition' => 'inline; filename="reports.zip"'
+            ]);
+        }
+        return redirect($data->url);
+    }
+
 }

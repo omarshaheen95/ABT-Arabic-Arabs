@@ -48,10 +48,14 @@
                     <li><a class="dropdown-item" href="#!" data-bs-toggle="modal"
                            data-bs-target="#reset_passwords_modal">{{t('Reset Passwords')}}</a></li>
                 @endcan
-
+                    @can('export users')
+                        <li><a class="dropdown-item not-deleted-students" href="#!"
+                               onclick="excelExport('{{ route("school.reports.pdfReports") }}')">{{t('Students Bulk Reports')}}</a>
+                    @endif
                 @can('delete users')
                     <li><a class="dropdown-item text-danger d-none checked-visible" href="#!" id="delete_rows">{{t('Delete')}}</a></li>
                 @endif
+
             @else
                 <li><a class="dropdown-item d-none cursor-pointer checked-visible" id="students_assign">{{t('Assign')}}</a></li>
 
