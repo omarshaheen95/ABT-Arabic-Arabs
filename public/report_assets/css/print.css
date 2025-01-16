@@ -23,8 +23,8 @@ body {
     justify-content: space-between;
     width: 210mm;
     height: 297mm; /* Exact A4 height */
-    padding: 10mm;
-    margin: auto; /* Center the page */
+    padding: 13mm;
+    margin: 10mm; /* Center the page */
     background: #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     border: 1px solid #D3D3D3; /* Add visible border */
@@ -57,10 +57,14 @@ body {
     }
 
     .page {
-        margin: auto; /* Center the page when printing */
-        width: 210mm;
-        height: 297mm; /* Ensure exact fit for A4 */
-        page-break-after: avoid; /* Avoid breaking pages */
+        margin: 0;
+        border: initial;
+        border-radius: initial;
+        width: initial;
+        min-height: initial;
+        box-shadow: initial;
+        background: #fff !important;
+        page-break-after: always;
     }
 
     .footer {
