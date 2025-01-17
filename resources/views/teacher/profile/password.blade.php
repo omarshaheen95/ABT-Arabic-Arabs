@@ -10,7 +10,7 @@
 @section('content')
     <div class="row">
         <form class="form" id="form_data"
-              action="{{ route('teacher.password.update') }}"
+              action="{{ route('teacher.update-password') }}"
               method="post">
             @csrf
 
