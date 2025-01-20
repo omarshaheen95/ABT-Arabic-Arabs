@@ -356,7 +356,7 @@ class User extends Authenticatable
 
     public function setEmailAttribute($value)
     {
-        $this->attributes['email'] = trim(strtolower($value));
+        $this->attributes['email'] = strtolower($value);
     }
 
     // Filter by grades and year

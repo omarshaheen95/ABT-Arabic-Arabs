@@ -54,7 +54,7 @@ class LoginController extends Controller
     protected function attemptLogin(Request $request)
     {
         // Retrieve the user based on the email provided
-        $user = \App\Models\User::where(DB::raw('LOWER(email)'), $request->email)->first();
+        $user = \App\Models\User::where(DB::raw('LOWER(email)'), strtolower($request->email))->first();
 
         // Check if the user exists and if they are active
         if ($user && $user->archived) {
