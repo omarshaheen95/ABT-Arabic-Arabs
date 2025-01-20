@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -53,7 +54,7 @@ class LoginController extends Controller
     protected function attemptLogin(Request $request)
     {
         // Retrieve the user based on the email provided
-        $user = \App\Models\User::where('email', $request->email)->first();
+        $user = \App\Models\User::where(DB::raw('LOWER(email)'), $request->email)->first();
 
         // Check if the user exists and if they are active
         if ($user && $user->archived) {
