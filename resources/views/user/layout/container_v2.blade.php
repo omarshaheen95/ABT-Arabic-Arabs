@@ -13,6 +13,7 @@
     <meta name="geo.position" content="">
     <meta name="geo.placename" content="">
     <meta name="geo.region" content="">
+    <meta name="google" content="notranslate">
 
     <meta property="og:type" content=""/>
     <meta property="og:title" content="{{ isset($title) ? $title. " | ":''  }}منصة لغتي الأولى"/>
@@ -291,6 +292,37 @@
 {{--<script src="{{ asset("js/push.min.js") }}" type="text/javascript"></script>--}}
 {{--<script src="https://js.pusher.com/7.0/pusher.min.js"></script>--}}
 <script>
+    $(document).ready(function () {
+        'use strict';
+        // تعطيل الزر الأيمن
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        document.addEventListener('keydown', function (e) {
+            // تعطيل مفتاح F12
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+            }
+            // تعطيل النسخ باستخدام CTRL+C
+            if (e.ctrlKey && e.key === 'c') {
+                e.preventDefault();
+            }
+            // تعطيل CTRL+U
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+            }
+        });
+
+        // تعطيل النسخ عن طريق التحديد
+        document.addEventListener('copy', function (e) {
+            e.preventDefault();
+        });
+
+        // تعطيل تحديد النص
+        document.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+        });
+    });
     toastr.options = {
         "closeButton": true,
         "debug": false,
