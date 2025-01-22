@@ -149,6 +149,16 @@
 <main class="wrapper" id="user-home">
     <!-- Start user-home -->
     <div class="container">
+        @if(auth()->user()->active == 0)
+            <div class="row mt-3 justify-content-center">
+                <div class="col-11">
+                    <div class="alert alert-danger">
+                        <h4>حسابك معطل ، في انتظار موافقة ABT.</h4>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="row">
             @if (count($errors) > 0)
                 <div class="alert alert-warning">

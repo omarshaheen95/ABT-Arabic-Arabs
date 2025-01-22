@@ -1,4 +1,4 @@
-@extends('manager.layout.container')
+@extends(getGuard().'.layout.container')
 
 @section('title')
     {{$title}}
@@ -27,6 +27,16 @@
 
 
 @section('content')
+    @if(guardIn(['school', 'teacher']) && !isset($user))
+        <div class="row my-3 justify-content-center">
+            <div class="col-12">
+                <div class="alert alert-danger">
+                    <h4>سيظل الحساب معطلاً حتى تتم الموافقة عليه من قبل ABT</h4>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <form action="{{ isset($user) ? route(getGuard().'.user.update', $user->id): route(getGuard().'.user.store') }}"
           method="post" class="form" id="form-profile-save" enctype="multipart/form-data">
         @csrf
@@ -36,58 +46,61 @@
         @endif
 
         <div class="row">
-            <!--begin::Image input-->
-            <div class="col-12 d-flex flex-column align-items-center mb-5">
-                <div>{{t('Image')}}</div>
-                <div class="image-input image-input-outline" data-kt-image-input="true"
-                     style="background-image: url(/assets_v1/media/svg/avatars/blank.svg)">
+            @if(guardIs('manager'))
+                <!--begin::Image input-->
+                <div class="col-12 d-flex flex-column align-items-center mb-5">
+                    <div>{{t('Image')}}</div>
+                    <div class="image-input image-input-outline" data-kt-image-input="true"
+                         style="background-image: url(/assets_v1/media/svg/avatars/blank.svg)">
 
-                    @if(isset($user) && $user->image )
-                        <div class="image-input-wrapper w-125px h-125px"
-                             style="background-image: url({{asset($user->image)}})"></div>
+                        @if(isset($user) && $user->image )
+                            <div class="image-input-wrapper w-125px h-125px"
+                                 style="background-image: url({{asset($user->image)}})"></div>
 
-                    @else
-                        <div class="image-input-wrapper w-125px h-125px"
-                             style="background-image: url(/assets_v1/media/svg/avatars/blank.svg)"></div>
-                    @endif
+                        @else
+                            <div class="image-input-wrapper w-125px h-125px"
+                                 style="background-image: url(/assets_v1/media/svg/avatars/blank.svg)"></div>
+                        @endif
 
-                    <!--begin::Edit button-->
-                    <label class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
-                           data-kt-image-input-action="change"
-                           data-bs-toggle="tooltip"
-                           data-bs-dismiss="click"
-                           title="Change avatar">
-                        <i class="ki-duotone ki-pencil fs-6"><span class="path1"></span><span class="path2"></span></i>
+                        <!--begin::Edit button-->
+                        <label class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                               data-kt-image-input-action="change"
+                               data-bs-toggle="tooltip"
+                               data-bs-dismiss="click"
+                               title="Change avatar">
+                            <i class="ki-duotone ki-pencil fs-6"><span class="path1"></span><span class="path2"></span></i>
 
-                        <!--begin::Inputs-->
-                        <input type="file" name="image" accept=".png, .jpg, .jpeg"/>
-                        <input type="hidden" name="avatar_remove"/>
-                        <!--end::Inputs-->
-                    </label>
-                    <!--end::Edit button-->
+                            <!--begin::Inputs-->
+                            <input type="file" name="image" accept=".png, .jpg, .jpeg"/>
+                            <input type="hidden" name="avatar_remove"/>
+                            <!--end::Inputs-->
+                        </label>
+                        <!--end::Edit button-->
 
-                    <!--begin::Cancel button-->
-                    <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
-                          data-kt-image-input-action="cancel"
-                          data-bs-toggle="tooltip"
-                          data-bs-dismiss="click"
-                          title="Cancel avatar">
+                        <!--begin::Cancel button-->
+                        <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                              data-kt-image-input-action="cancel"
+                              data-bs-toggle="tooltip"
+                              data-bs-dismiss="click"
+                              title="Cancel avatar">
                 <i class="ki-outline ki-cross fs-3"></i>
             </span>
-                    <!--end::Cancel button-->
+                        <!--end::Cancel button-->
 
-                    <!--begin::Remove button-->
-                    <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
-                          data-kt-image-input-action="remove"
-                          data-bs-toggle="tooltip"
-                          data-bs-dismiss="click"
-                          title="Remove avatar">
+                        <!--begin::Remove button-->
+                        <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                              data-kt-image-input-action="remove"
+                              data-bs-toggle="tooltip"
+                              data-bs-dismiss="click"
+                              title="Remove avatar">
                 <i class="ki-outline ki-cross fs-3"></i>
             </span>
-                    <!--end::Remove button-->
+                        <!--end::Remove button-->
+                    </div>
                 </div>
-            </div>
-            <!--end::Image input-->
+                <!--end::Image input-->
+            @endif
+
 
             <div class="row">
                 <div class="col-2 mb-2">
@@ -120,13 +133,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 mb-2">
-                    <div class="form-group">
-                        <label class="form-label">{{t('Mobile')}}</label>
-                        <input type="text" class="form-control" placeholder="{{t('Mobile')}}" name="mobile" id="Phone"
-                               value="{{ isset($user) ? $user->mobile : old('mobile') }}">
+
+                @if(guardIs('manager'))
+                    <div class="col-3 mb-2">
+                        <div class="form-group">
+                            <label class="form-label">{{t('Mobile')}}</label>
+                            <input type="text" class="form-control" placeholder="{{t('Mobile')}}" name="mobile" id="Phone"
+                                   value="{{ isset($user) ? $user->mobile : old('mobile') }}">
+                        </div>
                     </div>
-                </div>
+                @endif
+
                 <div class="col-3 mb-2">
                     <div class="form-group">
                         <label for="password" class="form-label">{{t('Password')}}</label>
@@ -150,21 +167,22 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="col-3 mb-2">
-                    <div class="form-group">
-                        <label for="" class="form-label">{{t('Alternative Grade')}}</label>
-                        <select class="form-select" name="alternate_grade_id" data-control="select2"
-                                data-allow-clear="true" data-placeholder="{{t('Select Teacher')}}">
-                            <option value="" selected>{{t('Select Grade')}}</option>
-                            @foreach($grades as $grade)
-                                <option
-                                    value="{{$grade->id}}" {{isset($user) && $user->alternate_grade_id == $grade->id ? 'selected':''}}>
-                                    {{$grade->name}}</option>
-                            @endforeach
-                        </select>
+                @if(guardIs('manager'))
+                    <div class="col-3 mb-2">
+                        <div class="form-group">
+                            <label for="" class="form-label">{{t('Alternative Grade')}}</label>
+                            <select class="form-select" name="alternate_grade_id" data-control="select2"
+                                    data-allow-clear="true" data-placeholder="{{t('Select Teacher')}}">
+                                <option value="" selected>{{t('Select Grade')}}</option>
+                                @foreach($grades as $grade)
+                                    <option
+                                        value="{{$grade->id}}" {{isset($user) && $user->alternate_grade_id == $grade->id ? 'selected':''}}>
+                                        {{$grade->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
+                @endif
                 <div class="col-3 mb-2">
                     <div class="form-group">
                         <label for="" class="form-label">{{t('Section')}}</label>
@@ -218,31 +236,31 @@
                     </div>
                 @endif
 
-
-                @can('add users')
-                    <div class="col-3 mb-2">
-                        <div class="form-group">
-                            <label for="" class="form-label">{{t('Package')}}</label>
-                            <select class="form-select" name="package_id" data-control="select2" data-allow-clear="true"
-                                    data-placeholder="{{t('Select Package')}}">
-                                <option></option>
-                                @foreach($packages as $package)
-                                    <option data-days="{{$package->days}}"
-                                            value="{{$package->id}}" {{isset($user) && $user->package_id == $package->id ? 'selected':''}}>{{$package->name}}</option>
-                                @endforeach
-                            </select>
+                @if(guardIs('manager'))
+                    @can('add users')
+                        <div class="col-3 mb-2">
+                            <div class="form-group">
+                                <label for="" class="form-label">{{t('Package')}}</label>
+                                <select class="form-select" name="package_id" data-control="select2" data-allow-clear="true"
+                                        data-placeholder="{{t('Select Package')}}">
+                                    <option></option>
+                                    @foreach($packages as $package)
+                                        <option data-days="{{$package->days}}"
+                                                value="{{$package->id}}" {{isset($user) && $user->package_id == $package->id ? 'selected':''}}>{{$package->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-3 mb-2">
-                        <div class="form-group">
-                            <label for="" class="form-label">{{t('Active To')}}</label>
-                            <input class="form-control" name="active_to" type="text"
-                                   value="{{ isset($user) ? $user->active_to : old("active_to") }}" id="active_to_date"
-                                   placeholder="{{t('Active To')}}">
+                        <div class="col-3 mb-2">
+                            <div class="form-group">
+                                <label for="" class="form-label">{{t('Active To')}}</label>
+                                <input class="form-control" name="active_to" type="text"
+                                       value="{{ isset($user) ? $user->active_to : old("active_to") }}" id="active_to_date"
+                                       placeholder="{{t('Active To')}}">
+                            </div>
                         </div>
-                    </div>
-                @endcan
-
+                    @endcan
+                @endif
 
                 <div class="col-3 mb-2">
                     <div class="form-group">
@@ -266,17 +284,16 @@
                 </div>
 
                <div class="col-12 row">
-                   <div class="col-1 mb-2 d-flex gap-2 mt-4">
-                       <div class="form-check form-check-custom form-check-solid">
-                           <input class="form-check-input" type="checkbox" value="1" name="active"
-                                  id="flexCheckDefault" {{isset($user) && $user->active ? 'checked':''}}/>
-                           <label class="form-check-label text-dark" for="flexCheckDefault">
-                               {{t('Active')}}
-                           </label>
-                       </div>
-                   </div>
-
                    @if(guardIs('manager'))
+                       <div class="col-1 mb-2 d-flex gap-2 mt-4">
+                           <div class="form-check form-check-custom form-check-solid">
+                               <input class="form-check-input" type="checkbox" value="1" name="active"
+                                      id="flexCheckDefault" {{isset($user) && $user->active ? 'checked':''}}/>
+                               <label class="form-check-label text-dark" for="flexCheckDefault">
+                                   {{t('Active')}}
+                               </label>
+                           </div>
+                       </div>
                        <div class="col-1 mb-2 d-flex gap-2 mt-4">
                            <div class="form-check form-check-custom form-check-solid">
                                <input class="form-check-input" type="checkbox" value="1" name="demo"
@@ -289,40 +306,41 @@
                    @endif
                </div>
 
-
-                <div id="demo_data" class="col-12 row justify-content-center d-none" dir="rtl">
-                    <div class="col-5">
-                        <label class="mb-2">{{t('Grades')}}</label>
-                        <select name="from[]" id="multiselect" class="form-control" size="8" multiple="multiple">
-                            @foreach($grades as $grade)
-                                <option value="{{$grade->id}}">{{$grade->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-2 d-flex flex-column justify-content-center align-items-center mt-5" dir="rtl">
-                        <button type="button"  id="multiselect_leftAll" class="btn btn-secondary btn-sm mb-1"><i class="fa fa-forward"></i></button>
-                        <button type="button" id="multiselect_leftSelected" class="btn btn-secondary btn-sm mb-1"><i class="fa fa-chevron-right"></i></button>
-                        <button type="button" id="multiselect_rightSelected" class="btn btn-secondary btn-sm mb-1"><i class="fa fa-chevron-left"></i></button>
-                        <button type="button" id="multiselect_rightAll" class="btn btn-secondary btn-sm mb-1"><i class="fa fa-backward"></i></button>
-                    </div>
-
-                    <div class="col-5">
-                        <label class="mb-2">{{t('Selected Grades')}}</label>
-                        <select name="demo_grades[]" id="multiselect_to" class="form-control" size="8" multiple="multiple">
-
-                            @if(isset($user->demo_grades)&&count($user->demo_grades)>0)
-                                @php
-                                    $demo_grades = $grades->whereIn('id',$user->demo_grades);
-                                @endphp
-                                @foreach($demo_grades as $grade)
+                @if(guardIs('manager'))
+                    <div id="demo_data" class="col-12 row justify-content-center d-none" dir="rtl">
+                        <div class="col-5">
+                            <label class="mb-2">{{t('Grades')}}</label>
+                            <select name="from[]" id="multiselect" class="form-control" size="8" multiple="multiple">
+                                @foreach($grades as $grade)
                                     <option value="{{$grade->id}}">{{$grade->name}}</option>
                                 @endforeach
-                            @endif
+                            </select>
+                        </div>
 
-                        </select>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center mt-5" dir="rtl">
+                            <button type="button"  id="multiselect_leftAll" class="btn btn-secondary btn-sm mb-1"><i class="fa fa-forward"></i></button>
+                            <button type="button" id="multiselect_leftSelected" class="btn btn-secondary btn-sm mb-1"><i class="fa fa-chevron-right"></i></button>
+                            <button type="button" id="multiselect_rightSelected" class="btn btn-secondary btn-sm mb-1"><i class="fa fa-chevron-left"></i></button>
+                            <button type="button" id="multiselect_rightAll" class="btn btn-secondary btn-sm mb-1"><i class="fa fa-backward"></i></button>
+                        </div>
+
+                        <div class="col-5">
+                            <label class="mb-2">{{t('Selected Grades')}}</label>
+                            <select name="demo_grades[]" id="multiselect_to" class="form-control" size="8" multiple="multiple">
+
+                                @if(isset($user->demo_grades)&&count($user->demo_grades)>0)
+                                    @php
+                                        $demo_grades = $grades->whereIn('id',$user->demo_grades);
+                                    @endphp
+                                    @foreach($demo_grades as $grade)
+                                        <option value="{{$grade->id}}">{{$grade->name}}</option>
+                                    @endforeach
+                                @endif
+
+                            </select>
+                        </div>
                     </div>
-                </div>
+                @endif
 
             </div>
             <div class="row my-5">
