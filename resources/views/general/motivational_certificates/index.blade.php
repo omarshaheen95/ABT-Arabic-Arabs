@@ -1,4 +1,4 @@
-@extends('manager.layout.container')
+@extends(getGuard().'.layout.container')
 
 @section('title',$title)
 

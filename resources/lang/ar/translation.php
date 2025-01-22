@@ -976,4 +976,5 @@ return
 	'Users Roles And Permissions' => 'Users Roles And Permissions',
 	'Auto Correcting' => 'Auto Correcting',
 	'Tests Correcting Successfully' => 'Tests Correcting Successfully',
+	'User created successfully' => 'User created successfully',
 ];

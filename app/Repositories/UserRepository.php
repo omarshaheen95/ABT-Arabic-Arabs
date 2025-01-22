@@ -137,12 +137,25 @@ class UserRepository implements UserRepositoryInterface
         if (!$request->get('demo')){
             $data['demo_grades']=null;
         }
-        $data['active_from'] = now();
-        $data['year_id'] = Year::query()->latest()->first()->id;
-        $data['active'] = $request->get('active', 0);
-        $data['password'] = bcrypt($request->get('password', 123456));
         if (guardIs('manager')){
             $data['manager_id'] = Auth::guard('manager')->user()->id;
+        }
+        $data['package_id'] = Package::query()->latest()->first()->id;
+        $data['active'] = $request->get('active', 0);
+        $data['password'] = bcrypt($request->get('password', 123456));
+
+        //get month number
+        $month = Carbon::now()->month;
+        //get year number
+        $year = Carbon::now()->year;
+        if ($month > 7){
+            $data['active_to'] = Carbon::create($year+1, 7, 1)->toDateString();
+        }else{
+            $data['active_to'] = Carbon::create($year, 7, 31)->toDateString();
+        }
+        if (guardIn(['school', 'teacher']))
+        {
+            $data['active'] = false;
         }
         $user = User::query()->create($data);
         $teacher_id = $request->get('teacher_id', false);

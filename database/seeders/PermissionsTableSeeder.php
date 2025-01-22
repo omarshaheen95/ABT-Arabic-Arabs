@@ -464,6 +464,7 @@ class PermissionsTableSeeder extends Seeder
 
         $teacher = [
             ['name' => 'show users', 'guard_name' => 'teacher', 'group' => 'users'],
+            ['name' => 'add users', 'guard_name' => 'teacher', 'group' => 'users'],
             ['name' => 'edit users', 'guard_name' => 'teacher', 'group' => 'users'],
             ['name' => 'review users', 'guard_name' => 'teacher', 'group' => 'users'],
             ['name' => 'users story review', 'guard_name' => 'teacher', 'group' => 'users'],
@@ -580,36 +581,36 @@ class PermissionsTableSeeder extends Seeder
             Permission::query()->updateOrCreate($permission, $permission);
         }
 
-        $manager_role = Role::updateOrCreate(['name' => 'Manager','guard_name' => 'manager']);
-        $manager_role->syncPermissions(collect($manager)->pluck('name'));
-
-        $school_role = Role::updateOrCreate(['name' => 'School','guard_name' => 'school']);
-        $school_role->syncPermissions(collect($school)->pluck('name'));
+//        $manager_role = Role::updateOrCreate(['name' => 'Manager','guard_name' => 'manager']);
+//        $manager_role->syncPermissions(collect($manager)->pluck('name'));
+//
+//        $school_role = Role::updateOrCreate(['name' => 'School','guard_name' => 'school']);
+//        $school_role->syncPermissions(collect($school)->pluck('name'));
 
         $teacher_role =  Role::updateOrCreate(['name' => 'Teacher','guard_name' => 'teacher']);
         $teacher_role->syncPermissions(collect($teacher)->pluck('name'));
-
-        $supervisor_role = Role::updateOrCreate(['name' => 'Supervisor','guard_name' => 'supervisor']);
-        $supervisor_role->syncPermissions(collect($supervisor)->pluck('name'));
-
-
-        Cache::forget('spatie.permission.cache');
-
-        $manager = \App\Models\Manager::where('email', 'it@abt-assessments.com')
-            ->first();
-        if ($manager) {
-            $manager->givePermissionTo(Permission::query()->where('guard_name', 'manager')->get());
-        }else{
-            $manager = \App\Models\Manager::firstOrCreate([
-                'email' => 'it@abt-assessments.com',
-            ], [
-                'name' => 'Omar Shaheen',
-                'email' => 'it@abt-assessments.com',
-                'password' => bcrypt('123456'),
-            ]);
-
-            $manager->givePermissionTo(Permission::all());
-        }
+//
+//        $supervisor_role = Role::updateOrCreate(['name' => 'Supervisor','guard_name' => 'supervisor']);
+//        $supervisor_role->syncPermissions(collect($supervisor)->pluck('name'));
+//
+//
+//        Cache::forget('spatie.permission.cache');
+//
+//        $manager = \App\Models\Manager::where('email', 'it@abt-assessments.com')
+//            ->first();
+//        if ($manager) {
+//            $manager->givePermissionTo(Permission::query()->where('guard_name', 'manager')->get());
+//        }else{
+//            $manager = \App\Models\Manager::firstOrCreate([
+//                'email' => 'it@abt-assessments.com',
+//            ], [
+//                'name' => 'Omar Shaheen',
+//                'email' => 'it@abt-assessments.com',
+//                'password' => bcrypt('123456'),
+//            ]);
+//
+//            $manager->givePermissionTo(Permission::all());
+//        }
 
 
 
