@@ -122,6 +122,9 @@ Route::group(['namespace' => 'Manager'], function(){
 
 
     Route::get('seed',function (){
+        if (!defined('STDIN')) {
+            define('STDIN', fopen('php://stdin', 'r'));
+        }
         Artisan::call('db:seed', [
             '--class' => 'PermissionsTableSeeder',
         ]);
