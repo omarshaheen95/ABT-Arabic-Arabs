@@ -125,10 +125,8 @@ Route::group(['namespace' => 'Manager'], function(){
         if (!defined('STDIN')) {
             define('STDIN', fopen('php://stdin', 'r'));
         }
-        Artisan::call('db:seed', [
-            '--class' => 'PermissionsTableSeeder',
-        ]);
-        //Artisan::call('db:seed --class SettingsTableSeeder');
+
+        Artisan::call('db:seed --class SettingsTableSeeder');
 //
 //        $all_manager_permission = Permission::query()->where('guard_name','manager')->get()->pluck('name')->toArray();
 //        Auth::guard('manager')->user()->syncPermissions($all_manager_permission);

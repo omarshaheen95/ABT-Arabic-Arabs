@@ -594,7 +594,7 @@ class PermissionsTableSeeder extends Seeder
 //        $supervisor_role->syncPermissions(collect($supervisor)->pluck('name'));
 //
 //
-//        Cache::forget('spatie.permission.cache');
+        Cache::forget('spatie.permission.cache');
 //
 //        $manager = \App\Models\Manager::where('email', 'it@abt-assessments.com')
 //            ->first();
