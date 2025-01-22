@@ -122,7 +122,9 @@ Route::group(['namespace' => 'Manager'], function(){
 
 
     Route::get('seed',function (){
-        Artisan::call('db:seed --class PermissionsTableSeeder');
+        Artisan::call('db:seed', [
+            '--class' => 'PermissionsTableSeeder',
+        ]);
         //Artisan::call('db:seed --class SettingsTableSeeder');
 //
 //        $all_manager_permission = Permission::query()->where('guard_name','manager')->get()->pluck('name')->toArray();
