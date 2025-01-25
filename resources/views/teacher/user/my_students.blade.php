@@ -47,6 +47,7 @@
                 @endforeach
             </select>
         </div>
+
         <div class="col-2 mb-2">
             <label class="mb-2">{{t('Package')}}:</label>
             <select class="form-select" name="package_id" data-control="select2" data-allow-clear="true"
