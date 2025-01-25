@@ -156,7 +156,7 @@
                     <div class="form-group">
                         <label for="" class="form-label">{{t('Grade')}}</label>
                         <select class="form-select" name="grade_id" data-control="select2" data-allow-clear="true"
-                                data-placeholder="{{t('Select Teacher')}}">
+                                data-placeholder="{{t('Select Grade')}}">
                             <option value="" selected disabled>{{t('Select Grade')}}</option>
                             @foreach($grades as $grade)
                                 <option
