@@ -98,7 +98,6 @@
                 @endforeach
             </select>
         </div>
-
         @if(guardIs('manager'))
             <div class="col-3 mb-2">
                 <label class="">{{t('School')}}:</label>
