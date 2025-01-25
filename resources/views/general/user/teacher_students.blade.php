@@ -48,7 +48,7 @@
                     data-allow-clear="true">
                 <option></option>
                 @foreach($grades as $grade)
-                    <option value="{{ $grade->id }}">{{ $grade }}</option>
+                    <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                 @endforeach
             </select>
         </div>
