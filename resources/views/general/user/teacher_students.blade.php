@@ -80,7 +80,7 @@
                     data-placeholder="{{t('Select Gender')}}">
                 <option></option>
                 <option value="Boy">{{t('Boy')}}</option>
-                <option value="Girl">{{'Girl'}}</option>
+                <option value="Girl">{{t('Girl')}}</option>
             </select>
         </div>
 
