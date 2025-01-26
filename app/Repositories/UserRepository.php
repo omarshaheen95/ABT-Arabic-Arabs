@@ -7,6 +7,7 @@ use App\Exports\StudentInformation;
 use App\Helpers\Response;
 use App\Http\Requests\General\UserRequest;
 use App\Interfaces\UserRepositoryInterface;
+use App\Mail\AddNewStudentMail;
 use App\Models\Grade;
 use App\Models\Package;
 use App\Models\School;
@@ -166,6 +167,10 @@ class UserRepository implements UserRepositoryInterface
             ], [
                 'teacher_id' => $teacher_id,
             ]);
+        }
+        if (guardIn(['teacher', 'school']))
+        {
+            \Mail::send(new AddNewStudentMail($user));
         }
         return redirect()->route(getGuard().'.user.index')->with('message', t('User created successfully'));
     }
