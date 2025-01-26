@@ -29,10 +29,8 @@
             <label class="mb-2">{{t('Email')}}:</label>
             <input type="text" name="email" class="form-control direct-search" placeholder="{{t('Email')}}">
         </div>
-
         <div class="col-lg-3 mb-2">
             <label class="mb-2">{{t('Grade')}} :</label>
-
             <select name="grade_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"
                     data-allow-clear="true">
                 <option></option>
