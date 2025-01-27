@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تفعيل حساب الطالب في منصة لغتي الأولى</title>
+    <title>تفعيل الطالب المضاف إلى منصة لغتي الأولى</title>
     <style>
         * {
             margin: 0;
@@ -188,7 +188,7 @@
     <!-- Signature -->
     <div class="signature">
         <p>مع أطيب التحيات،</p>
-        <p>فريق المنصة التعليمية</p>
+        <p>فريق اختبارات اي بي تي المعياريّة الدوليّة</p>
     </div>
 </div>
 </body>

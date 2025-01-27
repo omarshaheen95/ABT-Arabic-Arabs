@@ -33,7 +33,8 @@ class AddNewStudentMail extends Mailable implements ShouldQueue
             ->cc([
                 'it@abt-assessments.com',
             ])
-            ->subject('New Student Added To ArabicArabs Platform')
+            //New Student Added To My First Lang Platform
+            ->subject('إضافة طالب جديد إلى منصة لغتي الأولى')
             ->view('mail.new_student', ['user' => $this->user]);
     }
 }

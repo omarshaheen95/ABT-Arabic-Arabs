@@ -33,7 +33,7 @@ class ActivateNewStudentMail extends Mailable implements ShouldQueue
             ->cc([
                 'support@abt-assessments.com',
             ])
-            ->subject('Activate Student Added To NonArabs Platform')
+            ->subject('تفعيل الطالب المضاف إلى منصة لغتي الأولى')
             ->view('mail.activate_student', ['user' => $this->user]);
     }
 }
