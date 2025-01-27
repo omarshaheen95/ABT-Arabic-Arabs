@@ -17,7 +17,7 @@ class UserObserver
     public function updated(User $user): void
     {
         if (Auth::guard('manager')->check()) {
-            if ($user->wasChanged('active') && $user->active == 1 && !is_null($user->direct_email)) {
+            if ($user->wasChanged('active') && $user->active == 1 && !is_null($user->direct_email) && !is_null($user->added_by_type) && !is_null($user->added_by_id)) {
                 //send email
                 Mail::send(new ActivateNewStudentMail($user->load(['addedBy'])));
             }
