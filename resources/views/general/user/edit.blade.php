@@ -282,7 +282,14 @@
                                placeholder="{{t('Nationality')}}">
                     </div>
                 </div>
-
+                <div class="col-3 mb-2">
+                    <div class="form-group">
+                        <label for="" class="form-label">{{t('Direct Email to Contact')}}</label>
+                        <input class="form-control" name="direct_email" type="text"
+                               value="{{ isset($user) ? $user->direct_email : old("direct_email") }}"
+                               placeholder="{{t('Direct Email')}}">
+                    </div>
+                </div>
                <div class="col-12 row">
                    @if(guardIs('manager'))
                        <div class="col-1 mb-2 d-flex gap-2 mt-4">

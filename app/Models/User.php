@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name', 'email', 'password', 'mobile', 'school_id', 'grade_id', 'alternate_grade_id',
         'section', 'country_code', 'short_country', 'id_number', 'gender',
         'active', 'type','demo_grades', 'active_from', 'active_to', 'package_id', 'manager_id', 'year_id', 'last_login', 'image', 'import_file_id', 'archived'
-        ,'last_login_info', 'nationality'
+        ,'last_login_info', 'nationality', 'direct_email', 'added_by_id', 'added_by_type'
     ];
 
     protected $hidden = [
@@ -57,6 +57,11 @@ class User extends Authenticatable
         static::addGlobalScope('not_archived', function (Builder $builder) {
             $builder->notArchived();
         });
+    }
+
+    public function addedBy()
+    {
+        return $this->morphTo();
     }
 
     public function scopeNotArchived(Builder $query)

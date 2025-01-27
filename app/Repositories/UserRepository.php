@@ -204,7 +204,7 @@ class UserRepository implements UserRepositoryInterface
         if (guardIs('manager') && !$request->get('demo')){
             $data['demo_grades']=null;
         }
-        $data['active'] = $request->get('active', 0);
+        $data['active'] = guardIs('manager') ? $request->get('active', 0):$user->active;
         $data['password'] = $request->get('password', false) ? bcrypt($request->get('password', 123456)) : $user->password;
         $user->update($data);
 

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>طلب موافقة الطالب</title>
+    <title>تفعيل حساب الطالب في منصة لغتي الأولى</title>
     <style>
         * {
             margin: 0;
@@ -136,39 +136,56 @@
     </style>
 </head>
 <body>
-<div class="email-container">
+<div class="email-container" dir="ltr">
+    <!-- Header with Logo -->
     <div class="header">
         <div class="logo">
             <img src="{{ asset('logo.png') }}" width="100%" alt="منصة لغتي الأولى"/>
         </div>
+{{--        <div class="logo-text">--}}
+{{--            <h3>Non-Arabs Platform</h3>--}}
+{{--        </div>--}}
     </div>
 
-    <h1 class="title">طلب موافقة طالب جديد</h1>
-    <p class="description">يتطلب تسجيل طالب جديد موافقتك. يرجى مراجعة التفاصيل أدناه:</p>
+    <!-- Main Content -->
+    <h1 class="title">تفعيل حساب الطالب</h1>
+    <p class="description">عزيزي/عزيزتي
+         {{$user->addedBy->name}},<br><br>
+        تم تفعيل حساب الطالب الذي أضفته بنجاح. فيما يلي تفاصيل الطالب الذي تم تفعيل حسابه المضاف لمنصة لغتي الأولى:
 
+    </p>
+
+    <!-- Student Information -->
     <div class="info-box">
         <div class="info-row">
             <div class="info-label">اسم الطالب:</div>
             <div class="info-value">{{$user->name}}</div>
         </div>
         <div class="info-row">
-            <div class="info-label">المدرسة:</div>
+            <div class="info-label">المعلم:</div>
             <div class="info-value">{{$user->school->name}}</div>
         </div>
         <div class="info-row">
-            <div class="info-label">المعلم:</div>
+            <div class="info-label">Teacher:</div>
             <div class="info-value">{{$user->teacher->name}}</div>
         </div>
-        <a href="{{route('manager.user.edit', $user->id)}}" class="profile-link">
+        <a href="{{route(strtolower(class_basename($user->added_by_type)).'.user.card', $user->id)}}" class="profile-link">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                 <polyline points="15 3 21 3 21 9"></polyline>
                 <line x1="10" y1="14" x2="21" y2="3"></line>
             </svg>
-            عرض ملف الطالب
+            رابط الحصول على بطاقة الطالب
         </a>
     </div>
 
+{{--    <!-- Action Buttons -->--}}
+{{--    <div class="button-group">--}}
+{{--        <a href="" class="button button-primary">Approve Request</a>--}}
+{{--        <a href="" class="button button-secondary">Decline</a>--}}
+{{--    </div>--}}
+
+    <!-- Signature -->
     <div class="signature">
         <p>مع أطيب التحيات،</p>
         <p>فريق المنصة التعليمية</p>
