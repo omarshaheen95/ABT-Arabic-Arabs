@@ -50,6 +50,7 @@ class UserRequest extends FormRequest
             $rules['gender'] = ['nullable','in:Boy,Girl',];
             $rules['id_number'] = ['nullable'];
             $rules['teacher_id'] = ['nullable', 'exists:teachers,id'];
+            $rules['direct_email'] = ['nullable','email',];
         }else{
             $rules['gender'] = ['required','in:Boy,Girl'];
             $rules['teacher_id'] = ['required', 'exists:teachers,id'];
@@ -58,9 +59,13 @@ class UserRequest extends FormRequest
              $rules['id_number'] = [
                     'required',
                     'unique:users,id_number,' . $id . ',id,deleted_at,NULL,archived,0,school_id,' . request('school_id')
-                ];            }else{
+                ];
+                $rules['direct_email'] = ['nullable','email',];
+            }else{
                 $rules['id_number'] = ['required','unique:users,id_number,NULL,id,deleted_at,NULL,archived,0,school_id,' . request('school_id')];
+                $rules['direct_email'] = ['required','email',];
             }
+
         }
 
         if (Route::currentRouteName() == getGuard().'.user.edit' || Route::currentRouteName() == getGuard().'.user.update')
