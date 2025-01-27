@@ -55,9 +55,11 @@ class UserRequest extends FormRequest
             $rules['teacher_id'] = ['required', 'exists:teachers,id'];
             if (Route::currentRouteName() == getGuard().'.user.edit' || Route::currentRouteName() == getGuard().'.user.update') {
                 $id = $this->route('user');
-                $rules['id_number'] = ['required','unique:users,id_number,'.$id.',id,deleted_at,NULL,archived,0'];
-            }else{
-                $rules['id_number'] = ['required','unique:users,id_number,NULL,id,deleted_at,NULL,archived,0'];
+             $rules['id_number'] = [
+                    'required',
+                    'unique:users,id_number,' . $id . ',id,deleted_at,NULL,archived,0,school_id,' . request('school_id')
+                ];            }else{
+                $rules['id_number'] = ['required','unique:users,id_number,NULL,id,deleted_at,NULL,archived,0,school_id,' . request('school_id')];
             }
         }
 
