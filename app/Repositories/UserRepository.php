@@ -159,6 +159,8 @@ class UserRepository implements UserRepositoryInterface
         {
             $data['active'] = false;
         }
+        $data['added_by_id'] = Auth::id();
+        $data['added_by_type'] = 'App\Models\\'.class_basename(Auth::user());
         $user = User::query()->create($data);
         $teacher_id = $request->get('teacher_id', false);
         if ($teacher_id) {
