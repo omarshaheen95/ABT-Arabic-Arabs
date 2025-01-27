@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -136,7 +136,7 @@
     </style>
 </head>
 <body>
-<div class="email-container" dir="ltr">
+<div class="email-container">
     <!-- Header with Logo -->
     <div class="header">
         <div class="logo">
@@ -162,11 +162,11 @@
             <div class="info-value">{{$user->name}}</div>
         </div>
         <div class="info-row">
-            <div class="info-label">المعلم:</div>
+            <div class="info-label">المدرسة:</div>
             <div class="info-value">{{$user->school->name}}</div>
         </div>
         <div class="info-row">
-            <div class="info-label">Teacher:</div>
+            <div class="info-label">المعلم:</div>
             <div class="info-value">{{$user->teacher->name}}</div>
         </div>
         <a href="{{route(strtolower(class_basename($user->added_by_type)).'.user.card', $user->id)}}" class="profile-link">
