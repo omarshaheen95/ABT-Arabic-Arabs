@@ -58,11 +58,11 @@ class UserRequest extends FormRequest
                 $id = $this->route('user');
              $rules['id_number'] = [
                     'required',
-                    'unique:users,id_number,' . $id . ',id,deleted_at,NULL,archived,0,school_id,' . request('school_id')
+                    'unique:users,id_number,' . $id . ',id,deleted_at,NULL,archived,0,school_id,' . request()->get('school_id', false)
                 ];
                 $rules['direct_email'] = ['nullable','email',];
             }else{
-                $rules['id_number'] = ['required','unique:users,id_number,NULL,id,deleted_at,NULL,archived,0,school_id,' . request('school_id')];
+                $rules['id_number'] = ['required','unique:users,id_number,NULL,id,deleted_at,NULL,archived,0,school_id,' . request()->get('school_id', false)];
                 $rules['direct_email'] = ['required','email',];
             }
 
