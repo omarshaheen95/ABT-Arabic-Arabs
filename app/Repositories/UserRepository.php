@@ -299,7 +299,9 @@ class UserRepository implements UserRepositoryInterface
         if (isset($request['activation_data']['active_to_date']) && !is_null($request['activation_data']['active_to_date'])) {
             $data['active_to'] = Carbon::parse($request['activation_data']['active_to_date'])->format('Y-m-d');
         }
-        User::query()->filter($request)->update($data);
+        User::query()->filter($request)->get()->each(function ($user) use ($data) {
+            $user->update($data);
+        });
         return Response::response(t('Activation Updated Successfully'));
     }
 
