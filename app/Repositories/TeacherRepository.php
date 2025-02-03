@@ -73,7 +73,7 @@ class TeacherRepository implements TeacherRepositoryInterface
                 ->addColumn('school', function ($row) {
                     $html = '<div class="d-flex flex-column">';
                     if (guardIs('manager')){
-                        $html .= '<div class="d-flex fw-bold">' . optional($row->school)->name .getGuard(). '</div>';
+                        $html .= '<div class="d-flex fw-bold">' . optional($row->school)->name . '</div>';
                     }
                     $html .= '<div class="d-flex"><span class="fw-bold text-primary me-1">' . t('Students') . ' : </span><span style="direction: ltr">' . $row->students_count . '</span></div>';
                     $html .= '</div>';
