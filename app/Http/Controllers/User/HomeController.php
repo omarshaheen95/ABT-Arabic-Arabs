@@ -36,10 +36,10 @@ class HomeController extends Controller
 //        Log::critical(Carbon::createFromFormat('Y-m-d', '2021-07-01'));
         $title = 'المهارات والدروس';
         $user = Auth::guard('web')->user();
-        if ($user->demo){
+        if ($user->demo) {
             $grades = Grade::query()->whereIn('id', $user->demo_grades)->get();
             $alternate_grades = [];
-        }else{
+        } else {
             $grades = Grade::query()->where('id', Auth::user()->grade_id)->get();
             $alternate_grades = Grade::query()->where('id', Auth::user()->alternate_grade_id)->get();
         }
@@ -50,27 +50,37 @@ class HomeController extends Controller
 
     public function subLevels($grade, $type)
     {
-        if ($type == 'grammar')
-        {
+        if ($type == 'grammar') {
             $type_name = 'القواعد النحوية';
-        }elseif ($type == 'dictation')
-        {
+        } elseif ($type == 'dictation') {
             $type_name = 'الإملاء';
-        }else{
+        } else {
             $type_name = 'البلاغة';
         }
         $title = 'مستويات الدروس -  ' . $type_name;
-        $grade = Grade::query()->where('id', Auth::user()->grade_id)->first();
-        $levels = Lesson::query()
-            ->whereNotNull('level')
-            ->where('lesson_type', $type)
-            ->where('grade_id', Auth::user()->grade_id)
-            ->select('level', 'grade_id', \DB::raw('COUNT(*) as c'))
-            ->groupBy('level', 'grade_id')
-            ->havingRaw('c > 0')
-            ->get()->values()->toArray();
+        $user = Auth::guard('web')->user();
+        if ($user->demo) {
+            $grade = Grade::query()->findOrFail($grade);
+            $levels = Lesson::query()
+                ->whereNotNull('level')
+                ->where('lesson_type', $type)
+                ->where('grade_id', $grade->id)
+                ->select('level', 'grade_id', \DB::raw('COUNT(*) as c'))
+                ->groupBy('level', 'grade_id')
+                ->havingRaw('c > 0')
+                ->get()->values()->toArray();
+        } else {
+            $grade = Grade::query()->where('id', Auth::user()->grade_id)->first();
+            $levels = Lesson::query()
+                ->whereNotNull('level')
+                ->where('lesson_type', $type)
+                ->where('grade_id', Auth::user()->grade_id)
+                ->select('level', 'grade_id', \DB::raw('COUNT(*) as c'))
+                ->groupBy('level', 'grade_id')
+                ->havingRaw('c > 0')
+                ->get()->values()->toArray();
 
-
+        }
         return view('user.sub_levels', compact('title', 'type', 'grade', 'levels'));
     }
 
