@@ -198,6 +198,18 @@ Route::group(['namespace' => 'Manager'], function(){
 
     Route::get('copy-teacher-data', 'SettingController@copyTeacherData');
 
+    Route::get('remove_space', function (){
+        $users = \App\Models\User::query()->get();
+        //remove space and white space and   from email.
+
+        foreach ($users as $user){
+            $user->email = str_replace([' ', ' '], '', $user->email);
+            $user->save();
+        }
+
+        return 'done';
+    });
+
 
 });
 
