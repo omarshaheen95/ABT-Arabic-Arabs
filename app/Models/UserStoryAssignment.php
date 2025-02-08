@@ -42,7 +42,7 @@ class UserStoryAssignment extends Model
             $query->where('id', $value);
         })->when($value = $request->get('user_id',false), function (Builder $query) use ($value){
             $query->where('user_id', $value);
-        })->when($value = $request->get('username',false), function (Builder $query) use ($value){
+        })->when($value = $request->get('user_name',false), function (Builder $query) use ($value){
             $query->whereHas('user', function (Builder $query) use ($value) {
                 $query->where('name', 'like', '%' . $value . '%');
             });
