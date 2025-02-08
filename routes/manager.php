@@ -204,7 +204,7 @@ Route::group(['namespace' => 'Manager'], function(){
             ->orWhere('email', 'like', '% %')
             ->get();
         //remove space and white space and   from email.
-        dd($users->count());
+//        dd($users->count());
 
         foreach ($users as $user){
             $user->email = str_replace([' ', ' '], '', $user->email);
