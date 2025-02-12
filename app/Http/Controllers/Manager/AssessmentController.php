@@ -17,10 +17,10 @@ class AssessmentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:show lesson assessment')->only('index');
+        $this->middleware('permission:edit lesson assessment')->only('index');
         $this->middleware('permission:edit lesson assessment')
             ->only(['edit','update','deleteAQuestionAttachment','deleteAMatchImage','removeASortWord']);
-        $this->middleware('permission:preview lesson assessment')->only('preview');
+        $this->middleware('permission:lesson review')->only('preview');
         $this->middleware('permission:delete lesson assessment')->only('destroy');
     }
     public function index(Request $request, $lesson)
