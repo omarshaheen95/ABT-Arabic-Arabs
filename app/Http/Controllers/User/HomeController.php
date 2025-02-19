@@ -253,9 +253,9 @@ class HomeController extends Controller
             if ($user_record->status == 'pending' || $user_record->status == 'returned') {
                 if ($request->hasFile('record')) {
                     $new_name = uniqid() . '.' . 'wav';
-                    $destination = public_path('uploads/record_result');
+                    $destination = public_path('uploads/'.date('Y').'/'.date('m').'/'.date('d').'/record_result');
                     move_uploaded_file($_FILES['record']['tmp_name'], $destination . '/' . $new_name);
-                    $record = 'uploads' . DIRECTORY_SEPARATOR . 'record_result' . DIRECTORY_SEPARATOR . $new_name;
+                    $record = 'uploads' . DIRECTORY_SEPARATOR.date('Y') .DIRECTORY_SEPARATOR .date('m').DIRECTORY_SEPARATOR.date('d') .DIRECTORY_SEPARATOR . 'record_result' . DIRECTORY_SEPARATOR . $new_name;
                     $user_record->update([
                         'record' => $record,
                         'status' => 'pending',
@@ -267,13 +267,13 @@ class HomeController extends Controller
             }
         } else {
             if ($request->hasFile('record')) {
-                $destination = public_path('uploads/record_result');
+                    $destination = public_path('uploads/'.date('Y').'/'.date('m').'/'.date('d').'/record_result');
                 File::isDirectory($destination) or File::makeDirectory($destination, 0777, true, true);
 
                 $new_name = uniqid() . '.' . 'wav';
 
                 move_uploaded_file($_FILES['record']['tmp_name'], $destination . '/' . $new_name);
-                $record = 'uploads' . DIRECTORY_SEPARATOR . 'record_result' . DIRECTORY_SEPARATOR . $new_name;
+                    $record = 'uploads' . DIRECTORY_SEPARATOR.date('Y') .DIRECTORY_SEPARATOR .date('m').DIRECTORY_SEPARATOR.date('d') .DIRECTORY_SEPARATOR . 'record_result' . DIRECTORY_SEPARATOR . $new_name;
                 StoryUserRecord::query()->create([
                     'user_id' => $user->id,
                     'story_id' => $id,

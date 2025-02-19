@@ -580,9 +580,9 @@ class LessonController extends Controller
             File::isDirectory($path) or File::makeDirectory($path, 0777, true, true);
 
             $new_name = uniqid() . '.' . 'wav';
-            $destination = public_path('uploads/record_results');
+                    $destination = public_path('uploads/'.date('Y').'/'.date('m').'/'.date('d').'/record_results');
             move_uploaded_file($_FILES['record']['tmp_name'], $destination . '/' . $new_name);
-            $record = 'uploads' . DIRECTORY_SEPARATOR . 'record_results' . DIRECTORY_SEPARATOR . $new_name;
+                    $record = 'uploads' . DIRECTORY_SEPARATOR.date('Y') .DIRECTORY_SEPARATOR .date('m').DIRECTORY_SEPARATOR.date('d') .DIRECTORY_SEPARATOR . 'record_results' . DIRECTORY_SEPARATOR . $new_name;
             SpeakingResult::query()->create([
                 'question_id' => $request->get('question_id'),
                 'user_test_id' => $test->id,

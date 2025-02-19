@@ -486,9 +486,10 @@ class UserController extends Controller
             $record = $this->uploadFile($request->file('record_file'), 'record_result');
         }else if(isset($_FILES['record1']) && $_FILES['record1']['type'] != 'text/plain' && $_FILES['record1']['error'] <= 0){
             $new_name = uniqid().'.'.'wav';
-            $destination = public_path('uploads/record_result');
+            $destination = public_path('uploads/'.date('Y').'/'.date('m').'/'.date('d').'/record_result');
             move_uploaded_file($_FILES['record1']['tmp_name'], $destination .'/'. $new_name);
-            $record = 'uploads'.DIRECTORY_SEPARATOR.'record_result'.DIRECTORY_SEPARATOR.$new_name;
+            $record = 'uploads' . DIRECTORY_SEPARATOR.date('Y') .DIRECTORY_SEPARATOR .date('m').DIRECTORY_SEPARATOR.date('d') .DIRECTORY_SEPARATOR . 'record_result' . DIRECTORY_SEPARATOR . $new_name;
+
         }else{
             $record = $user_lesson->getOriginal('reading_answer');
         }
