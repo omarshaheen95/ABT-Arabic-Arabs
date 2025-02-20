@@ -493,7 +493,7 @@ class StoryController extends Controller
             }
         }
 
-        return $this->sendResponse(null,t('Successfully Updated'));
+        return redirect()->back()->with('message', t('Successfully Updated'))->with('m-class', 'success');
     }
 
     public function removeAttachment($id)
