@@ -649,9 +649,9 @@ class LessonController extends Controller
     public function lessonSpeakingTest(Request $request, $id)
     {
         $student = Auth::user();
-//        if ($student->demo) {
-//            return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
-//        }
+        if ($student->demo) {
+            return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
+        }
 
         $test = UserTest::query()->create([
             'user_id' => $student->id,
