@@ -551,20 +551,107 @@ class LessonController extends Controller
 
         return redirect()->route('lessons', [$test->lesson->grade->grade_number, $test->lesson->lesson_type])->with('message', "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها")->with('m-class', 'success');
     }
+//    public function lessonSpeakingTest(Request $request, $id)
+//    {
+//        $student = Auth::user();
+//        if ($student->demo){
+//            return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
+//        }
+////        $student_term = UserTest::query()->where('user_id', $student->id)->where('lesson_id', $id)->first();
+////        if ($student_term)
+////        {
+////            return $this->sendError(  'تم تقديم الاختبار مسبقا', 422);
+////        }
+//
+//
+//
+//
+//        $test = UserTest::query()->create([
+//            'user_id' => $student->id,
+//            'lesson_id' => $id,
+//            'start_at' => $request->get('start_at', now()),
+//            'end_at' => now(),
+//            'corrected' => 0,
+//            'total' => 0,
+//        ]);
+//
+//        if ($request->hasFile('record') && $request->get('question_id', false)) {
+//            $path = public_path().'/uploads/record_results';
+//            File::isDirectory($path) or File::makeDirectory($path, 0777, true, true);
+//
+//            $new_name = uniqid() . '.' . 'wav';
+//                    $destination = public_path('uploads/'.date('Y').'/'.date('m').'/'.date('d').'/record_results');
+//            move_uploaded_file($_FILES['record']['tmp_name'], $destination . '/' . $new_name);
+//                    $record = 'uploads' . DIRECTORY_SEPARATOR.date('Y') .DIRECTORY_SEPARATOR .date('m').DIRECTORY_SEPARATOR.date('d') .DIRECTORY_SEPARATOR . 'record_results' . DIRECTORY_SEPARATOR . $new_name;
+//            SpeakingResult::query()->create([
+//                'question_id' => $request->get('question_id'),
+//                'user_test_id' => $test->id,
+//                'attachment' => $record,
+//            ]);
+////            return $this->sendResponse($record, "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها");
+//        }
+//
+////        foreach ($request->get('writing_answer', []) as $key => $value)
+////        {
+////            if ($request->hasFile("writing_attachment.$key"))
+////            {
+////                $attachment = $this->uploadFile($request->file("writing_attachment.$key"), 'writing_results');
+////            }else{
+////                $attachment = null;
+////            }
+////            WritingResult::query()->create([
+////                'user_test_id' => $test->id,
+////                'question_id' => $key,
+////                'result' => $value,
+////                'attachment' => $attachment,
+////            ]);
+////        }
+//
+//
+//
+//        $student->user_tracker()->create([
+//            'lesson_id' => $id,
+//            'type' => 'test',
+//            'color' => 'danger',
+//            'start_at' => $request->get('start_at', now()),
+//            'end_at' => now(),
+//        ]);
+//
+//        if ($test->user->teacherUser)
+//        {
+//            updateTeacherStatistics($test->user->teacherUser->teacher_id);
+//        }
+//
+//        $user_assignment = UserAssignment::query()->where('user_id', $student->id)
+//            ->where('lesson_id', $id)
+//            ->where('test_assignment', 1)
+//            ->where('done_test_assignment', 0)
+//            ->first();
+////        dd($user_assignment, $id, $student);
+//
+//        if ($user_assignment)
+//        {
+//            $user_assignment->update([
+//                'done_test_assignment' => 1,
+//            ]);
+//
+//            if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment){
+//                $user_assignment->update([
+//                    'completed' => 1,
+//                ]);
+//            }
+//        }
+////        dd($total);
+//        return $this->sendResponse($user_assignment, "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها");
+//
+////        return redirect()->route('lessons', [$test->lesson->grade->grade_number, $test->lesson->lesson_type])->with('message', "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها")->with('m-class', 'success');
+//    }
     public function lessonSpeakingTest(Request $request, $id)
     {
         $student = Auth::user();
-        if ($student->demo){
-            return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
-        }
-//        $student_term = UserTest::query()->where('user_id', $student->id)->where('lesson_id', $id)->first();
-//        if ($student_term)
-//        {
-//            return $this->sendError(  'تم تقديم الاختبار مسبقا', 422);
+//        if ($student->demo) {
+//            return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
 //        }
-
-
-
 
         $test = UserTest::query()->create([
             'user_id' => $student->id,
@@ -576,38 +663,33 @@ class LessonController extends Controller
         ]);
 
         if ($request->hasFile('record') && $request->get('question_id', false)) {
-            $path = public_path().'/uploads/record_results';
-            File::isDirectory($path) or File::makeDirectory($path, 0777, true, true);
+            // Create date-based directory structure
+            $yearDir = date('Y');
+            $monthDir = date('m');
+            $dayDir = date('d');
 
-            $new_name = uniqid() . '.' . 'wav';
-                    $destination = public_path('uploads/'.date('Y').'/'.date('m').'/'.date('d').'/record_results');
-            move_uploaded_file($_FILES['record']['tmp_name'], $destination . '/' . $new_name);
-                    $record = 'uploads' . DIRECTORY_SEPARATOR.date('Y') .DIRECTORY_SEPARATOR .date('m').DIRECTORY_SEPARATOR.date('d') .DIRECTORY_SEPARATOR . 'record_results' . DIRECTORY_SEPARATOR . $new_name;
-            SpeakingResult::query()->create([
-                'question_id' => $request->get('question_id'),
-                'user_test_id' => $test->id,
-                'attachment' => $record,
-            ]);
-//            return $this->sendResponse($record, "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها");
+            $relativePath = 'uploads/' . $yearDir . '/' . $monthDir . '/' . $dayDir . '/record_results';
+            $fullPath = public_path($relativePath);
+
+            // Create directory structure if it doesn't exist
+            if (!File::isDirectory($fullPath)) {
+                File::makeDirectory($fullPath, 0777, true, true);
+            }
+
+            $new_name = uniqid() . '.wav';
+            $uploadedFile = $request->file('record');
+
+            // Use Laravel's move method instead of move_uploaded_file
+            if ($uploadedFile->move($fullPath, $new_name)) {
+                $record = $relativePath . '/' . $new_name;
+
+                SpeakingResult::query()->create([
+                    'question_id' => $request->get('question_id'),
+                    'user_test_id' => $test->id,
+                    'attachment' => $record,
+                ]);
+            }
         }
-
-//        foreach ($request->get('writing_answer', []) as $key => $value)
-//        {
-//            if ($request->hasFile("writing_attachment.$key"))
-//            {
-//                $attachment = $this->uploadFile($request->file("writing_attachment.$key"), 'writing_results');
-//            }else{
-//                $attachment = null;
-//            }
-//            WritingResult::query()->create([
-//                'user_test_id' => $test->id,
-//                'question_id' => $key,
-//                'result' => $value,
-//                'attachment' => $attachment,
-//            ]);
-//        }
-
-
 
         $student->user_tracker()->create([
             'lesson_id' => $id,
@@ -617,8 +699,7 @@ class LessonController extends Controller
             'end_at' => now(),
         ]);
 
-        if ($test->user->teacherUser)
-        {
+        if ($test->user->teacherUser) {
             updateTeacherStatistics($test->user->teacherUser->teacher_id);
         }
 
@@ -627,26 +708,21 @@ class LessonController extends Controller
             ->where('test_assignment', 1)
             ->where('done_test_assignment', 0)
             ->first();
-//        dd($user_assignment, $id, $student);
 
-        if ($user_assignment)
-        {
+        if ($user_assignment) {
             $user_assignment->update([
                 'done_test_assignment' => 1,
             ]);
 
-            if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment){
+            if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment) {
                 $user_assignment->update([
                     'completed' => 1,
                 ]);
             }
         }
-//        dd($total);
+
         return $this->sendResponse($user_assignment, "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها");
-
-//        return redirect()->route('lessons', [$test->lesson->grade->grade_number, $test->lesson->lesson_type])->with('message', "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها")->with('m-class', 'success');
     }
-
     public function lessonTestResult($id)
     {
         $title = "نتيجة الاختبار";
