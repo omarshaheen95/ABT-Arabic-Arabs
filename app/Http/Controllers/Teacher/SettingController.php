@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Teacher\TeacherPasswordRequest;
 use App\Http\Requests\Teacher\TeacherProfileRequest;
 use App\Models\Grade;
 use App\Models\Lesson;
@@ -73,7 +74,7 @@ class SettingController extends Controller
         return view('teacher.profile.password', compact('title' ));
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword(TeacherPasswordRequest $request)
     {
         $user = Auth::guard('teacher')->user();
         $request->validated();
