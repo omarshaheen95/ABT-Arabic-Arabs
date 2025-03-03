@@ -68,7 +68,7 @@
             <select class="form-select" name="section" data-control="select2" data-allow-clear="true"
                     data-placeholder="{{t('Select Section')}}">
                 <option></option>
-                @foreach(teacherSections(Auth::user()->id) as $section)
+                @foreach(schoolSections(Auth::user()->school_id) as $section)
                     <option value="{{$section}}">{{$section}}</option>
                 @endforeach
             </select>
