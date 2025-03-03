@@ -107,9 +107,9 @@ class UserRepository implements UserRepositoryInterface
             $compact['schools'] = School::query()->get();
         }elseif (guardIn(['school','supervisor'])){
             $compact['teachers'] = Teacher::query()->filter()->get();
-            $compact['sections'] = schoolSections();
+            $compact['sections'] = schoolSections(Auth::guard('school')->user()->id);
         }elseif (guardIs('teacher')){
-            $compact['sections'] = schoolSections();
+            $compact['sections'] = schoolSections(Auth::guard('teacher')->user()->school_id);
         }
 
         return view('general.user.index', $compact);
