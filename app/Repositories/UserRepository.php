@@ -109,7 +109,7 @@ class UserRepository implements UserRepositoryInterface
             $compact['teachers'] = Teacher::query()->filter()->get();
             $compact['sections'] = schoolSections();
         }elseif (guardIs('teacher')){
-            $compact['sections'] = teacherSections();
+            $compact['sections'] = schoolSections();
         }
 
         return view('general.user.index', $compact);
