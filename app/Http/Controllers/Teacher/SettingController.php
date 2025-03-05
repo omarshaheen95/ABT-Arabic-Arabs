@@ -14,6 +14,7 @@ use App\Models\TeacherUser;
 use App\Models\User;
 use App\Models\UserLesson;
 use App\Models\UserTracker;
+use App\Models\Year;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,7 +93,8 @@ class SettingController extends Controller
     {
         $title = t('Usage Report');
         $grades = Grade::query()->get();
-        return view('teacher.report.pre_usage_report', compact('title', 'grades'));
+        $years = Year::query()->get();
+        return view('teacher.report.pre_usage_report', compact('title', 'grades', 'years'));
     }
 
     public function usageReport(Request $request)
