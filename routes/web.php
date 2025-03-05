@@ -109,7 +109,7 @@ Route::get('cache', function (){
 Route::group(['namespace' => 'User', 'middleware' => ['auth']], function (){
     Route::get('check_subscribe', 'UserController@checkSubscribe')->name('check_subscribe');
     Route::get('subscribe_payment', 'UserController@subscribePayment')->name('subscribe_payment');
-    Route::get('confirm_subscribe_payment', 'UserController@checkSubscribePayment')->name('post_subscribe_payment');
+    Route::post('confirm_subscribe_payment', 'UserController@checkSubscribePayment')->name('post_subscribe_payment');
 
     Route::get('package_upgrade', 'UserController@packageUpgrade')->name('package_upgrade');
     Route::post('confirm_package_upgrade', 'UserController@payPackageUpgrade')->name('post_package_upgrade');
