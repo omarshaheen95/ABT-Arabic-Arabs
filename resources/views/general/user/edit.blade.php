@@ -200,7 +200,7 @@
                                     data-placeholder="{{t('Select Section')}}">
                                 <option></option>
                                 @foreach($sections as $section)
-                                    <option value="{{$section}}" {{isset($user) && $user->$section == $section ? 'selected':''}}>{{$section}}</option>
+                                    <option value="{{$section}}" {{isset($user) && $user->section == $section ? 'selected':''}}>{{$section}}</option>
                                 @endforeach
                             </select>
                         </div>
