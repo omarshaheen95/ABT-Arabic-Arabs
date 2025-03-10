@@ -198,7 +198,7 @@ class UserRepository implements UserRepositoryInterface
             $compact['sections'] = schoolSections(\request()->get('school_id'));
         }
         if (guardIs('teacher')){
-            $compact['sections'] = teacherSections();
+            $compact['sections'] = schoolSections(\request()->get('school_id'));
         }
         return view('general.user.edit', $compact);
     }
