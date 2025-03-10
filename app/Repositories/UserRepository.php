@@ -126,6 +126,9 @@ class UserRepository implements UserRepositoryInterface
             $compact['schools'] = School::query()->get();
         }elseif (guardIs('school')){
             $compact['teachers'] = Teacher::query()->filter()->get();
+            $compact['sections'] = schoolSections(\request()->get('school_id'));
+        }elseif (guardIs('teacher')){
+            $compact['sections'] = teacherSections();
         }
         return view('general.user.edit', $compact);
     }
@@ -192,6 +195,10 @@ class UserRepository implements UserRepositoryInterface
         if (guardIn(['manager','school'])){
             $compact['teachers'] = Teacher::query()->filter()->get();
             $compact['packages'] = Package::query()->get();
+            $compact['sections'] = schoolSections(\request()->get('school_id'));
+        }
+        if (guardIs('teacher')){
+            $compact['sections'] = teacherSections();
         }
         return view('general.user.edit', $compact);
     }

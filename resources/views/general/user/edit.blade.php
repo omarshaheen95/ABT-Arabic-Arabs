@@ -183,14 +183,30 @@
                         </div>
                     </div>
                 @endif
-                <div class="col-3 mb-2">
-                    <div class="form-group">
-                        <label for="" class="form-label">{{t('Section')}}</label>
-                        <input class="form-control" name="section" type="text"
-                               value="{{ isset($user) ? $user->section : old("section") }}"
-                               placeholder="{{t('Section')}}">
+                @if(guardIs('manager'))
+                    <div class="col-3 mb-2">
+                        <div class="form-group">
+                            <label for="" class="form-label">{{t('Section')}}</label>
+                            <input class="form-control" name="section" type="text"
+                                   value="{{ isset($user) ? $user->section : old("section") }}"
+                                   placeholder="{{t('Section')}}">
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="col-3 mb-2">
+                        <div class="form-group">
+                            <label for="" class="form-label">{{t('Section')}}</label>
+                            <select class="form-select" name="section" data-control="select2" data-allow-clear="true"
+                                    data-placeholder="{{t('Select Section')}}">
+                                <option></option>
+                                @foreach($sections as $section)
+                                    <option value="{{$section}}" {{isset($user) && $user->$section == $section ? 'selected':''}}>{{$section}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="col-3 mb-2">
                     <div class="form-group">
                         <label for="" class="form-label">{{t('Year')}}</label>
