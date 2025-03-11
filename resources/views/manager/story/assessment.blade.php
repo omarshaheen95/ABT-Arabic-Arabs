@@ -449,8 +449,6 @@ WhatsApp +972592554320
                                             <label class="mb-2">{{ t('Option')}}  {{$loop->index+1}} :
                                                 <a href="#"
                                                    data-id="{{$sort_word->id}}"
-                                                   data-bs-toggle="modal"
-                                                   data-target="#deleteSortWord"
                                                    class="text-danger delete_old_input">{{ t('Delete')}} </a></label>
                                             <input required class="form-control"
                                                    name="s_q_option[{{$s_question->id}}][{{$sort_word->id}}]"
@@ -458,10 +456,10 @@ WhatsApp +972592554320
                                         </div>
 
                                     @endforeach
-                                    <div class="col-1 d-flex align-items-end mt-3">
+                                    <div class="col-1 d-flex align-items-center mt-5">
                                         <button type="button" data-id="{{$s_question->id}}"
                                                 id="add_label_{{$s_question->id}}"
-                                                class="btn btn-danger btn-icon btn-block add_button"><i
+                                                class="btn btn-danger btn-sm btn-icon btn-block add_button"><i
                                                 class="fa fa-plus"></i>
                                         </button>
                                     </div>
@@ -636,7 +634,7 @@ WhatsApp +972592554320
                     $(document).on('click', '.delete_old_input', (function () {
                         let id = $(this).data("id");
                         let url = '{{route('manager.story.remove_sort_word', ':id')}}'.replace(':id', id);
-                        let parent = $(this).parent()
+                        let parent = $(this).parent().parent()
                         showAlert("{{t('Delete Input')}}","{{t('Are you sure to for deleting process?')}}",'warning',
                             true,true,function (callback) {
                                 if (callback){
@@ -703,9 +701,9 @@ WhatsApp +972592554320
                             x++; //Increment field counter
                             y++; //Increment field counter.
                             $(this).parent().before(
-                                "<div class=\"col-lg-4 mt-3 option\">\n" +
-                                "<label class="mb-2">{{ t('Option')}}  " + y + " : <a href='#' class='text-danger delete_input'>{{ t('Delete')}} </a></label>\n" +
-                                "<input required class=\"form-control\" name=\"s_q_option[" + row_id + "]["+y+"]\" type=\"text\">\n")
+                                `<div class="col-lg-4 mb-3 option">
+                                <label class="mb-2">{{ t('Option')}}${y} : <a href='#' class='text-danger delete_input'>{{ t('Delete')}} </a></label>
+                                <input required class="form-control" name="s_q_option[${row_id}][${y}]" type="text">`)
                         }
                     });
                     //Once remove button is clicked
