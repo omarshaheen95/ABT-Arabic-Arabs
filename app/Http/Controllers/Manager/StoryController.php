@@ -370,6 +370,9 @@ class StoryController extends Controller
     public function updateAssessmentStory(Request $request, $id, $step)
     {
         $story = Story::query()->findOrFail($id);
+        $story_questions = StoryQuestion::with(['trueFalse','options','sort_words','matches'])
+            ->where('story_id', $story->id)->get();
+
         $s_q_options = $request->get('s_q_option', []);
         $old_s_q_options = $request->get('old_s_q_option', []);
 //        dd($old_s_q_options);
@@ -379,7 +382,7 @@ class StoryController extends Controller
             $true_false_questions = $request->get('t_f_question', []);
             $true_false_answers = $request->get('t_f', []);
             foreach ($true_false_questions as $key => $true_false_question) {
-                $question = StoryQuestion::query()->where('story_id', $story->id)->find($key);
+                $question = $story_questions->where('id',$key)->first();
                 if ($question) {
                     $attachment = $request->hasFile("t_f_q_attachment.$key") ? $this->uploadFile(request()->file('t_f_q_attachment')[$key], 'story_assessment_attachments') : $question->getOriginal('attachment');
                     $question->update([
@@ -389,7 +392,8 @@ class StoryController extends Controller
                 }
             }
             foreach ($true_false_answers as $key => $true_false_answer) {
-                $true_false = StoryTrueFalse::query()->where('story_question_id', $key)->first();
+                $true_false = $story_questions->where('story_question_id', $key)->first()->trueFalse;
+//                $true_false = StoryTrueFalse::query()->where('story_question_id', $key)->first();
                 if ($true_false) {
                     $true_false->update(['result' => $true_false_answer]);
                 }
@@ -400,7 +404,7 @@ class StoryController extends Controller
             //Chose Option
             $c_questions = $request->get('c_question', []);
             foreach ($c_questions as $key => $c_question) {
-                $question = StoryQuestion::query()->where('story_id', $story->id)->find($key);
+                $question = $story_questions->where('id',$key)->first();
                 if ($question) {
                     $attachment = $request->hasFile("c_q_attachment.$key") ? $this->uploadFile(request()->file('c_q_attachment')[$key], 'story_assessment_attachments') : $question->getOriginal('attachment');
                     $question->update([
@@ -429,7 +433,7 @@ class StoryController extends Controller
             $m_q_options = $request->get('m_q_option', []);
             $m_q_answer = $request->get('m_q_answer', []);
             foreach ($m_questions as $key => $m_question) {
-                $question = StoryQuestion::query()->where('story_id', $story->id)->find($key);
+                $question = $story_questions->where('id',$key)->first();
                 if ($question) {
                     $attachment = $request->hasFile("m_q_attachment.$key") ? $this->uploadFile(request()->file('m_q_attachment')[$key], 'story_assessment_attachments') : $question->getOriginal('attachment');
                     $question->update([
@@ -463,7 +467,7 @@ class StoryController extends Controller
             $old_s_q_options = $request->get('old_s_q_option', []);
 
             foreach ($s_questions as $key => $s_question) {
-                $question = StoryQuestion::query()->where('story_id', $story->id)->find($key);
+                $question = $story_questions->where('id',$key)->first();
                 if ($question) {
                     $attachment = $request->hasFile("s_q_attachment.$key") ? $this->uploadFile(request()->file('s_q_attachment')[$key], 'story_assessment_attachments') : $question->getOriginal('attachment');
                     $question->update([
@@ -474,23 +478,23 @@ class StoryController extends Controller
                     $counter = $question->sort_words()->count();
                     foreach ($question_option as $m_a_key => $option) {
                         $counter++;
-                        StorySortWord::create([
-                            'story_question_id' => $question->id,
-                            'uid' => \Str::uuid(),
+                        StorySortWord::where('story_question_id',$question->id)
+                            ->where('id',$m_a_key)->update([
                             'content' => $option,
                             'ordered' => $counter,
                         ]);
                     }
                 }
             }
-            foreach ($old_s_q_options as $key => $old_s_q_option) {
-                foreach ($old_s_q_option as $o_key => $s_q_option) {
-                    $option = StorySortWord::query()->find($o_key);
-                    if ($option) {
-                        $option->update(['content' => $s_q_option]);
-                    }
-                }
-            }
+//            foreach ($old_s_q_options as $key => $old_s_q_option) {
+//                foreach ($old_s_q_option as $o_key => $s_q_option) {
+//                    $option = StorySortWord::query()->find($o_key);
+//                    if ($option) {
+//                        $option->update(['content' => $s_q_option]);
+//                    }
+//                }
+//            }
+
         }
 
         return redirect()->back()->with('message', t('Successfully Updated'))->with('m-class', 'success');
