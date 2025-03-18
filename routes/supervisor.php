@@ -23,6 +23,10 @@ Route::group(['namespace' => 'Supervisor'], function () {
         Route::get('pre_usage_report', 'SettingController@preUsageReport')->name('report.pre_usage_report');
         Route::get('usage_report', 'SettingController@usageReport')->name('report.usage_report');
 
+        //Teacher Usage Report
+        Route::get('teacher_pre_usage_report', 'SettingController@teacherPreUsageReport')->name('report.teacher_pre_usage_report');
+        Route::get('teacher_usage_report', 'SettingController@teacherUsageReport')->name('report.teacher_usage_report');
+
 
     });
 

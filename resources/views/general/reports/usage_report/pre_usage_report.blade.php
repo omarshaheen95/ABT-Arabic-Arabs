@@ -10,9 +10,22 @@
 @section('content')
 
     <div class="row">
-        <form action="{{route(getGuard().'.report.usage_report')}}" id="filter">
+        <form action="{{route(getGuard().'.report.teacher_usage_report')}}" id="filter">
             {{csrf_field()}}
             <div class="row kt-margin-b-20">
+                @if(guardIs('supervisor'))
+                    <div class="col-lg-12 mb-2">
+                        <label>{{t('Teachers')}} :</label>
+                        <select id="teachers" name="teacher_id" class="form-select grade" data-control="select2"
+                                data-placeholder="{{t('Select Teacher')}}"
+                                data-allow-clear="true">
+                            <option></option>
+                            @foreach($teachers as $teacher)
+                                <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
                 <div class="col-lg-12 mb-2">
                     <label>{{t('Grade')}} :</label>
                     <select id="grades" name="grades[]" class="form-select grade" data-control="select2"
