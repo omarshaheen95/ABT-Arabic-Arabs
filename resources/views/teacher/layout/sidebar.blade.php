@@ -326,7 +326,7 @@
                 </div>
 
                 <div class="menu-item">
-                    <a href="{{route('teacher.report.pre_usage_report')}}" class="menu-link {{request()->url() == route('teacher.report.pre_usage_report')?'active':''}}">
+                    <a href="{{route('teacher.report.teacher_pre_usage_report')}}" class="menu-link {{request()->url() == route('teacher.report.teacher_pre_usage_report')?'active':''}}">
                         <span class="menu-icon">
                            <i class="ki-duotone ki-graph-2 fs-2">
                              <span class="path1"></span>
