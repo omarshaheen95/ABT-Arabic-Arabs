@@ -118,7 +118,8 @@ class SettingController extends Controller
             $date_range = [];
         }
         $teachers = Teacher::query()->filter()->get();
-        return view('general.reports.usage_report.pre_usage_report', compact('title','teachers', 'grades', 'years', 'date_range'));
+        $url = route('supervisor.report.teacher_pre_usage_report');
+        return view('general.reports.usage_report.pre_usage_report', compact('title','teachers','url', 'grades', 'years', 'date_range'));
     }
 
     public function teacherUsageReport(Request $request)

@@ -10,7 +10,7 @@
 @section('content')
 
     <div class="row">
-        <form action="{{route(getGuard().'.report.teacher_usage_report')}}" id="filter">
+        <form action="{{$url}}" id="filter">
             {{csrf_field()}}
             <div class="row kt-margin-b-20">
                 @if(guardIs('supervisor'))
