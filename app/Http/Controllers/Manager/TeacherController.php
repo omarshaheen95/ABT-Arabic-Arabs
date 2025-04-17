@@ -151,7 +151,7 @@ class TeacherController extends Controller
 
         if (count($data)) {
             $update = Teacher::query()->filter($request)->update($data);
-            return $this->sendResponse(null, t('Updated Successfully :' . $update));
+            return $this->sendResponse(null, t('Updated Successfully').':'. $update);
         }
         return $this->sendResponse(null, t('No teachers updated'));
 

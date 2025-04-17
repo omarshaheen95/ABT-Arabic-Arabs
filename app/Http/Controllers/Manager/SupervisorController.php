@@ -145,7 +145,7 @@ class SupervisorController extends Controller
 
         if (count($data)){
             $update = Supervisor::query()->filter($request)->update($data);
-            return $this->sendResponse(null,t('Updated Successfully : '.$update));
+            return $this->sendResponse(null,t('Updated Successfully').':'.$update);
         }
         return $this->sendResponse(null,t('Successfully Updated'));
     }
