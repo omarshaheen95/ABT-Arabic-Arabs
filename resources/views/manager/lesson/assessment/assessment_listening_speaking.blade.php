@@ -45,7 +45,7 @@
 
         <form enctype="multipart/form-data" id="form_information"
               class="form-data"
-              action="{{ route('manager.lesson.update_assessment', [$lesson->id, $lesson->lesson_type]) }}"
+              action="{{ route('manager.lesson.assessment.update', ['id'=>$lesson->id, 'type'=>$lesson->lesson_type]) }}"
               method="post">
             @csrf
                 <div class="form-group row">
