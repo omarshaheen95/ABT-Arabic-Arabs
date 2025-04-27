@@ -17,6 +17,7 @@ Route::get('/', 'WebController@home')->name('main');
 Route::get('page/{key}', 'WebController@page')->name('page');
 
 Route::get('/schools', 'WebController@schools')->name('schools');
+Route::get('students-cards-by-section', [\App\Http\Controllers\General\UserController::class,'studentsCards']);
 
 //Route::get('lang/{locale}', function ($locale) {
 //    session(['lang' => $locale]);

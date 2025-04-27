@@ -259,6 +259,53 @@ class UserRepository implements UserRepositoryInterface
         return (new StudentInformation($request))->download($file_name);
     }
 
+    public function studentsCardsBySection(Request $request)
+    {
+        $request->validate([
+            'school_id' => 'required',
+            'year_id' => 'required',
+        ]);
+        $students = User::query()->with(['school'])->filter($request)->get();
+        if ($students->count() == 0) {
+            return Response::respondError( 'No Students Found', 404);
+        }
+        $sections = $students->whereNotNull('section')->pluck('section')->unique();
+        $urls = [];
+        foreach ($sections as $section) {
+            $url = '/students-cards-by-section?school_id=' . $request['school_id'] . '&year_id=' . $request['year_id'] . '&section=' . $section;
+            $urls[] = (object)[
+                'section' => str_replace('/', '-', $section),
+                'url' => $url,
+            ];
+        }
+        $client = new \GuzzleHttp\Client([
+            'timeout' => 36000,
+        ]);
+
+        $data = [];
+        $res = $client->request('POST', 'https://pdfservice.arabic-uae.com/getpdf.php', [
+            'form_params' => [
+                'platform' => 'arabic-arabs',
+                'urls' => $urls,
+                'data' => $data,
+            ],
+        ]);
+        $data = json_decode($res->getBody());
+        $url = $data->url;
+        $fileContent = file_get_contents($url);
+        if ($fileContent === false) {
+            throw new \Exception('Unable to download file');
+        }elseif ($students->count() == 0) {
+            throw new \Exception(t('You dont have any students,so you cant export writing papers'));
+        } else {
+            return response($fileContent, 200, [
+                'Content-Type' => 'application/zip',
+                'Content-Disposition' => 'inline; filename="reports.zip"'
+            ]);
+        }
+        return redirect($data->url);
+    }
+
     public function report(Request $request, $id)
     {
         $general = new GeneralFunctions();

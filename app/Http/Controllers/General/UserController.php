@@ -39,7 +39,7 @@ class UserController extends Controller
         $this->middleware('permission:add users')->only(['create', 'store']);
         $this->middleware('permission:edit users')->only(['edit', 'update']);
         $this->middleware('permission:delete users')->only('destroy');
-        $this->middleware('permission:export users')->only('exportStudentsExcel');
+        $this->middleware('permission:export users')->only(['export','studentsCardsBySection']);
         $this->middleware('permission:review users')->only('review');
         $this->middleware('permission:users story review')->only('storyReview');
         $this->middleware('permission:users login')->only('userLogin');
@@ -86,6 +86,11 @@ class UserController extends Controller
     public function export(Request $request)
     {
         return $this->userRepository->export($request);
+    }
+
+    public function studentsCardsBySection(Request $request)
+    {
+        return $this->userRepository->studentsCardsBySection($request);
     }
 
     public function lessonReview(Request $request, $id)

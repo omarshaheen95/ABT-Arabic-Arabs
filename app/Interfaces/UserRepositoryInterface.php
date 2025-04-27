@@ -22,6 +22,8 @@ interface UserRepositoryInterface
 
     public function export(Request $request);
 
+    public function studentsCardsBySection(Request $request);
+
     public function lessonReview(Request $request, $id);
 
     public function storyReview(Request $request, $id);

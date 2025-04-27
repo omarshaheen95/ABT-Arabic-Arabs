@@ -21,6 +21,8 @@
                 @can('export users')
                     <li><a class="dropdown-item" href="#!" onclick="excelExport('{{route(getGuard().'.user.export')}}')">{{t('Export')}}</a></li>
                     <li><a class="dropdown-item" href="#!" onclick="cardsExport(true)">{{t('Cards')}}</a></li>
+                    <li><a class="dropdown-item" href="#!" onclick="excelExport('{{route(getGuard().'.user.cards-by-section')}}')">{{t('Cards By Section')}}</a></li>
+
                 @endif
 
 
