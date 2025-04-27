@@ -52,7 +52,7 @@ Route::group(['namespace' => 'General'], function () {
     Route::get('user/{id}/card', 'UserController@userCard')->name('user.card');
     Route::get('user/cards_and_qr', 'UserController@cards')->name('user.cards-export');
     Route::get('user/cards_and_qr_file', 'UserController@studentsImportFileCards')->name('user.studentsImportFileCards');
-    Route::get('user/cards_by_section', 'UserController@studentsCardsBySection')->name('user.cards-by-section');
+    Route::post('user/cards_by_section', 'UserController@studentsCardsBySection')->name('user.cards-by-section');
     Route::get('user/lesson_review/{id}', 'UserController@lessonReview')->name('user.review');
     Route::get('user/story_review/{id}', 'UserController@storyReview')->name('user.story_review');
     Route::get('user/report/{id}', 'UserController@report')->name('user.report');
