@@ -200,6 +200,10 @@ class UserRepository implements UserRepositoryInterface
         if (guardIs('teacher')){
             $compact['sections'] = schoolSections(\request()->get('school_id'));
         }
+        if (guardIs('supervisor')){
+            $compact['teachers'] = Teacher::query()->where('school_id',$user->school_id)->get();
+            $compact['sections'] = getSections($user->school_id);
+        }
         return view('general.user.edit', $compact);
     }
 

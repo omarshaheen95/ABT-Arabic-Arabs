@@ -172,7 +172,7 @@
                         <div class="form-group">
                             <label for="" class="form-label">{{t('Alternative Grade')}}</label>
                             <select class="form-select" name="alternate_grade_id" data-control="select2"
-                                    data-allow-clear="true" data-placeholder="{{t('Select Teacher')}}">
+                                    data-allow-clear="true" data-placeholder="{{t('Select Grade')}}">
                                 <option value="" selected>{{t('Select Grade')}}</option>
                                 @foreach($grades as $grade)
                                     <option
@@ -235,7 +235,7 @@
                     </div>
                 @endif
 
-                @if(guardIn(['manager','school']))
+                @if(guardIn(['manager','school','supervisor']))
                     <div class="col-3 mb-2">
                         <div class="form-group">
                             <label for="" class="form-label">{{t('Teacher')}}</label>
