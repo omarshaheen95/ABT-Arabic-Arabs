@@ -55,7 +55,7 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
                 $this->deleted_rows_count++;
             }
         } elseif ($this->created_file->process_type == 'update') {
-            $user = User::query()->where('email', $row['Email'])->where('school_id', $this->created_file->school_id)->first();
+            $user = User::query()->where('id_number', $row['Student ID'])->where('school_id', $this->created_file->school_id)->first();
             if ($user) {
                 $user = $this->updateUser($this->created_file, $user, $row);
             }
@@ -354,7 +354,7 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
             'active_to' => $this->created_file->other_data['active_to'],
             'nationality' => isset($row['Nationality']) && !is_null($row['Nationality']) ? $row['Nationality'] : null,
             'active_from' => Carbon::now(),
-            'id_number' => isset($row['Student ID']) && !is_null($row['Student ID']) ? $row['Student ID'] : $user->id_number,
+//            'id_number' => isset($row['Student ID']) && !is_null($row['Student ID']) ? $row['Student ID'] : $user->id_number,
             'country_code' => $this->created_file->other_data['country_code'],
             'short_country' => $this->created_file->other_data['short_country'],
             'import_file_id' => $this->created_file->id,
