@@ -327,7 +327,7 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
 
     private function updateUser($file_data, $user, $row)
     {
-        $grade = isset($row['Grade']) && !is_null($row['Grade']) ? $row['Grade'] : $user->grade;
+        $grade = isset($row['Grade']) && !is_null($row['Grade']) ? $row['Grade'] : $user->grade_id;
         $alternative_grade = isset($row['Alternative Grade']) && !is_null($row['Alternative Grade']) ? $row['Alternative Grade'] : $user->alternate_grade;
 
         $grade = abs((int)filter_var($grade, FILTER_SANITIZE_NUMBER_INT));// - 1;
@@ -344,7 +344,7 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
             'name' => isset($row['Name']) && !is_null($row['Name']) ? $this->checkUserNameLength($row['Name']) : $user->name,
             'mobile' => isset($row['Mobile']) && !is_null($row['Mobile']) ? $row['Mobile'] : $user->mobile,
             'password' => isset($row['Password']) && !is_null($row['Password']) ? bcrypt($row['Password']) : $user->password,
-            'grade_id' => $grade,
+            'grade_id' => isset($row['Grade']) && !is_null($row['Grade']) ? $grade : $user->grade_id,
             'alternate_grade_id' => $alternative_grade,
             'section' => isset($row['Section']) && !is_null($row['Section']) ? $row['Section'] : $user->section,
             'gender' => isset($row['Gender']) && !is_null($row['Gender']) ? $row['Gender'] : $user->gender,
