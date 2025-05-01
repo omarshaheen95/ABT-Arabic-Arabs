@@ -183,16 +183,16 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
         } elseif ($this->created_file->process_type == 'update') {
             return [
                 'Name' =>['sometimes', new UserNameRule()],
-                'Email' => ['required', new UserEmailRule()],
+                'Email' => ['sometimes', new UserEmailRule()],
                 'Mobile' => 'sometimes',
                 'Password' => 'sometimes',
-                'Grade' => 'required|exists:grades,id',
+                'Grade' => 'sometimes|exists:grades,id',
                 'Alternative Grade' => 'nullable|exists:grades,id',
                 'Section' => 'sometimes',
                 'Nationality' => 'sometimes',
                 'Gender' => 'sometimes|in:Boy,Girl',
                 'Active' => 'sometimes|in:1,0',
-                'Student ID' => 'sometimes',
+                'Student ID' => 'required',
                 'Teacher' => 'sometimes',
             ];
         } else {
