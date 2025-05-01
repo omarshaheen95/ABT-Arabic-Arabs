@@ -330,7 +330,7 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
         $grade = isset($row['Grade']) && !is_null($row['Grade']) ? $row['Grade'] : $user->grade;
         $alternative_grade = isset($row['Alternative Grade']) && !is_null($row['Alternative Grade']) ? $row['Alternative Grade'] : $user->alternate_grade;
 
-        $grade = abs((int)filter_var($row['Grade'], FILTER_SANITIZE_NUMBER_INT));// - 1;
+        $grade = abs((int)filter_var($grade, FILTER_SANITIZE_NUMBER_INT));// - 1;
         if ($this->created_file->other_data['back_grade'] > 0 ) {
             $grade -= $this->created_file->other_data['back_grade'];
         }
