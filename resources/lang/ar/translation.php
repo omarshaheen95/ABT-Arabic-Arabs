@@ -977,4 +977,6 @@ return
 	'Auto Correcting' => 'Auto Correcting',
 	'Tests Correcting Successfully' => 'Tests Correcting Successfully',
 	'User created successfully' => 'User created successfully',
+	'Question successfully updated!' => 'Question successfully updated!',
+	'Question successfully updated' => 'Question successfully updated',
 ];
