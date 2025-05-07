@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Manager;
 
+use App\Helpers\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Manager\StoryRequest;
 use App\Models\Lesson;
@@ -392,8 +393,11 @@ class StoryController extends Controller
                 }
             }
             foreach ($true_false_answers as $key => $true_false_answer) {
-                $true_false = $story_questions->where('story_question_id', $key)->first()->trueFalse;
-//                $true_false = StoryTrueFalse::query()->where('story_question_id', $key)->first();
+
+                $true_false = $story_questions->filter(function($question) use ($key) {
+                    return $question->trueFalse !== null && $question->trueFalse->story_question_id==$key;
+                })->first()->trueFalse;
+
                 if ($true_false) {
                     $true_false->update(['result' => $true_false_answer]);
                 }
@@ -497,7 +501,8 @@ class StoryController extends Controller
 
         }
 
-        return redirect()->back()->with('message', t('Successfully Updated'))->with('m-class', 'success');
+        return Response::respondSuccess(t('Question successfully updated'));
+//        return redirect()->back()->with('message', t('Successfully Updated'))->with('m-class', 'success');
     }
 
     public function removeAttachment($id)
