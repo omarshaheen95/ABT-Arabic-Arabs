@@ -1660,6 +1660,24 @@ function storyGradesSys()
 //       ['name'=>'Grade 9','value'=>9],
 //   ] ;
 }
+function gradesSys()
+{
+  return  [15=>'Grade KG',1=>'Grade 1',2=>'Grade 2',3=>'Grade 3',4=>'Grade 4',5=>'Grade 5',
+        6=>'Grade 6',7=>'Grade 7',8=>'Grade 8',9=>'Grade 9'];
+//   return[
+//
+//       ['name'=>'Grade KG','value'=>15],
+//       ['name'=>'Grade 1','value'=>1],
+//       ['name'=>'Grade 2','value'=>2],
+//       ['name'=>'Grade 3','value'=>3],
+//       ['name'=>'Grade 4','value'=>4],
+//       ['name'=>'Grade 5','value'=>5],
+//       ['name'=>'Grade 6','value'=>6],
+//       ['name'=>'Grade 7','value'=>7],
+//       ['name'=>'Grade 8','value'=>8],
+//       ['name'=>'Grade 9','value'=>9],
+//   ] ;
+}
 function lessonTypes()
 {
     return ['reading','writing','listening','speaking','grammar','dictation','rhetoric'];

@@ -55,7 +55,7 @@ class StoryAssignmentExport implements WithMapping, Responsable, WithHeadings, F
        return [
           $row->teacher->school->name,
           $row->teacher->name,
-           storyGradesSys()[$row->students_grade],
+           gradesSys()[$row->students_grade],
            storyGradesSys()[$row->story_grade],
           $this->stories->whereIn('id',$row->stories_ids)->pluck('name')->implode(','),
           $row->completed_count?:' 0',
