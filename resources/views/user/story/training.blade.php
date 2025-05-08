@@ -130,16 +130,16 @@
                                     <audio src="{{asset($user_story->record)}}" controls></audio>
                                         @if($user_story->status =='corrected')
                                             <div class="d-flex justify-content-center">
-                                                <div class="d-flex flex-column align-items-center w-50 my-5 gap-2">
+                                                <div class="d-flex flex-column align-items-center w-75 my-5 gap-2">
                                                     <div class="form-group row col-12">
-                                                        <label class="col-3 fw-bold fs-5">{{ t('Feedback') }}</label>
-                                                        <div class="col-9">
+                                                        <label class="col-4 fw-bold fs-5">{{ t('Feedback') }}</label>
+                                                        <div class="col-8">
                                                             <p class="text-start">{{$user_story->feedback_message??t('No Feedback')}}</p>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row col-12 mb-2">
-                                                        <label class="col-3 fw-bold fs-5">{{ t('Feedback Recording') }}</label>
-                                                        <div class="col-9 d-flex justify-content-start">
+                                                        <label class="col-4 fw-bold fs-5">{{ t('Feedback Recording') }}</label>
+                                                        <div class="col-8 d-flex justify-content-start">
                                                             @if($user_story && !is_null($user_story->feedback_audio_message) )
                                                                 <audio src="{{asset($user_story->feedback_audio_message)}}" controls></audio>
                                                             @else
@@ -276,16 +276,16 @@
                                     <audio src="{{asset($users_story->record)}}" controls></audio>
                                 @if($users_story->status =='corrected')
                                     <div class="d-flex justify-content-center">
-                                        <div class="d-flex flex-column align-items-center w-50 my-5 gap-2">
+                                        <div class="d-flex flex-column align-items-center w-75 my-5 gap-2">
                                             <div class="form-group row col-12">
-                                                <label class="col-3 fw-bold fs-5">{{ t('Feedback') }}</label>
-                                                <div class="col-9">
+                                                <label class="col-4 fw-bold fs-5">{{ t('Feedback') }}</label>
+                                                <div class="col-8">
                                                     <p class="text-start">{{$user_story->feedback_message??t('No Feedback')}}</p>
                                                 </div>
                                             </div>
                                             <div class="form-group row col-12 mb-2">
-                                                <label class="col-3 fw-bold fs-5">{{ t('Feedback Recording') }}</label>
-                                                <div class="col-9 d-flex justify-content-start">
+                                                <label class="col-4 fw-bold fs-5">{{ t('Feedback Recording') }}</label>
+                                                <div class="col-8 d-flex justify-content-start">
                                                     @if($user_story && !is_null($user_story->feedback_audio_message) )
                                                         <audio src="{{asset($user_story->feedback_audio_message)}}" controls></audio>
                                                     @else
