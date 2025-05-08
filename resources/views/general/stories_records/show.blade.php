@@ -2,7 +2,7 @@
 @section('title',$title)
 @push('breadcrumb')
     <li class="breadcrumb-item b text-muted">
-        {{$title}}
+        {{$title}}|{{$user_record->story->name}}
     </li>
 @endpush
 @section('actions')
