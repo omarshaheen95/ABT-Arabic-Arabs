@@ -91,7 +91,7 @@ Route::group(['namespace' => 'Manager'], function(){
     //Story
     Route::resource('story', 'StoryController')->except('destroy');
     Route::delete('story/delete', 'StoryController@destroy')->name('story.destroy');
-    Route::get('story/{id}/review', 'StoryController@review')->name('story.review');
+    Route::get('story/{id}/review/{type}', 'StoryController@review')->name('story.review');
     Route::post('story/{id}/remove_attachment/{type}', 'StoryController@removeStoryAttachment')->name('story.remove-attachment');
     Route::get('story/{id}/assessment', 'StoryController@storyAssessment')->name('story.assessment');
     Route::post('story/{id}/assessment/{step}', 'StoryController@storeAssessmentStory')->name('story.assessment.store');

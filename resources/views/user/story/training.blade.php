@@ -128,6 +128,28 @@
                                     <h4 class="text-success"> @if($user_story->status == 'corrected') <span
                                             class="text-warning">  {{$user_story->mark}} / 10</span> @endif</h4>
                                     <audio src="{{asset($user_story->record)}}" controls></audio>
+                                        @if($user_story->status =='corrected')
+                                            <div class="d-flex justify-content-center">
+                                                <div class="d-flex flex-column align-items-center w-50 my-5 gap-2">
+                                                    <div class="form-group row col-12">
+                                                        <label class="col-3 fw-bold fs-5">{{ t('Feedback') }}</label>
+                                                        <div class="col-9">
+                                                            <p class="text-start">{{$user_story->feedback_message??t('No Feedback')}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row col-12 mb-2">
+                                                        <label class="col-3 fw-bold fs-5">{{ t('Feedback Recording') }}</label>
+                                                        <div class="col-9 d-flex justify-content-start">
+                                                            @if($user_story && !is_null($user_story->feedback_audio_message) )
+                                                                <audio src="{{asset($user_story->feedback_audio_message)}}" controls></audio>
+                                                            @else
+                                                                {{ t('No Feedback Record')}}
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
                                 @endif
 
                                 @if(!$user_story || ($user_story && $user_story->status == 'pending') || ($user_story && $user_story->status == 'returned'))
@@ -252,6 +274,28 @@
                                     <h4 class="text-success"> @if($users_story->status == 'corrected') <span
                                             class="text-warning">  {{$users_story->mark}} / 10</span> @endif</h4>
                                     <audio src="{{asset($users_story->record)}}" controls></audio>
+                                @if($user_story->status =='corrected')
+                                    <div class="d-flex justify-content-center">
+                                        <div class="d-flex flex-column align-items-center w-50 my-5 gap-2">
+                                            <div class="form-group row col-12">
+                                                <label class="col-3 fw-bold fs-5">{{ t('Feedback') }}</label>
+                                                <div class="col-9">
+                                                    <p class="text-start">{{$user_story->feedback_message??t('No Feedback')}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row col-12 mb-2">
+                                                <label class="col-3 fw-bold fs-5">{{ t('Feedback Recording') }}</label>
+                                                <div class="col-9 d-flex justify-content-start">
+                                                    @if($user_story && !is_null($user_story->feedback_audio_message) )
+                                                        <audio src="{{asset($user_story->feedback_audio_message)}}" controls></audio>
+                                                    @else
+                                                        {{ t('No Feedback Record')}}
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                             @endforeach
                         </div>
