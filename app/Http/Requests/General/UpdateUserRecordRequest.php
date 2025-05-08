@@ -27,6 +27,8 @@ class UpdateUserRecordRequest extends FormRequest
         return  [
             's_status' => 'required|in:pending,corrected,returned',
             'mark' => 'required|integer|min:0|max:10',
+            'feedback_message' => 'nullable',
+
         ];
 
     }

@@ -530,13 +530,21 @@ class StoryController extends Controller
         return $this->sendResponse(null,t('Successfully Deleted'));
     }
 
-    public function review($id)
+    public function review($id,$type)
     {
         $story = Story::find($id);
         $preview=true;
-        $title = t('Story Assessment Preview');
-        $questions = StoryQuestion::with(['trueFalse','matches','options','sort_words'])->where('story_id', $id)->get();
-        return view('general.user.story.preview.assessment', compact('questions', 'story','preview','title'));
+
+        switch ($type){
+            case 'assessment':
+                $title = t('Story Assessment Preview');
+                $questions = StoryQuestion::with(['trueFalse','matches','options','sort_words'])->where('story_id', $id)->get();
+                return view('general.user.story.preview.assessment', compact('questions', 'story','preview','title'));
+            case 'training':
+                return view('general.user.story.preview.training', compact('story',));
+            default:
+                return redirect()->route('manager.home');
+        }
     }
 
 }

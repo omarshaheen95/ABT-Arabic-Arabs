@@ -15,7 +15,7 @@ class StoryUserRecord extends Model
     use SoftDeletes, Pathable,LogsActivityTrait;
     //status 'pending', 'corrected', 'returned'
     protected $fillable = [
-        'user_id', 'story_id', 'record', 'mark', 'approved', 'status'
+        'user_id', 'story_id', 'record','feedback_audio_message','feedback_message', 'mark', 'approved', 'status'
     ];
 
     public $pathAttribute = [

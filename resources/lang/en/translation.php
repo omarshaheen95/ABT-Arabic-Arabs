@@ -979,4 +979,12 @@ return
 	'User created successfully' => 'User created successfully',
 	'Question successfully updated!' => 'Question successfully updated!',
 	'Question successfully updated' => 'Question successfully updated',
+	'Preview Story' => 'Preview Story',
+	'Feedback' => 'Feedback',
+	'Record your Feedback' => 'Record your Feedback',
+	'Successfully saved' => 'Successfully saved',
+	'Cards By Section' => 'Cards By Section',
+	'Students Bulk Reports' => 'Students Bulk Reports',
+	'Direct Email to Contact' => 'Direct Email to Contact',
+	'Direct Email' => 'Direct Email',
 ];

@@ -96,8 +96,15 @@ class StoryRecordRepository implements StoryRecordRepositoryInterface
         $student_record = StoryUserRecord::query()->with(['story','user'])->filter()->findOrFail($id);
         $data['approved'] = $request->get('approved', 0);
         $data['status'] = $request->get('s_status', 0);
+         if ($request->hasFile('feedback_audio_message')) {
+            $data['feedback_audio_message'] = uploadFile($request->file('feedback_audio_message'), 'story_feedback_records')['path'];
+        } else {
+            $data['feedback_audio_message'] = $student_record->getOriginal('feedback_audio_message');
+        }
         $student_record->update($data);
-        return redirect()->route(getGuard().'.stories_records.index')->with('message', t('Successfully Updated'));
+        return Response::response(t('Successfully saved'));
+
+        //return redirect()->route(getGuard().'.stories_records.index')->with('message', t('Successfully Updated'));
     }
 
     public function destroy(Request $request)

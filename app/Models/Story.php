@@ -34,7 +34,8 @@ class Story extends Model
             $actions = [
                 ['key' => 'edit', 'name' => t('Edit'), 'route' => route('manager.story.edit', $this->id), 'permission' => 'edit stories'],
                 ['key' => 'practise', 'name' => t('Assessment'), 'route' => route('manager.story.assessment', $this->id), 'permission' => 'edit story assessment'],
-                ['key' => 'blank', 'name' => t('Assessment Preview'), 'route' => route('manager.story.review', $this->id), 'permission' => 'edit story assessment'],
+                ['key' => 'blank', 'name' => t('Assessment Preview'), 'route' => route('manager.story.review', [$this->id,'assessment']), 'permission' => 'edit story assessment'],
+                ['key' => 'blank', 'name' => t('Training Preview'), 'route' => route('manager.story.review', [ $this->id,'training']), 'permission' => 'edit story assessment'],
                 ['key' => 'delete', 'name' => t('Delete'), 'route' => $this->id, 'permission' => 'delete stories'],
             ];
         } elseif (\request()->is('school/*')) {
