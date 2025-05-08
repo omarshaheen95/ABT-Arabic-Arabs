@@ -274,7 +274,7 @@
                                     <h4 class="text-success"> @if($users_story->status == 'corrected') <span
                                             class="text-warning">  {{$users_story->mark}} / 10</span> @endif</h4>
                                     <audio src="{{asset($users_story->record)}}" controls></audio>
-                                @if($user_story->status =='corrected')
+                                @if($users_story->status =='corrected')
                                     <div class="d-flex justify-content-center">
                                         <div class="d-flex flex-column align-items-center w-50 my-5 gap-2">
                                             <div class="form-group row col-12">
