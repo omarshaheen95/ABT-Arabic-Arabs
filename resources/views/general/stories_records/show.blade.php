@@ -1,5 +1,5 @@
 @extends(getGuard().'.layout.container')
-@section('title',$title.'|'.$user_record->story->name)
+@section('title',$title." ({$user_record->story->name}) ")
 @push('breadcrumb')
     <li class="breadcrumb-item b text-muted">
         {{$title}}
