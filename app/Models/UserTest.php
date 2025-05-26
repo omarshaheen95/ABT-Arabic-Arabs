@@ -39,7 +39,7 @@ class UserTest extends Model
         if (in_array($this->lesson->lesson_type, ['writing', 'speaking'])) {
             $actions [] = ['key' => 'show', 'name' => t('Correcting & Feedback'), 'route' => route(getGuard().'.lessons_tests.correcting_feedback_view', $this->id), 'permission' => 'show lesson tests'];
         }else{
-            $actions [] = ['key' => 'show', 'name' => t('Correcting & Preview '), 'route' => route(getGuard().'.lessons_tests.correcting_view', $this->id), 'permission' => 'show lesson tests'];
+            $actions [] = ['key' => 'show', 'name' => t('Correcting & Preview '), 'route' => route(getGuard().'.lessons_tests.correcting_view', $this->id), 'permission' => 'correcting lesson tests'];
         }
         if ($this->status == 'Pass') {
             $actions[] = ['key' => 'blank', 'name' => t('Certificate'), 'route' => route(getGuard().'.lessons_tests.certificate', $this->id), 'permission' => 'lesson tests certificate'];
