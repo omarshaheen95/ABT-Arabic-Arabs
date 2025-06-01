@@ -1617,13 +1617,10 @@ function get_guard(){
 
 function settingCache($key)
 {
-    //Cache::forget('settings');
     $cache = Cache::remember('settings', 60 * 48, function () {
-        return \App\Models\Setting::get();
+        return \App\Models\Setting::query()->get()->pluck('value', 'key')->all();
     });
-
-    //dd($cache->where('key','mobile')->pluck('value')->first());
-    return $cache->where('key',$key)->pluck('value')->first() ;
+    return $cache[$key] ?? null;
 
 }
 

@@ -56,6 +56,8 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
     'languages' => ['ar', 'en'],
+    'telegram_bot_token' => null,
+    'telegram_channel_id' =>null,
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -179,7 +181,8 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        Spatie\Activitylog\ActivitylogServiceProvider::class
+        Spatie\Activitylog\ActivitylogServiceProvider::class,
+        \App\Providers\SettingServiceProvider::class,
 
 
     ],
