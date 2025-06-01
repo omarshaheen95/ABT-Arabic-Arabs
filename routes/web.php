@@ -191,3 +191,13 @@ Route::get('update_users', function () {
 
 });
 Route::get('user/{id}/report', 'General\UserController@report')->name('user.report');
+
+Route::get('/lang/{local}', function ($local) {
+    session(['lang' => $local]);
+    if (Auth::guard(getGuard())->check()){
+        $user = Auth::guard(getGuard())->user()->update(['local' => $local,]);
+    }
+    app()->setLocale($local);
+    return back();
+
+})->name('switch-language');
