@@ -12,6 +12,6 @@ class Setting extends Model
     use SoftDeletes,LogsActivityTrait;
     //type 'text', 'bool'
     protected $fillable = [
-        'name', 'key', 'value', 'type',
+        'name', 'key', 'value', 'type','group',
     ];
 }

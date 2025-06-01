@@ -82,9 +82,11 @@
             </div>
 
             <div class="d-flex gap-4 align-items-center">
-                <button type="button" class="btn btn-theme correcting_exam" data-bs-toggle="modal" data-bs-target="#correcting-exam-modal" style="font-weight: bold;background-color: #0043b3;">
-                    <span class="txt" style="font-size: 18px">تصحيح</span>
-                </button>
+                @if(guardHasAnyPermission(['','']))
+                    <button type="button" class="btn btn-theme correcting_exam" data-bs-toggle="modal" data-bs-target="#correcting-exam-modal" style="font-weight: bold;background-color: #0043b3;">
+                        <span class="txt" style="font-size: 18px">تصحيح</span>
+                    </button>
+                @endif
                 <div class="fw-bold fs-5" style="width: 180px">
                     {{t('Total')}}: {{$student_test->total_per}} / {{t($student_test->status)}}
                 </div>
