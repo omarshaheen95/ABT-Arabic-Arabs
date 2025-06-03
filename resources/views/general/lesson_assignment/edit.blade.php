@@ -105,7 +105,18 @@
                     @endisset
                 </select>
             </div>
-
+               <div class="form-group col-6 mb-2">
+                   <label class="form-label">{{ t('Academic Year') }}</label>
+                   <select class="form-select assignment_year_id" data-control="select2"
+                           data-placeholder="{{t('Select Year')}}"
+                           data-allow-clear="true" name="year_id" id="assignment_year_id" @isset($assignment) disabled @endisset>
+                       <option></option>
+                       @foreach($years as $year)
+                           <option value="{{ $year->id }}"
+                               {{isset($assignment) && $assignment->year_id == $year->id ?'selected':''}}>{{ $year->name }}</option>
+                       @endforeach
+                   </select>
+               </div>
             <div class="form-group col-12 mb-2">
                 <label class="form-label">{{ t('Students') }}</label>
                 <select class="form-control assignment_students" data-control="select2"
@@ -195,6 +206,8 @@
                     data: {
                         teacher_id: teacher_id,
                         section: $('select[name="sections[]"]').val(),
+                        year_id: $('#assignment_year_id').val()
+
                     }
                 }).done(function (student_data) {
                     $('select[name="students[]"]').html(student_data.html);
