@@ -13,6 +13,7 @@ use App\Models\School;
 use App\Models\StoryAssignment;
 use App\Models\Teacher;
 use App\Models\User;
+use App\Models\Year;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -122,6 +123,8 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
         if (guardIs('teacher')) {
             $compact['sections'] = teacherSections();
         }
+        $compact['years'] = Year::query()->latest()->get();
+
         return view('general.story_assignment.edit', $compact);
     }
 
@@ -199,6 +202,8 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
         if (guardIs('teacher')) {
             $compact['sections'] = getSections(null,$assignment->teacher_id);
         }
+        $compact['years'] = Year::query()->latest()->get();
+
         return view('general.story_assignment.edit',$compact);
     }
 

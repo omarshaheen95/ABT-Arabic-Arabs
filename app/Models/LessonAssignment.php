@@ -14,7 +14,7 @@ class LessonAssignment extends Model
 {
     use SoftDeletes,LogsActivityTrait;
     protected $fillable = [
-        'teacher_id','grade_id','lessons_ids','sections','deadline',
+        'teacher_id', 'year_id','grade_id','lessons_ids','sections','deadline',
         'exclude_students','test_assignment'
         ];
 
@@ -28,6 +28,10 @@ class LessonAssignment extends Model
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
+    }
+    public function year()
+    {
+        return $this->belongsTo(Year::class);
     }
 
     public function grade()
@@ -66,6 +70,8 @@ class LessonAssignment extends Model
             $query->whereRelation('teacher','id',$value);
         })->when($value = $request->get('section', false), function (Builder $query) use ($value) {
             $query->whereJsonContains('sections', $value);
+        })->when($value = $request->get('year_id', false), function (Builder $query) use ($value) {
+            $query->where('year_id', $value);
         })->when($value = $request->get('grade_id', false), function (Builder $query) use ($value) {
             $query->where('grade_id', $value);
         })->when($value = $request->get('row_id', []), function (Builder $query) use ($value) {

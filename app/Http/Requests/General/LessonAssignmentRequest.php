@@ -17,6 +17,7 @@ class LessonAssignmentRequest extends FormRequest
         $rules =  [
             'school_id' => ['required', 'exists:schools,id'],
             'teacher_id' => ['required', 'exists:teachers,id'],
+            'year_id' => ['required', 'exists:years,id'],
             'grade_id' => ['exists:grades,id'],
             'lessons_ids' => ['array'],
             'lessons_ids.*' => ['exists:lessons,id'],

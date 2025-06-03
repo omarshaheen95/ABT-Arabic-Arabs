@@ -93,6 +93,7 @@ class GeneralController extends Controller
             ->where(function (Builder $query) use ($id) {
                 $query->where('grade_id', $id)->orWhere('alternate_grade_id', $id);
             })
+            ->where('active_to', '>=', now())
             ->latest()->get();
         if ($rows->count() == 0){
             $html = '';

@@ -17,6 +17,7 @@ class StoryAssignmentRequest extends FormRequest
         $rules =  [
             'school_id' => ['required', 'exists:schools,id'],
             'teacher_id' => ['required', 'exists:teachers,id'],
+            'year_id' => ['required', 'exists:years,id'],
             'students_grade' => ['required'],
             'story_grade' => [],
             'stories_ids' => ['array'],

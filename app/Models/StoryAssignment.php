@@ -13,7 +13,7 @@ class StoryAssignment extends Model
 {
     use SoftDeletes,LogsActivityTrait;
 
-    protected $fillable = ['teacher_id','students_grade','stories_ids','sections','deadline', 'exclude_students','story_grade'];
+    protected $fillable = ['teacher_id', 'year_id','students_grade','stories_ids','sections','deadline', 'exclude_students','story_grade'];
 
     protected $casts = [
         'sections'=>'json',
@@ -23,6 +23,10 @@ class StoryAssignment extends Model
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
+    }
+    public function year()
+    {
+        return $this->belongsTo(Year::class);
     }
 
     public function userStoryAssignments()
@@ -64,6 +68,8 @@ class StoryAssignment extends Model
             $query->whereJsonContains('sections', $value);
         })->when($value = $request->get('students_grade', false), function (Builder $query) use ($value) {
             $query->where('students_grade', $value);
+        })->when($value = $request->get('year_id', false), function (Builder $query) use ($value) {
+            $query->where('year_id', $value);
         })->when($value = $request->get('story_grade', false), function (Builder $query) use ($value) {
             $query->where('story_grade', $value);
         })->when($value = $request->get('row_id', []), function (Builder $query) use ($value) {

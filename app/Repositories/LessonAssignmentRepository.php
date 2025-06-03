@@ -11,11 +11,11 @@ use App\Interfaces\LessonAssignmentRepositoryInterface;
 use App\Models\Grade;
 use App\Models\Lesson;
 use App\Models\LessonAssignment;
-use App\Models\Level;
 use App\Models\School;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UserAssignment;
+use App\Models\Year;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -127,6 +127,8 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
         if (guardIs('teacher')) {
             $compact['sections'] = teacherSections();
         }
+        $compact['years'] = Year::query()->latest()->get();
+
         return view('general.lesson_assignment.edit', $compact);
     }
 
@@ -213,6 +215,8 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
         if (guardIs('teacher')) {
             $compact['sections'] = getSections(null,$assignment->teacher_id);
         }
+        $compact['years'] = Year::query()->latest()->get();
+
         return view('general.lesson_assignment.edit',$compact);
     }
 
