@@ -34,10 +34,6 @@
             <label class="mb-2">{{t('Email')}}:</label>
             <input type="text"  name="email" class="form-control" placeholder="{{t('Email')}}">
         </div>
-
-
-
-
         <div class="col-3 mb-2">
             <label class="mb-2">{{t('Subject')}} :</label>
             <select name="subject_type" class="form-select" data-control="select2" data-allow-clear="true" data-placeholder="{{t('Select Type')}}">
@@ -59,6 +55,7 @@
                 <option value="created">{{t('Created')}}</option>
                 <option value="updated">{{t('Update')}}</option>
                 <option value="deleted">{{t('Delete')}}</option>
+                <option value="other">{{t('Other')}}</option>
             </select>
         </div>
 
@@ -82,18 +79,18 @@
 @section('content')
     <div class="row">
         <table class="table table-row-bordered gy-5" id="datatable">
-                        <thead>
-                        <tr class="fw-semibold fs-6 text-gray-800">
-                            <th class="text-start"></th>
-                            <th class="text-start">{{t('Causer ')}}</th>
-                            <th class="text-start">{{t('Subject')}}</th>
-                            <th class="text-start">{{t('Type')}}</th>
-                            <th class="text-start">{{t('Action Date')}}</th>
-                            <th class="text-start">{{t('Actions')}}</th>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
+            <thead>
+            <tr class="fw-semibold fs-6 text-gray-800">
+                <th class="text-start"></th>
+                <th class="text-start">{{t('Causer ')}}</th>
+                <th class="text-start">{{t('Subject')}}</th>
+                <th class="text-start">{{t('Type')}}</th>
+                <th class="text-start">{{t('Action Date')}}</th>
+                <th class="text-start">{{t('Actions')}}</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
 
 @endsection
 
@@ -113,7 +110,7 @@
             {data: 'actions', name: 'actions'}
         ];
     </script>
-    <script src="{{asset('assets_v1/js/datatable.js')}}?v{{time()}}"></script>
+    <script src="{{asset('assets_v1/js/datatable.js')}}?v={{time()}}"></script>
     <script>
         initializeDateRangePicker()
     </script>

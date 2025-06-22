@@ -34,11 +34,16 @@ class ActivityLogController extends Controller
                 })
                 ->addColumn('subject', function ($row){
                     //get class name from model
-                    if (!is_null($row->action_route))
+                    if (is_null($row->subject_type))
                     {
-                        return class_basename($row->subject_type) . '<br> <a href="'.$row->action_route.'">' . t('Show') . '</a>';
+                        return t('Manual Tracking Log');
                     }else{
-                        return class_basename($row->subject_type). '<br> <a href="'.$row->action_route.'">' . t('Show') . '</a>';
+                        if (!is_null($row->action_route))
+                        {
+                            return class_basename($row->subject_type) . '<br> <a href="'.$row->action_route.'">' . t('Show') . '</a>';
+                        }else{
+                            return class_basename($row->subject_type). '<br> <a href="'.$row->action_route.'">' . t('Show') . '</a>';
+                        }
                     }
                 })
                 ->addColumn('causer', function ($row){
@@ -51,19 +56,15 @@ class ActivityLogController extends Controller
         }
         $models = getAllModels();
         $causers = ['Manager'=>Manager::class,'School'=>School::class,'Teacher'=>Teacher::class,'Supervisor'=>Supervisor::class];
-        return view('manager.activity-log.index', compact('title','models','causers'));
+        return view('manager.activity-log.index', compact('title', 'models', 'causers'));
     }
 
     public function show($id){
         $activity = Activity::query()->find($id);
         $log_obj = \GuzzleHttp\json_decode($activity->getAttribute('properties'));
-        //dd($log_obj);
-//        $new = json_encode($log_obj->attributes ?? '{No Data}');
-//        $old = json_encode($log_obj->old ?? '{No Data}');
 
         $new = (array)optional($log_obj)->attributes  ?? [];
         $old = (array)optional($log_obj)->old  ?? [];
-//        dd($new,$old);
         return view('manager.activity-log.edit',compact('new','old', 'activity'));
     }
     public function destroy(Request $request)

@@ -45,6 +45,16 @@
             visibility: hidden;
             width: 0;
         }
+        .object-display, .array-display {
+            text-align: left;
+            padding: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .object-display .mb-1, .array-display .mb-1 {
+            margin-bottom: 4px;
+            word-break: break-word;
+        }
     </style>
 @endsection
 @section('content')
@@ -68,7 +78,7 @@
             </tr>
             <tr class="" style="background-color: #9dbaff">
 
-            <th scope="col" colspan="3">
+                <th scope="col" colspan="3">
                     <div class="d-flex justify-content-between">
                         <div>
                             {{t('Subject')}}: {!!$activity->clickable_subject_type!!}
@@ -94,25 +104,83 @@
                 <tr class="text-center">
                     <th scope="row" style="background-color: #d1e1ff">{{$key}}</th>
                     <td style="background-color: #ffd376">
-                         <span class="text-overflow-dynamic-container">
-                             <span class="text-overflow-dynamic-ellipsis" >
-                                @if(isset($old[$key]) && is_array($old[$key]))
-                                    {{json_encode($old[$key])}}
-                                 @elseif(isset($old[$key]))
-                                    {{$old[$key]}}
-                                 @else
+                        @if(isset($old[$key]))
+                            @if(is_object($old[$key]))
+                                <div class="object-display">
+                                    @foreach($old[$key] as $objKey => $objValue)
+                                        <div class="mb-1">
+                                            <strong>{{$objKey}}:</strong>
+                                            @if(is_array($objValue) || is_object($objValue))
+                                                {{json_encode($objValue, JSON_UNESCAPED_UNICODE)}}
+                                            @else
+                                                {{$objValue}}
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @elseif(is_array($old[$key]))
+                                <div class="array-display">
+                                    @foreach($old[$key] as $arrKey => $arrValue)
+                                        <div class="mb-1">
+                                            <strong>[{{$arrKey}}]:</strong>
+                                            @if(is_array($arrValue) || is_object($arrValue))
+                                                {{json_encode($arrValue, JSON_UNESCAPED_UNICODE)}}
+                                            @else
+                                                {{$arrValue}}
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <span class="text-overflow-dynamic-container">
+                                    <span class="text-overflow-dynamic-ellipsis">
+                                        {{$old[$key]}}
+                                    </span>
+                                </span>
+                            @endif
+                        @else
+                            <span class="text-overflow-dynamic-container">
+                                <span class="text-overflow-dynamic-ellipsis">
                                     {{t('Empty')}}
-                                @endif
-                             </span>
-                          </span>
-                        </td>
+                                </span>
+                            </span>
+                        @endif
+                    </td>
                     <td style="background-color: #beffd9">
-                        <span class="text-overflow-dynamic-container">
-                             <span class="text-overflow-dynamic-ellipsis" >
-                                {{$value}}
-                             </span>
-                          </span>
-                        </td>
+                        @if(is_object($value))
+                            <div class="object-display">
+                                @foreach($value as $objKey => $objValue)
+                                    <div class="mb-1">
+                                        <strong>{{$objKey}}:</strong>
+                                        @if(is_array($objValue) || is_object($objValue))
+                                            {{json_encode($objValue, JSON_UNESCAPED_UNICODE)}}
+                                        @else
+                                            {{$objValue}}
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                        @elseif(is_array($value))
+                            <div class="array-display">
+                                @foreach($value as $arrKey => $arrValue)
+                                    <div class="mb-1">
+                                        <strong>[{{$arrKey}}]:</strong>
+                                        @if(is_array($arrValue) || is_object($arrValue))
+                                            {{json_encode($arrValue, JSON_UNESCAPED_UNICODE)}}
+                                        @else
+                                            {{$arrValue}}
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <span class="text-overflow-dynamic-container">
+                                <span class="text-overflow-dynamic-ellipsis">
+                                    {{$value}}
+                                </span>
+                            </span>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
 
@@ -121,4 +189,3 @@
         </table>
     </div>
 @endsection
-
