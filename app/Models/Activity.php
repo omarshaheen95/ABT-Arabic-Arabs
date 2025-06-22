@@ -152,19 +152,21 @@ class Activity extends Model implements ActivityContract
             // Convert to kebab case for route naming (e.g., UserProfile becomes user-profile)
             $routeSegment = \Str::kebab($subjectType);
 
-            //All Routes Cases
-            // Try the route with the exact plural form //with (s)
-            $routes[] = "manager.{$routeSegment}.edit";
+           foreach (['general','manager'] as $guard){
+               //All Routes Cases
+               // Try the route with the exact plural form //with (s)
+               $routes[] = $guard.".{$routeSegment}.edit";
 
-            //without (s)
-            $routes[] = 'manager.'.substr($subjectType, 0, -1).'.edit';
+               //without (s)
+               $routes[] = $guard.'.'.substr($subjectType, 0, -1).'.edit';
 
-            // Try with simple lowercase plural with (s) like students
-            $routes[] = 'manager.' . strtolower($subjectType) . '.edit';
+               // Try with simple lowercase plural with (s) like students
+               $routes[] = $guard.'.' . strtolower($subjectType) . '.edit';
 
-            // Try with simple lowercase plural without (s) like student
-            $routes[] = 'manager.' . strtolower(substr($subjectType, 0, -1)) . '.edit';
+               // Try with simple lowercase plural without (s) like student
+               $routes[] = $guard.'.' . strtolower(substr($subjectType, 0, -1)) . '.edit';
 
+           }
             foreach ($routes as $route) {
                 if (\Route::has($route)) {
                     return route($route, $this->subject_id);
