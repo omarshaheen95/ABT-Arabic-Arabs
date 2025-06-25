@@ -43,10 +43,6 @@ class StoryAssignmentExport implements WithMapping, Responsable, WithHeadings, F
             'Uncompleted Students Assignments',
         ];
        return $headers;
-        // Wrap each header in r() for translation
-//        return array_map(function($header) {
-//            return r($header);
-//        }, $headers);
     }
 
     public function map($row): array
