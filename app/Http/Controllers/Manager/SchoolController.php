@@ -83,7 +83,7 @@ class SchoolController extends Controller
         $data = $request->validated();
         if ($request->hasFile('logo'))
         {
-            $data['logo'] = $this->uploadFile($request->file('logo'), 'schools');
+            $data['logo'] = uploadFile($request->file('logo'), 'schools')['path'];
         }
         $data['active'] = $request->get('active', 0);
         $data['approved'] = 1;
@@ -107,7 +107,7 @@ class SchoolController extends Controller
         $data = $request->validated();
         if ($request->hasFile('logo'))
         {
-            $data['logo'] = $this->uploadFile($request->file('logo'), 'schools');
+            $data['logo'] = uploadFile($request->file('logo'), 'schools')['path'];
         }
         $data['active'] = $request->get('active', 0);
         $data['password'] = $request->get('password', false) ? bcrypt($request->get('password', 123456)):$school->password;

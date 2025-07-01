@@ -90,13 +90,13 @@ class UserWorksController extends Controller
         $data = $request->validated();
         $user_lesson = UserLesson::query()->findOrFail($id);
         if ($request->hasFile('attach_writing_answer')) {
-            $data['attach_writing_answer'] = $this->uploadFile($request->file('attach_writing_answer'), 'writing_attachments');
+            $data['attach_writing_answer'] = uploadFile($request->file('attach_writing_answer'), 'writing_attachments')['path'];
         } else {
             $data['attach_writing_answer'] = $user_lesson->getOriginal('attach_writing_answer');
         }
 
         if ($request->hasFile('reading_answer')) {
-            $data['reading_answer'] = $this->uploadFile($request->file('reading_answer'), 'record_result');
+            $data['reading_answer'] = uploadFile($request->file('reading_answer'), 'record_result')['path'];
         } else {
             $data['reading_answer'] = $user_lesson->getOriginal('reading_answer');
         }

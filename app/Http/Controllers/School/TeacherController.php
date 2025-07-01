@@ -77,7 +77,7 @@ class TeacherController extends Controller
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->file('image'), 'teachers');
+            $data['image'] = uploadFile($request->file('image'), 'teachers')['path'];
         }
         $school = Auth::guard('school')->user();
         $data['school_id'] = $school->id;
@@ -105,7 +105,7 @@ class TeacherController extends Controller
         $teacher = Teacher::query()->filter($request)->findOrFail($id);
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->file('image'), 'teachers');
+            $data['image'] = uploadFile($request->file('image'), 'teachers')['path'];
         }
         $data['active'] = $request->get('active', 0);
         $data['password'] = $request->get('password', false) ? bcrypt($request->get('password', 123456)) : $teacher->password;

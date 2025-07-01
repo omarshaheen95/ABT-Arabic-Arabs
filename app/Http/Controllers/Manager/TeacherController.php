@@ -95,7 +95,7 @@ class TeacherController extends Controller
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->file('image'), 'teachers');
+            $data['image'] = uploadFile($request->file('image'), 'teachers')['path'];
         }
         $data['active'] = $request->get('active', 0);
         $data['approved'] = 1;
@@ -117,7 +117,7 @@ class TeacherController extends Controller
         $teacher = Teacher::query()->findOrFail($id);
         $data = $request->validated();
         if ($request->hasFile('teacher')) {
-            $data['teacher'] = $this->uploadFile($request->file('teacher'), 'teachers');
+            $data['teacher'] = uploadFile($request->file('teacher'), 'teachers')['path'];
         }
         $data['active'] = $request->get('active', 0);
         $data['approved'] = $request->get('approved', $teacher->approved);

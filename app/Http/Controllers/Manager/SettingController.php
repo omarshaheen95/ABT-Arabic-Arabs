@@ -181,8 +181,7 @@ class SettingController extends Controller
             $setting = Setting::query()->where('key', $key)->first();
             if ($setting) {
                 if ($setting->type == 'file' && $request->hasFile('settings.'.$key)) {
-                    $up_file = uploadFile($request->file('settings.'.$key), 'settings');
-                    $file_path = $up_file['path'];
+                    $file_path = uploadFile($request->file('settings.'.$key), 'settings')['path'];
                     $setting->update([
                         'value' => $file_path,
                     ]);

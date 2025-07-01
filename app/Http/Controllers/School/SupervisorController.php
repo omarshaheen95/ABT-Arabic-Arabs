@@ -64,7 +64,7 @@ class SupervisorController extends Controller
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->file('image'), 'supervisors');
+            $data['image'] = uploadFile($request->file('image'), 'supervisors')['path'];
         }
         $school = Auth::guard('school')->user();
         $data['school_id'] = $school->id;

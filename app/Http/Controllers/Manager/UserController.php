@@ -136,7 +136,7 @@ class UserController extends Controller
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->file('image'), 'users');
+            $data['image'] = uploadFile($request->file('image'), 'users')['path'];
         }
         $data['active'] = $request->get('active', 0);
         $data['password'] = bcrypt($request->get('password', 123456));
@@ -175,7 +175,7 @@ class UserController extends Controller
         $user = User::query()->findOrFail($id);
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->file('image'), 'users');
+            $data['image'] = uploadFile($request->file('image'), 'users')['path'];
         }
         if (!$request->get('demo')){
             $data['demo_grades']=null;
