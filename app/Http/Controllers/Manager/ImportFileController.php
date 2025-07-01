@@ -162,7 +162,7 @@ class ImportFileController extends Controller
     {
         $file = $request->file('import_file');
         //upload file
-        $upload_file = uploadFile($file, '/teachers_imported_files');
+        $upload_file = uploadFile($file, 'teachers_imported_files');
 
         $create_file = ImportFile::query()->create([
             'school_id' => $request['school_id'],
@@ -207,7 +207,7 @@ class ImportFileController extends Controller
     {
         $file = $request->file('import_file');
         //upload file
-        $upload_file = uploadFile($file, '/students_imported_files');
+        $upload_file = uploadFile($file, 'students_imported_files');
 
         $create_file = ImportFile::query()->create([
             'school_id' => $request['school_id'],
