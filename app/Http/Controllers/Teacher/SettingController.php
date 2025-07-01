@@ -63,7 +63,7 @@ class SettingController extends Controller
         $user = Auth::guard('teacher')->user();
         $data = $request->validated();
         if ($request->file('image')){
-            $data['image'] = $this->uploadFile($request->file('image'),'profile_images/teachers');
+            $data['image'] = uploadFile($request->file('image'),'profile_images/teachers')['path'];
         }
         $user->update($data);
         return redirect()->route('teacher.home')->with('message', t('Successfully Updated'))->with('m-class', 'success');

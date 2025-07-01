@@ -73,13 +73,13 @@ class StoryController extends Controller
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->file('image'), 'stories_image');
+            $data['image'] = uploadFile($request->file('image'), 'stories_image')['path'];
         }
         if ($request->hasFile('video')) {
-            $data['video'] = $this->uploadFile($request->file('video'), 'stories_video');
+            $data['video'] = uploadFile($request->file('video'), 'stories_video')['path'];
         }
         if ($request->hasFile('alternative_video')) {
-            $data['alternative_video'] = $this->uploadFile($request->file('alternative_video'), 'stories_video');
+            $data['alternative_video'] = uploadFile($request->file('alternative_video'), 'stories_video')['path'];
         }
         $data['active'] = $request->get('active', 0);
         Story::query()->create($data);
@@ -100,13 +100,13 @@ class StoryController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->file('image'), 'stories_image');
+            $data['image'] = uploadFile($request->file('image'), 'stories_image')['path'];
         }
         if ($request->hasFile('video')) {
-            $data['video'] = $this->uploadFile($request->file('video'), 'stories_video');
+            $data['video'] = uploadFile($request->file('video'), 'stories_video')['path'];
         }
         if ($request->hasFile('alternative_video')) {
-            $data['alternative_video'] = $this->uploadFile($request->file('alternative_video'), 'stories_video', true);
+            $data['alternative_video'] = uploadFile($request->file('alternative_video'), 'stories_video', true)['path'];
         }
         $data['active'] = $request->get('active', 1);
 
@@ -223,7 +223,7 @@ class StoryController extends Controller
             $true_false_answers = $request->get('t_f', []);
             foreach ($true_false_questions as $key => $true_false_question) {
                 if ($request->hasFile("t_f_q_attachment.$key")) {
-                    $attachment = $this->uploadFile(request()->file('t_f_q_attachment')[$key], 'story_assessment_attachments');
+                    $attachment =uploadFile(request()->file('t_f_q_attachment')[$key], 'story_assessment_attachments')['path'];
                     $question = StoryQuestion::create([
                         'content' => isset($true_false_question) ? $true_false_question : 'no question',
                         'attachment' => $attachment,
@@ -252,7 +252,7 @@ class StoryController extends Controller
 
             foreach ($c_questions as $key => $c_question) {
                 if ($request->hasFile("c_q_attachment.$key")) {
-                    $attachment = $this->uploadFile(request()->file('c_q_attachment')[$key], 'story_assessment_attachments');
+                    $attachment = uploadFile(request()->file('c_q_attachment')[$key], 'story_assessment_attachments')['path'];
                     $question = StoryQuestion::create([
                         'content' => $c_question ? $c_question : 'no question',
                         'attachment' => $attachment,
@@ -288,7 +288,7 @@ class StoryController extends Controller
             $m_q_image = $request->get('m_q_image', []);
             foreach ($m_questions as $key => $m_question) {
                 if ($request->hasFile("m_q_attachment.$key")) {
-                    $attachment = $this->uploadFile(request()->file('m_q_attachment')[$key], 'story_assessment_attachments');
+                    $attachment = uploadFile(request()->file('m_q_attachment')[$key], 'story_assessment_attachments')['path'];
                     $question = StoryQuestion::create([
                         'content' => $m_question ? $m_question : 'no question',
                         'attachment' => $attachment,
@@ -311,7 +311,7 @@ class StoryController extends Controller
                 foreach ($m_q_options as $m_a_key => $m_q_option) {
                     $result = $m_q_answer[$m_a_key];
                     if($request->hasFile("m_q_image.$key.$m_a_key")){
-                        $image = $this->uploadFile(request()->file('m_q_image')[$key][$m_a_key], 'assessment_match_attachments');
+                        $image = uploadFile(request()->file('m_q_image')[$key][$m_a_key], 'assessment_match_attachments')['path'];
                     }else{
                         $image = null;
                     }
@@ -333,7 +333,7 @@ class StoryController extends Controller
             $counter = 1;
             foreach ($s_questions as $key => $s_question) {
                 if ($request->hasFile("s_q_attachment.$key")) {
-                    $attachment = $this->uploadFile(request()->file('s_q_attachment')[$key], 'story_assessment_attachments');
+                    $attachment = uploadFile(request()->file('s_q_attachment')[$key], 'story_assessment_attachments')['path'];
                     $question = StoryQuestion::create([
                         'content' => $s_question ? $s_question : 'no question',
                         'attachment' => $attachment,
@@ -385,7 +385,7 @@ class StoryController extends Controller
             foreach ($true_false_questions as $key => $true_false_question) {
                 $question = $story_questions->where('id',$key)->first();
                 if ($question) {
-                    $attachment = $request->hasFile("t_f_q_attachment.$key") ? $this->uploadFile(request()->file('t_f_q_attachment')[$key], 'story_assessment_attachments') : $question->getOriginal('attachment');
+                    $attachment = $request->hasFile("t_f_q_attachment.$key") ? uploadFile(request()->file('t_f_q_attachment')[$key], 'story_assessment_attachments')['path'] : $question->getOriginal('attachment');
                     $question->update([
                         'content' => isset($true_false_question) ? $true_false_question : 'no question',
                         'attachment' => $attachment,
@@ -410,7 +410,7 @@ class StoryController extends Controller
             foreach ($c_questions as $key => $c_question) {
                 $question = $story_questions->where('id',$key)->first();
                 if ($question) {
-                    $attachment = $request->hasFile("c_q_attachment.$key") ? $this->uploadFile(request()->file('c_q_attachment')[$key], 'story_assessment_attachments') : $question->getOriginal('attachment');
+                    $attachment = $request->hasFile("c_q_attachment.$key") ? uploadFilee(request()->file('c_q_attachment')[$key], 'story_assessment_attachments')['path'] : $question->getOriginal('attachment');
                     $question->update([
                         'content' => $c_question ? $c_question : 'no question',
                         'attachment' => $attachment,
@@ -439,7 +439,7 @@ class StoryController extends Controller
             foreach ($m_questions as $key => $m_question) {
                 $question = $story_questions->where('id',$key)->first();
                 if ($question) {
-                    $attachment = $request->hasFile("m_q_attachment.$key") ? $this->uploadFile(request()->file('m_q_attachment')[$key], 'story_assessment_attachments') : $question->getOriginal('attachment');
+                    $attachment = $request->hasFile("m_q_attachment.$key") ? uploadFile(request()->file('m_q_attachment')[$key], 'story_assessment_attachments')['path'] : $question->getOriginal('attachment');
                     $question->update([
                         'content' => $m_question ? $m_question : 'no question',
                         'attachment' => $attachment,
@@ -450,7 +450,7 @@ class StoryController extends Controller
                 $match = StoryMatch::query()->find($m_a_key);
                 $result = $m_q_answer[$m_a_key];
                 if($request->hasFile("m_q_image.$m_a_key")){
-                    $image = $this->uploadFile(request()->file('m_q_image')[$m_a_key], 'assessment_match_attachments');
+                    $image = uploadFile(request()->file('m_q_image')[$m_a_key], 'assessment_match_attachments')['path'];
                 }else{
                     $image = $match->getOriginal('image');
                 }
@@ -473,7 +473,7 @@ class StoryController extends Controller
             foreach ($s_questions as $key => $s_question) {
                 $question = $story_questions->where('id',$key)->first();
                 if ($question) {
-                    $attachment = $request->hasFile("s_q_attachment.$key") ? $this->uploadFile(request()->file('s_q_attachment')[$key], 'story_assessment_attachments') : $question->getOriginal('attachment');
+                    $attachment = $request->hasFile("s_q_attachment.$key") ? uploadFile(request()->file('s_q_attachment')[$key], 'story_assessment_attachments')['path'] : $question->getOriginal('attachment');
                     $question->update([
                         'content' => $s_question ? $s_question : 'no question',
                         'attachment' => $attachment,

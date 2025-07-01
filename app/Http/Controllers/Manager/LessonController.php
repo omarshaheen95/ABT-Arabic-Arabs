@@ -196,7 +196,7 @@ class LessonController extends Controller
     public function uploadImageLesson(Request $request)
     {
         if ($request->hasFile('imageFile')) {
-            $image = asset($this->uploadFile($request->file('imageFile'), 'lesson_images'));
+            $image = asset(uploadFile($request->file('imageFile'), 'lesson_images')['path']);
             return response()->json(["link" => $image]);
         } else {
             return false;

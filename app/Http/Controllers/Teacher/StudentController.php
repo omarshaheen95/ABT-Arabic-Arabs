@@ -189,7 +189,7 @@ class StudentController extends Controller
         })->findOrFail($id);
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->file('image'), 'users');
+            $data['image'] = uploadFile($request->file('image'), 'users')['path'];
         }
         $data['password'] = $request->get('password', false) ? bcrypt($request->get('password', 123456)) : $user->password;
         $user->update($data);

@@ -502,7 +502,7 @@ class LessonController extends Controller
         {
             if ($request->hasFile("writing_attachment.$key"))
             {
-                $attachment = $this->uploadFile($request->file("writing_attachment.$key"), 'writing_results');
+                $attachment = uploadFile($request->file("writing_attachment.$key"), 'writing_results')['path'];
             }else{
                 $attachment = null;
             }

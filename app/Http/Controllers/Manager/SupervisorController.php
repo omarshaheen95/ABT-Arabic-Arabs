@@ -76,7 +76,7 @@ class SupervisorController extends Controller
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->file('image'), 'supervisors');
+            $data['image'] = uploadFile($request->file('image'), 'supervisors')['path'];
         }
         $data['active'] = $request->get('active', 0);
         $data['approved'] = $request->get('approved', 0);
@@ -101,7 +101,7 @@ class SupervisorController extends Controller
         $supervisor = Supervisor::query()->findOrFail($id);
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->file('image'), 'supervisors');
+            $data['image'] = uploadFile($request->file('image'), 'supervisors')['path'];
         }
         $data['active'] = $request->get('active', 0);
         $data['approved'] = $request->get('approved', 0);
