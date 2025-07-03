@@ -1789,3 +1789,35 @@ function checkDateRangeForCurrentYear($date) {
         throw new Exception("The date is not within the current academic year.");
     }
 }
+
+function getRealIpAddress(\Illuminate\Http\Request $request)
+{
+    $headers = [
+        'HTTP_X_FORWARDED_FOR',
+        'HTTP_X_FORWARDED',
+        'HTTP_X_CLUSTER_CLIENT_IP',
+        'HTTP_FORWARDED_FOR',
+        'HTTP_FORWARDED',
+        'REMOTE_ADDR'
+    ];
+
+    foreach ($headers as $header) {
+        if (!empty($_SERVER[$header])) {
+            $ips = explode(',', $_SERVER[$header]);
+            return trim($ips[0]);
+        }
+    }
+
+    return $request->ip();
+}
+
+
+function isTrustIpAddress(\Illuminate\Http\Request $request)
+{
+    $trustedIps = config('app.trusted_ips');
+    $requestIp = getRealIpAddress($request);
+    if (!in_array($requestIp, $trustedIps)) {
+        return false;
+    }
+    return true;
+}
