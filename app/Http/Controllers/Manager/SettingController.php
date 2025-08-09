@@ -38,7 +38,7 @@ class SettingController extends Controller
     {
         $schools = School::query()
             ->where('active', 1)
-            ->has('users')
+            ->has('students')
             ->count();
         dd($schools);
         $title = t('Dashboard');
