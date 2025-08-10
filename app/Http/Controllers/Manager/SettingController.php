@@ -36,11 +36,6 @@ class SettingController extends Controller
     }
     public function home()
     {
-        $schools = School::query()
-            ->where('active', 1)
-            ->has('students')
-            ->count();
-        dd($schools);
         $title = t('Dashboard');
 
         //Auth::guard('manager')->user()->active && Auth::guard('manager')->user()->hasDirectPermission('show statistics')
