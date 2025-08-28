@@ -34,7 +34,7 @@ class Grade extends Model
         switch($this->grade_number)
         {
             case 0:
-                return "الصف التمهيدي = Year 1";
+                return "التمهيدي = Year 1";
             case 1:
                 return "الأول = Year 2";
             case 2:
