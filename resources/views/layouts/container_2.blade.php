@@ -116,7 +116,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link btn btn-theme" href="/login">
-                           تسجيل الدخول
+                           دخول الطالب
                         </a>
                     </li>
                 </ul>
