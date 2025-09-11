@@ -2,7 +2,7 @@
     <input type="hidden" name="student[{{$row->id}}][row_num]" value="{{$row->row_num}}">
     @foreach ($inputs_with_values as $input)
         @if($input['key'] == 'Arab' || $input['key'] == 'Citizen' || $input['key'] == 'SEN' || $input['key'] == 'G&T'|| $input['key'] == 'Active')
-            <div class="col-2">
+            <div class="col-sm-6 col-md-4">
                 <label class="text-info">{{$input['key']}}</label>
                 <select name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
                         data-name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
@@ -15,7 +15,7 @@
                 </select>
             </div>
         @elseif($input['key'] == 'Gender')
-            <div class="col-3">
+            <div class="col-sm-6 col-md-4">
                 <label class="text-info">{{$input['key']}}</label>
                 <select name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
                         data-name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
@@ -28,7 +28,7 @@
                 </select>
             </div>
         @elseif($input['key'] == 'Teacher')
-            <div class="col-3">
+            <div class="col-sm-6 col-md-4">
                 <label class="text-info">{{$input['key']}}</label>
                 <select name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
                         data-name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
@@ -44,7 +44,7 @@
                 </select>
             </div>
         @elseif($input['key'] == 'Name' )
-            <div class="col-3">
+            <div class="col-sm-6 col-md-4">
                 <div class="form-group">
                     <label class="text-info">{{t('Name')}}</label>
                     <input type="text"
@@ -56,7 +56,7 @@
             </div>
 
         @elseif($input['key'] == 'Grade' || $input['key'] == 'Alternative Grade')
-            <div class="col-3">
+            <div class="col-sm-6 col-md-4">
                 <label class="text-info">{{$input['key']}}</label>
                 <select name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
                         data-name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
@@ -73,7 +73,7 @@
             </div>
 
             @elseif($input['key'] == 'Email' )
-                <div class="col-3">
+                <div class="col-sm-6 col-md-4">
                     <div class="form-group">
                         <label class="text-info">{{$input['key']}}</label>
                         <div class="input-group mb-5">
@@ -91,7 +91,7 @@
                     </div>
                 </div>
         @elseif($input['key'] == 'Password' )
-            <div class="col-3">
+            <div class="col-sm-6 col-md-4">
                 <label class="text-info">{{$input['key']}}</label>
                 <input required name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
                        data-name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
@@ -99,7 +99,7 @@
                        class="form-control from-input-data from-input-data">
             </div>
         @else
-            <div class="col-3">
+            <div class="col-sm-6 col-md-4">
                 <label class="text-info">{{$input['key']}}</label>
                 <input required name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
                        data-name="student[{{$row->id}}][{{str_replace(' ', '_', strtolower($input['key']))}}]"
