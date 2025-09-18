@@ -2,10 +2,42 @@
     Devomar095@gmail.com
     WhatsApp +972592554320
     --}}
+@php
+    if (app()->getLocale()=='ar'){
+      $title = 'شهادةُ تقدير للطلبةِ ذوي التحصيلِ العالي';
+      $content_1 = 'تشهدُ شركةُ اي بي تي للاختباراتِ المعياريّةِ الدوليّة بأنّ';
+      $content_2 = 'بالصف';
+      $content_3 = 'قد حصلَ على تقديرٍ متميّزٍ في اختبارِ اي بي تي للاختباراتِ المعياريّةِ الدوليّة في اختبارِ العلوم';
+      $content_4 = ' بنسبةِ نجاحٍ بلغت';
+      $end = 'راجينَ لهُ دوامَ التوفيقِ والتقدُّمِ في مسيرتِهِ العلميّة.';
+      $signature_1 = 'مع تحياتِ: شركة اي بي تي للاختباراتِ المعياريّةِ الدوليّة';
+      $signature_2 = 'المديرُ التنفيذيُّ:';
+      $signature_3 = 'أ. محمد جمال';
+      $date = 'التاريخ:';
+      $student = 'الطالب/ة : ';
+      $dir='rtl';
+      $local='ar';
+
+    }else{
+      $title = 'Certificate of Appreciation For High-Achieving Students';
+      $content_1 = 'This is to certify that ABT Assessments / The International Benchmark Test for Arabic Subjects acknowledges that the';
+      $content_2 = 'In grade';
+      $content_3 = 'Has achieved outstanding performance in the ABT International Benchmark Test for Science';
+      $content_4 = 'with a success rate of ';
+      $end = 'We wish them continued success and progress in their academic journey.';
+      $signature_1 = 'Sincerely,ABT Assessments / The International Benchmark Test for Arabic Subjects';
+      $signature_2 = 'Executive Director';
+      $signature_3 = 'Mr. Mohamed Gamal';
+      $date = 'Date:';
+      $student = 'Student : ';
+      $dir = 'ltr';
+      $local='en';
+    }
+@endphp
 <html lang="ar" dir="rtl">
 <head>
     <link rel="stylesheet" href="{{asset('certification/css/bootstrap-5.0.2/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('certification/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('certification/css/style.css')}}?v=2">
     <title>Certificate Awarded to {{$certificate->user->name}}</title>
     <link rel="shortcut icon" href="{{asset('web_assets/img/logo.svg')}}" type="image/x-icon">
 </head>
@@ -39,10 +71,26 @@
                 <div class="d-flex justify-content-center">
                     <h6 class="s-text">خلال رحلته/ها في تعلّم اللغة العربية عبر منصة لغتي الأولى.</h6>
                 </div>
-                <div class="d-flex flex-column align-items-center w-100" style="padding-top: 20px">
-                    <img src="{{asset('certification/img/signature.svg')}}" style="width:80%;margin-bottom: 20px">
-                    <img src="{{asset('certification/img/logos_group.svg')}}?v=1" style="width: 100%;">
+                <div class="signature-section">
+                    <div class="signature-block">
+                        <span class="signature-title">{{$signature_2}}</span>
+                        <span class="signature-name">{{$signature_3}}</span>
+                        <img src="{{asset('certification/img/seo_signature.png')}}" style="height: 50px;" alt="Signature">
+                    </div>
+                    <div class="signature-block">
+                        <img src="{{asset('certification/img/signature_v2.png')}}" style="height: 90px;" alt="Signature">
+                    </div>
+                    <div class="signature-block">
+                        <span class="signature-title">{{$date}}</span>
+                        <span class="signature-name">{{date('d-m-Y')}}</span>
+                    </div>
                 </div>
+
+                <img class="logos" src="{{asset('certification/img/logos_group.svg')}}?v=1" alt="Logos">
+{{--                <div class="d-flex flex-column align-items-center w-100" style="padding-top: 20px">--}}
+{{--                    <img src="{{asset('certification/img/signature.svg')}}" style="width:80%;margin-bottom: 20px">--}}
+{{--                    <img src="{{asset('certification/img/logos_group.svg')}}?v=1" style="width: 100%;">--}}
+{{--                </div>--}}
             </div>
 
         </div>
@@ -77,11 +125,27 @@
                 <div class="d-flex justify-content-center">
                     <h6 class="s-text">خلال رحلته/ها في تعلّم اللغة العربية عبر منصة لغتي الأولى.</h6>
                 </div>
-{{--                {!! QrCode::color(30, 67, 151)->size(80)->generate(sysDomain()) !!}--}}
-                <div class="d-flex flex-column align-items-center w-100" style="padding-top: 20px">
-                    <img src="{{asset('certification/img/signature.svg')}}" style="width:80%;margin-bottom: 20px">
-                    <img src="{{asset('certification/img/logos_group.svg')}}?v=1" style="width: 100%;">
+                <div class="signature-section">
+                    <div class="signature-block">
+                        <span class="signature-title">{{$signature_2}}</span>
+                        <span class="signature-name">{{$signature_3}}</span>
+                        <img src="{{asset('certification/img/seo_signature.png')}}" style="height: 50px;" alt="Signature">
+                    </div>
+                    <div class="signature-block">
+                        <img src="{{asset('certification/img/signature_v2.png')}}" style="height: 90px;" alt="Signature">
+                    </div>
+                    <div class="signature-block">
+                        <span class="signature-title">{{$date}}</span>
+                        <span class="signature-name">{{date('d-m-Y')}}</span>
+                    </div>
                 </div>
+
+                <img class="logos" src="{{asset('certification/img/logos_group.svg')}}?v=1" alt="Logos">
+{{--                {!! QrCode::color(30, 67, 151)->size(80)->generate(sysDomain()) !!}--}}
+{{--                <div class="d-flex flex-column align-items-center w-100" style="padding-top: 20px">--}}
+{{--                    <img src="{{asset('certification/img/signature.svg')}}" style="width:80%;margin-bottom: 20px">--}}
+{{--                    <img src="{{asset('certification/img/logos_group.svg')}}?v=1" style="width: 100%;">--}}
+{{--                </div>--}}
             </div>
 
         </div>
