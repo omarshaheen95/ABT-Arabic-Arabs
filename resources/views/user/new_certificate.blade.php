@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <img class="logos" src="{{asset('certification/img/logos_group.svg')}}?v=1" alt="Logos">
+            <img class="logos" src="{{asset('certification/img/logos_group_v2.svg')}}?v=1" alt="Logos">
         </div>
 
     </div>
