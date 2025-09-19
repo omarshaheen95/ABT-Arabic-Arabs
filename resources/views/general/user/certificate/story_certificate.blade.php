@@ -71,10 +71,10 @@
                 </div>
             </div>
 
-            <img class="logos" src="{{asset('certification/img/logos_group.svg')}}?v=1" alt="Logos">
+            <img class="logos" src="{{asset('certification/img/logos_group_v2.svg')}}?v=1" alt="Logos">
 {{--            <div class="d-flex flex-column align-items-center w-100" style="padding-top: 20px">--}}
 {{--                <img src="{{asset('certification/img/signature.svg')}}" style="width:80%;margin-bottom: 20px">--}}
-{{--                <img src="{{asset('certification/img/logos_group.svg')}}?v=1" style="width: 100%;">--}}
+{{--                <img src="{{asset('certification/img/logos_group_v2.svg')}}?v=1" style="width: 100%;">--}}
 {{--            </div>--}}
         </div>
 
