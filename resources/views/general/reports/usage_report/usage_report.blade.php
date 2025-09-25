@@ -53,6 +53,9 @@
         <div class="row mt-5">
             <div class="col-12 text-center">
                 <h4 class="main-color my-2">{{$year->name}} </h4>
+                @if($start_date && $end_date)
+                    <h5>{{t('From')}} : {{$start_date}} {{t('To')}} : {{$end_date}}</h5>
+                @endif
                 <h5>{{t('Release Date')}} : {{now()->format('Y-m-d')}}</h5>
                 <h5>www.abt-assessments.com</h5>
                 <h5>support@abt-assessments.com</h5>
