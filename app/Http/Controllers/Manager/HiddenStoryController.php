@@ -59,7 +59,7 @@ class HiddenStoryController extends Controller
 
     public function create()
     {
-        $title = t('Add Lesson');
+        $title = t('Hide Story');
         $grades = storyGradesSys();
         $schools = School::query()->get();
         return view('manager.hidden_story.create', compact('title', 'grades', 'schools'));

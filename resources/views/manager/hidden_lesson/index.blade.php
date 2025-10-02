@@ -114,7 +114,7 @@
     <script src="{{asset('assets_v1/js/custom.js')}}?v={{time()}}"></script>
 
     <script>
-        getLessonsByGrade("{{route('manager.getLessonsByGrade')}}")
+        getLessonsByGrade()
     </script>
 @endsection
 
