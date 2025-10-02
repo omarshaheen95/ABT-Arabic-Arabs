@@ -45,7 +45,6 @@
             </div>
             <div class="row justify-content-center">
                 @foreach($lessons as $lesson)
-                    @if(!$lesson->is_hidden)
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="lesson-box">
                                 <div class="pic">
@@ -102,7 +101,6 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
                 @endforeach
             </div>
         </div>
