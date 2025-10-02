@@ -22,7 +22,7 @@ class HiddenLessonController extends Controller
     public function __construct()
     {
         $this->middleware('permission:show hidden lessons')->only('index');
-        $this->middleware('permission:add hidden lessons')->only(['create','store']);
+        $this->middleware('permission:hide lessons')->only(['create','store']);
         $this->middleware('permission:delete hidden lessons')->only('destroy');
         $this->middleware('permission:export hidden lessons')->only('export');
 
