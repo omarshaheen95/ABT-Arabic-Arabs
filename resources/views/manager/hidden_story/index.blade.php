@@ -111,7 +111,7 @@
             {data: 'actions', name: 'actions'},
         ];
         initializeDateRangePicker();
-        getStoriesByGrade("{{route('manager.getStoriesByGrade')}}");
+        getStoriesByGrade();
 
     </script>
 

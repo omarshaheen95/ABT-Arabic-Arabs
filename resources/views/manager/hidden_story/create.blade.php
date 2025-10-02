@@ -62,7 +62,7 @@
     <script>
 
         onSelectAllClick('section')
-        getStoriesByGrade("{{route('manager.getStoriesByGrade')}}");
+        getStoriesByGrade();
 
     </script>
 

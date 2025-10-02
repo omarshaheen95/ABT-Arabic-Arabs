@@ -60,7 +60,7 @@ class HiddenLessonController extends Controller
 
     public function create()
     {
-        $title = t('Add Lesson');
+        $title = t('Hide Lesson');
         $grades =Grade::query()->get();
         $schools = School::query()->get();
         return view('manager.hidden_lesson.create', compact('title', 'grades', 'schools'));
