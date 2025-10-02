@@ -14,7 +14,7 @@ class UserTrackerStory extends Model
     use SoftDeletes;
     //Type 'watching', 'reading', 'test'
     protected $fillable = [
-        'user_id', 'story_id', 'type', 'color', 'start_at', 'end_at'
+        'user_id', 'story_id', 'type', 'color', 'start_at', 'end_at','points'
     ];
 
     protected $appends = ['total_time','type_text'];
