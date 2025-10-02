@@ -21,7 +21,7 @@ class HiddenStoryController extends Controller
     public function __construct()
     {
         $this->middleware('permission:show hidden stories')->only('index');
-        $this->middleware('permission:add hidden stories')->only(['create','store']);
+        $this->middleware('permission:hide stories')->only(['create','store']);
         $this->middleware('permission:delete hidden stories')->only('destroy');
         $this->middleware('permission:export hidden stories')->only('export');
 

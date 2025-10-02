@@ -4,7 +4,7 @@
 
 
 @section('actions')
-    @can('add hidden lessons')
+    @can('hide lessons')
     <a href="{{route('manager.hidden_lesson.create')}}" class="btn btn-primary btn-elevate btn-icon-sm me-2">
         <i class="la la-plus"></i>
         {{t('Hide Lesson')}}
