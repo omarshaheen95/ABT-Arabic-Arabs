@@ -107,13 +107,13 @@ class HomeController extends Controller
         if (!$grade || !$user->demo && $user->grade_id != $grade->id && $user->alternate_grade_id != $grade->id && $user->id != 1) {
             return redirect()->route('home')->with('message', 'الدروس غير متاحة')->with('m-class', 'error');
         }
-        $hidden_lessons = HiddenLesson::query()
-           ->where('school_id', $user->school_id)->get()->pluck('lesson_id')->toArray();
 
         $lessons = Lesson::query()
+            ->whereDoesntHave('hiddenLessons',function ($query) use ($user){
+                $query->where('school_id', $user->school_id);
+            })
             ->where('lesson_type', $type)
             ->where('grade_id', $grade->id)
-            ->whereNotIn('id', $hidden_lessons)
             ->when($level, function (Builder $query) use ($level) {
 //            $query->where('level', $level);
             })->get();
@@ -123,14 +123,13 @@ class HomeController extends Controller
     public function lesson($id, $key)
     {
         $user = Auth::guard('web')->user();
-        $lesson = Lesson::query()->with(['grade', 'media'])->findOrFail($id);
-        $hidden_lesson = HiddenLesson::query()
-            ->where('school_id', $user->school_id)
-            ->where('lesson_id', $id)
-            ->first();
+        $lesson = Lesson::query()->with(['grade', 'media'])
+            ->whereDoesntHave('hiddenLessons',function ($query) use ($user){
+                $query->where('school_id', $user->school_id);
+            })
+            ->where('id',$id)->first();
 
-        $user = Auth::guard('web')->user();
-        if ($hidden_lesson && !$user->demo && $user->grade_id != $lesson->grade_id && $user->alternate_grade_id != $lesson->grade_id && $user->id != 1) {
+        if (!$lesson && !$user->demo && $user->grade_id != $lesson->grade_id && $user->alternate_grade_id != $lesson->grade_id && $user->id != 1) {
             return redirect()->route('home')->with('message', 'الدرس غير متاح')->with('m-class', 'error');
         }
         switch ($key) {
@@ -229,11 +228,11 @@ class HomeController extends Controller
     {
         $title = "قائمة القصص";
         $user = Auth::guard('web')->user();
-
-        $hidden_stories = HiddenStory::query()->where('school_id', $user->school_id)->get()->pluck('story_id')->toArray();
         $stories = Story::query()
+            ->whereDoesntHave('hiddenStories',function ($query) use ($user){
+                $query->where('school_id', $user->school_id);
+            })
             ->where('grade', $level)
-            ->whereNotIn('id', $hidden_stories)
             ->where('active', 1)
             ->get();
 
@@ -242,15 +241,13 @@ class HomeController extends Controller
 
     public function story($id, $key)
     {
-        $story = Story::query()->findOrFail($id);
         $user = Auth::guard('web')->user();
-        $hidden_story = HiddenStory::query()
-            ->where('school_id', $user->school_id)
-            ->where('story_id', $id)
-            ->first();
 
-        $user = Auth::guard('web')->user();
-        if ($hidden_story) {
+        $story = Story::query()->whereDoesntHave('hiddenStories',function ($query) use ($user){
+            $query->where('school_id', $user->school_id);
+        })->where('id',$id)->first();
+
+        if (!$story) {
             return redirect()->route('home')->with('message', 'القصة غير متاحة')->with('m-class', 'error');
         }
         switch ($key) {
