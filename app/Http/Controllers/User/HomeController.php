@@ -129,7 +129,7 @@ class HomeController extends Controller
             })
             ->where('id',$id)->first();
 
-        if (!$lesson && !$user->demo && $user->grade_id != $lesson->grade_id && $user->alternate_grade_id != $lesson->grade_id && $user->id != 1) {
+        if (!$lesson || (!$user->demo && $user->grade_id != $lesson->grade_id && $user->alternate_grade_id != $lesson->grade_id && $user->id != 1)) {
             return redirect()->route('home')->with('message', 'الدرس غير متاح')->with('m-class', 'error');
         }
         switch ($key) {
