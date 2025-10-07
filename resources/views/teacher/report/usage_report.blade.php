@@ -320,7 +320,7 @@
 
 
 @foreach($grades_data as $key => $grade_data)
-    @if($key >= 1 && $key <= 15)
+    @if($key >= 1 && $key <= 15 && $grade_data['total_students'] > 0)
     <div class="page">
         <div class="subpage-w" style="padding-bottom: 0;padding-top: 0; ">
             <br/>
