@@ -31,7 +31,7 @@ class AddNewStudentMail extends Mailable implements ShouldQueue
                 'support@abt-assessments.com',
             ])
             ->cc([
-                'it@abt-assessments.com',
+//                'it@abt-assessments.com',
                 'operations@abt-assessments.com',
                 'communication@abt-assessments.com',
             ])
