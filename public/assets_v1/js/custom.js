@@ -134,7 +134,17 @@ function getSectionBySchool(on_change_name = 'school_id',callback=null) {
                     } else {
                         section = $('select[name="sections[]"]');
                     }
+                    // Check if "All" option existed before refresh
+                    const hasAllOption = section.find('option[value="all"]').length > 0;
+
+                    // Replace HTML
                     section.html(data.html);
+
+                    // If "All" option existed, add it again at the top
+                    if (hasAllOption) {
+                        section.prepend('<option value="all">All</option>');
+                    }
+
                     section.trigger('change');
 
                     selectLoading(selectElement,false)
@@ -175,7 +185,17 @@ function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) {
                     } else {
                         section = $('select[name="sections[]"]');
                     }
+                    // Check if "All" option existed before refresh
+                    const hasAllOption = section.find('option[value="all"]').length > 0;
+
+                    // Replace HTML
                     section.html(data.html);
+
+                    // If "All" option existed, add it again at the top
+                    if (hasAllOption) {
+                        section.prepend('<option value="all">All</option>');
+                    }
+
                     section.trigger('change');
 
                     selectLoading(selectElement,false)
