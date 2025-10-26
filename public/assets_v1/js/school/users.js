@@ -11,7 +11,7 @@ $('select[name="teacher_id"],select[name="year_id"]').change(function () {
         url = url.replace(':id', id);
         let year = $('select[name="year_id"]');
         if (typeof year !=='undefined' && year.val()){
-            url+='?year_id='+year;
+            url+='?year_id='+year.val();
         }
         $.ajax({
             type: "get",
