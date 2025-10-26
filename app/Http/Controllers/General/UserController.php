@@ -223,7 +223,8 @@ class UserController extends Controller
         $title = t('My Students');
         $grades = Grade::all();
         $packages = Package::query()->where('active', 1)->get();
-        return view('general.user.teacher_students', compact('title', 'packages','grades'));
+        $years = Year::query()->get();
+        return view('general.user.teacher_students', compact('title', 'packages','years','grades'));
     }
 
     public function resetPasswords(Request $request)

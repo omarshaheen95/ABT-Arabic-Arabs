@@ -29,6 +29,8 @@
 
 @section('filter')
     <div class="row">
+        <input type="hidden" id="teacher_id" value="{{auth()->guard('teacher')->id()}}">
+
         <div class="col-1  mb-2">
             <label>{{t('ID')}}:</label>
             <input type="text" name="id" class="form-control direct-search" placeholder="{{t('ID')}}">
@@ -41,7 +43,16 @@
             <label>{{t('Email')}}:</label>
             <input type="text" name="email" class="form-control direct-search" placeholder="{{t('Email')}}">
         </div>
-
+        <div class="col-3 mb-2">
+            <label class="">{{t('Year')}}:</label>
+            <select class="form-select" name="year_id" data-control="select2" data-allow-clear="true"
+                    data-placeholder="{{t('Select Year')}}">
+                <option></option>
+                @foreach($years as $year)
+                    <option value="{{$year->id}}">{{$year->name}}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="col-lg-3 mb-2">
             <label>{{t('Grade')}} :</label>
             <select name="grade_id" class="form-select" data-control="select2" data-placeholder="{{t('Select Grade')}}"

@@ -107,13 +107,17 @@ function getTeacherBySchool(on_change_name = 'school_id',callback=null) {
 
 function getSectionBySchool(on_change_name = 'school_id',callback=null) {
     if (typeof getSectionBySchoolURL !== 'undefined') {
-        $('select[name="' + on_change_name + '"]').change(function () {
-            if ($(this).val()){
+        $('select[name="' + on_change_name + '"], select[name="year_id"]').change(function () {
+            var id = $('select[name="' + on_change_name + '"]').val();
+            if (id){
                 var url = getSectionBySchoolURL;
-                var id = $(this).val();
                 var selectElement = $(this);
                 selectLoading(selectElement,true)
                 url = url.replace(':id', id);
+                let year = $('select[name="year_id"]');
+                if (typeof year !=='undefined' && year.val()){
+                    url+='?year_id='+year;
+                }
                 $.ajax({
                     type: "get",
                     url: url,
@@ -139,16 +143,20 @@ function getSectionBySchool(on_change_name = 'school_id',callback=null) {
     }
 }
 
-function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) {
+function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) F{
     if (typeof getSectionByTeacherURL !== 'undefined') {
 
-        $('select[name="teacher_id"]').change(function () {
-            if ($(this).val()){
-                var id = $(this).val();
+        $('select[name="teacher_id"], select[name="year_id"]').change(function () {
+            var id = $('select[name="teacher_id"]').val();
+            if (id){
                 var url = getSectionByTeacherURL;
                 var selectElement = $(this);
                 selectLoading(selectElement,true)
                 url = url.replace(':id', id);
+                let year = $('select[name="year_id"]');
+                if (typeof year !=='undefined' && year.val()){
+                    url+='?year_id='+year;
+                }
                 $.ajax({
                     type: "get",
                     url: url,

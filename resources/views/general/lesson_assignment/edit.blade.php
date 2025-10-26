@@ -52,7 +52,7 @@
                      <input type="hidden" name="teacher_id"  id="teacher_id" value="{{auth()->id()}}">
             @endif
 
-            <div class="form-group col-6 mb-2">
+            <div class="form-group col-3 mb-2">
                 <label class="form-label">{{ t('Grade') }}</label>
                 <select class="form-select assignment_grade" data-control="select2"
                         data-placeholder="{{t('Select grade')}}"
@@ -64,6 +64,18 @@
                     @endforeach
                 </select>
             </div>
+           <div class="form-group col-3 mb-2">
+               <label class="form-label">{{ t('Academic Year') }}</label>
+               <select class="form-select assignment_year_id" data-control="select2"
+                       data-placeholder="{{t('Select Year')}}"
+                       data-allow-clear="true" name="year_id" id="assignment_year_id" @isset($assignment) disabled @endisset>
+                   <option></option>
+                   @foreach($years as $year)
+                       <option value="{{ $year->id }}"
+                           {{isset($assignment) && $assignment->year_id == $year->id ?'selected':''}}>{{ $year->name }}</option>
+                   @endforeach
+               </select>
+           </div>
             <div class="form-group col-6 mb-2">
                 <label class="form-label">{{ t('Section') }}</label>
                 <select class="form-select" name="sections[]" id="section"
@@ -105,18 +117,7 @@
                     @endisset
                 </select>
             </div>
-               <div class="form-group col-6 mb-2">
-                   <label class="form-label">{{ t('Academic Year') }}</label>
-                   <select class="form-select assignment_year_id" data-control="select2"
-                           data-placeholder="{{t('Select Year')}}"
-                           data-allow-clear="true" name="year_id" id="assignment_year_id" @isset($assignment) disabled @endisset>
-                       <option></option>
-                       @foreach($years as $year)
-                           <option value="{{ $year->id }}"
-                               {{isset($assignment) && $assignment->year_id == $year->id ?'selected':''}}>{{ $year->name }}</option>
-                       @endforeach
-                   </select>
-               </div>
+
             <div class="form-group col-12 mb-2">
                 <label class="form-label">{{ t('Students') }}</label>
                 <select class="form-control assignment_students" data-control="select2"

@@ -43,6 +43,9 @@ class GeneralController extends Controller
     public function getSectionBySchool(Request $request,$id)
     {
         $rows = \App\Models\User::query()
+            ->when($request->get('year_id'), function ($query) use ($request) {
+                $query->where('year_id', $request->get('year_id'));
+            })
             ->where('school_id', $id)
             ->whereNotNull('section')
             ->select('section')
@@ -61,6 +64,9 @@ class GeneralController extends Controller
         $rows = \App\Models\User::query()
             ->whereHas('teacherUser', function (Builder $query) use ($id) {
                 $query->where('teacher_id', $id);
+            })
+            ->when($request->get('year_id'), function ($query) use ($request) {
+                $query->where('year_id', $request->get('year_id'));
             })
             ->whereNotNull('section')
             ->select('section')
