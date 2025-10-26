@@ -125,16 +125,18 @@ function getSectionBySchool(on_change_name = 'school_id',callback=null) {
                     if (typeof callback === 'function') {
                         callback(true);
                     }
-                    if ($('select[name="section"]').length) {
-                        $('select[name="section"]').html(data.html);
-                        $('select[name="section"]').trigger('change');
+                    let section = null;
 
+                    if ($('select[name="section"]').length > 0) {
+                        section = $('select[name="section"]');
+                    } else if ($('select[name="section[]"]').length > 0) {
+                        section = $('select[name="section[]"]');
+                    } else {
+                        section = $('select[name="sections[]"]');
                     }
-                    if ($('select[name="section[]"]').length) {
-                        $('select[name="section[]"]').html(data.html);
-                        $('select[name="section[]"]').trigger('change');
+                    section.html(data.html);
+                    section.trigger('change');
 
-                    }
                     selectLoading(selectElement,false)
                 });
             }
@@ -164,16 +166,18 @@ function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) {
                     if (typeof callback === 'function') {
                         callback(true);
                     }
-                    if ($('select[name="section"]').length) {
-                        $('select[name="section"]').html(data.html);
-                        $('select[name="section"]').trigger('change');
+                    let section = null;
 
+                    if ($('select[name="section"]').length > 0) {
+                        section = $('select[name="section"]');
+                    } else if ($('select[name="section[]"]').length > 0) {
+                        section = $('select[name="section[]"]');
+                    } else {
+                        section = $('select[name="sections[]"]');
                     }
-                    if ($('select[name="section[]"]').length) {
-                        $('select[name="section[]"]').html(data.html);
-                        $('select[name="section[]"]').trigger('change');
+                    section.html(data.html);
+                    section.trigger('change');
 
-                    }
                     selectLoading(selectElement,false)
                 });
             }
