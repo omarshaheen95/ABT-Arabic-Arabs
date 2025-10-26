@@ -149,7 +149,7 @@ function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) {
     if (typeof getSectionByTeacherURL !== 'undefined') {
 
         $('select[name="teacher_id"], select[name="year_id"]').change(function () {
-            var id = $('select[name="teacher_id"]').val();
+            var id = $('select[name="teacher_id"]').val()??$('input[name="teacher_id"]').val();
             if (id){
                 var url = getSectionByTeacherURL;
                 var selectElement = $(this);
