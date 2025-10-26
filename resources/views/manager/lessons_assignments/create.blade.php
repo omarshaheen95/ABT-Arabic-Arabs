@@ -178,43 +178,52 @@
         }
 
 
-        $('select[name="school_id"]').change(function () {
-            var id = $(this).val();
-            var url = getTeacherBySchool;
-            url = url.replace(':id', id);
-            $.ajax({
-                type: "get",
-                url: url,
-            }).done(function (data) {
-                $('select[name="teacher_id"]').html(data.html);
-            });
-            var url = getSectionBySchool;
-            url = url.replace(':id', id);
-            $.ajax({
-                type: "get",
-                url: url,
-            }).done(function (data) {
-                $('select[name="section[]"]').html(data.html);
-            });
+        $('select[name="school_id"],select[name="year_id"]').change(function () {
+            var id = $('select[name="school_id"]').val();
+            if (id){
+                var url = getTeacherBySchool;
+                url = url.replace(':id', id);
+                $.ajax({
+                    type: "get",
+                    url: url,
+                }).done(function (data) {
+                    $('select[name="teacher_id"]').html(data.html);
+                });
+                var url = getSectionBySchool;
+                url = url.replace(':id', id);
+                let year = $('select[name="year_id"]');
+                if (typeof year !=='undefined' && year.val()){
+                    url+='?year_id='+year;
+                }
+                $.ajax({
+                    type: "get",
+                    url: url,
+                }).done(function (data) {
+                    $('select[name="section[]"]').html(data.html);
+                });
+            }
         });
 
-        $('select[name="teacher_id"]').change(function () {
-            var id = $(this).val();
-            var url = getSectionByTeacher + "?multiple=1&selected=0";
-            url = url.replace(':id', id);
-            $.ajax({
-                type: "get",
-                url: url,
-            }).done(function (data) {
-                $('select[name="section[]"]').html('<option value="all">{{t("All")}}</option>'+data.html);
-                var grade = $('select[name="grade_id"]').val();
-                if (grade) {
-                    getStudentsData(id, grade)
+        $('select[name="teacher_id"],select[name="year_id"]').change(function () {
+            var id = $('select[name="teacher_id"]').val();
+            if (id){
+                var url = getSectionByTeacher + "?multiple=1&selected=0";
+                url = url.replace(':id', id);
+                let year = $('select[name="year_id"]');
+                if (typeof year !=='undefined' && year.val()){
+                    url+='&year_id='+year;
                 }
-            });
-
-
-
+                $.ajax({
+                    type: "get",
+                    url: url,
+                }).done(function (data) {
+                    $('select[name="section[]"]').html('<option value="all">{{t("All")}}</option>'+data.html);
+                    var grade = $('select[name="grade_id"]').val();
+                    if (grade) {
+                        getStudentsData(id, grade)
+                    }
+                });
+            }
         });
 
     </script>

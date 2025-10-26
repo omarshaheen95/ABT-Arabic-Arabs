@@ -127,6 +127,8 @@
 
                 </select>
             </div>
+        @else
+            <input type="hidden" id="teacher_id" value="{{auth()->guard('teacher')->id()}}">
         @endif
 
         <div class="col-3 mb-2">
