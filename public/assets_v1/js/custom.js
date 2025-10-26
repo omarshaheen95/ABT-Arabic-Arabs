@@ -143,8 +143,12 @@ function getSectionBySchool(on_change_name = 'school_id',callback=null) {
                     // If "All" option existed, add it again at the top
                     if (hasAllOption) {
                         section.prepend('<option value="all">All</option>');
+                        // Remove any empty options (value == "" or no value)
+                        section.find('option').filter(function () {
+                            const val = $(this).attr('value');
+                            return !val || val.trim() === '';
+                        }).remove();
                     }
-                    section.find('option[value=""]').remove()
                     section.trigger('change');
 
                     selectLoading(selectElement,false)
@@ -194,9 +198,12 @@ function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) {
                     // If "All" option existed, add it again at the top
                     if (hasAllOption) {
                         section.prepend('<option value="all">All</option>');
+                        // Remove any empty options (value == "" or no value)
+                        section.find('option').filter(function () {
+                            const val = $(this).attr('value');
+                            return !val || val.trim() === '';
+                        }).remove();
                     }
-                    section.find('option[value=""]').remove()
-
                     section.trigger('change');
 
                     selectLoading(selectElement,false)
