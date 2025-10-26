@@ -144,7 +144,7 @@ function getSectionBySchool(on_change_name = 'school_id',callback=null) {
                     if (hasAllOption) {
                         section.prepend('<option value="all">All</option>');
                     }
-
+                    section.find('option[value=""]').remove()
                     section.trigger('change');
 
                     selectLoading(selectElement,false)
@@ -195,6 +195,7 @@ function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) {
                     if (hasAllOption) {
                         section.prepend('<option value="all">All</option>');
                     }
+                    section.find('option[value=""]').remove()
 
                     section.trigger('change');
 
