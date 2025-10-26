@@ -9,7 +9,7 @@
                 <div class="card shadow-sm border-0">
 
                     <div class="text-center mt-3">
-                        <img src="{{ $user->image ?? asset('assets/media/users/default.jpg') }}"
+                        <img src="{{ $user->school->logo ?? asset('assets/media/users/default.jpg') }}"
                              alt="Profile Picture"
                              class="rounded-circle shadow-lg p-2"
                              style="width: 140px; height: 140px; object-fit: fill;">
