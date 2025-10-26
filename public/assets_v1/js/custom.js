@@ -143,7 +143,7 @@ function getSectionBySchool(on_change_name = 'school_id',callback=null) {
     }
 }
 
-function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) F{
+function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) {
     if (typeof getSectionByTeacherURL !== 'undefined') {
 
         $('select[name="teacher_id"], select[name="year_id"]').change(function () {
