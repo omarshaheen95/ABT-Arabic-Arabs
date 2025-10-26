@@ -116,7 +116,7 @@ function getSectionBySchool(on_change_name = 'school_id',callback=null) {
                 url = url.replace(':id', id);
                 let year = $('select[name="year_id"]');
                 if (typeof year !=='undefined' && year.val()){
-                    url+='?year_id='+year;
+                    url+='?year_id='+year.val();
                 }
                 $.ajax({
                     type: "get",
@@ -157,7 +157,7 @@ function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) {
                 url = url.replace(':id', id);
                 let year = $('select[name="year_id"]');
                 if (typeof year !=='undefined' && year.val()){
-                    url+='?year_id='+year;
+                    url+='?year_id='+year.val();
                 }
                 $.ajax({
                     type: "get",

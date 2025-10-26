@@ -193,7 +193,7 @@
                 url = url.replace(':id', id);
                 let year = $('select[name="year_id"]');
                 if (typeof year !=='undefined' && year.val()){
-                    url+='?year_id='+year;
+                    url+='?year_id='+year.val();
                 }
                 $.ajax({
                     type: "get",
@@ -211,7 +211,7 @@
                 url = url.replace(':id', id);
                 let year = $('select[name="year_id"]');
                 if (typeof year !=='undefined' && year.val()){
-                    url+='&year_id='+year;
+                    url+='&year_id='+year.val();
                 }
                 $.ajax({
                     type: "get",
