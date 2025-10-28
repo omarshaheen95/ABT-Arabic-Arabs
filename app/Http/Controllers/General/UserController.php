@@ -139,9 +139,9 @@ class UserController extends Controller
         return $this->userRepository->unassignedUserTeacher($request);
     }
 
-    public function restoreUser($id)
+    public function restoreUser(Request $request)
     {
-        return $this->userRepository->restoreUser($id);
+        return $this->userRepository->restoreUser($request);
     }
 
     public function userCard(Request $request, $id)
