@@ -140,7 +140,7 @@ class User extends Authenticatable
                 });
             })
             ->when($value = $request->get('row_id', []), function (Builder $query) use ($value) {
-                $query->whereIn('id', $value);
+                is_array($value) ? $query->whereIn('id', $value) : $query->where('id', $value);
             })->when($value = $request->get('archived', 2), function (Builder $query) use ($value) {
             if ($value == 1)
                 $query->withoutGlobalScope('not_archived')->where('archived', 1);

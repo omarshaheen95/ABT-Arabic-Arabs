@@ -43,7 +43,7 @@ interface UserRepositoryInterface
     public function assignedToTeacher(Request $request);
     public function unassignedUserTeacher(Request $request);
 
-    public function restoreUser($id);
+    public function restoreUser(Request $request);
     public function resetPasswords(Request $request);
     public function pdfReports(Request $request);
 
