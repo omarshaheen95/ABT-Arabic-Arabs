@@ -123,23 +123,77 @@ $(document).on('click', '#update_users_grade', function () {
     });
 });
 
-function restore(id) {
-    $.ajax({
-        type: "POST", //we are using GET method to get data from server side
-        url: RESTORE_USERS_URL.replace(':id',id), // get the route value
-        data: {
-            '_token':CRSF
-        },
-        success:function (result) {
-            toastr.success(result.message)
-            table.DataTable().draw(false);
-        },
-        error:function (error) {
-            toastr.error(error.responseJSON.message)
-        }
-    })
-}
 
+function restore(id = null) {
+    let data = {
+        '_token': CRSF
+    };
+
+    if (!id) {
+        id = [];
+        $("table input:checkbox:checked").each(function () {
+            id.push($(this).val());
+        });
+        data['id'] = id;
+
+        let school_id = $('select[name="school_id"]').val();
+        if (id.length <= 0 && !school_id) {
+            toastr.error('School is required');
+            return;
+        } else {
+            data['school_id'] = school_id;
+        }
+
+        let year_id = $('select[name="year_id"]').val();
+        if (id.length <= 0 && !year_id) {
+            toastr.error('Year is required');
+            return;
+        } else {
+            data['year_id'] = year_id;
+        }
+    }else {
+        data['id']=id;
+    }
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to restore the selected students?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, restore!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            showLoadingModal()
+            $.ajax({
+                type: "POST",
+                url: RESTORE_USERS_URL,
+                data: data,
+                success: function (result) {
+                    hideLoadingModal()
+                    Swal.fire({
+                        icon: 'success',
+                        title: '{{ t('Restored!') }}',
+                        text: result.message,
+                        //timer: 2000,
+                        showConfirmButton: true
+                    });
+                    table.DataTable().draw(false);
+                },
+                error: function (error) {
+                    hideLoadingModal()
+                    Swal.fire({
+                        icon: 'error',
+                        title: '{{ t('Error') }}',
+                        text: error.responseJSON?.message || '{{ t('Something went wrong') }}'
+                    });
+                }
+            });
+        }
+    });
+}
 
 $('#btn_reset_passwords').click(function () {
     let formData = getFormData('reset_passwords_form')

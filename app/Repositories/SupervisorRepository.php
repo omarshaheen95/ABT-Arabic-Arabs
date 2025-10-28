@@ -88,6 +88,10 @@ class SupervisorRepository implements SupervisorRepositoryInterface
         if (guardIs('manager')){
             $compact['schools'] = School::query()->get();
         }
+        if (guardIs('school')){
+            $compact['teachers'] = Teacher::query()->where('school_id',Auth::guard('school')->id())->get();
+        }
+
         return view('general.supervisor.edit',$compact);
     }
 
