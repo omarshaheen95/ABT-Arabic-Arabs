@@ -174,5 +174,18 @@ class Teacher extends Authenticatable
         });
     }
 
+    // Filter by grades
+    public function scopeFilterByGrades(Builder $query, $grades)
+    {
+        return $query->whereHas('teacher_users', function (Builder $query) use ($grades) {
+            $query->whereHas('user', function (Builder $query) use ($grades) {
+                $query->where(function (Builder $query) use ($grades) {
+                    $query->whereIn('grade_id', $grades)
+                        ->orWhereIn('alternate_grade_id', $grades);
+                });
+            });
+        });
+    }
+
 
 }
