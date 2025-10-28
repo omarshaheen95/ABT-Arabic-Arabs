@@ -146,6 +146,7 @@ class UsageReport
 
         if ($guard != 'teacher') {
             $teachers = Teacher::query()
+                ->filterByGrade($grades)
                 ->whereIn('school_id', $schools->pluck('id'))
                 ->when($guard == 'supervisor', function (Builder $query) use ($guard_user) {
                     $query->whereHas('supervisor_teachers', function (Builder $query) use ($guard_user) {
