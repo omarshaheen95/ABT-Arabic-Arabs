@@ -126,7 +126,7 @@ $(document).on('click', '#update_users_grade', function () {
 
 function restore(id = null) {
     let data = {
-        '_token': CRSF
+        '_token': $('meta[name="csrf-token"]').attr('content')
     };
 
     if (!id) {
