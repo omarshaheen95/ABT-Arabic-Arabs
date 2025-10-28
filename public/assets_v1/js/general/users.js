@@ -138,7 +138,7 @@ function restore(id = null) {
 
         let school_id = $('select[name="school_id"]').val();
         if (id.length <= 0 && !school_id) {
-            toastr.error('School is required');
+            toastr.error('المدرسة مطلوبة');
             return;
         } else {
             data['school_id'] = school_id;
@@ -146,7 +146,7 @@ function restore(id = null) {
 
         let year_id = $('select[name="year_id"]').val();
         if (id.length <= 0 && !year_id) {
-            toastr.error('Year is required');
+            toastr.error('السنة مطلوبة');
             return;
         } else {
             data['year_id'] = year_id;
@@ -156,14 +156,14 @@ function restore(id = null) {
     }
 
     Swal.fire({
-        title: 'Are you sure?',
-        text: 'Do you want to restore the selected students?',
+        title: 'هل أنت متأكد؟',
+        text: 'هل تريد إستعادة الطلاب الممحددين؟',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, restore!',
-        cancelButtonText: 'Cancel'
+        confirmButtonText: 'إستعادة',
+        cancelButtonText: 'إلغاء'
     }).then((result) => {
         if (result.isConfirmed) {
             showLoadingModal()
@@ -175,7 +175,7 @@ function restore(id = null) {
                     hideLoadingModal()
                     Swal.fire({
                         icon: 'success',
-                        title: 'Restored!',
+                        title: 'تم الإستعادة',
                         text: result.message,
                         //timer: 2000,
                         showConfirmButton: true
@@ -186,8 +186,8 @@ function restore(id = null) {
                     hideLoadingModal()
                     Swal.fire({
                         icon: 'error',
-                        title: 'Error',
-                        text: error.responseJSON?.message || 'Something went wrong'
+                        title: 'خطأ',
+                        text: error.responseJSON?.message || 'شيئ ما خاطئ'
                     });
                 }
             });
