@@ -407,14 +407,7 @@
             {data: 'actions', name: 'actions'},
         ];
 
-        $('#students_status').on('change',function () {
-            let value = $(this).val();
-            if (value==='1'){ //Not deleted student
-                $('#restore-students').addClass('d-none')
-            }else {
-                $('#restore-students').removeClass('d-none')
-            }
-        })
+
 
         //restore students
         @can('restore deleted users')
