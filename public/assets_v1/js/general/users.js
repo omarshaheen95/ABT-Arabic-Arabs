@@ -157,7 +157,7 @@ function restore(id = null) {
 
     Swal.fire({
         title: 'هل أنت متأكد؟',
-        text: 'هل تريد إستعادة الطلاب الممحددين؟',
+        text: 'هل تريد إستعادة الطلاب المحددين؟',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
