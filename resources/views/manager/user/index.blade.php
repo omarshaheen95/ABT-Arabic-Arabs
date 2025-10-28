@@ -407,7 +407,24 @@
             {data: 'actions', name: 'actions'},
         ];
 
+        $('#students_status').on('change',function () {
+            let value = $(this).val();
+            if (value==='1'){ //Not deleted student
+                //show actions for not deleted students
+                $('.not-deleted-students').removeClass('d-none')
+                // //show delete button
+                $('#li_delete_rows').removeClass('d-none')
+                $('#restore-students').addClass('d-none')
+            }else {
+                //hide actions for not deleted students
+                $('.not-deleted-students').addClass('d-none')
+                // //hide delete button
+                $('#li_delete_rows').addClass('d-none')
+                $('#restore-students').removeClass('d-none')
 
+            }
+            table.DataTable().draw(true);
+        })
 
         //restore students
         @can('restore deleted users')
