@@ -47,7 +47,7 @@ class CheckActiveUserCommand extends Command
                 $query->orWhereNull('active_to');
             })
             ->with(['teacherUser'])
-            ->limit(1000)
+            ->limit(2000)
             ->get();//->get();
         Log::alert('Expired User : ' . $users->count());
         $teachers = collect();
