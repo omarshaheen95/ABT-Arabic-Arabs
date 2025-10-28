@@ -58,6 +58,10 @@
                     <li><a class="dropdown-item text-danger d-none checked-visible" href="#!" id="delete_rows">{{t('Delete')}}</a></li>
                 @endif
 
+                @can('restore deleted users')
+                    <li id="restore-students" class="d-none"><a class="dropdown-item" href="#!" onclick="restore()">{{t('Restore Students')}}</a></li>
+                @endcan
+
             @else
                 <li><a class="dropdown-item d-none cursor-pointer checked-visible" id="students_assign">{{t('Assign')}}</a></li>
 
@@ -497,15 +501,25 @@
             @endif
         ];
 
-        //restore students
-        @can('restore deleted users')
+        $('#students_status').on('change',function () {
+            let value = $(this).val();
+            if (value==='1'){ //Not deleted student
+                //show actions for not deleted students
+                $('.not-deleted-students').removeClass('d-none')
+                // //show delete button
+                $('#li_delete_rows').removeClass('d-none')
+                $('#restore-students').addClass('d-none')
+            }else {
+                //hide actions for not deleted students
+                $('.not-deleted-students').addClass('d-none')
+                // //hide delete button
+                $('#li_delete_rows').addClass('d-none')
+                $('#restore-students').removeClass('d-none')
 
-        @endcan
+            }
+            table.DataTable().draw(true);
+        })
 
-        @can('reset users passwords')
-
-
-        @endcan
 
     </script>
 
