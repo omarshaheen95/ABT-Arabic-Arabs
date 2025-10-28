@@ -42,12 +42,13 @@ class CheckActiveUserCommand extends Command
     public function handle()
     {
         $users = User::query()
+            ->where('school_id', 429)
             ->where(function ($query) {
                 $query->where('active_to', '<=', Carbon::now()->subDays(40));
                 $query->orWhereNull('active_to');
             })
             ->with(['teacherUser'])
-            ->limit(1000)
+            ->limit(2000)
             ->get();//->get();
         Log::alert('Expired User : ' . $users->count());
         $teachers = collect();
