@@ -175,7 +175,7 @@ function restore(id = null) {
                     hideLoadingModal()
                     Swal.fire({
                         icon: 'success',
-                        title: '{{ t('Restored!') }}',
+                        title: 'Restored!',
                         text: result.message,
                         //timer: 2000,
                         showConfirmButton: true
@@ -186,8 +186,8 @@ function restore(id = null) {
                     hideLoadingModal()
                     Swal.fire({
                         icon: 'error',
-                        title: '{{ t('Error') }}',
-                        text: error.responseJSON?.message || '{{ t('Something went wrong') }}'
+                        title: 'Error',
+                        text: error.responseJSON?.message || 'Something went wrong'
                     });
                 }
             });
