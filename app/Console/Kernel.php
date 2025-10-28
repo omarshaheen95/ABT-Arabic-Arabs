@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('user:check-expire')->everyFiveMinutes();
+        $schedule->command('user:check-expire')->twiceDaily();
 //        $schedule->command('disable:expire-teachers')->daily();
     }
 
