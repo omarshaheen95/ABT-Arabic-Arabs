@@ -436,6 +436,7 @@ class StoryController extends Controller
     {
         $title = 'نتائج الاختبارات';
         $student_tests = StudentStoryTest::query()
+            ->has('story')
             ->where('user_id', Auth::user()->id)
             ->where('approved', 1)
             ->latest()->paginate(10);
