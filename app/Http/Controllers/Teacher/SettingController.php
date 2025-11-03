@@ -99,7 +99,7 @@ class SettingController extends Controller
         } catch (\Exception $e) {
             $date_range = [];
         }
-        $url = route('teacher.report.teacher_pre_usage_report');
+        $url = route('teacher.report.teacher_usage_report');
 
         return view('general.reports.usage_report.pre_usage_report', compact('title', 'grades','url', 'years', 'date_range'));
     }
