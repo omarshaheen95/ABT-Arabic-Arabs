@@ -252,6 +252,11 @@ class UsageReport
                 ->filterBySchools($schools)
                 ->count();
 
+            //if total students is zero, skip the grade
+            if($grades_data[$grade]['total_students'] == 0){
+                continue;
+            }
+
             if ($guard != 'teacher') {
                 $grades_data[$grade]['total_teachers'] = Teacher::query()
                     ->filterBySchools($schools)
