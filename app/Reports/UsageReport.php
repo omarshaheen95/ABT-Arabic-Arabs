@@ -41,7 +41,6 @@ class UsageReport
 
         foreach ($schools as $school) {
             $school->logo = $school->logo ? asset($school->logo) : asset('assets/media/icons/school.png');
-            $school->name = $school->name;
         }
 
         $selected_grades = $request->get('grades', []);
@@ -64,12 +63,14 @@ class UsageReport
         if ($guard != 'teacher') {
             // Total teachers
             $data['total_teachers'] = Teacher::query()
+                ->filterByGrade($grades)
                 ->filterBySchools($schools)
                 ->filterBySupervisor($guard, $guard_user)
                 ->count();
 
             // Top teacher
             $data['top_teacher'] = Teacher::query()
+                ->filterByGrade($grades)
                 ->filterBySchools($schools)
                 ->filterBySupervisor($guard, $guard_user)
                 ->orderBy('passed_tests', 'desc')
@@ -145,6 +146,7 @@ class UsageReport
 
         if ($guard != 'teacher') {
             $teachers = Teacher::query()
+                ->filterByGrade($grades)
                 ->whereIn('school_id', $schools->pluck('id'))
                 ->when($guard == 'supervisor', function (Builder $query) use ($guard_user) {
                     $query->whereHas('supervisor_teachers', function (Builder $query) use ($guard_user) {
