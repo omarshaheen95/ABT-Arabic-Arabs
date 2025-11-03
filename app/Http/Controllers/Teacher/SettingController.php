@@ -106,7 +106,7 @@ class SettingController extends Controller
 
     public function usageReport(Request $request)
     {
-//        dd($request->all());
+        dd($request->all());
         $request->validate([
             'start_date' => 'required',
             'end_date' => 'required',
