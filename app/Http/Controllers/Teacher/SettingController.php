@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Teacher;
 
+use App\Classes\GeneralFunctions;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teacher\TeacherPasswordRequest;
 use App\Http\Requests\Teacher\TeacherProfileRequest;
@@ -15,6 +16,7 @@ use App\Models\User;
 use App\Models\UserLesson;
 use App\Models\UserTracker;
 use App\Models\Year;
+use App\Reports\UsageReport;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -107,9 +109,13 @@ class SettingController extends Controller
     public function usageReport(Request $request)
     {
         $request->validate([
+            'school_id' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
+            'year_id' => 'required',
         ]);
+        $report = New UsageReport($request);
+        return $report->report();
         $teacher = Auth::guard('teacher')->user();
         $grades = $request->get('grades', []);
         $start_date = $request->get('start_date', []);
