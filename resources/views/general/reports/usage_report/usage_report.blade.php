@@ -220,86 +220,88 @@
 @endif
 @foreach($grades_data as $key => $grade_data)
     @if($key >= 1 && $key <= 15)
-        <div class="page">
-            <div class="subpage-w">
-                <div class="row text-center justify-content-center">
-                    @if($key != 13 && is_int($key))
-                        <div class="col-xs-12">
-                            <h5 class="section-title">Grade {{$key}} / Year {{$key + 1}}</h5>
-                        </div>
-                    @elseif($key == 13)
-                        <div class="col-xs-12">
-                            <h5 class="section-title">Grade KG / Year 1</h5>
-                        </div>
-                    @endif
-                </div>
-                <div class="row">
-                    <div class="row justify-content-center">
-                        <div class="col-11">
-                            <div class="table-container ">
-                                <table class="table m-0 font-14">
-                                    <tbody>
-                                    <tr>
-                                        <td class="sub-td">Total Student</td>
-                                        <td>{{$grade_data['total_students']}}</td>
-                                    </tr>
-                                    @if(getGuard() != 'teacher')
-                                        <tr>
-                                            <td class="sub-td">Total Teachers</td>
-                                            <td>{{$grade_data['total_teachers']}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="sub-td">High teacher performance</td>
-                                            <td>{{$grade_data['top_teacher'] ? $grade_data['top_teacher']->name:null}}</td>
-                                        </tr>
-                                    @endif
-                                    <tr>
-                                        <td class="sub-td">Highest student performance on lesson</td>
-                                        <td>{{$grade_data['top_student_lesson'] ? $grade_data['top_student_lesson']->name .' - '. $grade_data['top_student_lesson']->grade_name .' - '. $grade_data['top_student_lesson']->section:null}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="sub-td">Highest student performance on stories</td>
-                                        <td>{{$grade_data['top_student_story'] ? $grade_data['top_student_story']->name .' - '. $grade_data['top_student_story']->grade_name .' - '. $grade_data['top_student_story']->section:null}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="sub-td">Submitted Lessons assessments</td>
-                                        <td>{{$grade_data['total_tests']}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="sub-td">Lessons Above assessments</td>
-                                        <td>{{$grade_data['total_pass_tests']}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="sub-td">Lessons Below assessments</td>
-                                        <td>{{$grade_data['total_fail_tests']}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="sub-td">Submitted Stories assessments</td>
-                                        <td>{{$grade_data['total_story_tests']}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="sub-td">Stories Above assessments</td>
-                                        <td>{{$grade_data['total_story_pass_tests']}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="sub-td">Stories Below assessments</td>
-                                        <td>{{$grade_data['total_story_fail_tests']}}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+        @if($grade_data['total_students'] != 0)
+            <div class="page">
+                <div class="subpage-w">
+                    <div class="row text-center justify-content-center">
+                        @if($key != 13 && is_int($key))
+                            <div class="col-xs-12">
+                                <h5 class="section-title">Grade {{$key}} / Year {{$key + 1}}</h5>
                             </div>
+                        @elseif($key == 13)
+                            <div class="col-xs-12">
+                                <h5 class="section-title">Grade KG / Year 1</h5>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="row">
+                        <div class="row justify-content-center">
+                            <div class="col-11">
+                                <div class="table-container ">
+                                    <table class="table m-0 font-14">
+                                        <tbody>
+                                        <tr>
+                                            <td class="sub-td">Total Student</td>
+                                            <td>{{$grade_data['total_students']}}</td>
+                                        </tr>
+                                        @if(getGuard() != 'teacher')
+                                            <tr>
+                                                <td class="sub-td">Total Teachers</td>
+                                                <td>{{$grade_data['total_teachers']}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="sub-td">High teacher performance</td>
+                                                <td>{{$grade_data['top_teacher'] ? $grade_data['top_teacher']->name:null}}</td>
+                                            </tr>
+                                        @endif
+                                        <tr>
+                                            <td class="sub-td">Highest student performance on lesson</td>
+                                            <td>{{$grade_data['top_student_lesson'] ? $grade_data['top_student_lesson']->name .' - '. $grade_data['top_student_lesson']->grade_name .' - '. $grade_data['top_student_lesson']->section:null}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sub-td">Highest student performance on stories</td>
+                                            <td>{{$grade_data['top_student_story'] ? $grade_data['top_student_story']->name .' - '. $grade_data['top_student_story']->grade_name .' - '. $grade_data['top_student_story']->section:null}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sub-td">Submitted Lessons assessments</td>
+                                            <td>{{$grade_data['total_tests']}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sub-td">Lessons Above assessments</td>
+                                            <td>{{$grade_data['total_pass_tests']}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sub-td">Lessons Below assessments</td>
+                                            <td>{{$grade_data['total_fail_tests']}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sub-td">Submitted Stories assessments</td>
+                                            <td>{{$grade_data['total_story_tests']}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sub-td">Stories Above assessments</td>
+                                            <td>{{$grade_data['total_story_pass_tests']}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sub-td">Stories Below assessments</td>
+                                            <td>{{$grade_data['total_story_fail_tests']}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div id="grade_tracker_{{$key}}"
+                                 style="height: 330px"></div>
                         </div>
                     </div>
                     <div class="col-xs-12">
-                        <div id="grade_tracker_{{$key}}"
-                             style="height: 330px"></div>
+                        <div id="grade_tracker_{{$key}}"></div>
                     </div>
                 </div>
-                <div class="col-xs-12">
-                    <div id="grade_tracker_{{$key}}"></div>
-                </div>
             </div>
-        </div>
+        @endif
     @endif
 @endforeach
 
@@ -517,6 +519,7 @@
     @endif
     @foreach($grades_data as $key => $grade_data)
     @if(is_int($key))
+    @if($grade_data['total_students'] != 0)
     Highcharts.chart("grade_tracker_{{$key}}", {
         chart: {
             plotBackgroundColor: null,
@@ -574,6 +577,7 @@
             ]
         }]
     });
+    @endif
     @endif
     @endforeach
 </script>
