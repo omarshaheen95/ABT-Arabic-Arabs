@@ -41,8 +41,6 @@
             <div class="col-6">
                 <h3 class="main-color">تقرير الاستخدام</h3>
             </div>
-
-
         </div>
         <div class="row mt-4">
             <div class="col-12 text-center">
