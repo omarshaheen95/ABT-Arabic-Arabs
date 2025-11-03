@@ -165,7 +165,7 @@ class UserController extends Controller
                     return Carbon::parse($row->created_at)->toDateString();
                 })
                 ->addColumn('last_login', function ($row) {
-                    return $row->last_login ? Carbon::parse($row->last_login)->toDateTimeString() : '';
+                    return $row->login_sessions->count() ? Carbon::parse($row->login_sessions->last()->created_at)->toDateTimeString() : '-';
                 })
                 ->addColumn('school', function ($row) {
                     $package = optional($row->package)->name;
