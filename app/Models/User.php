@@ -376,7 +376,12 @@ class User extends Authenticatable
     // Filter by schools
     public function scopeFilterBySchools(Builder $query, $schools)
     {
-        return $query->whereIn('school_id', $schools->pluck('id'));
+        return $query->whereIn('school_id', $schools->pluck('id'))
+            ->when(request()->has('teacher_id'), function (Builder $query) {
+                $query->whereHas('teacherUser', function (Builder $query){
+                    $query->where('teacher_id', request()->get('teacher_id'));
+                });
+            });
     }
 
     // Filter by guard (teacher/supervisor)
