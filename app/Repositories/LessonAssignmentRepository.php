@@ -31,7 +31,7 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
                 ->with(['teacher.school', 'grade', 'userAssignments:id,lesson_assignment_id,completed'])
                 ->filter($request)->latest();
 
-            $lessons = Lesson::query()->get();
+            $lessons = Lesson::query()->select(['id','name'])->get();
 
             return DataTables::eloquent($rows)
                 ->escapeColumns([])
