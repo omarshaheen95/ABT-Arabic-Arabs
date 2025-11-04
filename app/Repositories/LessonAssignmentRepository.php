@@ -31,7 +31,7 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
                 ->with(['teacher.school', 'grade', 'userAssignments:id,lesson_assignment_id,completed'])
                 ->filter($request)->latest();
 
-//            $lessons = Lesson::query()->get();
+            $lessons = Lesson::query()->get();
 
             return DataTables::eloquent($rows)
                 ->escapeColumns([])
@@ -59,15 +59,15 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
                     $html .= '</div>';
                     return $html;
                 })
-                ->addColumn('lesson', function ($row){
+                ->addColumn('lesson', function ($row) use ($lessons){
                     $html = '<div class="d-flex flex-column gap-1">' ;
 
                     //Lessons
-//                    $lesson = $lessons->whereIn('id',$row->lessons_ids)->pluck('name')->toArray();
-//                    $lesson = array_slice($lesson, 0, 2);
-//
-//                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Lessons') . ':</span>'
-//                        . implode(', ', $lesson) . ' ...' .'</div>';
+                    $lesson = $lessons->whereIn('id',$row->lessons_ids)->pluck('name')->toArray();
+                    $lesson = array_slice($lesson, 0, 2);
+
+                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Lessons') . ':</span>'
+                        . implode(', ', $lesson) . ' ...' .'</div>';
 
                     // Calculate counts from loaded relationship
                     $completed_count = $row->userAssignments->where('completed', true)->count();
