@@ -35,7 +35,7 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
                     },
                 ])
                 ->filter($request)->latest();
-            $stories = Story::query()->get();
+//            $stories = Story::query()->get();
 
             return DataTables::make($rows)
                 ->escapeColumns([])
@@ -65,15 +65,15 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
                     $html .= '</div>';
                     return $html;
                 })
-                ->addColumn('stories', function ($row) use ($stories){
+                ->addColumn('stories', function ($row){
                     $html = '<div class="d-flex flex-column gap-1">' ;
 
                     //Stories
-                    $story = $stories->whereIn('id',$row->stories_ids)->pluck('name')->toArray();
-                    $story = array_slice($story, 0, 2);
+//                    $story = $stories->whereIn('id',$row->stories_ids)->pluck('name')->toArray();
+//                    $story = array_slice($story, 0, 2);
 
-                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Stories') . ':</span>'
-                        . implode(', ', $story) . ' ...' .'</div>';
+//                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Stories') . ':</span>'
+//                        . implode(', ', $story) . ' ...' .'</div>';
 
                     $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Completed Count') . ':</span><span class="badge badge-success">'. $row->completed_count .'</span></div>';
                     $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Uncompleted Count') . ':</span><span class="badge badge-danger">'. $row->uncompleted_count .'</span></div>';
