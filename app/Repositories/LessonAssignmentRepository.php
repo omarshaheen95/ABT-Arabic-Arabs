@@ -26,11 +26,9 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
 {
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $lessons = Lesson::pluck('name', 'id'); // ✅ simple key-value map
-
+        if (request()->ajax()) {
             $rows = LessonAssignment::query()
-                ->with(['teacher.school', 'grade'])
+                ->with(['teacher.school'])
                 ->withCount([
                     'userAssignments as completed_count' => function ($query) {
                         $query->where('completed', true);
@@ -38,39 +36,74 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
                         $query->where('completed', false);
                     },
                 ])
-                ->filter($request)
-                ->latest();
+                ->filter($request)->latest();
 
-            return DataTables::of($rows)
+//            $lessons = Lesson::query()->get();
+
+            return DataTables::make($rows)
+                ->escapeColumns([])
+
                 ->addColumn('school', function ($row) {
-                    $html = '<div class="d-flex flex-column">';
-                    if (guardIs('manager')) {
-                        $html .= '<div><span class="fw-bold text-primary pe-1">'.t('School').':</span> '.$row->teacher->school->name.'</div>';
+                    $html = '<div class="d-flex flex-column">' ;
+                    if (guardIs('manager')){
+                        $html .='<div class="d-flex"><span class="fw-bold text-primary pe-1">' . t('School') . ':</span>' . $row->teacher->school->name . '</div>';
                     }
-                    if (!guardIs('teacher')) {
-                        $html .= '<div><span class="fw-bold text-primary pe-1">'.t('Teacher').':</span> '.$row->teacher->name.'</div>';
+                    if (!guardIs('teacher')){
+                        $html .='<div class="d-flex"><span class="fw-bold text-primary pe-1">' . t('Teacher') . ':</span>' . $row->teacher->name . '</div>' ;
                     }
-                    return $html.'</div>';
+                    $html .= '</div>';
+                    return $html;
                 })
-                ->addColumn('lesson', function ($row) use ($lessons) {
-                    $lessonNames = collect($row->lessons_ids)->map(function ($id) use ($lessons) {
-                        return $lessons[$id] ?? null;
-                    })->filter()->take(2);
-                    return '<div><span class="fw-bold text-primary pe-1">'.t('Lessons').':</span>'
-                        .implode(', ', $lessonNames).' ...</div>'
-                        .'<div><span class="fw-bold text-primary pe-1">'.t('Completed').':</span><span class="badge badge-success">'.$row->completed_count.'</span></div>'
-                        .'<div><span class="fw-bold text-primary pe-1">'.t('Uncompleted').':</span><span class="badge badge-danger">'.$row->uncompleted_count.'</span></div>';
-                })
-                ->make(true);
-        }
 
-        // Non-AJAX part unchanged
+                ->addColumn('level', function ($row) {
+                    $html = '<div class="d-flex flex-column">' ;
+                    $html .='<div class="d-flex"><span class="fw-bold text-primary pe-1">' . t('Grade') . ':</span>' . $row->grade->name . '</div>';
+
+                    $sections = $row->sections && is_array($row->sections) ? implode(', ', array_slice($row->sections, 0, 2)). ' ...' : '-';
+
+                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Sections') . ':</span>'
+                        . $sections  .'</div>';
+
+                    $html .= '</div>';
+                    return $html;
+                })
+                ->addColumn('lesson', function ($row){
+                    $html = '<div class="d-flex flex-column gap-1">' ;
+
+                    //Lessons
+//                    $lesson = $lessons->whereIn('id',$row->lessons_ids)->pluck('name')->toArray();
+//                    $lesson = array_slice($lesson, 0, 2);
+//
+//                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Lessons') . ':</span>'
+//                        . implode(', ', $lesson) . ' ...' .'</div>';
+
+
+                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Completed Count') . ':</span><span class="badge badge-success">'. $row->completed_count .'</span></div>';
+                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Uncompleted Count') . ':</span><span class="badge badge-danger">'. $row->uncompleted_count .'</span></div>';
+
+                    $html .= '</div>';
+                    return $html;
+                })
+
+                ->addColumn('dates', function ($row) {
+                    $html = '<div class="d-flex flex-column">' ;
+                    $deadlineColor = optional($row->deadline)->isPast() ? 'badge badge-danger' : 'badge badge-success';
+                    $html .= '<div class="d-flex mt-1"><span class="fw-bold pe-1 ' . $deadlineColor . '">' .Carbon::parse($row->deadline)->format('Y-m-d').'</span></div>';
+                    $html .= '</div>';
+                    return $html;
+                })
+                ->addColumn('actions', function ($row) {
+                    return $row->action_buttons;
+                })
+                ->make();
+        }
         $title = t('Lessons Assignments');
         $grades = Grade::all();
-        $compact = compact('title', 'grades');
-        if (guardIs('manager')) $compact['schools'] = School::all();
-        elseif (guardIn(['school', 'supervisor'])) {
-            $compact['teachers'] = Teacher::filter()->get();
+        $compact = compact('title','grades');
+        if (guardIs('manager')) {
+            $compact['schools'] = School::query()->get();
+        } elseif (guardIn(['school', 'supervisor'])) {
+            $compact['teachers'] = Teacher::query()->filter()->get();
             $compact['sections'] = schoolSections();
         } elseif (guardIs('teacher')) {
             $compact['sections'] = teacherSections();

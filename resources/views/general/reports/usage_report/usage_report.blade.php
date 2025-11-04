@@ -41,8 +41,6 @@
             <div class="col-6">
                 <h3 class="main-color">تقرير الاستخدام</h3>
             </div>
-
-
         </div>
         <div class="row mt-4">
             <div class="col-12 text-center">
@@ -53,6 +51,11 @@
         <div class="row mt-5">
             <div class="col-12 text-center">
                 <h4 class="main-color my-2">{{$year->name}} </h4>
+                @if(getGuard() == 'teacher')
+                    <h3 class="main-color my-2">
+                        {{t('Teacher Name')}} : {{Auth::guard('teacher')->user()->name}}
+                    </h3>
+                @endif
                 @if($start_date && $end_date)
                     <h5>{{t('From')}} : {{$start_date}} {{t('To')}} : {{$end_date}}</h5>
                 @endif
