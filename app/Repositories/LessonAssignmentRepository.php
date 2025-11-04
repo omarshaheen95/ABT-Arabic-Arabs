@@ -28,7 +28,7 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
     {
         if (request()->ajax()) {
             $rows = LessonAssignment::query()
-                ->with(['teacher.school'])
+                ->with(['teacher.school', 'grade'])
                 ->withCount([
                     'userAssignments as completed_count' => function ($query) {
                         $query->where('completed', true);
