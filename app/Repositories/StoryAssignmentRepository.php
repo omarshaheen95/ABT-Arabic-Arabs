@@ -28,7 +28,8 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
             $rows = StoryAssignment::query()
                 ->with(['teacher.school', 'grade', 'userStoryAssignments:id,story_assignment_id,completed'])
                 ->filter($request)->latest();
-            $stories = Story::query()->get();
+
+            $stories = Story::query()->select(['id','name'])->get();
 
             return DataTables::eloquent($rows)
                 ->escapeColumns([])
