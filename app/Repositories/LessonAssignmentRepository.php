@@ -38,7 +38,7 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
                 ])
                 ->filter($request)->latest();
 
-            $lessons = Lesson::query()->get();
+//            $lessons = Lesson::query()->get();
 
             return DataTables::make($rows)
                 ->escapeColumns([])
@@ -67,15 +67,15 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
                     $html .= '</div>';
                     return $html;
                 })
-                ->addColumn('lesson', function ($row) use ($lessons){
+                ->addColumn('lesson', function ($row){
                     $html = '<div class="d-flex flex-column gap-1">' ;
 
                     //Lessons
-                    $lesson = $lessons->whereIn('id',$row->lessons_ids)->pluck('name')->toArray();
-                    $lesson = array_slice($lesson, 0, 2);
-
-                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Lessons') . ':</span>'
-                        . implode(', ', $lesson) . ' ...' .'</div>';
+//                    $lesson = $lessons->whereIn('id',$row->lessons_ids)->pluck('name')->toArray();
+//                    $lesson = array_slice($lesson, 0, 2);
+//
+//                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Lessons') . ':</span>'
+//                        . implode(', ', $lesson) . ' ...' .'</div>';
 
 
                     $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Completed Count') . ':</span><span class="badge badge-success">'. $row->completed_count .'</span></div>';
