@@ -28,21 +28,13 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
     {
         if (request()->ajax()) {
             $rows = LessonAssignment::query()
-                ->with(['teacher.school', 'grade'])
-                ->withCount([
-                    'userAssignments as completed_count' => function ($query) {
-                        $query->where('completed', true);
-                    }, 'userAssignments as uncompleted_count' => function ($query) {
-                        $query->where('completed', false);
-                    },
-                ])
+                ->with(['teacher.school', 'grade', 'userAssignments:id,lesson_assignment_id,completed'])
                 ->filter($request)->latest();
 
 //            $lessons = Lesson::query()->get();
 
-            return DataTables::make($rows)
+            return DataTables::eloquent($rows)
                 ->escapeColumns([])
-
                 ->addColumn('school', function ($row) {
                     $html = '<div class="d-flex flex-column">' ;
                     if (guardIs('manager')){
@@ -77,9 +69,12 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
 //                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Lessons') . ':</span>'
 //                        . implode(', ', $lesson) . ' ...' .'</div>';
 
+                    // Calculate counts from loaded relationship
+                    $completed_count = $row->userAssignments->where('completed', true)->count();
+                    $uncompleted_count = $row->userAssignments->where('completed', false)->count();
 
-                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Completed Count') . ':</span><span class="badge badge-success">'. $row->completed_count .'</span></div>';
-                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Uncompleted Count') . ':</span><span class="badge badge-danger">'. $row->uncompleted_count .'</span></div>';
+                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Completed Count') . ':</span><span class="badge badge-success">'. $completed_count .'</span></div>';
+                    $html .= '<div class="d-flex"> <span class="fw-bold text-primary pe-1">' . t('Uncompleted Count') . ':</span><span class="badge badge-danger">'. $uncompleted_count .'</span></div>';
 
                     $html .= '</div>';
                     return $html;
