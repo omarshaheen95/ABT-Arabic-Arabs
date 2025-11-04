@@ -26,7 +26,7 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
     {
         if (request()->ajax()) {
             $rows = StoryAssignment::query()
-                ->with(['teacher.school'])
+                ->with(['teacher.school', 'grade'])
                 ->withCount([
                     'userStoryAssignments as completed_count' => function ($query) {
                         $query->where('completed', true);
