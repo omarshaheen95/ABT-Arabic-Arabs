@@ -367,7 +367,7 @@
                 $(this).find(".icon-spinner").toggleClass("d-none");
                 $(this).css('pointer-events', "pointer");
                 setTimeout(function () {
-                    window.location.href = "{{route('lessons', [$lesson->grade->grade_number, $lesson->lesson_type])}}";
+                    window.location.href = "{{route('lessons', [$lesson->grade_id, $lesson->lesson_type])}}";
                 }, 2000)
             }).fail(function (data) {
                 toastr.error(data.responseJSON.message);
