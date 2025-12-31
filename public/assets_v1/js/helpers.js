@@ -206,7 +206,7 @@ function initializeDateRangePicker(id = "date_range_picker", range = []) {
 
 }
 
-function validateAndSubmit(form_class_name) {
+function validateAndSubmit(form_class_name,reload=true) {
     //on event submit form
     $("."+form_class_name).validate();
 
@@ -245,7 +245,9 @@ function validateAndSubmit(form_class_name) {
                         }
                     }).then(function () {
                         //reload page
-                        location.reload();
+                        if (reload){
+                            location.reload();
+                        }
                     });
                 },
                 error: function(response){
