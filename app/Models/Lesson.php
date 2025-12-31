@@ -81,7 +81,7 @@ class Lesson extends Model implements HasMedia
             $actions = [
                 ['key' => 'edit', 'name' => t('Edit'), 'route' => route('manager.lesson.edit', $this->id), 'permission' => 'edit lessons'],
                 ['key' => 'learn', 'name' => t('Learn'), 'route' => route('manager.lesson.learn', $this->id), 'permission' => 'edit lesson content'],
-                ['key' => 'training', 'name' => t('Training'), 'route' => route('manager.lesson.training.index', $this->id), 'permission' => 'edit lesson assessment'],
+                ['key' => 'training', 'name' => t('Training'), 'route' => route('manager.lesson.training.index', $this->id), 'permission' => 'show and edit lesson training'],
                 ['key' => 'blank', 'name' => t('Training Preview'), 'route' => route('manager.lesson.review', [$this->id, 'training']), 'permission' => 'lesson review'],
                 ['key' => 'assessment', 'name' => t('Assessment'), 'route' => route('manager.lesson.assessment.index', $this->id), 'permission' => 'edit lesson assessment'],
                 ['key' => 'blank', 'name' => t('Assessment Preview'), 'route' => route('manager.lesson.review', [$this->id, 'test']), 'permission' => 'lesson review'],
