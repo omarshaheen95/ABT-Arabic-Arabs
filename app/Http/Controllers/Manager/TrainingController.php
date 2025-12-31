@@ -17,10 +17,9 @@ class TrainingController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:show lesson training')->only('index');
-        $this->middleware('permission:edit lesson training')
-            ->only(['edit','update','deleteTQuestionAttachment','deleteTMatchImage','removeTSortWord']);
-        $this->middleware('permission:preview lesson training')->only('preview');
+        $this->middleware('permission:show and edit lesson training')->only([
+            'index', 'edit','update','deleteTQuestionAttachment','deleteTMatchImage','removeTSortWord', 'preview'
+        ]);
         $this->middleware('permission:delete lesson training')->only('destroy');
     }
 
