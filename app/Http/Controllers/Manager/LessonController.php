@@ -35,12 +35,11 @@ class LessonController extends Controller
     {
         $this->middleware('permission:show lessons')->only('index');
         $this->middleware('permission:add lessons')->only(['create','store']);
-        $this->middleware('permission:edit lessons')->only(['update','edit']);
         $this->middleware('permission:delete lessons')->only('destroy');
         $this->middleware('permission:lesson review')->only('lessonReview');
 
-        $this->middleware('permission:edit lesson learn')->only([
-            'lessonLearn','updateLessonLearn','deleteLessonAudio','deleteLessonVideo'
+        $this->middleware('permission:edit lessons')->only([
+            'lessonLearn','updateLessonLearn','deleteLessonAudio','deleteLessonVideo','update','edit'
         ]);
     }
     public function index(Request $request)
