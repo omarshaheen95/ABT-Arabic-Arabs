@@ -20,7 +20,7 @@ class UserStoryAssignmentRepository implements UserStoryAssignmentRepositoryInte
     public function index(Request $request)
     {
         if (request()->ajax()) {
-            $rows = UserStoryAssignment::query()->has('user')->with(['user.school','user.grade', 'user.teacher', 'story'])->filter($request)->latest();
+            $rows = UserStoryAssignment::query()->has('user')->has('story')->with(['user.school','user.grade', 'user.teacher', 'story'])->filter($request)->latest();
 
             return DataTables::make($rows)
                 ->escapeColumns([])

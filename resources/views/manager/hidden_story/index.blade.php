@@ -4,7 +4,7 @@
 
 
 @section('actions')
-    @can('add hidden stories')
+    @can('hide stories')
         <a href="{{route('manager.hidden_story.create')}}" class="btn btn-primary btn-elevate btn-icon-sm me-2">
             <i class="la la-plus"></i>
             {{t('Hide Story')}}
@@ -111,7 +111,7 @@
             {data: 'actions', name: 'actions'},
         ];
         initializeDateRangePicker();
-        getStoriesByGrade("{{route('manager.getStoriesByGrade')}}");
+        getStoriesByGrade();
 
     </script>
 

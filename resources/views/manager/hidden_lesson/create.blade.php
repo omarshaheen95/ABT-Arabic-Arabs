@@ -61,7 +61,7 @@
     {!! JsValidator::formRequest(\App\Http\Requests\Manager\HiddenLessonRequest::class, '#form_information'); !!}
 
     <script>
-        getLessonsByGrade("{{route('manager.getLessonsByGrade')}}")
+        getLessonsByGrade()
 
     </script>
 

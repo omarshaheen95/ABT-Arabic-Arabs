@@ -41,27 +41,31 @@ class CheckActiveUserCommand extends Command
      */
     public function handle()
     {
-//        $users = User::query()
-//            ->where('active_to', '<=', Carbon::now()->subDays(90))
-//            ->with(['teacherUser'])
-//            ->limit(1000)
-//            ->get();//->get();
-//        Log::alert('Expired User : '. $users->count());
-//        $teachers = collect();
-//        foreach($users as $user)
-//        {
-//            if ($user->teacherUser)
-//            {
-//                $teachers->push($user->teacherUser->teacher_id);
-//            }
+        $users = User::query()
+//            ->where('school_id', 429)
+            ->where(function ($query) {
+                $query->where('active_to', '<=', Carbon::now()->subDays(40));
+                $query->orWhereNull('active_to');
+            })
+            ->with(['teacherUser'])
+            ->limit(2000)
+            ->get();//->get();
+        Log::alert('Expired User : ' . $users->count());
+        $teachers = collect();
+        foreach ($users as $user) {
+            if ($user->teacherUser) {
+                $teachers->push($user->teacherUser->teacher_id);
+            }
+            $user->update([
+                'archived' => 1
+            ]);
 //            $user->forceDelete();
-//        }
-//        $teachers = $teachers->unique()->values()->all();
-//        foreach ($teachers as $teacher)
-//        {
-//            updateTeacherStatistics($teacher);
-//        }
-//        Log::alert('Teachers : '. count($teachers));
+        }
+        $teachers = $teachers->unique()->values()->all();
+        foreach ($teachers as $teacher) {
+            updateTeacherStatistics($teacher);
+        }
+//        Log::alert('Teachers : ' . count($teachers));
         return true;
     }
 }

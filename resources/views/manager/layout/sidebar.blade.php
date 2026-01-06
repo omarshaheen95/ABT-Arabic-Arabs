@@ -61,20 +61,20 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
                 @endcan
 
 
-                    @can('show managers')
-                        <div class="menu-item">
-                            <a class="menu-link {{menuLinkIsActive([getGuard().'/user_role_and_permission/manager/*',getGuard().'/manager*'])}}"
-                               href="{{ route(getGuard().'.manager.index') }}">
-                                <span class="menu-icon">
-                                   <i class="ki-duotone ki-shield-tick fs-2">
-                                     <span class="path1"></span>
-                                     <span class="path2"></span>
-                                    </i>
-                                </span>
-                                <span class="menu-title">{{t('Managers')}}</span>
-                            </a>
-                        </div>
-                    @endcan
+{{--                    @can('show managers')--}}
+{{--                        <div class="menu-item">--}}
+{{--                            <a class="menu-link {{menuLinkIsActive([getGuard().'/user_role_and_permission/manager/*',getGuard().'/manager*'])}}"--}}
+{{--                               href="{{ route(getGuard().'.manager.index') }}">--}}
+{{--                                <span class="menu-icon">--}}
+{{--                                   <i class="ki-duotone ki-shield-tick fs-2">--}}
+{{--                                     <span class="path1"></span>--}}
+{{--                                     <span class="path2"></span>--}}
+{{--                                    </i>--}}
+{{--                                </span>--}}
+{{--                                <span class="menu-title">{{t('Managers')}}</span>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    @endcan--}}
 
                     @can('show schools')
                         <div class="menu-item">

@@ -22,7 +22,7 @@ class HiddenLessonController extends Controller
     public function __construct()
     {
         $this->middleware('permission:show hidden lessons')->only('index');
-        $this->middleware('permission:add hidden lessons')->only(['create','store']);
+        $this->middleware('permission:hide lessons')->only(['create','store']);
         $this->middleware('permission:delete hidden lessons')->only('destroy');
         $this->middleware('permission:export hidden lessons')->only('export');
 
@@ -60,7 +60,7 @@ class HiddenLessonController extends Controller
 
     public function create()
     {
-        $title = t('Add Lesson');
+        $title = t('Hide Lesson');
         $grades =Grade::query()->get();
         $schools = School::query()->get();
         return view('manager.hidden_lesson.create', compact('title', 'grades', 'schools'));

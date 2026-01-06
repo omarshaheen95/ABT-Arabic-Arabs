@@ -455,19 +455,34 @@ class UserRepository implements UserRepositoryInterface
         return Response::response(t('Unsigned Successfully'));
     }
 
-    public function restoreUser($id)
-    {
-        $user = User::query()->withTrashed()->findOrFail($id);
-        if ($user) {
-            $other_users = User::query()->where('email', $user->email)->where('id', '!=', $user->id)->get();
-            if ($other_users->count() > 0) {
-                return Response::response(t('Cannot Restore Student Before Email Already Exist'),null,false);
-            }
-            $user->restore();
-            return Response::response(t('Successfully Restored'));
-        }
-        return Response::response(t('Student Not Restored'),null,false);
 
+    public function restoreUser(Request $request)
+    {
+        $total_restored = 0;
+        $total_skipped = 0;
+        $id = $request->get('id');
+        if (!$id) {
+            $request->validate(['school_id' => 'required', 'year_id' => 'required']);
+        } else {
+            $request->validate(['id' => 'required']);
+        }
+        $students = User::query()->filter($request)->whereNotNull('deleted_at')->withTrashed()->get();
+
+        foreach ($students as $student) {
+            //check email if exist in other students
+            $other_students = User::query()->where('email', $student->email)->where('id', '!=', $student->id)->get();
+            if ($other_students->count() > 0) {
+                if (is_array($id) || ($request->get('school_id') && $request->get('year_id'))) {
+                    $total_skipped++;
+                    continue;
+                }
+                return Response::response(t('Cannot Restore Student Before Email Already Exist'), null,false);
+            }
+            $student->restore();
+            $total_restored++;
+        }
+
+        return Response::response( t('Successfully Restored').' '.t('Total').':('.$total_restored.') '.t('Students').' '.t('Skipped').':('.$total_skipped.') ');
     }
 
 

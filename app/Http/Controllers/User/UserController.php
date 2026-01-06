@@ -329,18 +329,8 @@ class UserController extends Controller
     public function profile()
     {
         $title = t('Profile');
-        $schools = School::query()->get();
-        $user = Auth::guard('web')->user();
-        $this->validationRules["image"] = 'nullable|image';
-        $this->validationRules["name"] = 'required';
-        $this->validationRules["email"] = "required|unique:users,email,$user->id,id,deleted_at,NULL";
-        $this->validationRules["mobile"] = 'required';
-        $this->validationRules["country_code"] = 'required';
-        $this->validationRules["short_country"] = 'required';
-        $this->validationRules["phone"] = ['required'];
-        $this->validationRules["mobile"] = ['required', 'phone:'.request()->get('short_country')];
-        $validator = JsValidator::make($this->validationRules, $this->validationMessages);
-        return view('user.settings.profile', compact('title', 'schools', 'user', 'validator'));
+        $user = Auth::guard('web')->user()->load(['school','teacher','grade']);
+        return view('user.settings.profile-show', compact('title', 'user'));
     }
 
     public function profileUpdate(Request $request)

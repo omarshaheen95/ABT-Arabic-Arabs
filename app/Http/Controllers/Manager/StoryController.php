@@ -108,7 +108,7 @@ class StoryController extends Controller
         if ($request->hasFile('alternative_video')) {
             $data['alternative_video'] = uploadFile($request->file('alternative_video'), 'stories_video', true)['path'];
         }
-        $data['active'] = $request->get('active', 1);
+        $data['active'] = $request->get('active', 0);
 
         $story->update($data);
         return redirect()->route('manager.story.index')->with('message', t('Successfully Updated'));

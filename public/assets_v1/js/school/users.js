@@ -4,16 +4,22 @@ $('#active_to_date').flatpickr();
 
 
 
-$('select[name="teacher_id"]').change(function () {
-    var id = $(this).val();
-    var url = getSectionByTeacher;
-    url = url.replace(':id', id);
-    $.ajax({
-        type: "get",
-        url: url,
-    }).done(function (data) {
-        $('select[name="section"]').html(data.html);
-    });
+$('select[name="teacher_id"],select[name="year_id"]').change(function () {
+    var id = $('select[name="teacher_id"]').val();
+    if (id){
+        var url = getSectionByTeacher;
+        url = url.replace(':id', id);
+        let year = $('select[name="year_id"]');
+        if (typeof year !=='undefined' && year.val()){
+            url+='?year_id='+year.val();
+        }
+        $.ajax({
+            type: "get",
+            url: url,
+        }).done(function (data) {
+            $('select[name="section"]').html(data.html);
+        });
+    }
 });
 
 

@@ -123,23 +123,77 @@ $(document).on('click', '#update_users_grade', function () {
     });
 });
 
-function restore(id) {
-    $.ajax({
-        type: "POST", //we are using GET method to get data from server side
-        url: RESTORE_USERS_URL.replace(':id',id), // get the route value
-        data: {
-            '_token':CRSF
-        },
-        success:function (result) {
-            toastr.success(result.message)
-            table.DataTable().draw(false);
-        },
-        error:function (error) {
-            toastr.error(error.responseJSON.message)
-        }
-    })
-}
 
+function restore(id = null) {
+    let data = {
+        '_token': $('meta[name="csrf-token"]').attr('content')
+    };
+
+    if (!id) {
+        id = [];
+        $("table input:checkbox:checked").each(function () {
+            id.push($(this).val());
+        });
+        data['id'] = id;
+
+        let school_id = $('select[name="school_id"]').val();
+        if (id.length <= 0 && !school_id) {
+            toastr.error('المدرسة مطلوبة');
+            return;
+        } else {
+            data['school_id'] = school_id;
+        }
+
+        let year_id = $('select[name="year_id"]').val();
+        if (id.length <= 0 && !year_id) {
+            toastr.error('السنة مطلوبة');
+            return;
+        } else {
+            data['year_id'] = year_id;
+        }
+    }else {
+        data['id']=id;
+    }
+
+    Swal.fire({
+        title: 'هل أنت متأكد؟',
+        text: 'هل تريد إستعادة الطلاب المحددين؟',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'إستعادة',
+        cancelButtonText: 'إلغاء'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            showLoadingModal()
+            $.ajax({
+                type: "POST",
+                url: RESTORE_USERS_URL,
+                data: data,
+                success: function (result) {
+                    hideLoadingModal()
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'تم الإستعادة',
+                        text: result.message,
+                        //timer: 2000,
+                        showConfirmButton: true
+                    });
+                    table.DataTable().draw(false);
+                },
+                error: function (error) {
+                    hideLoadingModal()
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'خطأ',
+                        text: error.responseJSON?.message || 'شيئ ما خاطئ'
+                    });
+                }
+            });
+        }
+    });
+}
 
 $('#btn_reset_passwords').click(function () {
     let formData = getFormData('reset_passwords_form')

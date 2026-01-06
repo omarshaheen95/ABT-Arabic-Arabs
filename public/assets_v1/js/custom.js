@@ -107,13 +107,17 @@ function getTeacherBySchool(on_change_name = 'school_id',callback=null) {
 
 function getSectionBySchool(on_change_name = 'school_id',callback=null) {
     if (typeof getSectionBySchoolURL !== 'undefined') {
-        $('select[name="' + on_change_name + '"]').change(function () {
-            if ($(this).val()){
+        $('select[name="' + on_change_name + '"], select[name="year_id"]').change(function () {
+            var id = $('select[name="' + on_change_name + '"]').val();
+            if (id){
                 var url = getSectionBySchoolURL;
-                var id = $(this).val();
                 var selectElement = $(this);
                 selectLoading(selectElement,true)
                 url = url.replace(':id', id);
+                let year = $('select[name="year_id"]');
+                if (typeof year !=='undefined' && year.val()){
+                    url+='?year_id='+year.val();
+                }
                 $.ajax({
                     type: "get",
                     url: url,
@@ -121,16 +125,32 @@ function getSectionBySchool(on_change_name = 'school_id',callback=null) {
                     if (typeof callback === 'function') {
                         callback(true);
                     }
-                    if ($('select[name="section"]').length) {
-                        $('select[name="section"]').html(data.html);
-                        $('select[name="section"]').trigger('change');
+                    let section = null;
 
+                    if ($('select[name="section"]').length > 0) {
+                        section = $('select[name="section"]');
+                    } else if ($('select[name="section[]"]').length > 0) {
+                        section = $('select[name="section[]"]');
+                    } else {
+                        section = $('select[name="sections[]"]');
                     }
-                    if ($('select[name="section[]"]').length) {
-                        $('select[name="section[]"]').html(data.html);
-                        $('select[name="section[]"]').trigger('change');
+                    // Check if "All" option existed before refresh
+                    const hasAllOption = section.find('option[value="all"]').length > 0;
 
+                    // Replace HTML
+                    section.html(data.html);
+
+                    // If "All" option existed, add it again at the top
+                    if (hasAllOption) {
+                        section.prepend('<option value="all">All</option>');
+                        // Remove any empty options (value == "" or no value)
+                        section.find('option').filter(function () {
+                            const val = $(this).attr('value');
+                            return !val || val.trim() === '';
+                        }).remove();
                     }
+                    section.trigger('change');
+
                     selectLoading(selectElement,false)
                 });
             }
@@ -142,13 +162,17 @@ function getSectionBySchool(on_change_name = 'school_id',callback=null) {
 function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) {
     if (typeof getSectionByTeacherURL !== 'undefined') {
 
-        $('select[name="teacher_id"]').change(function () {
-            if ($(this).val()){
-                var id = $(this).val();
+        $('select[name="teacher_id"], select[name="year_id"]').change(function () {
+            var id = $('select[name="teacher_id"]').val()??$('input[name="teacher_id"]').val();
+            if (id){
                 var url = getSectionByTeacherURL;
                 var selectElement = $(this);
                 selectLoading(selectElement,true)
                 url = url.replace(':id', id);
+                let year = $('select[name="year_id"]');
+                if (typeof year !=='undefined' && year.val()){
+                    url+='?year_id='+year.val();
+                }
                 $.ajax({
                     type: "get",
                     url: url,
@@ -156,16 +180,32 @@ function getSectionByTeacher(on_change_name = 'teacher_id',callback=null) {
                     if (typeof callback === 'function') {
                         callback(true);
                     }
-                    if ($('select[name="section"]').length) {
-                        $('select[name="section"]').html(data.html);
-                        $('select[name="section"]').trigger('change');
+                    let section = null;
 
+                    if ($('select[name="section"]').length > 0) {
+                        section = $('select[name="section"]');
+                    } else if ($('select[name="section[]"]').length > 0) {
+                        section = $('select[name="section[]"]');
+                    } else {
+                        section = $('select[name="sections[]"]');
                     }
-                    if ($('select[name="section[]"]').length) {
-                        $('select[name="section[]"]').html(data.html);
-                        $('select[name="section[]"]').trigger('change');
+                    // Check if "All" option existed before refresh
+                    const hasAllOption = section.find('option[value="all"]').length > 0;
 
+                    // Replace HTML
+                    section.html(data.html);
+
+                    // If "All" option existed, add it again at the top
+                    if (hasAllOption) {
+                        section.prepend('<option value="all">All</option>');
+                        // Remove any empty options (value == "" or no value)
+                        section.find('option').filter(function () {
+                            const val = $(this).attr('value');
+                            return !val || val.trim() === '';
+                        }).remove();
                     }
+                    section.trigger('change');
+
                     selectLoading(selectElement,false)
                 });
             }

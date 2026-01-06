@@ -704,7 +704,7 @@
                     }));
 
 
-                    validateAndSubmit('form-data') //validate any form and submit data
+                    validateAndSubmit('form-data',false) //validate any form and submit data
 
 
 
@@ -725,8 +725,9 @@
                             y++; //Increment field counter.
                             $(this).parent().before(
                                 "<div class=\"col-lg-4 mt-3 option\">\n" +
-                                "<label class="mb-2">{{ t('Option')}}  " + y + " : <a href='#' class='text-danger delete_input'>{{ t('Delete')}} </a></label>\n" +
-                                "<input required class=\"form-control\" name=\"s_q_option[" + row_id + "]["+y+"]\" type=\"text\">\n")
+                                "<label class=\"mb-2\">{{ t('Option')}}  " + y + " : <a href='#' class='text-danger delete_input'>{{ t('Delete')}} </a></label>\n" +
+                                "<input required class=\"form-control\" name=\"s_q_option[" + row_id + "]["+y+"]\" type=\"text\">\n" +
+                                "</div>")
                         }
                     });
                     //Once remove button is clicked

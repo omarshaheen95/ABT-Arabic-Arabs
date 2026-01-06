@@ -139,9 +139,9 @@ class UserController extends Controller
         return $this->userRepository->unassignedUserTeacher($request);
     }
 
-    public function restoreUser($id)
+    public function restoreUser(Request $request)
     {
-        return $this->userRepository->restoreUser($id);
+        return $this->userRepository->restoreUser($request);
     }
 
     public function userCard(Request $request, $id)
@@ -165,7 +165,7 @@ class UserController extends Controller
                     return Carbon::parse($row->created_at)->toDateString();
                 })
                 ->addColumn('last_login', function ($row) {
-                    return $row->last_login ? Carbon::parse($row->last_login)->toDateTimeString() : '';
+                    return $row->login_sessions->count() ? Carbon::parse($row->login_sessions->last()->created_at)->toDateTimeString() : '-';
                 })
                 ->addColumn('school', function ($row) {
                     $package = optional($row->package)->name;
@@ -223,7 +223,8 @@ class UserController extends Controller
         $title = t('My Students');
         $grades = Grade::all();
         $packages = Package::query()->where('active', 1)->get();
-        return view('general.user.teacher_students', compact('title', 'packages','grades'));
+        $years = Year::query()->get();
+        return view('general.user.teacher_students', compact('title', 'packages','years','grades'));
     }
 
     public function resetPasswords(Request $request)

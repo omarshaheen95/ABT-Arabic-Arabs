@@ -208,11 +208,11 @@
 
         getSectionBySchool()
 
-       // getSectionByTeacher()
+        getSectionByTeacher()
 
-        getAndSetDataOnSelectChange('teacher_id','sections[]',getSectionByTeacherURL,1,[],function () {
-            getStudentsData()
-        })
+        // getAndSetDataOnSelectChange('teacher_id','sections[]',getSectionByTeacherURL,1,[],function () {
+        //     getStudentsData()
+        // })
 
 
         getAndSetDataOnSelectChange('story_grade','stories_ids[]',getStoriesByGradeURL,1,[],function () {

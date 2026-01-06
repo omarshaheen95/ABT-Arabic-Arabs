@@ -263,7 +263,7 @@ $('#kt_reset').on('click', function(e) {
     });
     $(".filter select").each(function() {
         if (!$(this).hasClass('reset-no')){
-            $(this).val('').trigger('change');
+            $(this).find('option:selected').prop('selected', false).trigger('change');
         }
         if ($(this).hasClass('reset-empty')){//empty select if has this class
             $(this).val(null).empty().select2();
