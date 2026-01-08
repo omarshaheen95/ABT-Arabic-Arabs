@@ -36,66 +36,81 @@ class LessonController extends Controller
         if ($user->demo) {
             $grades = Grade::query()->whereIn('id', $user->demo_grades)->get();
             $alternate_grades = [];
+            $grades_ids = $grades->pluck('id')->toArray();
         } else {
             $grades = Grade::query()->where('id', Auth::user()->grade_id)->get();
             $alternate_grades = Grade::query()->where('id', Auth::user()->alternate_grade_id)->get();
+            $grades_ids = array_merge($grades->pluck('id')->toArray(), $alternate_grades->pluck('id')->toArray());
         }
 
-        $title = t('Home Page');
-//        $user = Auth::guard('web')->user();
-//
-//        $grades = $user->demo
-//            ? $user->demo_grades
-//            : [$user->grade, $user->alternate_grade];
-//
-//        // Get hidden lessons for this user's school
-//        $hiddenLessonIds = HiddenLesson::query()
-//            ->where('school_id', $user->school_id)
-//            ->pluck('lesson_id')
-//            ->toArray();
-//
-//        // Get completed lesson IDs for this user (approved = 1 and status = 'Pass')
-//        $completedLessonIds = UserTest::query()
-//            ->where('user_id', $user->id)
-//            ->where('approved', 1)
-//            ->where('status', 'Pass')
-//            ->pluck('lesson_id')
-//            ->unique()
-//            ->toArray();
-//
-//        $allLevels = Level::with(['lessons' => function ($query) use ($hiddenLessonIds) {
-//                $query->whereNotIn('id', $hiddenLessonIds)->where('active', 1);
-//            }])
-//            ->withCount(['lessons' => function ($query) use ($hiddenLessonIds) {
-//                $query->whereNotIn('id', $hiddenLessonIds)->where('active', 1);
-//            }])
-//            ->whereIn('grade', $grades)
-//            ->get();
-//
-//        // Calculate progress for each level
-//        $allLevels = $allLevels->map(function ($level) use ($completedLessonIds) {
-//            $totalLessons = $level->lessons->count();
-//            $completedLessons = $level->lessons->whereIn('id', $completedLessonIds)->count();
-//            $level->progress = $totalLessons > 0 ? round(($completedLessons / $totalLessons) * 100) : 0;
-//            $level->completed_lessons = $completedLessons;
-//            $level->total_lessons = $totalLessons;
-//            return $level;
-//        });
-//
-//        // Get completed level IDs (100% progress)
-//        $completedLevelIds = $allLevels->filter(function ($level) {
-//            return $level->progress == 100 && $level->total_lessons > 0;
-//        })->pluck('id')->toArray();
-//
-//        if ($user->demo) {
-//            $levels = $allLevels;
-//            $alternate_levels = collect();
-//        } else {
-//            $levels = $allLevels->where('grade', $user->grade);
-//            $alternate_levels = $allLevels->where('grade', $user->alternate_grade);
-//        }
 
-        return view('user.lessons.levels', compact('title', 'grades', 'alternate_grades'));
+        // Get hidden lessons for this user's school
+        $hiddenLessonIds = HiddenLesson::query()
+            ->where('school_id', $user->school_id)
+            ->pluck('lesson_id')
+            ->toArray();
+
+        // Get completed lesson IDs for this user (approved = 1 and status = 'Pass')
+        $completedLessonIds = UserTest::query()
+            ->where('user_id', $user->id)
+            ->where('approved', 1)
+            ->where('status', 'Pass')
+            ->pluck('lesson_id')
+            ->unique()
+            ->toArray();
+
+        $allGrades = Grade::with(['lessons' => function ($query) use ($hiddenLessonIds) {
+                $query->whereNotIn('id', $hiddenLessonIds)->where('active', 1);
+            }])
+            ->withCount(['lessons' => function ($query) use ($hiddenLessonIds) {
+                $query->whereNotIn('id', $hiddenLessonIds)->where('active', 1);
+            }])
+            ->whereIn('id', $grades_ids)
+            ->get();
+
+        // Calculate progress for each grade and each skill within the grade
+        $allGrades = $allGrades->map(function ($grade) use ($completedLessonIds) {
+            // Calculate overall grade progress
+            $totalLessons = $grade->lessons->count();
+            $completedLessons = $grade->lessons->whereIn('id', $completedLessonIds)->count();
+            $grade->progress = $totalLessons > 0 ? round(($completedLessons / $totalLessons) * 100) : 0;
+            $grade->completed_lessons = $completedLessons;
+            $grade->total_lessons = $totalLessons;
+
+            // Calculate progress for each skill (lesson_type) within this grade
+            $skillsProgress = [];
+            if (isset($grade->grade_skills) && is_array($grade->grade_skills)) {
+                foreach ($grade->grade_skills as $skillData) {
+                    $skillType = $skillData['skill'];
+
+                    // Get lessons for this specific skill type
+                    $skillLessons = $grade->lessons->where('lesson_type', $skillType);
+                    $totalSkillLessons = $skillLessons->count();
+                    $completedSkillLessons = $skillLessons->whereIn('id', $completedLessonIds)->count();
+
+                    $skillProgress = $totalSkillLessons > 0
+                        ? round(($completedSkillLessons / $totalSkillLessons) * 100)
+                        : 0;
+
+                    $skillsProgress[$skillType] = [
+                        'progress' => $skillProgress,
+                        'completed' => $completedSkillLessons,
+                        'total' => $totalSkillLessons,
+                        'isCompleted' => $skillProgress == 100 && $totalSkillLessons > 0
+                    ];
+                }
+            }
+
+            $grade->skills_progress = $skillsProgress;
+            return $grade;
+        });
+
+        // Get completed grade IDs (100% progress)
+        $completedGradeIds = $allGrades->filter(function ($grade) {
+            return $grade->progress == 100 && $grade->total_lessons > 0;
+        })->pluck('id')->toArray();
+
+        return view('user.lessons.levels', compact('allGrades', 'completedGradeIds', 'grades', 'alternate_grades'));
     }
 
     public function lessonsByLevel($id, $type)

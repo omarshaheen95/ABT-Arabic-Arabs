@@ -340,9 +340,10 @@
 }
 
 .lesson-action-btn svg {
-  flex-shrink: 0;
-  width: clamp(12px, 0.833vw, 14px);
-  height: clamp(12px, 0.833vw, 14px);
+    flex-shrink: 0;
+    width: clamp(14px, 0.833vw, 14px);
+    height: clamp(14px, 0.833vw, 14px);
+    margin-bottom:2px;
 }
 
 .lesson-action-btn span {
@@ -646,4 +647,104 @@ html[lang="ar"] .lesson-completed-badge {
     transform: scale(1);
     opacity: 1;
   }
+}
+
+/* ========================================
+   Lesson Level Progress Bar Styles
+   ======================================== */
+
+/* Progress Bar Container */
+.lesson-level-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* Progress Bar Base */
+.lesson-level-progress-bar {
+  position: relative;
+  flex: 1;
+  height: 16px;
+  background-color: #e8e8e8;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Progress Bar Fill */
+.lesson-level-progress-bar__fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+/* Current Progress Fill with Gradient */
+.lesson-level-progress-bar__fill--current {
+  background: linear-gradient(90deg, #138944 0%, #0ea75d 100%);
+}
+
+/* Completed Progress Fill with Gradient */
+.lesson-level-progress-bar__fill--completed {
+  background: linear-gradient(90deg, #138944 0%, #16a34a 100%);
+}
+
+/* Progress Percentage */
+.lesson-level-progress-bar__percentage {
+  font-size: 12px;
+  font-weight: 600;
+  color: #138944;
+  text-align: right;
+}
+
+/* Check Icon Container */
+.lesson-level-check-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #138944 0%, #16a34a 100%);
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(19, 137, 68, 0.3);
+}
+
+/* Completed Card Styling */
+.lesson-card--completed {
+  border-color: #138944;
+}
+
+/* Success Button - Enter/Access */
+.lesson-action-btn--success {
+  background: linear-gradient(135deg, #138944 0%, #16a34a 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(19, 137, 68, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.lesson-action-btn--success::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.lesson-action-btn--success:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #0ea75d 0%, #138944 100%);
+  box-shadow: 0 6px 20px rgba(19, 137, 68, 0.5);
+}
+
+.lesson-action-btn--success:hover::before {
+  left: 100%;
+}
+
+.lesson-action-btn--success:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(19, 137, 68, 0.3);
 }

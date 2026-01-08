@@ -501,7 +501,7 @@
     gap: clamp(12px, 0.94vw, 18px);
     align-items: center;
     padding: clamp(16px, 1.25vw, 24px);
-    background: linear-gradient(0deg, rgba(30, 67, 150, 1) 0%, rgba(89, 132, 229, 1) 100%);
+    background: linear-gradient(0deg, rgba(19, 137, 68, 1) 0%, rgba(34, 197, 94, 1) 100%);
     border-radius: clamp(16px, 1.25vw, 24px);
     -webkit-border-radius: clamp(16px, 1.25vw, 24px);
     -moz-border-radius: clamp(16px, 1.25vw, 24px);
@@ -610,7 +610,7 @@
     right: 0;
     height: 100%;
     min-width: 0;
-    background: linear-gradient(-90deg, rgba(50, 86, 213, 1) 0%, rgba(138, 164, 255, 1) 100%);
+    background: linear-gradient(-90deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
     border-radius: clamp(14px, 1vw, 16px);
     transition: width 0.3s ease;
     -webkit-border-radius: clamp(14px, 1vw, 16px);
@@ -641,7 +641,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
 .profile-menu-view-btn {
     width: 100%;
     padding: clamp(12px, 0.94vw, 18px) clamp(16px, 1.25vw, 24px);
-    background: linear-gradient(-89.73deg, #1E4396 -1.48%, #5984E5 95.8%);
+    background: linear-gradient(-89.73deg, #138944 -1.48%, #34D399 95.8%);
     color: white;
     border: none;
     border-radius: clamp(20px, 1.56vw, 30px);
@@ -658,7 +658,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
 
 .profile-menu-view-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(30, 67, 150, 0.3);
+    box-shadow: 0 4px 12px rgba(19, 137, 68, 0.3);
 }
 
 .profile-menu-view-btn:active {
@@ -780,8 +780,8 @@ html[dir="rtl"] .profile-menu-progress-bar {
 }
 
 .modal-icon.logout-icon {
-    background: linear-gradient(-135deg, #667eea 0%, #764ba2 100%);
-    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    background: linear-gradient(-135deg, #138944 0%, #0a5028 100%);
+    box-shadow: 0 4px 12px rgba(19, 137, 68, 0.3);
 }
 
 .modal-body {
@@ -841,13 +841,13 @@ html[dir="rtl"] .profile-menu-progress-bar {
 }
 
 .modal-btn-confirm {
-    background: linear-gradient(-89.73deg, #1E4396 -1.48%, #5984E5 95.8%);
+    background: linear-gradient(-89.73deg, #138944 -1.48%, #34D399 95.8%);
     color: white;
     border: 2px solid transparent;
 }
 
 .modal-btn-confirm:hover {
-    background: linear-gradient(-89.73deg, #163578 -1.48%, #4a6fc7 95.8%);
+    background: linear-gradient(-89.73deg, #0d5a2e -1.48%, #1fb359 95.8%);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(30, 67, 150, 0.3);
 }
@@ -961,7 +961,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
 
 .nav-item.active .nav-text {
     font-weight: bold;
-    background: linear-gradient(-90deg, #305FCB 66.87%, #1E4397 100.62%);
+    background: linear-gradient(-90deg, #1a9d4f 66.87%, #0d5a2e 100.62%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1153,7 +1153,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
     flex-direction: column;
     gap: clamp(16px, 2vw, 40px);
     position: relative;
-    background: linear-gradient(0deg, rgba(30, 67, 150, 1) 0%, rgba(89, 132, 229, 1) 100%);
+    background: linear-gradient(0deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
     background-color: #ffffff;
 }
 
@@ -1298,7 +1298,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
     border-color: #ffffff87;
     backdrop-filter: blur(1.88px) brightness(100%);
     -webkit-backdrop-filter: blur(1.88px) brightness(100%);
-    background: linear-gradient(0deg, rgba(30, 67, 150, 1) 0%, rgba(89, 132, 229, 1) 100%);
+    background: linear-gradient(0deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
@@ -1390,7 +1390,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
     max-width: clamp(200px, 15.78vw, 303px);
     height: clamp(28px, 2vw, 32px);
     border-radius: 53px;
-    border: 2px solid #c8e5ff;
+    border: 2px solid #c8f5dc;
     backdrop-filter: blur(1.88px) brightness(100%);
     -webkit-backdrop-filter: blur(1.88px) brightness(100%);
     background: linear-gradient(0deg, rgba(241, 248, 254, 1) 0%, rgba(241, 248, 254, 1) 100%);
@@ -1405,7 +1405,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
     min-width: 0;
     border-radius: 53px;
     transition: width 0.3s ease;
-    background: linear-gradient(-90deg, rgba(30, 67, 150, 1) 0%, rgba(89, 132, 229, 1) 100%);
+    background: linear-gradient(-90deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
 }
 
 html[dir="rtl"] .level-progress-bar {
@@ -1492,7 +1492,7 @@ html[dir="rtl"] .level-progress-bar {
 }
 
 .day-icon--current {
-    background: linear-gradient(-270deg, rgba(50, 86, 213, 1) 0%, rgba(138, 164, 255, 1) 100%);
+    background: linear-gradient(-270deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
 }
 
 .day-icon--inactive {
@@ -1532,7 +1532,7 @@ html[dir="rtl"] .level-progress-bar {
 }
 
 .day-label--current {
-    background: linear-gradient(-270deg, rgba(50, 86, 213, 1) 0%, rgba(138, 164, 255, 1) 100%);
+    background: linear-gradient(-270deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
     -webkit-background-clip: text !important;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1633,13 +1633,11 @@ html[dir="rtl"] .level-progress-bar {
     height: 20px;
     border-radius: 53px;
     border-style: solid;
-    border-color: #c8e5ff;
-    backdrop-filter: blur(1.88px) brightness(100%);
+    border-color: #c8f5dc;    backdrop-filter: blur(1.88px) brightness(100%);
     -webkit-backdrop-filter: blur(1.88px) brightness(100%);
     background: linear-gradient(0deg, rgba(241, 248, 254, 1) 0%, rgba(241, 248, 254, 1) 100%);
     border-width: 1px 1px 4px 1px;
     border-style: solid;
-    border-color: #C8E6FF;
 }
 
 .challenge-progress {
@@ -1662,8 +1660,8 @@ html[dir="rtl"] .level-progress-bar {
 }
 
 .challenge-progress--complete {
-    background: linear-gradient(-270deg, rgba(50, 86, 213, 1) 0%, rgba(138, 164, 255, 1) 100%);
-    border-color: rgba(83, 100, 159, 0.48);
+    background: linear-gradient(-270deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
+    border-color: rgba(19, 137, 68, 0.48);
 }
 
 .challenge-progress-text {
@@ -1687,7 +1685,7 @@ html[dir="rtl"] .level-progress-bar {
 }
 
 .challenge-progress-text--in-progress {
-    color: rgba(50, 86, 213, 1);
+    color: rgba(19, 137, 68, 1);
 }
 
 .challenge-progress-text--complete {
@@ -1704,7 +1702,7 @@ html[dir="rtl"] .level-progress-bar {
 .glass-button {
     border-radius: 24px !important;
     border-style: solid;
-    border-color: #c8e5ff;
+    border-color: #c8f5dc;
     backdrop-filter: blur(1.88px) brightness(100%);
     -webkit-backdrop-filter: blur(1.88px) brightness(100%);
     background: linear-gradient(0deg, rgba(241, 248, 254, 1) 0%, rgba(241, 248, 254, 1) 100%);
