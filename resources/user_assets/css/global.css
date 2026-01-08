@@ -1,0 +1,148 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Expo Arabic Font Faces */
+@font-face {
+  font-family: "Expo Arabic";
+  src: url("../fonts/Expo Arabic Book.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Expo Arabic";
+  src: url("../fonts/Expo Arabic Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Expo Arabic";
+  src: url("../fonts/Expo Arabic SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Expo Arabic";
+  src: url("../fonts/Expo Arabic Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* CSS Variables */
+:root {
+  --primary-color: #4a90e2;
+  --primary-accent: #F1F8FE;
+  --primary-hover: #357abd;
+  --text-primary: #1a1a1a;
+  --text-secondary: #333333;
+  --text-muted: #666666;
+  --error-color: #e74c3c;
+  --border-color: #e0e0e0;
+  --gradient-start: rgba(243, 199, 87, 1);
+  --gradient-end: rgba(249, 224, 157, 1);
+  --font-family: "Expo Arabic", sans-serif;
+  --font-family-secondary: "Nunito", sans-serif;
+  --border-radius: 40px;
+}
+
+/* Base Styles */
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--font-family);
+}
+
+.screen {
+  background-color: #ffffff;
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Focus Styles */
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--primary-color) !important;
+  outline-offset: 2px;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .form-input {
+    border-width: 3px;
+  }
+
+  .btn-primary {
+    border: 2px solid #ffffff;
+  }
+}
+/* Green Audio Player Custom Styling for ABT Design System */
+.audio-player {
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/*.play-pause-btn {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    !*background: linear-gradient(135deg, #1E4396 0%, #5984E5 100%);*!*/
+/*    border: none;*/
+/*    width: 48px;*/
+/*    height: 48px;*/
+/*    border-radius: 50%;*/
+/*    transition: all 0.3s ease;*/
+/*    color:white;*/
+/*}*/
+.play-pause-btn svg path{
+    fill: #3E66C0 !important;
+    color: #3E66C0 !important;
+}
+.slider .gap-progress .pin{
+    background-color: #3E66C0 !important;
+}
+.play-pause-btn svg path{
+    fill: #3E66C0 !important;
+    color: #3E66C0 !important;
+}
+
+.play-pause-btn svg path{
+    fill: #3E66C0 !important;
+    color: #3E66C0 !important;
+}
+
+.play-pause-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(30, 67, 150, 0.3);
+}
+
+.slider {
+    background: #E8F0FE;
+}
+
+.slider .gap-progress {
+    background: linear-gradient(90deg, #1E4396 0%, #5984E5 100%);
+}

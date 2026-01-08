@@ -29,17 +29,15 @@
                     @endif
 
                     <div class="row">
-                        @foreach(\App\Helpers\Constant::OUR_LANGUAGES as $local)
-                            <div class="col-6 mb-3">
+                            <div class="col-12 mb-3">
                                 <div class="form-group">
-                                    <label for="name:{{$local}}" class="form-label">{{t('Name '.$local)}}</label>
-                                    <input type="text" id="" name="name[{{$local}}]" class="form-control"
-                                           placeholder="{{t('Name '.$local)}}"
-                                           value="{{ isset($achievementLevel) ? $achievementLevel->getTranslation('name', $local) : old("name[$local]") }}"
+                                    <label for="name" class="form-label">{{t('Name')}}</label>
+                                    <input type="text" id="" name="name" class="form-control"
+                                           placeholder="{{t('Name')}}"
+                                           value="{{ isset($achievementLevel) ? $achievementLevel->name : old("name") }}"
                                            required>
                                 </div>
                             </div>
-                        @endforeach
 
                         <div class="col-md-6 mb-3">
                             <div class="form-group">

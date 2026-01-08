@@ -1,0 +1,1847 @@
+
+
+
+.ranking-page .header-navigation {
+  display: flex;
+  width: 1398px;
+  height: 138px;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1323px;
+  padding: 0px 40px 0px 32px;
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 28px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #ffffff91;
+  backdrop-filter: blur(11.3px) brightness(100%);
+  -webkit-backdrop-filter: blur(11.3px) brightness(100%);
+}
+
+.ranking-page .frame-2 {
+  display: flex;
+  align-items: center;
+  gap: 179px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.ranking-page .non-arabs {
+  position: relative;
+  width: 92px;
+  height: 92px;
+}
+
+.ranking-page .div-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 32px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.ranking-page .frame-3 {
+  display: flex;
+  width: 1327px;
+  align-items: center;
+  justify-content: space-around;
+  gap: 20px;
+  position: relative;
+  margin-left: -272.00px;
+}
+
+.ranking-page .frame-4 {
+  display: flex;
+  width: 1329px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 22px;
+  position: relative;
+  margin-left: -1.00px;
+  margin-right: -1.00px;
+}
+
+.ranking-page .frame-5 {
+  display: flex;
+  width: 100px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  gap: 14.06px;
+  padding: 27.19px 23.44px;
+  position: relative;
+  border-radius: 53px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-color: #c8e5ff;
+  backdrop-filter: blur(1.88px) brightness(100%);
+  -webkit-backdrop-filter: blur(1.88px) brightness(100%);
+  background: linear-gradient(
+    0deg,
+    rgba(241, 248, 254, 1) 0%,
+    rgba(241, 248, 254, 1) 100%
+  );
+}
+
+.ranking-page .svgexport {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  margin-top: -13.19px;
+  margin-bottom: -13.19px;
+  margin-left: -7.47px;
+  aspect-ratio: 1;
+}
+
+.ranking-page .text-wrapper {
+  position: relative;
+  width: fit-content;
+  margin-top: -6.69px;
+  margin-bottom: -0.69px;
+  margin-right: -7.47px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 800;
+  color: var(--colors-primary-colors-black);
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .frame-6 {
+  display: inline-flex;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  gap: 14.06px;
+  padding: 27.19px 23.44px;
+  position: relative;
+  flex: 0 0 auto;
+  border-radius: 53px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-color: #c8e5ff;
+  backdrop-filter: blur(1.88px) brightness(100%);
+  -webkit-backdrop-filter: blur(1.88px) brightness(100%);
+  background: linear-gradient(
+    0deg,
+    rgba(241, 248, 254, 1) 0%,
+    rgba(241, 248, 254, 1) 100%
+  );
+}
+
+.ranking-page .img {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  margin-top: -13.19px;
+  margin-bottom: -13.19px;
+  aspect-ratio: 1;
+}
+
+.ranking-page .text-wrapper-2 {
+  margin-top: -6.69px;
+  margin-bottom: -0.69px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 800;
+  color: var(--colors-primary-colors-black);
+  font-size: 18px;
+  text-align: center;
+  position: relative;
+  width: fit-content;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .frame-7 {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background-image: url(./img/frame-2106258717.svg);
+  background-size: 100% 100%;
+}
+
+.ranking-page .frame-8 {
+  display: flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  position: relative;
+  top: -5px;
+  left: 39px;
+  border-radius: 40px;
+  background: linear-gradient(
+    0deg,
+    rgba(253, 134, 156, 1) 0%,
+    rgba(247, 73, 110, 1) 100%
+  );
+}
+
+.ranking-page .text-wrapper-3 {
+  position: relative;
+  width: fit-content;
+  margin-left: -3.50px;
+  margin-right: -3.50px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 400;
+  color: var(--colors-white-100);
+  font-size: 12px;
+  text-align: center;
+  line-height: normal;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.ranking-page .main-layout {
+  display: flex;
+  width: 1403px;
+  height: 864px;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+}
+
+.ranking-page .frame-10 {
+  display: flex;
+  flex-direction: column;
+  width: 291px;
+  height: 864px;
+  align-items: center;
+  gap: 40px;
+  padding: 32px 0px 0px;
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 32px;
+}
+
+.ranking-page .frame-11 {
+  display: flex;
+  flex-direction: column;
+  height: 909px;
+  align-items: flex-end;
+  gap: 23px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  margin-bottom: -77.00px;
+  overflow-y: scroll;
+}
+
+.ranking-page .frame-11::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+.ranking-page .frame-12 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 24px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.ranking-page .frame-13 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.ranking-page .frame-14 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 31px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.ranking-page .frame-15 {
+  display: flex;
+  width: 233px;
+  align-items: center;
+  gap: 13px;
+  padding: 12px 0px 12px 16px;
+  position: relative;
+  flex: 0 0 auto;
+  border-radius: 16px;
+}
+
+.ranking-page .svgexport-2 {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  aspect-ratio: 1;
+}
+
+.ranking-page .text-wrapper-4 {
+  position: relative;
+  width: fit-content;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 700;
+  color: var(--system-colors-miscellaneous-floating-tab-text-unselected);
+  font-size: 16px;
+  letter-spacing: -0.32px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .frame-16 {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 12px 0px 12px 16px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  border-radius: 16px;
+}
+
+.ranking-page .frame-17 {
+  display: flex;
+  height: 56px;
+  align-items: center;
+  gap: 14.06px;
+  padding: 27.19px 23.44px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  border-radius: 53px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  backdrop-filter: blur(1.88px) brightness(100%);
+  -webkit-backdrop-filter: blur(1.88px) brightness(100%);
+  background: linear-gradient(
+    0deg,
+    rgba(89, 132, 229, 0.14) 0%,
+    rgba(89, 132, 229, 0.14) 100%
+  );
+  border: none;
+}
+
+.ranking-page .frame-17::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 3px;
+  border-radius: 53px;
+  background: linear-gradient(
+    0deg,
+    rgba(30, 67, 150, 0.26) 0%,
+    rgba(89, 132, 229, 0.26) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ranking-page .svgexport-3 {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  margin-top: -15.19px;
+  margin-bottom: -15.19px;
+  aspect-ratio: 1;
+}
+
+.ranking-page .text-wrapper-5 {
+  position: relative;
+  width: fit-content;
+  margin-top: -12.19px;
+  margin-bottom: -6.19px;
+  background: linear-gradient(
+    90deg,
+    rgba(30, 67, 150, 1) 0%,
+    rgba(89, 132, 229, 1) 100%
+  );
+  -webkit-background-clip: text !important;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 800;
+  color: transparent;
+  font-size: 16px;
+  letter-spacing: -0.32px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .frame-18 {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.ranking-page .frame-19 {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  height: 310px;
+}
+
+.ranking-page .component {
+  position: absolute;
+  top: 142px;
+  left: calc(50.00% - 125px);
+  width: 239px;
+  height: 159px;
+}
+
+.ranking-page .frame-20 {
+  position: absolute;
+  top: -31px;
+  left: 1px;
+  width: 232px;
+  height: 190px;
+  border-radius: 29px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-color: #0000001a;
+  background: linear-gradient(
+    0deg,
+    rgba(243, 199, 87, 1) 0%,
+    rgba(249, 224, 157, 1) 100%
+  );
+}
+
+.ranking-page .today-s-progress {
+  position: absolute;
+  top: 45px;
+  left: calc(50.00% - 90px);
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 700;
+  color: var(--variable-collection-color);
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: -0.48px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .finish-today-s-tasks {
+  position: absolute;
+  top: 82px;
+  left: 50px;
+  width: 132px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 400;
+  color: transparent;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: -0.32px;
+  line-height: 20px;
+}
+
+.ranking-page .span {
+  color: #1b264a;
+  letter-spacing: -0.05px;
+}
+
+.ranking-page .text-wrapper-6 {
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 900;
+  color: #1b264a;
+  letter-spacing: -0.05px;
+}
+
+.ranking-page .text-wrapper-7 {
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.05px;
+}
+
+.ranking-page .text-wrapper-8 {
+  color: #ffffff;
+  letter-spacing: -0.05px;
+}
+
+.ranking-page .svgexport-4 {
+  position: absolute;
+  top: 103px;
+  left: 170px;
+  width: 14px;
+  height: 14px;
+  aspect-ratio: 1;
+}
+
+.ranking-page .frame-21 {
+  position: absolute;
+  top: -80px;
+  left: 64px;
+  width: 102px;
+  height: 102px;
+  border-radius: 50px;
+  border: none;
+  backdrop-filter: blur(3.35px) brightness(100%);
+  -webkit-backdrop-filter: blur(3.35px) brightness(100%);
+  background: linear-gradient(
+    0deg,
+    rgba(243, 199, 87, 0.35) 0%,
+    rgba(249, 224, 157, 0.35) 100%
+  );
+}
+
+.ranking-page .frame-21::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 50px;
+  background: linear-gradient(
+    153deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ranking-page .ellipse {
+  position: absolute;
+  top: 0;
+  left: calc(50.00% - 51px);
+  width: 102px;
+  height: 102px;
+}
+
+.ranking-page .ellipse-2 {
+  position: absolute;
+  top: 10px;
+  left: calc(50.00% - 41px);
+  width: 82px;
+  height: 82px;
+  background-color: #ffffff;
+  border-radius: 41px;
+}
+
+.ranking-page .text-wrapper-9 {
+  position: absolute;
+  top: 41px;
+  left: 34px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 900;
+  color: var(--system-colors-miscellaneous-floating-tab-text-unselected);
+  font-size: 16px;
+  letter-spacing: -0.32px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .svgexport-5 {
+  position: absolute;
+  top: 41px;
+  left: 119px;
+  width: 32px;
+  height: 32px;
+  aspect-ratio: 1;
+}
+
+.ranking-page .ranking-content {
+  display: flex;
+  flex-direction: column;
+  width: 1096px;
+  height: 911px;
+  align-items: flex-start;
+  gap: 31px;
+  padding: 24px;
+  position: relative;
+  margin-bottom: -47.00px;
+  background-color: #ffffff;
+}
+
+.ranking-page .competition-banner {
+  height: 281px;
+  background-color: var(--system-colors-miscellaneous-sidebar-fill-selected);
+  border-radius: 23px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-color: #769ab838;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+}
+
+.ranking-page .background-decoration {
+  position: absolute;
+  top: -194px;
+  left: -347px;
+  width: 1920px;
+  height: 1082px;
+}
+
+.ranking-page .banner-background {
+  position: absolute;
+  top: 22px;
+  left: 46px;
+  width: 969px;
+  height: 152px;
+}
+
+.ranking-page .banner-info {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: absolute;
+  top: 180px;
+  left: calc(50.00% - 167px);
+}
+
+.ranking-page .competition-title {
+  position: relative;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 800;
+  color: #1b264a;
+  font-size: 24px;
+  text-align: left;
+  letter-spacing: -0.48px;
+  line-height: 20px;
+  white-space: nowrap;
+  direction: rtl;
+}
+
+.ranking-page .competition-description {
+  position: relative;
+  width: fit-content;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 400;
+  color: #1b264a;
+  font-size: 16px;
+  letter-spacing: -0.32px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .time-remaining {
+  position: relative;
+  width: fit-content;
+  background: linear-gradient(
+    0deg,
+    rgba(253, 134, 156, 1) 0%,
+    rgba(247, 73, 110, 1) 100%
+  );
+  -webkit-background-clip: text !important;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 700;
+  color: transparent;
+  font-size: 16px;
+  text-align: left;
+  letter-spacing: -0.32px;
+  direction: rtl;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .ranking-container {
+  display: flex;
+  flex-direction: column;
+  width: 1023px;
+  height: 971px;
+  align-items: center;
+  gap: 46px;
+  padding: 32px 0px;
+  position: relative;
+  margin-bottom: -420.00px;
+  background-color: #f1f8fe;
+  border-radius: 30px;
+}
+
+.ranking-page .participants-list {
+  display: flex;
+  flex-direction: column;
+  width: 813px;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.ranking-page .participant-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  background-color: #ffffff;
+  border-radius: 19px;
+}
+
+.ranking-page .participant-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.ranking-page .medal-container {
+  position: relative;
+  width: 33.94px;
+  height: 44.97px;
+}
+
+.ranking-page .medal-icon {
+  position: absolute;
+  top: 15px;
+  left: 2px;
+  width: 30px;
+  height: 28px;
+}
+
+.ranking-page .first-place-badge {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 30px;
+  height: 30px;
+  background-color: #feea66;
+  border-radius: 15px;
+  border: 3px solid;
+  border-color: #ffc803;
+}
+
+.ranking-page .profile-picture {
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+.ranking-page .rank-number-first {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 900;
+  color: #ff9601;
+  font-size: 16px;
+  text-align: right;
+  line-height: 20px;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.ranking-page .default-avatar {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  margin-top: -0.51px;
+  margin-bottom: -0.51px;
+  border-radius: 68px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-color: #2914141c;
+  background: linear-gradient(
+    0deg,
+    rgba(240, 243, 244, 1) 0%,
+    rgba(240, 243, 244, 1) 100%
+  );
+}
+
+.ranking-page .participant-name-first {
+  position: relative;
+  width: 170px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 800;
+  color: var(--colors-primary-colors-black);
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+
+.ranking-page .participant-score {
+  position: relative;
+  width: fit-content;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 900;
+  color: var(--variable-collection-color-3);
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .participant-card--current-user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  flex: 0 0 auto;
+  border-radius: 19px;
+  border: none;
+  background: linear-gradient(
+      0deg,
+      rgba(114, 142, 243, 0.01) 0%,
+      rgba(114, 142, 243, 0.01) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 1) 100%
+    );
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+}
+
+.ranking-page .participant-card--current-user::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 19px;
+  background: linear-gradient(
+    270deg,
+    rgba(50, 86, 213, 1) 0%,
+    rgba(138, 164, 255, 1) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ranking-page .second-place-badge {
+  background-color: #e7eef4;
+  border-color: var(--variable-collection-color-3);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 3px solid;
+}
+
+.ranking-page .rank-number-second {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 900;
+  color: var(--variable-collection-color-3);
+  font-size: 16px;
+  text-align: right;
+  line-height: 20px;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.ranking-page .user-avatar {
+  width: 44px;
+  height: 44px;
+  background-image: url(./img/frame-1618873331.png);
+  background-size: cover;
+  background-position: 50% 50%;
+  border: none;
+  position: relative;
+  border-radius: 68px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+}
+
+.ranking-page .user-avatar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: 68px;
+  background: linear-gradient(
+    270deg,
+    rgba(50, 86, 213, 1) 0%,
+    rgba(138, 164, 255, 1) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ranking-page .participant-name-current {
+  position: relative;
+  width: fit-content;
+  background: linear-gradient(
+    270deg,
+    rgba(50, 86, 213, 1) 0%,
+    rgba(138, 164, 255, 1) 100%
+  );
+  -webkit-background-clip: text !important;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 800;
+  color: transparent;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .participant-score-current {
+  background: linear-gradient(
+    270deg,
+    rgba(50, 86, 213, 1) 0%,
+    rgba(138, 164, 255, 1) 100%
+  );
+  -webkit-background-clip: text !important;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 900;
+  color: transparent;
+  font-size: 16px;
+  position: relative;
+  width: fit-content;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .third-place-badge {
+  background-color: #ffcfae;
+  border-color: #9d6f3a;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 3px solid;
+}
+
+.ranking-page .rank-number-third {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 900;
+  color: #553c1a;
+  font-size: 16px;
+  text-align: right;
+  line-height: 20px;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.ranking-page .participant-name {
+  position: relative;
+  width: fit-content;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 800;
+  color: var(--colors-primary-colors-black);
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .level-promotion-divider {
+  display: flex;
+  width: 813px;
+  align-items: center;
+  gap: 38px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.ranking-page .divider-line-left {
+  margin-left: -1.50px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+  height: 3px;
+}
+
+.ranking-page .promotion-zone-text {
+  position: relative;
+  width: fit-content;
+  margin-top: -1.00px;
+  background: linear-gradient(
+    90deg,
+    rgba(57, 214, 112, 1) 0%,
+    rgba(179, 230, 158, 1) 100%
+  );
+  -webkit-background-clip: text !important;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 700;
+  color: transparent;
+  font-size: 24px;
+  text-align: left;
+  letter-spacing: -0.48px;
+  direction: rtl;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .divider-line-right {
+  margin-right: -1.50px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+  height: 3px;
+}
+
+.ranking-page .no-avatar {
+  width: 46px;
+  height: 46px;
+  margin-top: -3.00px;
+  margin-bottom: -3.00px;
+  margin-left: -3.00px;
+  border-color: #2914141c;
+  background: linear-gradient(
+    0deg,
+    rgba(240, 243, 244, 1) 0%,
+    rgba(240, 243, 244, 1) 100%
+  );
+  position: relative;
+  border-radius: 68px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+}
+
+.ranking-page .frame-36 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 22px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.ranking-page .component-2 {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  height: 342px;
+  background-color: #ffffff;
+  border-radius: 23px;
+  overflow: hidden;
+  box-shadow: 11px 13px 19px #00000008;
+}
+
+.ranking-page .rectangle-wrapper {
+  position: absolute;
+  top: 18px;
+  left: calc(50.00% - 218px);
+  width: 436px;
+  height: 301px;
+  display: flex;
+  justify-content: center;
+  border-radius: 23px;
+  overflow: hidden;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-color: #0000001a;
+  background-image: url(./img/frame-1000004297.png);
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.ranking-page .rectangle-2 {
+  width: 436px;
+  height: 301px;
+}
+
+.ranking-page .frame-37 {
+  display: flex;
+  flex-direction: column;
+  width: 435px;
+  height: 277px;
+  align-items: center;
+  gap: 36px;
+  position: absolute;
+  top: calc(50.00% - 139px);
+  left: calc(50.00% - 217px);
+}
+
+.ranking-page .frame-38 {
+  display: flex;
+  height: 140px;
+  align-items: center;
+  gap: 17px;
+  padding: 0px 24px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+}
+
+.ranking-page .frame-39 {
+  width: 92px;
+  height: 92px;
+  margin-left: -4.00px;
+  border-color: #2914141c;
+  background-image: url(./img/image.png);
+  background-size: cover;
+  background-position: 50% 50%;
+  position: relative;
+  border-radius: 68px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+}
+
+.ranking-page .frame-40 {
+  display: inline-flex;
+  flex-direction: column;
+  height: 57px;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.ranking-page .frame-41 {
+  display: inline-flex;
+  flex-direction: column;
+  height: 48px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 13px;
+  position: relative;
+}
+
+.ranking-page .text-wrapper-21 {
+  position: relative;
+  width: fit-content;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 800;
+  color: var(--system-colors-miscellaneous-sidebar-fill-selected);
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .div-2 {
+  position: relative;
+  width: fit-content;
+  font-family: "Expo Arabic-Medium", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 16px;
+  text-align: left;
+  letter-spacing: 0;
+  direction: rtl;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .text-wrapper-22 {
+  font-weight: 500;
+}
+
+.ranking-page .text-wrapper-23 {
+  font-family: "Expo Arabic-SemiBold", Helvetica;
+  font-weight: 600;
+}
+
+.ranking-page .frame-42 {
+  display: flex;
+  height: 120px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.ranking-page .chevron-down-wrapper {
+  display: flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  gap: 14.06px;
+  padding: 27.19px 23.44px;
+  position: relative;
+  border-radius: 53px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-color: #ffffff87;
+  backdrop-filter: blur(1.88px) brightness(100%);
+  -webkit-backdrop-filter: blur(1.88px) brightness(100%);
+  background: linear-gradient(
+    0deg,
+    rgba(30, 67, 150, 1) 0%,
+    rgba(89, 132, 229, 1) 100%
+  );
+}
+
+.ranking-page .chevron-down {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  margin-top: -19.19px;
+  margin-bottom: -19.19px;
+  margin-left: -15.44px;
+  margin-right: -15.44px;
+}
+
+.ranking-page .frame-43 {
+  display: flex;
+  width: 407px;
+  height: 90px;
+  align-items: center;
+  gap: 15px;
+  padding: 16px;
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 20px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-color: #ecf3f9;
+}
+
+.ranking-page .frame-44 {
+  position: relative;
+  width: 58px;
+  height: 58.23px;
+  margin-bottom: -0.23px;
+}
+
+.ranking-page .frame-45 {
+  display: flex;
+  flex-direction: column;
+  width: 330px;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+  margin-right: -28.00px;
+}
+
+.ranking-page .letter-beginner {
+  position: relative;
+  width: 226px;
+  margin-top: -1.00px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 400;
+  color: var(--colors-primary-colors-black);
+  font-size: 16px;
+  text-align: left;
+  letter-spacing: 0;
+  line-height: 28px;
+  direction: rtl;
+}
+
+.ranking-page .text-wrapper-24 {
+  font-weight: 600;
+}
+
+.ranking-page .text-wrapper-25 {
+  font-family: "Expo Arabic-Regular", Helvetica;
+}
+
+.ranking-page .frame-46 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.ranking-page .frame-47 {
+  position: relative;
+  width: 303px;
+  height: 26px;
+  border-radius: 53px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-color: #c8e5ff;
+  backdrop-filter: blur(1.88px) brightness(100%);
+  -webkit-backdrop-filter: blur(1.88px) brightness(100%);
+  background: linear-gradient(
+    0deg,
+    rgba(241, 248, 254, 1) 0%,
+    rgba(241, 248, 254, 1) 100%
+  );
+}
+
+.ranking-page .frame-48 {
+  position: relative;
+  width: 225px;
+  height: 26px;
+  margin-top: -26px;
+  border-radius: 53px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-color: transparent;
+  backdrop-filter: blur(1.88px) brightness(100%);
+  -webkit-backdrop-filter: blur(1.88px) brightness(100%);
+  background: linear-gradient(
+    0deg,
+    rgba(30, 67, 150, 1) 0%,
+    rgba(89, 132, 229, 1) 100%
+  );
+}
+
+.ranking-page .text-wrapper-26 {
+  position: absolute;
+  top: 8px;
+  left: 166px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 800;
+  color: #ffffff;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .frame-49 {
+  display: flex;
+  flex-direction: column;
+  width: 470px;
+  height: 257px;
+  align-items: flex-start;
+  gap: 74px;
+  padding: 32px;
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 32px;
+}
+
+.ranking-page .frame-50 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.ranking-page .text-wrapper-27 {
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 600;
+  color: var(--colors-primary-colors-black);
+  font-size: 18px;
+  text-align: center;
+  position: relative;
+  width: fit-content;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .frame-51 {
+  display: flex;
+  width: 92px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 14.06px;
+  padding: 0px 23.44px;
+  border-color: #c8e5ff;
+  background: linear-gradient(
+    0deg,
+    rgba(241, 248, 254, 1) 0%,
+    rgba(241, 248, 254, 1) 100%
+  );
+  position: relative;
+  border-radius: 53px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  backdrop-filter: blur(1.88px) brightness(100%);
+  -webkit-backdrop-filter: blur(1.88px) brightness(100%);
+}
+
+.ranking-page .svgexport-6 {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin-left: -6.47px;
+  aspect-ratio: 1;
+}
+
+.ranking-page .text-wrapper-28 {
+  position: relative;
+  width: fit-content;
+  margin-right: -6.47px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 600;
+  color: var(--colors-primary-colors-black);
+  font-size: 16px;
+  text-align: center;
+  line-height: 20px;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.ranking-page .frame-52 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.ranking-page .frame-53 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.ranking-page .frame-54 {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  aspect-ratio: 1;
+}
+
+.ranking-page .text-wrapper-29 {
+  position: relative;
+  width: fit-content;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 600;
+  color: var(--colors-primary-colors-black);
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .text-wrapper-30 {
+  position: relative;
+  width: fit-content;
+  background: linear-gradient(
+    270deg,
+    rgba(50, 86, 213, 1) 0%,
+    rgba(138, 164, 255, 1) 100%
+  );
+  -webkit-background-clip: text !important;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 900;
+  color: transparent;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .frame-55 {
+  display: flex;
+  flex-direction: column;
+  width: 470px;
+  align-items: flex-start;
+  gap: 55px;
+  padding: 32px;
+  position: relative;
+  flex: 0 0 auto;
+  background-color: #ffffff;
+  border-radius: 32px;
+}
+
+.ranking-page .text-wrapper-31 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 600;
+  color: var(--colors-primary-colors-black);
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .frame-56 {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.ranking-page .svgexport-7 {
+  position: relative;
+  width: 46px;
+  height: 45px;
+}
+
+.ranking-page .frame-57 {
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+}
+
+.ranking-page .text-wrapper-32 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 600;
+  color: var(--colors-primary-colors-black);
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .frame-58 {
+  position: relative;
+  width: 260px;
+  height: 20px;
+  border-radius: 53px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-color: #c8e5ff;
+  backdrop-filter: blur(1.88px) brightness(100%);
+  -webkit-backdrop-filter: blur(1.88px) brightness(100%);
+  background: linear-gradient(
+    0deg,
+    rgba(241, 248, 254, 1) 0%,
+    rgba(241, 248, 254, 1) 100%
+  );
+}
+
+.ranking-page .frame-59 {
+  width: 170px;
+  height: 20px;
+  margin-top: -26px;
+  border-color: transparent;
+  background: linear-gradient(
+    0deg,
+    rgba(243, 199, 87, 1) 0%,
+    rgba(249, 224, 157, 1) 100%
+  );
+  position: relative;
+  border-radius: 53px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  backdrop-filter: blur(1.88px) brightness(100%);
+  -webkit-backdrop-filter: blur(1.88px) brightness(100%);
+}
+
+.ranking-page .text-wrapper-33 {
+  position: absolute;
+  top: 6px;
+  left: 142px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 800;
+  color: #ffffff;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .svgexport-8 {
+  position: relative;
+  width: 28px;
+  height: 28px;
+}
+
+.ranking-page .svgexport-9 {
+  width: 45px;
+  height: 45px;
+  position: relative;
+  aspect-ratio: 1;
+}
+
+.ranking-page .frame-60 {
+  width: 260px;
+  height: 20px;
+  margin-top: -26px;
+  border-color: transparent;
+  background: linear-gradient(
+    270deg,
+    rgba(50, 86, 213, 1) 0%,
+    rgba(138, 164, 255, 1) 100%
+  );
+  position: relative;
+  border-radius: 53px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  backdrop-filter: blur(1.88px) brightness(100%);
+  -webkit-backdrop-filter: blur(1.88px) brightness(100%);
+}
+
+.ranking-page .text-wrapper-34 {
+  position: absolute;
+  top: 6px;
+  left: 224px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 800;
+  color: #ffffff;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.ranking-page .frame-61 {
+  width: 204px;
+  height: 20px;
+  margin-top: -26px;
+  border-color: transparent;
+  background: linear-gradient(
+    0deg,
+    rgba(243, 199, 87, 1) 0%,
+    rgba(249, 224, 157, 1) 100%
+  );
+  position: relative;
+  border-radius: 53px;
+  border-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  backdrop-filter: blur(1.88px) brightness(100%);
+  -webkit-backdrop-filter: blur(1.88px) brightness(100%);
+}
+
+.ranking-page .text-wrapper-35 {
+  position: absolute;
+  top: 6px;
+  left: 166px;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 800;
+  color: #ffffff;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+/* Original CSS code should be injected here */
+
+/* Additional semantic and accessibility improvements */
+.frame-16[role="menuitem"] {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  padding: 12px 0px 12px 16px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border-radius: 16px;
+}
+
+.frame-16[role="menuitem"]:hover,
+.frame-16[role="menuitem"]:focus {
+  background-color: rgba(89, 132, 229, 0.1);
+  outline: none;
+}
+
+.frame-15[role="menuitem"],
+.frame-16[role="menuitem"],
+.frame-17[role="menuitem"] {
+  text-decoration: none;
+  color: inherit;
+}
+
+.frame-15[role="menuitem"]:hover,
+.frame-16[role="menuitem"]:hover,
+.frame-17[role="menuitem"]:hover {
+  background-color: rgba(89, 132, 229, 0.1);
+}
+
+.frame-15[role="menuitem"]:focus,
+.frame-16[role="menuitem"]:focus,
+.frame-17[role="menuitem"]:focus {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+.chevron-down-wrapper {
+  background: linear-gradient(
+    0deg,
+    rgba(30, 67, 150, 1) 0%,
+    rgba(89, 132, 229, 1) 100%
+  );
+  border: 1px solid #ffffff87;
+  cursor: pointer;
+}
+
+.chevron-down-wrapper:hover {
+  background: linear-gradient(
+    0deg,
+    rgba(30, 67, 150, 0.9) 0%,
+    rgba(89, 132, 229, 0.9) 100%
+  );
+}
+
+.chevron-down-wrapper:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .ranking-page {
+    padding: 8px;
+  }
+
+  .page-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .header-navigation {
+    width: 100%;
+    padding: 0px 16px;
+    gap: 16px;
+  }
+
+  .main-layout {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .frame-10 {
+    width: 100%;
+    height: auto;
+  }
+
+  .ranking-content {
+    width: 100%;
+  }
+
+  .frame-36 {
+    width: 100%;
+  }
+}
+
+/* Focus management for better keyboard navigation */
+.ranking-page [role="menuitem"]:focus,
+.ranking-page button:focus {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+/* Screen reader improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

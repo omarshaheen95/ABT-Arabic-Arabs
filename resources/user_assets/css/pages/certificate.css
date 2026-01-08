@@ -1,0 +1,442 @@
+/* ============================================
+   CERTIFICATE PAGE STYLES
+   ============================================ */
+
+/* Main Container */
+.certificate-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Certificate Wrapper */
+.certificate-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1120px;
+  background: #ffffff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+/* Certificate Border */
+.certificate-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.border-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Certificate Content */
+.certificate-content {
+  position: relative;
+  z-index: 2;
+  padding: 60px 80px;
+  min-height: 792px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+.certificate-header {
+  width: 100%;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.header-image {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Body */
+.certificate-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 30px;
+}
+
+/* Recipient Section */
+.recipient-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.certificate-label {
+  font-family: var(--font-family);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0;
+  text-align: center;
+}
+
+.recipient-name {
+  font-family: var(--font-family);
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+/* Achievement Section */
+.achievement-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  max-width: 800px;
+}
+
+.achievement-text {
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.lesson-name {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--primary-color);
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.level-name {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.score {
+  font-size: 24px;
+  font-weight: 700;
+  color: #27ae60;
+}
+
+/* Signature Section */
+.signature-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  margin-top: 40px;
+  gap: 40px;
+}
+
+.signature-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.signature-block.center-signature {
+  align-items: center;
+  justify-content: center;
+}
+
+.signature-title {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.signature-name {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.signature-image {
+  height: 50px;
+  width: auto;
+  margin-top: 5px;
+}
+
+.signature-image-large {
+  height: 90px;
+  width: auto;
+}
+
+/* Footer */
+.certificate-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.logos-image {
+  max-width: 500px;
+  height: auto;
+}
+
+/* Certificate Actions */
+.certificate-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-secondary {
+  padding: 14px 32px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary-color);
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: var(--primary-accent);
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-primary svg,
+.btn-secondary svg {
+  flex-shrink: 0;
+}
+
+/* Print Styles */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .certificate-container {
+    background: none;
+    padding: 0;
+    min-height: auto;
+  }
+
+  .certificate-wrapper {
+    max-width: 100%;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    page-break-inside: avoid;
+  }
+
+  .certificate-content {
+    padding: 40px 60px;
+  }
+
+  .certificate-actions {
+    display: none;
+  }
+
+  .border-image {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .certificate-content {
+    padding: 50px 60px;
+  }
+
+  .certificate-label {
+    font-size: 24px;
+  }
+
+  .recipient-name {
+    font-size: 36px;
+  }
+
+  .achievement-text {
+    font-size: 16px;
+  }
+
+  .lesson-name {
+    font-size: 20px;
+  }
+
+  .score {
+    font-size: 22px;
+  }
+
+  .signature-section {
+    gap: 30px;
+  }
+
+  .logos-image {
+    max-width: 400px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .certificate-container {
+    padding: 20px 10px;
+  }
+
+  .certificate-content {
+    padding: 40px 30px;
+    min-height: auto;
+  }
+
+  .certificate-label {
+    font-size: 20px;
+  }
+
+  .recipient-name {
+    font-size: 28px;
+  }
+
+  .achievement-text {
+    font-size: 14px;
+  }
+
+  .lesson-name {
+    font-size: 18px;
+  }
+
+  .score {
+    font-size: 20px;
+  }
+
+  .signature-section {
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+
+  .signature-block {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .logos-image {
+    max-width: 300px;
+  }
+
+  .certificate-actions {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .certificate-content {
+    padding: 30px 20px;
+  }
+
+  .certificate-label {
+    font-size: 18px;
+  }
+
+  .recipient-name {
+    font-size: 24px;
+  }
+
+  .achievement-text {
+    font-size: 13px;
+  }
+
+  .lesson-name {
+    font-size: 16px;
+  }
+
+  .score {
+    font-size: 18px;
+  }
+
+  .signature-image {
+    height: 40px;
+  }
+
+  .signature-image-large {
+    height: 70px;
+  }
+
+  .logos-image {
+    max-width: 250px;
+  }
+}
+
+/* Landscape Orientation on Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .certificate-content {
+    padding: 30px 40px;
+  }
+
+  .certificate-body {
+    gap: 20px;
+  }
+
+  .recipient-section {
+    margin-bottom: 10px;
+  }
+
+  .signature-section {
+    margin-top: 20px;
+  }
+}

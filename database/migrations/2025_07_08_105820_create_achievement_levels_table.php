@@ -15,10 +15,10 @@ class CreateAchievementLevelsTable extends Migration
     {
         Schema::create('achievement_levels', function (Blueprint $table) {
             $table->id();
-            $table->json('name');
+            $table->string('name',5000);
             $table->unsignedInteger('required_points');
             $table->string('badge_icon')->nullable();
-            $table->text('description')->nullable();
+            $table->string('description',5000)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

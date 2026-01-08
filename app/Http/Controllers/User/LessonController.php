@@ -2,736 +2,650 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Helpers\Constant;
 use App\Http\Controllers\Controller;
+use App\Models\Grade;
+use App\Models\HiddenLesson;
+use App\Models\Lesson;
 use App\Models\MatchResult;
 use App\Models\Option;
 use App\Models\OptionResult;
 use App\Models\Question;
 use App\Models\SortResult;
-use App\Models\SpeakingResult;
+use App\Models\SortWord;
+
+use App\Models\TQuestion;
 use App\Models\TrueFalse;
 use App\Models\TrueFalseResult;
 use App\Models\UserAssignment;
+use App\Models\UserLesson;
 use App\Models\UserTest;
-use App\Models\WritingResult;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
+use Str;
 
 class LessonController extends Controller
 {
-    public function lessonTest(Request $request, $id)
-    {
-        $student = Auth::user();
-        $test = null;
 
-        if ($student->demo) {
-            return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
+    public function lessonsLevels()
+    {
+        $user = Auth::guard('web')->user();
+        if ($user->demo) {
+            $grades = Grade::query()->whereIn('id', $user->demo_grades)->get();
+            $alternate_grades = [];
+        } else {
+            $grades = Grade::query()->where('id', Auth::user()->grade_id)->get();
+            $alternate_grades = Grade::query()->where('id', Auth::user()->alternate_grade_id)->get();
         }
 
-        DB::transaction(function () use ($request,$id,$student,&$test) {
-            $questions = Question::with(['trueFalse', 'matches', 'sortWords', 'options'])->where('lesson_id', $id)->get();
+        $title = t('Home Page');
+//        $user = Auth::guard('web')->user();
+//
+//        $grades = $user->demo
+//            ? $user->demo_grades
+//            : [$user->grade, $user->alternate_grade];
+//
+//        // Get hidden lessons for this user's school
+//        $hiddenLessonIds = HiddenLesson::query()
+//            ->where('school_id', $user->school_id)
+//            ->pluck('lesson_id')
+//            ->toArray();
+//
+//        // Get completed lesson IDs for this user (approved = 1 and status = 'Pass')
+//        $completedLessonIds = UserTest::query()
+//            ->where('user_id', $user->id)
+//            ->where('approved', 1)
+//            ->where('status', 'Pass')
+//            ->pluck('lesson_id')
+//            ->unique()
+//            ->toArray();
+//
+//        $allLevels = Level::with(['lessons' => function ($query) use ($hiddenLessonIds) {
+//                $query->whereNotIn('id', $hiddenLessonIds)->where('active', 1);
+//            }])
+//            ->withCount(['lessons' => function ($query) use ($hiddenLessonIds) {
+//                $query->whereNotIn('id', $hiddenLessonIds)->where('active', 1);
+//            }])
+//            ->whereIn('grade', $grades)
+//            ->get();
+//
+//        // Calculate progress for each level
+//        $allLevels = $allLevels->map(function ($level) use ($completedLessonIds) {
+//            $totalLessons = $level->lessons->count();
+//            $completedLessons = $level->lessons->whereIn('id', $completedLessonIds)->count();
+//            $level->progress = $totalLessons > 0 ? round(($completedLessons / $totalLessons) * 100) : 0;
+//            $level->completed_lessons = $completedLessons;
+//            $level->total_lessons = $totalLessons;
+//            return $level;
+//        });
+//
+//        // Get completed level IDs (100% progress)
+//        $completedLevelIds = $allLevels->filter(function ($level) {
+//            return $level->progress == 100 && $level->total_lessons > 0;
+//        })->pluck('id')->toArray();
+//
+//        if ($user->demo) {
+//            $levels = $allLevels;
+//            $alternate_levels = collect();
+//        } else {
+//            $levels = $allLevels->where('grade', $user->grade);
+//            $alternate_levels = $allLevels->where('grade', $user->alternate_grade);
+//        }
 
-            $test = UserTest::create([
-                'user_id' => $student->id,
-                'lesson_id' => $id,
-                'corrected' => 1,
-                'total' => 0,
-            ]);
-
-            $total = 0;
-
-            // True/False Results and Total
-            $tf_total = 0;
-            $tf_data = [];
-            foreach ($request->get('tf', []) as $key => $result) {
-                $main_result = $questions->where('id', $key)->first()->trueFalse;
-                $mark = optional($main_result)->result == $result ? $questions->where('id', $key)->first()->mark : 0;
-                $tf_total += $mark;
-                $tf_data[] = [
-                    'question_id' => $key,
-                    'result' => $result,
-                    'user_test_id' => $test->id,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
-            }
-            TrueFalseResult::insert($tf_data);
-            $total += $tf_total;
-
-            // Option Results and Total
-            $o_total = 0;
-            $o_data = [];
-            foreach ($request->get('option', []) as $key => $option) {
-                $main_result = $questions->where('id', $key)->first()->options->where('id',$option)->first();
-                $mark = optional($main_result)->result == 1 ? $questions->where('id', $key)->first()->mark : 0;
-                $o_total += $mark;
-
-                $o_data[] = [
-                    'question_id' => $key,
-                    'option_id' => $option,
-                    'user_test_id' => $test->id,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
-            }
-            OptionResult::insert($o_data);
-            $total += $o_total;
-
-            // Matching Results and Total
-            $m_total = 0;
-            $m_data = [];
-            foreach ($request->get('matching', []) as $key => $match) {
-                $matchMark = $questions->where('id', $key)->first()->mark / $questions->where('id', $key)->first()->matches->count();
-
-                foreach ($match as $uid => $match_id) {
-                    if (!is_null($match_id)) {
-                        $result_id = $questions->where('id', $key)->first()->matches->where('uid', $uid)->first()->id;
-                        $m_total += $match_id == $result_id ? $matchMark : 0;
-
-                        $m_data[] = [
-                            'question_id' => $key,
-                            'match_id' => $match_id,
-                            'result_id' => $result_id,
-                            'user_test_id' => $test->id,
-                            'match_answer_uid' => $uid,
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ];
-                    }
-                }
-            }
-            MatchResult::insert($m_data);
-            $total += $m_total;
-
-            // Sorting Results and Total
-            $s_total = 0;
-            $s_data = [];
-            foreach ($request->get('sorting', []) as $key => $sort) {
-                $sort_words = $questions->where('id',$key)->first()->sortWords->pluck('uid')->toArray();
-                $student_sort_words = collect($sort)->keys()->toArray();
-
-                if ($student_sort_words === $sort_words) {
-                    $mark = $questions->where('id',$key)->first()->mark;
-                    $s_total += $mark;
-                }
-
-                foreach ($sort as $uid => $value) {
-                    if (!is_null($value)) {
-                        $result_id = $questions->where('id',$key)->first()->sortWords->where('uid', $uid)->first()->id;
-                        $s_data[] = [
-                            'question_id' => $key,
-                            'sort_word_id' => $result_id,
-                            'user_test_id' => $test->id,
-                            'sort_answer_uid' => $uid,
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ];
-                    }
-                }
-            }
-            SortResult::insert($s_data);
-            $total += $s_total;
-
-            // Update Test Total and Status
-            $mark = $test->lesson->success_mark;
-
-
-            $test->update([
-                'approved' => 1,
-                'total' => $total,
-                'start_at' => $request->get('start_at', now()),
-                'end_at' => now(),
-                'status' => $total >= $mark ? 'Pass' : 'Fail',
-            ]);
-
-
-            $student_tests = UserTest::query()
-                ->where('user_id', $student->id)
-                ->where('lesson_id', $id)
-                ->orderByDesc('total')->get();
-
-
-            if (optional($student_tests->first())->total >= $mark) {
-                UserTest::query()->where('user_id', $student->id)
-                    ->where('lesson_id', $id)
-                    ->where('id', '<>', $student_tests->first()->id)->update([
-                        'approved' => 0,
-                    ]);
-                UserTest::query()->where('user_id', $student->id)
-                    ->where('lesson_id', $id)
-                    ->where('id', $student_tests->first()->id)->update([
-                        'approved' => 1,
-                    ]);
-            }
-
-
-            $student->user_tracker()->create([
-                'lesson_id' => $id,
-                'type' => 'test',
-                'color' => 'danger',
-                'start_at' => $request->get('start_at', now()),
-                'end_at' => now(),
-            ]);
-
-            if ($test->user->teacherUser) {
-                updateTeacherStatistics($test->user->teacherUser->teacher_id);
-            }
-
-            $user_assignment = UserAssignment::query()->where('user_id', $student->id)
-                ->where('lesson_id', $id)
-                ->where('test_assignment', 1)
-                ->where('done_test_assignment', 0)
-                ->first();
-
-            if ($user_assignment) {
-                $user_assignment->update([
-                    'done_test_assignment' => 1,
-                    'completed' => 1,
-                ]);
-            }
-
-
-        });
-        return redirect()->route('lesson_test_result', $test->id)->with('message', "تم حفظ الاختبار بنجاح")->with('m-class', 'success');
+        return view('user.lessons.levels', compact('title', 'grades', 'alternate_grades'));
     }
 
-//    public function lessonTest(Request $request, $id)
-//    {
-//
-//        $student = Auth::user();
-//
-//        if ($student->demo){
-//            return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
-//        }
-////        $student_term = UserTest::query()->where('user_id', $student->id)->where('lesson_id', $id)->first();
-////        if ($student_term)
-////        {
-////            return redirect()->route('home')->with('message', 'You have obtained a test certificate for this lesson')->with('m-class', 'success');
-////        }
-//
-//
-//        $questions = Question::query()->with(['lesson','trueFalse','matches','sortWords','options'])->where('lesson_id', $id)->get();
-//
-//        $test = UserTest::query()->create([
-//            'user_id' => $student->id,
-//            'lesson_id' => $id,
-//            'corrected' => 1,
-//            'total' => 0,
-//        ]);
-//
-////        if ($student_term)
-////        {
-////            foreach ($questions as $question) {
-////                $student_tf_result = TrueFalseResult::query()->where('question_id', $question->id)->where('user_id', $student->id)->delete();
-////                $student_result = OptionResult::query()->where('question_id', $question->id)->where('user_id', $student->id)->delete();
-////                $match_results = MatchResult::query()->where('user_id', $student->id)->where('question_id', $question->id)->delete();
-////                $student_sort_words = SortResult::query()->where('question_id', $question->id)->where('user_id', $student->id)->delete();
-////            }
-////            $student_term->delete();
-////        }
-//        foreach ($request->get('tf', []) as $key => $result)
-//        {
-//            TrueFalseResult::create([
-//                'user_test_id' => $test->id,
-//                'question_id' => $key,
-//                'result' => $result,
-//                'student_test_id' => $test->id
-//            ]);
-//        }
-//        foreach ($request->get('option', []) as $key => $option)
-//        {
-//            OptionResult::create([
-//                'user_test_id' => $test->id,
-//                'question_id' => $key,
-//                'option_id' => $option,
-//                'student_test_id' => $test->id
-//            ]);
-//        }
-//
-//        $matching = $request->get('matching', []);
-//        $sorting = $request->get('sorting', []);
-//
-//        foreach ($matching as $key => $match)
-//        {
-//            $match_answers = QMatch::query()->where('question_id', $key)->get();
-//            foreach ($match as $uid => $value)
-//            {
-//                if (!is_null($value))
-//                {
-//                    $result_id = $match_answers->where('uid', $uid)->first()->id;
-//                    MatchResult::create([
-//                        'question_id' => $key,
-//                        'match_id' => $value,
-//                        'result_id' => $result_id,
-//                        'user_test_id' => $test->id,
-//                        'match_answer_uid' => $uid,
-//                    ]);
-//                }
-//            }
-//        }
-//
-//        foreach($sorting as $key => $sort)
-//        {
-//            $sort_words = SortWord::query()->where('question_id', $key)->get();
-//            foreach ($sort as $uid => $value)
-//            {
-//                if (!is_null($value))
-//                {
-//                    $result_id = $sort_words->where('uid', $uid)->first()->id;
-//                    SortResult::create([
-//                        'user_id' => $student->id,
-//                        'question_id' => $key,
-//                        'sort_word_id' => $result_id,
-//                        'student_test_id' => $test->id,
-//                        'sort_answer_uid' => $uid,
-//                    ]);
-//                }
-//            }
-//        }
-//
-////        foreach ($request->get('re', []) as $question => $options)
-////        {
-////            $matches = QMatch::query()->where('question_id', $question)->get()->pluck('id')->all();
-////            foreach ($options as $key => $value)
-////            {
-////                if (!is_null($value))
-////                {
-////                    MatchResult::create([
-////                        'user_test_id' => $test->id,
-////                        'question_id' => $question,
-////                        'match_id' => $matches[$value - 1],
-////                        'result_id' => $key,
-////                        'student_test_id' => $test->id
-////                    ]);
-////                }
-////            }
-////        }
-////        foreach ($request->get('sort', []) as $question => $words)
-////        {
-////            foreach ($words as $key => $value)
-////            {
-////                if (!is_null($value))
-////                {
-////                    SortResult::create([
-////                        'user_test_id' => $test->id,
-////                        'question_id' => $question,
-////                        'sort_word_id' => $key,
-////                        'student_test_id' => $test->id,
-////                    ]);
-////                }
-////            }
-////        }
-//
-//
-//
-//        $total = 0;
-//        $tf_total = 0;
-//        $o_total = 0;
-//        $m_total = 0;
-//        $s_total = 0;
-//
-//        foreach ($questions as $question)
-//        {
-//            if ($question->type == 1)
-//            {
-//                $student_result = TrueFalseResult::query()->where('question_id', $question->id)->where('user_test_id', $test->id)
-//                    ->first();
-//                $main_result = TrueFalse::query()->where('question_id', $question->id)->first();
-//                if(isset($student_result) && isset($main_result) && optional($student_result)->result == optional($main_result)->result){
-//                    $total += $question->mark;
-//                    $tf_total += $question->mark;
-////                    Log::warning('TF-QM : '.$question->mark);
-//                }
-//            }
-//
-//            if ($question->type == 2)
-//            {
-//                $student_result = OptionResult::query()->where('question_id', $question->id)->where('user_test_id', $test->id)
-//                    ->first();
-//                if($student_result)
-//                {
-//                    $main_result = Option::query()->find($student_result->option_id);
-//                }
-//
-//                if(isset($student_result) && isset($main_result) && optional($main_result)->result == 1){
-//                    $total += $question->mark;
-//                    $o_total += $question->mark;
-////                    Log::warning('C-QM : '.$question->mark);
-//                }
-//
-//            }
-//
-//            $match_mark = 0;
-//            if ($question->type == 3)
-//            {
-//                $match_results = MatchResult::query()->where('user_test_id', $test->id)->where('question_id', $question->id)
-//                    ->get();
-//                $main_mark = $question->mark / $question->matches()->count();
-//                foreach ($match_results as $match_result)
-//                {
-//                    $match_mark += $match_result->match_id == $match_result->result_id ? $main_mark:0;
-//                }
-//                $total += $match_mark;
-//                $m_total += $match_mark;
-////                Log::warning('M-QM : '.$question->mark);
-//            }
-//
-//            if ($question->type == 4)
-//            {
-//                $sort_words = SortWord::query()->where('question_id', $question->id)->get()->pluck('id')->all();
-//                $student_sort_words = SortResult::query()->where('question_id', $question->id)->where('user_test_id', $test->id)
-//                   ->get();
-//                if (count($student_sort_words))
-//                {
-//                    $student_sort_words = $student_sort_words->pluck('sort_word_id')->all();
-//                    if ($student_sort_words === $sort_words)
-//                    {
-//                        $total += $question->mark;
-//                        $s_total += $question->mark;
-////                        Log::warning('S-QM : '.$question->mark);
-//                    }
-//
-//                }
-//            }
-//        }
-//
-//        $mark = $test->lesson->success_mark;
-//
-//
-//        $test->update([
-//            'approved' => 1,
-//            'total' => $total,
-//            'start_at' => $request->get('start_at', now()),
-//            'end_at' => now(),
-//            'status' => $total >= $mark ? 'Pass':'Fail',
-//        ]);
-//
-//
-//
-//
-//        $student_tests = UserTest::query()
-////            ->where('total', '>=', $mark)
-//            ->where('user_id',  $student->id)
-////            ->where('total', '<=', $total)
-//            ->where('lesson_id', $id)
-//            ->orderByDesc('total')->get();
-//
-//
-//
-//        if (optional($student_tests->first())->total >= $mark)
-//        {
-//            UserTest::query()->where('user_id', $student->id)
-//                ->where('lesson_id', $id)
-//                ->where('id', '<>', $student_tests->first()->id)->update([
-//                    'approved' => 0,
-//                ]);
-//            UserTest::query()->where('user_id', $student->id)
-//                ->where('lesson_id', $id)
-//                ->where('id',  $student_tests->first()->id)->update([
-//                    'approved' => 1,
-//                ]);
-//        }
-//
-//
-//
-//
-//        $student->user_tracker()->create([
-//            'lesson_id' => $id,
-//            'type' => 'test',
-//            'color' => 'danger',
-//            'start_at' => $request->get('start_at', now()),
-//            'end_at' => now(),
-//        ]);
-//
-//        if ($test->user->teacherUser)
-//        {
-//            updateTeacherStatistics($test->user->teacherUser->teacher_id);
-//        }
-//
-//        $user_assignment = UserAssignment::query()->where('user_id', $student->id)
-//            ->where('lesson_id', $id)
-//            ->where('test_assignment', 1)
-//            ->where('done_test_assignment', 0)
-//            ->first();
-//
-//        if ($user_assignment)
-//        {
-//            $user_assignment->update([
-//                'done_test_assignment' => 1,
-//                'completed' => 1,
-//            ]);
-//
-////            if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment){
-////                $user_assignment->update([
-////                    'completed' => 1,
-////                ]);
-////            }
-//        }
-////        dd($total);
-//
-//        return redirect()->route('lesson_test_result', $test->id)->with('message', "تم حفظ الاختبار بنجاح")->with('m-class', 'success');
-//    }
-
-    public function lessonWritingTest(Request $request, $id)
+    public function lessonsByLevel($id, $type)
     {
+        $user = Auth::guard('web')->user();
+
+        $grade = Grade::query()->find($id);
+
+        if (!$grade || !$user->demo && $user->grade_id != $grade->id && $user->alternate_grade_id != $grade->id && $user->id != 1) {
+            return redirect()->route('home')->with('message', 'الدروس غير متاحة')->with('m-class', 'error');
+        }
+
+        $lessons = Lesson::query()
+            ->whereDoesntHave('hiddenLessons',function ($query) use ($user){
+                $query->where('school_id', $user->school_id);
+            })
+            ->where('lesson_type', $type)
+            ->where('grade_id', $grade->id)
+            ->get();
+
+
+
+        // Get completed lesson IDs for this user (approved = 1 and status = 'Pass')
+        $completedLessonIds = UserTest::query()
+            ->whereRelation('lesson', 'grade_id', $grade->id)
+            ->where('user_id', $user->id)
+            ->where('approved', 1)
+            ->where('status', 'Pass')
+            ->pluck('lesson_id')
+            ->toArray();
+
+        return view('user.lessons.lessons_by_level', compact('grade','lessons', 'completedLessonIds'));
+    }
+
+    public function assignments()
+    {
+        $title = 'Assigned Homeworks';
+        $student_assignments = UserAssignment::query()
+            ->when(request()->has('assignment_id'), function ($query) {
+                $query->where('id', request()->get('assignment_id'));
+            })
+            ->where('user_id', Auth::user()->id)
+            ->latest()->paginate(10);
+
+        $type = 'lesson';
+        return view('user.assignments.index', compact('student_assignments', 'type','title'));
+    }
+
+    public function lesson($id, $key)
+    {
+        $user = Auth::guard('web')->user();
+
+        $lesson = Lesson::with('grade')->whereDoesntHave('hiddenLessons',function ($query) use ($user){
+            $query->where('school_id', $user->school_id);
+        })->where('id',$id)->first();
+
+        if (!$lesson || (!$user->demo && $user->grade_id != $lesson->grade_id && $user->alternate_grade_id != $lesson->grade_id && $user->id != 1)) {
+            return redirect()->route('home')->with('message', 'Level not found')->with('m-class', 'error');
+        }
+
+        switch ($key) {
+            case 'learn':
+                return view('user.lessons.pages.learn', compact('lesson'));
+            case 'training':
+                $questions = TQuestion::with(['trueFalse','options','matches','sortWords'])->where('lesson_id', $id)->get();
+
+                // Format questions data for JavaScript
+                $quizData = [
+                    'questions' => $questions->map(function($question, $index) {
+                        $questionData = [
+                            'id' => $question->id,
+                            'type' => $this->getQuestionTypeName($question->type),
+                            'content' => $question->content,
+                            'attachment' => $question->attachment,
+                        ];
+
+                        // Add type-specific data
+                        switch($question->type) {
+                            case 1: // True/False
+                                $questionData['correctAnswer'] = $question->trueFalse ? (bool)$question->trueFalse->result : false;
+                                break;
+                            case 2: // Multiple Choice
+                                $correctOption = $question->options->firstWhere('result', 1);
+                                $questionData['correctAnswer'] = $correctOption ? $correctOption->id : null;
+                                $questionData['options'] = $question->options->map(function($option) {
+                                    return [
+                                        'id' => $option->id,
+                                        'content' => $option->content,
+                                        'image' => $option->image
+                                    ];
+                                })->values()->toArray();
+                                break;
+                            case 3: // Matching
+                                $data = [];
+                                $question->matches->each(function($match)use (&$data) {
+                                    $data[$match->id] = [$match->uid];
+                                });
+                                $questionData['correctItems'] = $data;
+
+                                break;
+                            case 4: // Sort Words
+                                $questionData['correctOrder'] = $question->sortWords->pluck('uid')->toArray();
+                                break;
+                        }
+
+                        return $questionData;
+                    })->values()->toArray(),
+                    'totalQuestions' => $questions->count(),
+                    'enableDragAndDrop' => true
+                ];
+                $type = 'training';
+                return view('user.lessons.pages.training', compact('questions','type','lesson', 'quizData'));
+            case 'test':
+                $questions = Question::with(['trueFalse','options','matches','sort_words'])->where('lesson_id', $id)->get();
+                // Format questions data for JavaScript
+                $quizData = [
+                    'questions' => $questions->map(function($question, $index) {
+                        $questionData = [
+                            'id' => $question->id,
+                            'type' => $this->getQuestionTypeName($question->type),
+                            'content' => $question->content,
+                            'attachment' => $question->attachment,
+                        ];
+                        return $questionData;
+                    })->values()->toArray(),
+                    'totalQuestions' => $questions->count(),
+                    'enableDragAndDrop' => true,
+                    'duration'=> 15, // in minutes
+                ];
+                $type = 'test';
+                if ($lesson->lesson_type == 'writing') {
+                    return view('user_old.lesson.writing_test', compact('questions', 'lesson'));
+
+                }
+                if ($lesson->lesson_type == 'speaking') {
+                    return view('user_old.lesson.speaking_test', compact('questions', 'lesson'));
+
+                }
+                return view('user.lessons.pages.test', compact('questions', 'lesson','type','quizData'));
+
+            default:
+                return redirect()->route('home');
+        }
+    }
+
+    public function trackLesson($id, $key)
+    {
+        $user =  Auth::user();
+//        if ($user->demo){
+////            return response()->json("(Demo)تمت العملية بنجاح",'200');
+//        }
+        $lesson = Lesson::query()->findOrFail($id);
+        switch ($key)
+        {
+            case 'learn':
+                $user->user_tracker()->create([
+                    'lesson_id' => $lesson->id,
+                    'type' => 'learn',
+                    'color' => 'warning',
+                    'start_at' => now(),
+                ]);
+                break;
+            case 'practise':
+                $user->user_tracker()->create([
+                    'lesson_id' => $lesson->id,
+                    'type' => 'practise',
+                    'color' => 'primary',
+                    'start_at' => now(),
+                ]);
+                break;
+            case 'test':
+                $user->user_tracker()->create([
+                    'lesson_id' => $lesson->id,
+                    'type' => 'test',
+                    'color' => 'danger',
+                    'start_at' => now(),
+                ]);
+                break;
+            case 'play':
+                $user->user_tracker()->create([
+                    'lesson_id' => $lesson->id,
+                    'type' => 'play',
+                    'color' => 'success',
+                    'start_at' => now(),
+                ]);
+                break;
+        }
+        return $this->sendResponse(true);
+    }
+
+    public function saveLessonTest(Request $request, $id)
+    {
+
         $student = Auth::user();
         if ($student->demo){
             return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
         }
-//        $student_term = UserTest::query()->where('user_id', $student->id)->where('lesson_id', $id)->first();
-//        if ($student_term)
-//        {
-//            return redirect()->route('lessons', [$student_term->lesson->grade->grade_number, $student_term->lesson->lesson_type])->with('message','تم تقديم الاختبار مسبقا')->with('m-class', 'success');
-//        }
+
+        $questions = Question::query()->where('lesson_id', $id)->get();
+
+//        dump($request->get('tf', []));
+//        dump($request->get('option', []));
+//        dump($request->get('matching', []));
+//        dd($request->get('sorting', []));
+       $result = \DB::transaction(function () use ($request, $questions, $student,$id) {
+           $test = StudentTest::query()->create([
+               'user_id' => $student->id,
+               'lesson_id' => $id,
+               'corrected' => 1,
+               'total' => 0,
+           ]);
+
+           foreach ($request->get('tf', []) as $key => $result)
+           {
+               TrueFalseResult::create([
+                   'user_id' => $student->id,
+                   'question_id' => $key,
+                   'result' => $result,
+                   'student_test_id' => $test->id
+               ]);
+           }
+           foreach ($request->get('option', []) as $key => $option)
+           {
+               OptionResult::create([
+                   'user_id' => $student->id,
+                   'question_id' => $key,
+                   'option_id' => $option,
+                   'student_test_id' => $test->id
+               ]);
+           }
+           $matching = $request->get('matching', []);
+           $sorting = $request->get('sorting', []);
+
+           foreach ($matching as $key => $match)
+           {
+               $match_answers = Match::query()->where('question_id', $key)->get();
+               foreach ($match as $uid => $value)
+               {
+                   if (!is_null($value))
+                   {
+                       $result_id = $match_answers->where('uid', $uid)->first()->id;
+                       MatchResult::create([
+                           'user_id' => $student->id,
+                           'question_id' => $key,
+                           'match_id' => $value,
+                           'result_id' => $result_id,
+                           'student_test_id' => $test->id,
+                           'match_answer_uid' => $uid,
+                       ]);
+                   }
+               }
+           }
+
+           foreach($sorting as $key => $sort)
+           {
+               $sort_words = SortWord::query()->where('question_id', $key)->get();
+               foreach ($sort as $uid => $value)
+               {
+                   if (!is_null($value))
+                   {
+                       $result_id = $sort_words->where('uid', $uid)->first()->id;
+                       SortResult::create([
+                           'user_id' => $student->id,
+                           'question_id' => $key,
+                           'sort_word_id' => $result_id,
+                           'student_test_id' => $test->id,
+                           'sort_answer_uid' => $uid,
+                       ]);
+                   }
+               }
+           }
+
+
+           $total = 0;
+           $tf_total = 0;
+           $o_total = 0;
+           $m_total = 0;
+           $s_total = 0;
+
+           foreach ($questions as $question)
+           {
+               if ($question->type == 1)
+               {
+                   $student_result = TrueFalseResult::query()->where('question_id', $question->id)->where('user_id', $student->id)
+                       ->where('student_test_id', $test->id)->first();
+                   $main_result = TrueFalse::query()->where('question_id', $question->id)->first();
+                   if(isset($student_result) && isset($main_result) && optional($student_result)->result == optional($main_result)->result){
+                       $total += $question->mark;
+                       $tf_total += $question->mark;
+                   }
+               }
+
+               if ($question->type == 2)
+               {
+                   $student_result = OptionResult::query()->where('question_id', $question->id)->where('user_id', $student->id)
+                       ->where('student_test_id', $test->id)->first();
+                   if($student_result)
+                   {
+                       $main_result = Option::query()->find($student_result->option_id);
+                   }
+
+                   if(isset($student_result) && isset($main_result) && optional($main_result)->result == 1){
+                       $total += $question->mark;
+                       $o_total += $question->mark;
+                   }
+
+               }
+
+               $match_mark = 0;
+               if ($question->type == 3)
+               {
+                   $match_results = MatchResult::query()->where('user_id', $student->id)->where('question_id', $question->id)
+                       ->where('student_test_id', $test->id)->get();
+                   foreach ($match_results as $match_result)
+                   {
+                       $match_mark += $match_result->match_id == $match_result->result_id ? 2:0;
+                   }
+                   $total += $match_mark;
+                   $m_total += $match_mark;
+               }
+
+               if ($question->type == 4)
+               {
+                   $sort_words = SortWord::query()->where('question_id', $question->id)->get()->pluck('id')->all();
+                   $student_sort_words = SortResult::query()->where('question_id', $question->id)->where('user_id', $student->id)
+                       ->where('student_test_id', $test->id)->get();
+                   if (count($student_sort_words))
+                   {
+                       $student_sort_words = $student_sort_words->pluck('sort_word_id')->all();
+                       if ($student_sort_words === $sort_words)
+                       {
+                           $total += $question->mark;
+                           $s_total += $question->mark;
+                       }
+
+                   }
+               }
+           }
+
+           $mark = $test->lesson->level->level_mark;
+
+
+           $test->update([
+               'total' => $total,
+               'start_at' => $request->get('start_at', now()),
+               'end_at' => now(),
+               'status' => $total >= $mark ? 'Pass':'Fail',
+           ]);
+
+           $student_tests = StudentTest::query()->where('total', '>=', $mark)
+               ->where('user_id',  $student->id)
+               ->where('total', '<=', $total)
+               ->where('lesson_id', $id)->orderByDesc('total')->get();
+
+
+
+           if (optional($student_tests->first())->total >= $mark)
+           {
+               StudentTest::query()->where('user_id', $student->id)
+                   ->where('lesson_id', $id)
+                   ->where('id', '<>', $student_tests->first()->id)->update([
+                       'approved' => 0,
+                   ]);
+               StudentTest::query()->where('user_id', $student->id)
+                   ->where('lesson_id', $id)
+                   ->where('id',  $student_tests->first()->id)->update([
+                       'approved' => 1,
+                   ]);
+           }
 
 
 
 
-        $test = UserTest::query()->create([
-            'user_id' => $student->id,
+           $student->user_tracker()->create([
+               'lesson_id' => $id,
+               'type' => 'test',
+               'color' => 'danger',
+               'start_at' => $request->get('start_at', now()),
+               'end_at' => now(),
+           ]);
+
+           if ($test->user->teacher)
+           {
+               updateTeacherStatistics($test->user->teacher->id);
+           }
+
+           $user_assignment = UserAssignment::query()->where('user_id', $student->id)
+               ->where('lesson_id', $id)
+               ->where('test_assignment', 1)
+               ->where('done_test_assignment', 0)
+               ->first();
+
+           if ($user_assignment)
+           {
+               $user_assignment->update([
+                   'done_test_assignment' => 1,
+               ]);
+
+               if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment){
+                   $user_assignment->update([
+                       'completed_at' => now(),
+                       'completed' => 1,
+                   ]);
+               }
+           }
+//        dd($total);
+
+           // Calculate timing in minutes
+           $start = \Carbon\Carbon::parse($request->get('start_at', now()));
+           $end = \Carbon\Carbon::now();
+           $timingMinutes = $start->diffInMinutes($end);
+
+           $xpEarned = Constant::POINTS_LIST['test'];
+
+           // Calculate percentage
+           $maxTotal = $questions->sum('mark');
+           $percentage = $maxTotal > 0 ? round(($total / $maxTotal) * 100) : 0;
+
+           // Get the next lesson for this user and level
+           $current_lesson = $test->lesson;
+           $next_lesson = Lesson::query()
+               ->where('level_id', $current_lesson->level_id)
+               ->where('id', '>', $current_lesson->id)
+               ->where('active', 1)
+               ->first();
+
+           $next_lesson_url = $next_lesson
+               ? route('lesson.lesson-index', ['id' => $next_lesson->id, 'key' => 'learn'])
+               : route('lesson.lessons-by-level', ['id' => $current_lesson->level->id]);
+           $certificate_url = route('certificate.get-certificate', ['id' => $test->id,'type' => 'lessons']);
+           return view('user.lessons.pages.test_result', [
+               'test' => $test,
+               'total' => $total,
+               'maxTotal' => $maxTotal,
+               'percentage' => $percentage,
+               'xpEarned' => $xpEarned,
+               'timingMinutes' => $timingMinutes,
+               'lesson' => $test->lesson,
+               'level' => $test->lesson->level,
+               'next_lesson_url' => $next_lesson_url,
+               'certificate_url' => $certificate_url,
+           ]);
+       });
+        return $result;
+    }
+
+    public function lessonTestResult($id)
+    {
+        $title = w('Student test result');
+        $student = Auth::user();
+        $student_test = StudentTest::query()->where('user_id', $student->id)->findOrFail($id);
+        $level = optional($student_test->lesson)->level;
+        $lesson = $student_test->lesson;
+
+        return view('user.lesson.lesson_test_result',compact('student_test', 'title', 'level', 'lesson'));
+    }
+
+
+    public function saveUserLearnAnswers(Request $request, $id)
+    {
+        $user = Auth::user();
+        if ($user->demo){
+            return response()->json("(Demo)تمت العملية بنجاح",'200');
+        }
+        $user_lesson = UserLesson::query()->updateOrCreate([
+            'user_id' => $user->id,
             'lesson_id' => $id,
-            'start_at' => $request->get('start_at', now()),
-            'end_at' => now(),
-            'corrected' => 0,
-            'total' => 0,
+        ],[
+            'user_id' => $user->id,
+            'lesson_id' => $id,
+            'status' => 'pending',
         ]);
+        $record = null;
 
-        foreach ($request->get('writing_answer', []) as $key => $value)
-        {
-            if ($request->hasFile("writing_attachment.$key"))
-            {
-                $attachment = uploadFile($request->file("writing_attachment.$key"), 'writing_results')['path'];
-            }else{
-                $attachment = null;
-            }
-            WritingResult::query()->create([
-                'user_test_id' => $test->id,
-                'question_id' => $key,
-                'result' => $value,
-                'attachment' => $attachment,
-            ]);
+        if($request->hasFile('record_file')){
+            $record = uploadFile($request->file('record_file'), 'record_result')['path'];
+        }else if(isset($_FILES['record1']) && $_FILES['record1']['type'] != 'text/plain' && $_FILES['record1']['error'] <= 0){
+            $new_name = uniqid().'.'.'wav';
+//            $destination = public_path('uploads/record_result');
+            $destination = public_path('uploads/record_result'.'/'.date("Y").'/'.date("m").'/'.date("d"));
+            File::isDirectory($destination) or File::makeDirectory($destination, 0777, true, true);
+            move_uploaded_file($_FILES['record1']['tmp_name'], $destination .'/'. $new_name);
+//            $record = 'uploads'.DIRECTORY_SEPARATOR.'record_result'.DIRECTORY_SEPARATOR.$new_name;
+            $record = 'uploads' . DIRECTORY_SEPARATOR . 'record_result'.'/'.date("Y").'/'.date("m").'/'.date("d") . DIRECTORY_SEPARATOR . $new_name;
+
+        }else{
+            $record = $user_lesson->getOriginal('reading_answer');
         }
 
 
-
-        $student->user_tracker()->create([
-            'lesson_id' => $id,
-            'type' => 'test',
-            'color' => 'danger',
-            'start_at' => $request->get('start_at', now()),
-            'end_at' => now(),
-        ]);
-
-        if ($test->user->teacherUser)
-        {
-            updateTeacherStatistics($test->user->teacherUser->teacher_id);
+        if($request->hasFile('writing_attachment')){
+            $writing_attachment_file = uploadFile($request->file('writing_attachment'), 'writing_attachments')['path'];
+        }else{
+            $writing_attachment_file = $user_lesson->getOriginal('attach_writing_answer');
         }
 
-        $user_assignment = UserAssignment::query()->where('user_id', $student->id)
+        $user_lesson->writing_answer = $request->get('writing_answer', null) ;
+        $user_lesson->attach_writing_answer = $writing_attachment_file ;
+        $user_lesson->reading_answer = $record ;
+        $user_lesson->submitted_at = now() ;
+
+        $user_lesson->save();
+
+        if ($user_lesson->user->teacher_student)
+        {
+            updateTeacherStatistics($user_lesson->user->teacher_student->teacher_id);
+        }
+
+        $user_assignment = UserAssignment::query()->where('user_id', $user->id)
             ->where('lesson_id', $id)
-            ->where('test_assignment', 1)
-            ->where('done_test_assignment', 0)
+            ->where('tasks_assignment', 1)
+            ->where('done_tasks_assignment', 0)
             ->first();
 
         if ($user_assignment)
         {
             $user_assignment->update([
-                'done_test_assignment' => 1,
+                'done_tasks_assignment' => 1,
             ]);
 
-            if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment){
+            if (($user_assignment->test_assignment && $user_assignment->done_test_assignment) || !$user_assignment->test_assignment){
                 $user_assignment->update([
-                    'completed' => 1,
-                ]);
-            }
-        }
-//        dd($total);
-
-        return redirect()->route('lessons', [$test->lesson->grade->grade_number, $test->lesson->lesson_type])->with('message', "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها")->with('m-class', 'success');
-    }
-//    public function lessonSpeakingTest(Request $request, $id)
-//    {
-//        $student = Auth::user();
-//        if ($student->demo){
-//            return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
-//        }
-////        $student_term = UserTest::query()->where('user_id', $student->id)->where('lesson_id', $id)->first();
-////        if ($student_term)
-////        {
-////            return $this->sendError(  'تم تقديم الاختبار مسبقا', 422);
-////        }
-//
-//
-//
-//
-//        $test = UserTest::query()->create([
-//            'user_id' => $student->id,
-//            'lesson_id' => $id,
-//            'start_at' => $request->get('start_at', now()),
-//            'end_at' => now(),
-//            'corrected' => 0,
-//            'total' => 0,
-//        ]);
-//
-//        if ($request->hasFile('record') && $request->get('question_id', false)) {
-//            $path = public_path().'/uploads/record_results';
-//            File::isDirectory($path) or File::makeDirectory($path, 0777, true, true);
-//
-//            $new_name = uniqid() . '.' . 'wav';
-//                    $destination = public_path('uploads/'.date('Y').'/'.date('m').'/'.date('d').'/record_results');
-//            move_uploaded_file($_FILES['record']['tmp_name'], $destination . '/' . $new_name);
-//                    $record = 'uploads' . DIRECTORY_SEPARATOR.date('Y') .DIRECTORY_SEPARATOR .date('m').DIRECTORY_SEPARATOR.date('d') .DIRECTORY_SEPARATOR . 'record_results' . DIRECTORY_SEPARATOR . $new_name;
-//            SpeakingResult::query()->create([
-//                'question_id' => $request->get('question_id'),
-//                'user_test_id' => $test->id,
-//                'attachment' => $record,
-//            ]);
-////            return $this->sendResponse($record, "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها");
-//        }
-//
-////        foreach ($request->get('writing_answer', []) as $key => $value)
-////        {
-////            if ($request->hasFile("writing_attachment.$key"))
-////            {
-////                $attachment = $this->uploadFile($request->file("writing_attachment.$key"), 'writing_results');
-////            }else{
-////                $attachment = null;
-////            }
-////            WritingResult::query()->create([
-////                'user_test_id' => $test->id,
-////                'question_id' => $key,
-////                'result' => $value,
-////                'attachment' => $attachment,
-////            ]);
-////        }
-//
-//
-//
-//        $student->user_tracker()->create([
-//            'lesson_id' => $id,
-//            'type' => 'test',
-//            'color' => 'danger',
-//            'start_at' => $request->get('start_at', now()),
-//            'end_at' => now(),
-//        ]);
-//
-//        if ($test->user->teacherUser)
-//        {
-//            updateTeacherStatistics($test->user->teacherUser->teacher_id);
-//        }
-//
-//        $user_assignment = UserAssignment::query()->where('user_id', $student->id)
-//            ->where('lesson_id', $id)
-//            ->where('test_assignment', 1)
-//            ->where('done_test_assignment', 0)
-//            ->first();
-////        dd($user_assignment, $id, $student);
-//
-//        if ($user_assignment)
-//        {
-//            $user_assignment->update([
-//                'done_test_assignment' => 1,
-//            ]);
-//
-//            if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment){
-//                $user_assignment->update([
-//                    'completed' => 1,
-//                ]);
-//            }
-//        }
-////        dd($total);
-//        return $this->sendResponse($user_assignment, "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها");
-//
-////        return redirect()->route('lessons', [$test->lesson->grade->grade_number, $test->lesson->lesson_type])->with('message', "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها")->with('m-class', 'success');
-//    }
-    public function lessonSpeakingTest(Request $request, $id)
-    {
-        $student = Auth::user();
-        if ($student->demo) {
-            return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
-        }
-
-        $test = UserTest::query()->create([
-            'user_id' => $student->id,
-            'lesson_id' => $id,
-            'start_at' => $request->get('start_at', now()),
-            'end_at' => now(),
-            'corrected' => 0,
-            'total' => 0,
-        ]);
-
-        if ($request->hasFile('record') && $request->get('question_id', false)) {
-            // Create date-based directory structure
-            $yearDir = date('Y');
-            $monthDir = date('m');
-            $dayDir = date('d');
-
-            $relativePath = 'uploads/' . $yearDir . '/' . $monthDir . '/' . $dayDir . '/record_results';
-            $fullPath = public_path($relativePath);
-
-            // Create directory structure if it doesn't exist
-            if (!File::isDirectory($fullPath)) {
-                File::makeDirectory($fullPath, 0777, true, true);
-            }
-
-            $new_name = uniqid() . '.wav';
-            $uploadedFile = $request->file('record');
-
-            // Use Laravel's move method instead of move_uploaded_file
-            if ($uploadedFile->move($fullPath, $new_name)) {
-                $record = $relativePath . '/' . $new_name;
-
-                SpeakingResult::query()->create([
-                    'question_id' => $request->get('question_id'),
-                    'user_test_id' => $test->id,
-                    'attachment' => $record,
-                ]);
-            }
-        }
-
-        $student->user_tracker()->create([
-            'lesson_id' => $id,
-            'type' => 'test',
-            'color' => 'danger',
-            'start_at' => $request->get('start_at', now()),
-            'end_at' => now(),
-        ]);
-
-        if ($test->user->teacherUser) {
-            updateTeacherStatistics($test->user->teacherUser->teacher_id);
-        }
-
-        $user_assignment = UserAssignment::query()->where('user_id', $student->id)
-            ->where('lesson_id', $id)
-            ->where('test_assignment', 1)
-            ->where('done_test_assignment', 0)
-            ->first();
-
-        if ($user_assignment) {
-            $user_assignment->update([
-                'done_test_assignment' => 1,
-            ]);
-
-            if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment) {
-                $user_assignment->update([
+                    'completed_at' => now(),
                     'completed' => 1,
                 ]);
             }
         }
 
-        return $this->sendResponse($user_assignment, "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها");
-    }
-    public function lessonTestResult($id)
-    {
-        $title = "نتيجة الاختبار";
-        $student = Auth::user();
-        $student_test = UserTest::query()->where('user_id', $student->id)->findOrFail($id);
-        $level = optional($student_test->lesson)->level;
-        $lesson = $student_test->lesson;
 
-        return view('user.lesson.lesson_test_result',compact('student_test', 'title', 'level', 'lesson'));
+        return response()->json('saved - تم الحفظ','200');
+
+    }
+
+    /**
+     * Get question type name for frontend
+     */
+    private function getQuestionTypeName($type)
+    {
+        switch($type) {
+            case 1:
+                return 'true-false';
+            case 2:
+                return 'multiple-choice';
+            case 3:
+                return 'matching';
+            case 4:
+                return 'sorting';
+            default:
+                return 'unknown';
+        }
     }
 
 

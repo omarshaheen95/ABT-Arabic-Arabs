@@ -12,11 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class AchievementLevel extends Model
 {
-    use SoftDeletes, LogsActivityTrait,HasTranslations;
+    use SoftDeletes, LogsActivityTrait;
 
     protected $fillable = ['name', 'required_points', 'badge_icon', 'description'];
 
-    public $translatable = ['name'];
 
 //    protected static function boot()
 //    {
