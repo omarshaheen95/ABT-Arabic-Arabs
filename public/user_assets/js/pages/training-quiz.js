@@ -579,19 +579,52 @@ function setupDragDropOrderControls(question) {
     return placeholder;
   };
 
-  // Get element after cursor position (for horizontal layout)
-  const getDragAfterElement = (container, x) => {
+  // Get element after cursor position (for horizontal layout with wrapping support)
+  const getDragAfterElement = (container, x, y) => {
     const draggableElements = [...container.querySelectorAll('.drag-item:not(.dragging)')];
+
+    // Detect RTL direction
+    const isRTL = window.getComputedStyle(container).direction === 'rtl';
 
     return draggableElements.reduce((closest, child) => {
       const box = child.getBoundingClientRect();
-      const offset = x - box.left - box.width / 2;
 
-      if (offset < 0 && offset > closest.offset) {
-        return { offset: offset, element: child };
+      // Calculate vertical offset (Y axis)
+      const centerY = box.top + box.height / 2;
+      const offsetY = y - centerY;
+
+      // Calculate horizontal offset (X axis) based on direction
+      let offsetX;
+      if (isRTL) {
+        // For RTL: calculate from right side
+        const centerX = box.right - box.width / 2;
+        offsetX = centerX - x;
       } else {
-        return closest;
+        // For LTR: calculate from left side
+        const centerX = box.left + box.width / 2;
+        offsetX = x - centerX;
       }
+
+      // We want to find the element where the cursor is:
+      // 1. Above it (offsetY < 0) OR
+      // 2. On the same row and to the left of it (offsetY is small and offsetX < 0)
+
+      // If cursor is above this element (offsetY < -box.height/2), definitely before it
+      if (offsetY < -box.height / 2) {
+        const combinedOffset = offsetY * 1000 + offsetX; // Prioritize Y over X
+        if (combinedOffset < 0 && combinedOffset > closest.offset) {
+          return { offset: combinedOffset, element: child };
+        }
+      }
+      // If cursor is roughly on same row (within vertical bounds)
+      else if (Math.abs(offsetY) <= box.height / 2) {
+        // Check horizontal position
+        if (offsetX < 0 && offsetX > closest.offset) {
+          return { offset: offsetX, element: child };
+        }
+      }
+
+      return closest;
     }, { offset: Number.NEGATIVE_INFINITY }).element;
   };
 
@@ -678,7 +711,7 @@ function setupDragDropOrderControls(question) {
     newItem.addEventListener('dragover', (e) => {
       if (draggedItem && draggedItem !== newItem && orderDropZone.contains(newItem)) {
         e.preventDefault();
-        const afterElement = getDragAfterElement(orderDropZone, e.clientX);
+        const afterElement = getDragAfterElement(orderDropZone, e.clientX, e.clientY);
         if (afterElement == null) {
           orderDropZone.appendChild(createPlaceholder());
         } else {
@@ -714,7 +747,7 @@ function setupDragDropOrderControls(question) {
       orderDropZone.classList.add('drag-over');
 
       if (draggedItem) {
-        const afterElement = getDragAfterElement(orderDropZone, e.clientX);
+        const afterElement = getDragAfterElement(orderDropZone, e.clientX, e.clientY);
         if (afterElement == null) {
           orderDropZone.appendChild(createPlaceholder());
         } else {
@@ -809,6 +842,8 @@ function updateDragDropOrderAnswer(question) {
           correctOrder = JSON.stringify([...question.correctOrder].reverse());
       }
       let userAnswer = JSON.stringify(answer);
+      // console.log('correct_answer',correctOrder)
+      // console.log('user_answer',userAnswer)
     const isCorrect = userAnswer === correctOrder;
 
     // console.log('User answer:', userAnswer);
