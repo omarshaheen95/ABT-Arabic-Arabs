@@ -7,8 +7,8 @@
                     <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
                 </svg>
             </div>
-            <p class="loading-text">{{t('Loading')}}...</p>
-            <p class="loading-subtext">{{t('Please wait..')}}</p>
+            <p class="loading-text">جاري المعالحة...</p>
+            <p class="loading-subtext">الرجاء الإنتظار...</p>
         </div>
     </div>
 </div>
@@ -60,7 +60,7 @@
         }
 
         .spinner .path {
-            stroke: #4F46E5;
+            stroke: #138944;
             stroke-linecap: round;
             animation: dash 1.5s ease-in-out infinite;
         }

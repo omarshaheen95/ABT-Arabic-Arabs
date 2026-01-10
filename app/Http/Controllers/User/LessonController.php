@@ -14,12 +14,14 @@ use App\Models\Question;
 use App\Models\SortResult;
 use App\Models\SortWord;
 
+use App\Models\SpeakingResult;
 use App\Models\TQuestion;
 use App\Models\TrueFalse;
 use App\Models\TrueFalseResult;
 use App\Models\UserAssignment;
 use App\Models\UserLesson;
 use App\Models\UserTest;
+use App\Models\WritingResult;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -224,7 +226,63 @@ class LessonController extends Controller
                 $type = 'training';
                 return view('user.lessons.pages.training', compact('questions','type','lesson', 'quizData'));
             case 'test':
-                $questions = Question::with(['trueFalse','options','matches','sort_words'])->where('lesson_id', $id)->get();
+                $questions = Question::query()->where('lesson_id', $id)->get();
+
+                if ($lesson->lesson_type == 'writing') {
+                    // Get user's existing test and writing results
+                    $student = Auth::user();
+                    $existingTest = UserTest::query()
+                        ->where('user_id', $student->id)
+                        ->where('lesson_id', $id)
+                        ->latest()
+                        ->first();
+
+                    $existingResults = [];
+                    $isCorrected = false;
+                    $totalScore = 0;
+                    $maxScore = count($questions) * 10; // Assuming 10 points per question
+
+                    if ($existingTest) {
+                        $isCorrected = $existingTest->corrected == 1;
+                        $totalScore = $existingTest->total ?? 0;
+
+                        $writingResults = WritingResult::query()
+                            ->where('user_test_id', $existingTest->id)
+                            ->get();
+
+                        foreach ($writingResults as $result) {
+                            $existingResults[$result->question_id] = [
+                                'result' => $result->result,
+                                'attachment' => $result->attachment,
+                            ];
+                        }
+                    }
+
+                    return view('user.lessons.pages.writing_test', compact('questions', 'lesson', 'existingResults', 'isCorrected', 'totalScore', 'maxScore'));
+
+                }
+                if ($lesson->lesson_type == 'speaking') {
+                    // Get user's existing test and speaking results
+                    $student = Auth::user();
+                    $existingTest = UserTest::query()
+                        ->where('user_id', $student->id)
+                        ->where('lesson_id', $id)
+                        ->latest()
+                        ->first();
+
+                    $existingResults = [];
+                    if ($existingTest) {
+                        $existingResults = SpeakingResult::query()
+                            ->where('user_test_id', $existingTest->id)
+                            ->get()
+                            ->keyBy('question_id')
+                            ->toArray();
+                    }
+
+                    return view('user.lessons.pages.speaking_test', compact('questions', 'lesson', 'existingTest', 'existingResults'));
+
+                }
+                $questions->load(['trueFalse','options','matches','sort_words']);
                 // Format questions data for JavaScript
                 $quizData = [
                     'questions' => $questions->map(function($question, $index) {
@@ -241,14 +299,6 @@ class LessonController extends Controller
                     'duration'=> 15, // in minutes
                 ];
                 $type = 'test';
-                if ($lesson->lesson_type == 'writing') {
-                    return view('user_old.lesson.writing_test', compact('questions', 'lesson'));
-
-                }
-                if ($lesson->lesson_type == 'speaking') {
-                    return view('user_old.lesson.speaking_test', compact('questions', 'lesson'));
-
-                }
                 return view('user.lessons.pages.test', compact('questions', 'lesson','type','quizData'));
 
             default:
@@ -557,92 +607,240 @@ class LessonController extends Controller
         return $result;
     }
 
+    public function saveLessonWritingTest(Request $request, $id)
+    {
+        $student = Auth::user();
+        if ($student->demo){
+            return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
+        }
+
+        $test = UserTest::query()->create([
+            'user_id' => $student->id,
+            'lesson_id' => $id,
+            'start_at' => $request->get('start_at', now()),
+            'end_at' => now(),
+            'corrected' => 0,
+            'total' => 0,
+        ]);
+
+        foreach ($request->get('writing_answer', []) as $key => $value)
+        {
+            if ($request->hasFile("writing_attachment.$key"))
+            {
+                $attachment = uploadFile($request->file("writing_attachment.$key"), 'writing_results')['path'];
+            }else{
+                $attachment = null;
+            }
+            WritingResult::query()->create([
+                'user_test_id' => $test->id,
+                'question_id' => $key,
+                'result' => $value,
+                'attachment' => $attachment,
+            ]);
+        }
+
+
+
+        $student->user_tracker()->create([
+            'lesson_id' => $id,
+            'type' => 'test',
+            'color' => 'danger',
+            'start_at' => $request->get('start_at', now()),
+            'end_at' => now(),
+        ]);
+
+        if ($test->user->teacherUser)
+        {
+            updateTeacherStatistics($test->user->teacherUser->teacher_id);
+        }
+
+        $user_assignment = UserAssignment::query()->where('user_id', $student->id)
+            ->where('lesson_id', $id)
+            ->where('test_assignment', 1)
+            ->where('done_test_assignment', 0)
+            ->first();
+
+        if ($user_assignment)
+        {
+            $user_assignment->update([
+                'done_test_assignment' => 1,
+            ]);
+
+            if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment){
+                $user_assignment->update([
+                    'completed' => 1,
+                ]);
+            }
+        }
+
+        return redirect()->route('lesson.lessons-by-level', ['id'=>$test->lesson->grade_id,'type' => 'writing'])->with('message', "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها")->with('m-type', 'success');
+    }
+
+    public function saveLessonSpeakingTest(Request $request, $id)
+    {
+        $student = Auth::user();
+        if ($student->demo) {
+            return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
+        }
+
+        $test = UserTest::query()->create([
+            'user_id' => $student->id,
+            'lesson_id' => $id,
+            'start_at' => $request->get('start_at', now()),
+            'end_at' => now(),
+            'corrected' => 0,
+            'total' => 0,
+        ]);
+
+        if ($request->hasFile('record') && $request->get('question_id', false)) {
+            // Create date-based directory structure
+            $yearDir = date('Y');
+            $monthDir = date('m');
+            $dayDir = date('d');
+
+            $relativePath = 'uploads/' . $yearDir . '/' . $monthDir . '/' . $dayDir . '/record_results';
+            $fullPath = public_path($relativePath);
+
+            // Create directory structure if it doesn't exist
+            if (!File::isDirectory($fullPath)) {
+                File::makeDirectory($fullPath, 0777, true, true);
+            }
+
+            $new_name = uniqid() . '.wav';
+            $uploadedFile = $request->file('record');
+
+            // Use Laravel's move method instead of move_uploaded_file
+            if ($uploadedFile->move($fullPath, $new_name)) {
+                $record = $relativePath . '/' . $new_name;
+
+                SpeakingResult::query()->create([
+                    'question_id' => $request->get('question_id'),
+                    'user_test_id' => $test->id,
+                    'attachment' => $record,
+                ]);
+            }
+        }
+
+        $student->user_tracker()->create([
+            'lesson_id' => $id,
+            'type' => 'test',
+            'color' => 'danger',
+            'start_at' => $request->get('start_at', now()),
+            'end_at' => now(),
+        ]);
+
+        if ($test->user->teacherUser) {
+            updateTeacherStatistics($test->user->teacherUser->teacher_id);
+        }
+
+        $user_assignment = UserAssignment::query()->where('user_id', $student->id)
+            ->where('lesson_id', $id)
+            ->where('test_assignment', 1)
+            ->where('done_test_assignment', 0)
+            ->first();
+
+        if ($user_assignment) {
+            $user_assignment->update([
+                'done_test_assignment' => 1,
+            ]);
+
+            if (($user_assignment->tasks_assignment && $user_assignment->done_tasks_assignment) || !$user_assignment->tasks_assignment) {
+                $user_assignment->update([
+                    'completed' => 1,
+                ]);
+            }
+        }
+        $url = route('lesson.lessons-by-level', ['id'=>$test->lesson->grade_id,'type' => 'speaking']);
+        return $this->sendResponse(['redirect_url'=>$url], "تم حفظ الإجابات بنجاح لدى المدرس ليتم تصحيحها");
+
+    }
+
     public function lessonTestResult($id)
     {
         $title = w('Student test result');
         $student = Auth::user();
-        $student_test = StudentTest::query()->where('user_id', $student->id)->findOrFail($id);
-        $level = optional($student_test->lesson)->level;
+        $student_test = UserTest::query()->where('user_id', $student->id)->findOrFail($id);
+        $level = optional($student_test->lesson)->grade;
         $lesson = $student_test->lesson;
 
         return view('user.lesson.lesson_test_result',compact('student_test', 'title', 'level', 'lesson'));
     }
 
 
-    public function saveUserLearnAnswers(Request $request, $id)
-    {
-        $user = Auth::user();
-        if ($user->demo){
-            return response()->json("(Demo)تمت العملية بنجاح",'200');
-        }
-        $user_lesson = UserLesson::query()->updateOrCreate([
-            'user_id' => $user->id,
-            'lesson_id' => $id,
-        ],[
-            'user_id' => $user->id,
-            'lesson_id' => $id,
-            'status' => 'pending',
-        ]);
-        $record = null;
-
-        if($request->hasFile('record_file')){
-            $record = uploadFile($request->file('record_file'), 'record_result')['path'];
-        }else if(isset($_FILES['record1']) && $_FILES['record1']['type'] != 'text/plain' && $_FILES['record1']['error'] <= 0){
-            $new_name = uniqid().'.'.'wav';
-//            $destination = public_path('uploads/record_result');
-            $destination = public_path('uploads/record_result'.'/'.date("Y").'/'.date("m").'/'.date("d"));
-            File::isDirectory($destination) or File::makeDirectory($destination, 0777, true, true);
-            move_uploaded_file($_FILES['record1']['tmp_name'], $destination .'/'. $new_name);
-//            $record = 'uploads'.DIRECTORY_SEPARATOR.'record_result'.DIRECTORY_SEPARATOR.$new_name;
-            $record = 'uploads' . DIRECTORY_SEPARATOR . 'record_result'.'/'.date("Y").'/'.date("m").'/'.date("d") . DIRECTORY_SEPARATOR . $new_name;
-
-        }else{
-            $record = $user_lesson->getOriginal('reading_answer');
-        }
-
-
-        if($request->hasFile('writing_attachment')){
-            $writing_attachment_file = uploadFile($request->file('writing_attachment'), 'writing_attachments')['path'];
-        }else{
-            $writing_attachment_file = $user_lesson->getOriginal('attach_writing_answer');
-        }
-
-        $user_lesson->writing_answer = $request->get('writing_answer', null) ;
-        $user_lesson->attach_writing_answer = $writing_attachment_file ;
-        $user_lesson->reading_answer = $record ;
-        $user_lesson->submitted_at = now() ;
-
-        $user_lesson->save();
-
-        if ($user_lesson->user->teacher_student)
-        {
-            updateTeacherStatistics($user_lesson->user->teacher_student->teacher_id);
-        }
-
-        $user_assignment = UserAssignment::query()->where('user_id', $user->id)
-            ->where('lesson_id', $id)
-            ->where('tasks_assignment', 1)
-            ->where('done_tasks_assignment', 0)
-            ->first();
-
-        if ($user_assignment)
-        {
-            $user_assignment->update([
-                'done_tasks_assignment' => 1,
-            ]);
-
-            if (($user_assignment->test_assignment && $user_assignment->done_test_assignment) || !$user_assignment->test_assignment){
-                $user_assignment->update([
-                    'completed_at' => now(),
-                    'completed' => 1,
-                ]);
-            }
-        }
-
-
-        return response()->json('saved - تم الحفظ','200');
-
-    }
+//    public function saveUserLearnAnswers(Request $request, $id)
+//    {
+//        $user = Auth::user();
+//        if ($user->demo){
+//            return response()->json("(Demo)تمت العملية بنجاح",'200');
+//        }
+//        $user_lesson = UserLesson::query()->updateOrCreate([
+//            'user_id' => $user->id,
+//            'lesson_id' => $id,
+//        ],[
+//            'user_id' => $user->id,
+//            'lesson_id' => $id,
+//            'status' => 'pending',
+//        ]);
+//        $record = null;
+//
+//        if($request->hasFile('record_file')){
+//            $record = uploadFile($request->file('record_file'), 'record_result')['path'];
+//        }else if(isset($_FILES['record1']) && $_FILES['record1']['type'] != 'text/plain' && $_FILES['record1']['error'] <= 0){
+//            $new_name = uniqid().'.'.'wav';
+////            $destination = public_path('uploads/record_result');
+//            $destination = public_path('uploads/record_result'.'/'.date("Y").'/'.date("m").'/'.date("d"));
+//            File::isDirectory($destination) or File::makeDirectory($destination, 0777, true, true);
+//            move_uploaded_file($_FILES['record1']['tmp_name'], $destination .'/'. $new_name);
+////            $record = 'uploads'.DIRECTORY_SEPARATOR.'record_result'.DIRECTORY_SEPARATOR.$new_name;
+//            $record = 'uploads' . DIRECTORY_SEPARATOR . 'record_result'.'/'.date("Y").'/'.date("m").'/'.date("d") . DIRECTORY_SEPARATOR . $new_name;
+//
+//        }else{
+//            $record = $user_lesson->getOriginal('reading_answer');
+//        }
+//
+//
+//        if($request->hasFile('writing_attachment')){
+//            $writing_attachment_file = uploadFile($request->file('writing_attachment'), 'writing_attachments')['path'];
+//        }else{
+//            $writing_attachment_file = $user_lesson->getOriginal('attach_writing_answer');
+//        }
+//
+//        $user_lesson->writing_answer = $request->get('writing_answer', null) ;
+//        $user_lesson->attach_writing_answer = $writing_attachment_file ;
+//        $user_lesson->reading_answer = $record ;
+//        $user_lesson->submitted_at = now() ;
+//
+//        $user_lesson->save();
+//
+//        if ($user_lesson->user->teacher_student)
+//        {
+//            updateTeacherStatistics($user_lesson->user->teacher_student->teacher_id);
+//        }
+//
+//        $user_assignment = UserAssignment::query()->where('user_id', $user->id)
+//            ->where('lesson_id', $id)
+//            ->where('tasks_assignment', 1)
+//            ->where('done_tasks_assignment', 0)
+//            ->first();
+//
+//        if ($user_assignment)
+//        {
+//            $user_assignment->update([
+//                'done_tasks_assignment' => 1,
+//            ]);
+//
+//            if (($user_assignment->test_assignment && $user_assignment->done_test_assignment) || !$user_assignment->test_assignment){
+//                $user_assignment->update([
+//                    'completed_at' => now(),
+//                    'completed' => 1,
+//                ]);
+//            }
+//        }
+//
+//
+//        return response()->json('saved - تم الحفظ','200');
+//
+//    }
 
     /**
      * Get question type name for frontend

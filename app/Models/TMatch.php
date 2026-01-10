@@ -23,6 +23,11 @@ class TMatch extends Model implements HasMedia
         return $this->belongsTo(TQuestion::class);
     }
 
+    public function getUidAttribute()
+    {
+        //for compatibility with sorting questions and other questions has uid
+        return (string)$this->attributes['id'];
+    }
     public function registerMediaCollections(): void
     {
         $this
