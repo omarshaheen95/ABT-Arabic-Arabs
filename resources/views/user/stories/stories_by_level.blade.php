@@ -7,7 +7,7 @@
 @section('content')
     <div class="library-grid-container">
         <header class="page-header">
-            <h1 class="page-title">{{t('My Library')}}</h1>
+            <h1 class="page-title">مكتبة القصص</h1>
 {{--            <p class="page-subtitle">{{t('Browse all available stories')}}</p>--}}
         </header>
 
@@ -22,7 +22,7 @@
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2 7L5.5 10.5L12 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <span>{{t('Completed')}}</span>
+                            <span>مكتمل</span>
                         </div>
                     @endif
                     <div class="course-icon-container">
@@ -37,7 +37,7 @@
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5 3.5L10.5 7L5 10.5V3.5Z" fill="currentColor"/>
                             </svg>
-                            <span>{{t('Listen & Watch')}}</span>
+                            <span>شاهد واستمع</span>
                         </button>
                         <div class="story-actions-row">
                             <button class="story-action-btn story-action-btn--secondary" data-action="read" data-url="{{route('story.story-index',['id'=>$story->id,'key'=>'read'])}}">
@@ -47,13 +47,13 @@
                                     <line x1="4.5" y1="7.5" x2="9.5" y2="7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                                     <line x1="4.5" y1="10" x2="7.5" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                                 </svg>
-                                <span>{{t('Read Story')}}</span>
+                                <span>اقرأ القصة</span>
                             </button>
                             <button class="story-action-btn story-action-btn--accent" data-action="assess" data-url="{{route('story.story-index',['id'=>$story->id,'key'=>'test'])}}">
                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7 1L8.5 5H12.5L9.5 7.5L10.5 11.5L7 9L3.5 11.5L4.5 7.5L1.5 5H5.5L7 1Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
                                 </svg>
-                                <span>{{t('Assess Yourself')}}</span>
+                                <span>اختبر نفسك</span>
                             </button>
                         </div>
                     </div>

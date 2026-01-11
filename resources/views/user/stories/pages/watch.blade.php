@@ -3,7 +3,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('user_assets/css/pages/lesson.css')}}"/>
 @endpush
 
-@section('page-name', 'watch')
+@section('page-name', 'story-watch')
 
 @section('content')
     <div class="lesson-container">
@@ -12,19 +12,22 @@
             <div class="lesson-title-wrapper">
                 <h1 class="lesson-title" id="lessonTitle"> {{$story->name}}</h1>
                 <nav class="breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb">
-                    <a href="{{Redirect::back()}}" class="breadcrumb-item">{{t('Stories')}}</a>
+                    <a href="{{Redirect::back()}}" class="breadcrumb-item">القصص</a>
                     <span class="breadcrumb-separator">›</span>
                     <span class="breadcrumb-item active">{{$story->name}}</span>
                 </nav>
             </div>
             <a href="{{route('story.story-index',['id'=>$story->id,'key' => 'read'])}}" class="practice-btn" >
-                {{t('Go to Read')}}
+                اذهب الى القراءة
             </a>
         </header>
 
         <!-- Tabs and Content Wrapper -->
         <div class="lesson-tabs-wrapper">
             <div id="video{{$story->id}}"></div>
+            @if(!is_null($story->alternative_video))
+                <div id="alternative_video{{$story->id}}" style="margin-top: 40px"></div>
+            @endif
         </div>
     </div>
 
@@ -34,60 +37,18 @@
     <script src="{{asset('user_assets/lib/player-js.js')}}"></script>
 
     <script>
-        // وظيفة لاكتشاف الشبكة
-        function getQualityBasedOnNetwork() {
-            if (navigator.connection) {
-                const connection = navigator.connection;
-                const speed = connection.effectiveType;
 
-                switch (speed) {
-                    case 'slow-2g':
-                    case '2g':
-                        return '360p';
-                    case '3g':
-                        return '720p';
-                    case '4g':
-                    default:
-                        return '1080p';
-                }
-            }
-            return '720p';
-        }
 
         // تهيئة المشغل بعد تحميل LayoutManager
         function initializePlayer() {
-            @if(!$story->media->count())
             var player_{{$story->id}} = new Playerjs({
                 id: "video{{$story->id}}",
                 file: '{{asset($story->video)}}',
             });
-            @else
-            const videoFiles = {
-                @foreach($story->media as $media)
-                "{{$media->quality}}": "{{$media->path}}",
-                @endforeach
-            };
-
-            const initialQuality = getQualityBasedOnNetwork();
-            const initialFile = videoFiles["360"];
-            var thumbnail = '{{$story->media->first()->thumbnail}}';
-
-            console.log(videoFiles, initialQuality);
-
-            var player_{{$story->id}} = new Playerjs({
-                id: "video{{$story->id}}",
-                file: [
-                        @foreach($story->media as $media)
-                    {
-                        file: "{{$media->path}}",
-                        label: "{{$media->quality}}",
-                        title: "{{$media->quality}}",
-                    },
-                    @endforeach
-                ],
-                poster: thumbnail,
-                default_file: initialFile,
-                default_quality: getQualityBasedOnNetwork(),
+            @if(!is_null($story->alternative_video))
+            var player_alternative_video_{{$story->id}} = new Playerjs({
+                id: "alternative_video{{$story->id}}",
+                file: '{{asset($story->alternative_video)}}',
             });
             @endif
         }

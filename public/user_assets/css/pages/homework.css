@@ -99,7 +99,7 @@
 
 /* Grid View */
 .homework-grid-wrapper {
-  background: #F1F8FE;
+  background: #F1FDF6;
   border-radius: 16px;
   padding: 32px 24px;
   overflow: hidden;
@@ -285,7 +285,7 @@
 
 /* Table View */
 .homework-table-container {
-  background: #F1F8FE;
+  background: #F1FDF6;
   border-radius: 16px;
   padding: 32px 24px;
   overflow: visible;

@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{asset('user_assets/css/pages/quiz.css')}}?v=1" />
 @endpush
 
-@section('page-name', 'quiz')
+@section('page-name', 'lesson-test')
 
 @section('content')
     <div class="quiz-container">
@@ -47,14 +47,13 @@
                 <!-- Navigation -->
                 <div class="quiz-navigation">
                     <button type="button" class="quiz-nav-btn" id="prevBtn" disabled>
-                        Previous
+                        السابق
                     </button>
                     <button type="button" class="quiz-nav-btn primary" id="nextBtn">
-                        Next
+                        التالي
                     </button>
                     <button type="submit" class="quiz-nav-btn submit-btn" id="submitBtn" style="display: none;">
                         <span>إنهاء الاختبار</span>
-                        <span class="btn-subtitle">Submit Test</span>
                     </button>
                 </div>
 
@@ -75,21 +74,21 @@
                 </svg>
             </div>
             <h3 class="submit-dialog-title">تأكيد إنهاء الاختبار</h3>
-            <p class="submit-dialog-subtitle">Confirm Test Submission</p>
+{{--            <p class="submit-dialog-subtitle">Confirm Test Submission</p>--}}
             <p class="submit-dialog-message">
                 هل أنت متأكد من إنهاء الاختبار؟<br>. لن تتمكن من تغيير إجاباتك بعد التقديم
             </p>
-            <p class="submit-dialog-message-en">
-                Are you sure you want to submit the test? <br> You won't be able to change your answers after submission.
-            </p>
+{{--            <p class="submit-dialog-message-en">--}}
+{{--                Are you sure you want to submit the test? <br> You won't be able to change your answers after submission.--}}
+{{--            </p>--}}
             <div class="submit-dialog-actions">
                 <button class="submit-dialog-btn cancel-btn" id="cancelSubmitBtn">
                     <span>إلغاء</span>
-                    <span class="btn-subtitle">Cancel</span>
+{{--                    <span class="btn-subtitle">Cancel</span>--}}
                 </button>
                 <button class="submit-dialog-btn confirm-btn" id="confirmSubmitBtn">
                     <span>تأكيد التقديم</span>
-                    <span class="btn-subtitle">Confirm Submit</span>
+{{--                    <span class="btn-subtitle">Confirm Submit</span>--}}
                 </button>
             </div>
         </div>

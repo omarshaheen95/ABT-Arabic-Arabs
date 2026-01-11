@@ -13,7 +13,7 @@
                 <div class="result-header">
                     <h1 class="result-title-ar" style="margin-bottom: 20px;!important;">{{$lesson->name}}</h1>
                     <h1 class="result-title-ar">نتيجة الاختبار</h1>
-                    <p class="result-title-en">Test result</p>
+{{--                    <p class="result-title-en">Test result</p>--}}
                 </div>
 
                 <!-- Celebration illustration -->
@@ -31,7 +31,7 @@
                             </div>
                             <div class="card-value">{{$xpEarned}}</div>
                         </div>
-                        <div class="card-label">Total xp</div>
+                        <div class="card-label">مجموع النقاط</div>
                     </div>
 
                     <!-- Timing card -->
@@ -42,7 +42,7 @@
                             </div>
                             <div class="card-value">{{$timingMinutes}} min</div>
                         </div>
-                        <div class="card-label">Timing</div>
+                        <div class="card-label">الوقت</div>
                     </div>
 
                     <!-- Score card -->
@@ -53,35 +53,35 @@
                             </div>
                             <div class="card-value">{{$percentage}}%</div>
                         </div>
-                        <div class="card-label">Score</div>
+                        <div class="card-label">النقاط</div>
                     </div>
                 </div>
 
                 <!-- Congratulations message -->
                 <div class="congratulations-section">
-                    @if($total >= $level->level_mark)
+                    @if($total >= $level_mark)
                         <p class="congrats-text-ar">
-                            تهانينا، نتيجتك في هذا التقييم هي {{$percentage}}% انت مؤهل للحصول على الشهادة ولعب اللعبة
+                            تهانينا، نتيجتك في هذا التقييم هي {{$percentage}}% انت مؤهل للحصول على الشهادة
                         </p>
-                        <p class="congrats-text-en">
-                            Congratulations, your score in this assessment is {{$percentage}}%. You are eligible to receive the certificate and play the game
-                        </p>
+{{--                        <p class="congrats-text-en">--}}
+{{--                            Congratulations, your score in this assessment is {{$percentage}}%. You are eligible to receive the certificate--}}
+{{--                        </p>--}}
                     @else
                         <p class="congrats-text-ar">
-                            درجتك في هذا التقييم هي {{$percentage}}%. تحتاج إلى {{$level->level_mark}}% للنجاح. يرجى المحاولة مرة أخرى.
+                            درجتك في هذا التقييم هي {{$percentage}}%. تحتاج إلى {{$level_mark}}% للنجاح. يرجى المحاولة مرة أخرى.
                         </p>
-                        <p class="congrats-text-en">
-                            Your score in this assessment is {{$percentage}}%. You need {{$level->level_mark}}% to pass. Please try again.
-                        </p>
+{{--                        <p class="congrats-text-en">--}}
+{{--                            Your score in this assessment is {{$percentage}}%. You need {{$level_mark}}% to pass. Please try again.--}}
+{{--                        </p>--}}
                     @endif
                 </div>
 
                 <!-- Action buttons -->
                 <div class="result-actions">
-                    @if($total >= $level->level_mark)
-                        <button class="result-btn certificate-btn" data-url="{{$certificate_url}}">Get Certificate</button>
+                    @if($total >= $level_mark)
+                        <button class="result-btn certificate-btn" data-url="{{$certificate_url}}">الحصول على الشهادة</button>
                     @endif
-                    <button class="result-btn next-lesson-btn" data-url="{{$next_lesson_url}}">Next Lesson</button>
+                    <button class="result-btn next-lesson-btn" data-url="{{$next_lesson_url}}">الدرس التالي</button>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@
     </style>
 @endpush
 
-@section('page-name', 'dashboard')
+@section('page-name', 'lesson-speaking-test')
 
 @section('content')
     <div class="lesson-container">

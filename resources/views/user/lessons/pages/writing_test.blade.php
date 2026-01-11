@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets_v1/js/keyboard/jquery-ui.css')}}">
 @endpush
 
-@section('page-name', 'dashboard')
+@section('page-name', 'lesson-writing-test')
 
 @section('content')
     <div class="lesson-container">

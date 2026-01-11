@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{asset('user_assets/css/pages/training-quiz.css')}}?v=1" />
 @endpush
 
-@section('page-name', 'training-quiz')
+@section('page-name', 'lesson-training')
 
 @section('content')
     <div class="training-quiz-container">

@@ -41,7 +41,8 @@
             <div class="drag-items-container">
                 @php
                     // Shuffle the sort words for display
-                    $shuffledWords = $question->sortWords->shuffle();
+                    $words = $question->sortWords??$question->sort_words;
+                    $shuffledWords = $words->shuffle();
                 @endphp
                 @foreach($shuffledWords as $word)
                     <div class="drag-item" draggable="false" data-item-id="{{$word->uid}}">

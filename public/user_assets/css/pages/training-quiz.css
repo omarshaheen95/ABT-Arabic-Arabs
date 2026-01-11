@@ -21,7 +21,7 @@
 }
 
 .training-quiz-content-wrapper {
-    background: #F1F8FE;
+    background: #F1FDF6;
     padding: 26px 32px;
     border-radius: 32px;
     -webkit-border-radius: 32px;
@@ -84,7 +84,7 @@
 }
 
 .question-content {
-    background: #F1F8FE;
+    background: #F1FDF6;
     border-radius: 24px;
     padding: 24px;
     -webkit-border-radius: 24px;

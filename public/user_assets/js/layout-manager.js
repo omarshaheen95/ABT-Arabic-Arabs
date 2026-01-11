@@ -320,7 +320,31 @@ class LayoutManager {
       'watch': {
         showRightSidebar: false,
         currentPage: 'watch'
-      }
+      }, 'story-read': {
+            showRightSidebar: true,
+            currentPage: 'library'
+        }, 'story-watch': {
+            showRightSidebar: false,
+            currentPage: 'library'
+        }, 'story-test': {
+            showRightSidebar: false,
+            currentPage: 'library'
+        }, 'lesson-learn': {
+            showRightSidebar: true,
+            currentPage: 'dashboard'
+        }, 'lesson-speaking-test': {
+            showRightSidebar: true,
+            currentPage: 'dashboard'
+        }, 'lesson-writing-test': {
+            showRightSidebar: true,
+            currentPage: 'dashboard'
+        }, 'lesson-training': {
+            showRightSidebar: false,
+            currentPage: 'dashboard'
+        }, 'lesson-test': {
+            showRightSidebar: false,
+            currentPage: 'dashboard'
+        }
     };
 
     return pageConfigs[pageName] || { showRightSidebar: false, currentPage: pageName };

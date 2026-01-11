@@ -7,8 +7,8 @@
 @section('content')
     <div class="stories-levels-container">
         <header class="stories-levels-header">
-            <h1 class="stories-levels-title">{{t('My Library')}}</h1>
-            <p class="stories-levels-subtitle">{{t('Browse all available stories levels')}}</p>
+            <h1 class="stories-levels-title">مكتبة القصص</h1>
+            <p class="stories-levels-subtitle">تصفح جميع مستويات القصص المتاحة</p>
         </header>
 
         <div class="stories-levels-grid" id="stories-levels-grid">

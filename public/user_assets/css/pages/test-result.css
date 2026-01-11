@@ -15,7 +15,7 @@
   gap: 46px;
   border-radius: 30px;
   padding: 32px 26px;
-  background: #F1F8FE;
+  background: #F1FDF6;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
   -ms-border-radius: 30px;
@@ -136,10 +136,10 @@ background: #FFFFFF;
 }
 
 .timing-card {
-  border-width: 2px 2px 5px 2px;
-  border-style: solid;
-  border-color: #1b3c86;
-  background: linear-gradient(0deg, #1E4396 0%, #5984E5 100%);
+    border-width: 2px 2px 5px 2px;
+    border-style: solid;
+    border-color: #0d5a2e;
+    background: linear-gradient(0deg, #138944 0%, #34D399 100%);
 }
 
 .score-card {
@@ -231,8 +231,7 @@ background: #FFFFFF;
 
 .result-btn {
   font-family: var(--font-family);
-  background: linear-gradient(0deg, #1E4396 0%, #5984E5 100%);
-  font-size: 18px;
+  background: linear-gradient(0deg, #138944 0%, #34D399 100%);  font-size: 18px;
   font-weight: 700;
   padding: 18px 48px;
   border-radius: 18px;
@@ -247,25 +246,25 @@ background: #FFFFFF;
 }
 
 .certificate-btn {
-  color: white;
-  box-shadow: 0 4px 16px rgba(30, 67, 150, 0.3);
-  border: none;
+    color: white;
+    box-shadow: 0 4px 16px rgba(19, 137, 68, 0.3);
+    border: none;
 }
 
 .certificate-btn:hover {
-  background: linear-gradient(89.73deg, #4669c4 -1.48%, #153374 95.8%);
-  box-shadow: 0 6px 20px rgba(30, 67, 150, 0.4);
-  transform: translateY(-2px);
+    background: linear-gradient(89.73deg, #1fb359 -1.48%, #0d5a2e 95.8%);
+    box-shadow: 0 6px 20px rgba(19, 137, 68, 0.4);
+    transform: translateY(-2px);
 }
 
 .next-lesson-btn {
-  color: white;
+    color: white;
 }
 
 .next-lesson-btn:hover {
-  background: linear-gradient(89.73deg, #153374 -1.48%, #4669c4 95.8%);
-  box-shadow: 0 6px 20px rgba(30, 67, 150, 0.4);
-  transform: translateY(-2px);
+    background: linear-gradient(89.73deg, #0d5a2e -1.48%, #1fb359 95.8%);
+    box-shadow: 0 6px 20px rgba(19, 137, 68, 0.4);
+    transform: translateY(-2px);
 }
 
 /* Responsive Design */

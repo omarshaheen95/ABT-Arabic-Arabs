@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('user_assets/lib/green-audio-player/green-audio-player.min.css')}}">
 @endpush
 
-@section('page-name', 'dashboard')
+@section('page-name', 'lesson-learn')
 
 @section('content')
     <div class="lesson-container">

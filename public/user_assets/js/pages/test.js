@@ -195,7 +195,7 @@ function updateNavigationButtons(index) {
             nextBtn.style.display = 'none';
         } else {
             nextBtn.style.display = 'flex';
-            nextBtn.textContent = 'Next';
+            nextBtn.textContent = 'التالي';
         }
     }
 
@@ -518,212 +518,248 @@ function updateDragDropPlaceAnswer(question) {
  * Setup Drag and Drop for "Correct Order" questions
  */
 function setupDragDropOrderControls(question) {
-  const dragItems = document.querySelectorAll(`#question${question.id} .drag-item`);
-  const orderDropZone = document.getElementById(`orderDropZone_${question.id}`);
-  const dragItemsContainer = document.querySelector(`#question${question.id} .drag-items-container`);
+    const dragItems = document.querySelectorAll(`#question${question.id} .drag-item`);
+    const orderDropZone = document.getElementById(`orderDropZone_${question.id}`);
+    const dragItemsContainer = document.querySelector(`#question${question.id} .drag-items-container`);
 
-  let draggedItem = null;
-  let placeholder = null;
+    let draggedItem = null;
+    let placeholder = null;
 
-  // Create placeholder element for visual feedback
-  const createPlaceholder = () => {
-    if (!placeholder) {
-      placeholder = document.createElement('li');
-      placeholder.className = 'drag-placeholder';
-      placeholder.style.cssText = 'min-width: 80px; height: 72px; background: rgba(93, 135, 232, 0.15); border: 3px dashed #5d87e8; border-radius: 18px; margin: 0 4px; list-style: none; flex: 1; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;';
+    // Create placeholder element for visual feedback
+    const createPlaceholder = () => {
+        if (!placeholder) {
+            placeholder = document.createElement('li');
+            placeholder.className = 'drag-placeholder';
+            placeholder.style.cssText = 'min-width: 80px; height: 72px; background: rgba(93, 135, 232, 0.15); border: 3px dashed #5d87e8; border-radius: 18px; margin: 0 4px; list-style: none; flex: 1; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;';
+        }
+        return placeholder;
+    };
+
+    // Get element after cursor position (for horizontal layout with wrapping support)
+    const getDragAfterElement = (container, x, y) => {
+        const draggableElements = [...container.querySelectorAll('.drag-item:not(.dragging)')];
+
+        // Detect RTL direction
+        const isRTL = window.getComputedStyle(container).direction === 'rtl';
+
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+
+            // Calculate vertical offset (Y axis)
+            const centerY = box.top + box.height / 2;
+            const offsetY = y - centerY;
+
+            // Calculate horizontal offset (X axis) based on direction
+            let offsetX;
+            if (isRTL) {
+                // For RTL: calculate from right side
+                const centerX = box.right - box.width / 2;
+                offsetX = centerX - x;
+            } else {
+                // For LTR: calculate from left side
+                const centerX = box.left + box.width / 2;
+                offsetX = x - centerX;
+            }
+
+            // We want to find the element where the cursor is:
+            // 1. Above it (offsetY < 0) OR
+            // 2. On the same row and to the left of it (offsetY is small and offsetX < 0)
+
+            // If cursor is above this element (offsetY < -box.height/2), definitely before it
+            if (offsetY < -box.height / 2) {
+                const combinedOffset = offsetY * 1000 + offsetX; // Prioritize Y over X
+                if (combinedOffset < 0 && combinedOffset > closest.offset) {
+                    return { offset: combinedOffset, element: child };
+                }
+            }
+            // If cursor is roughly on same row (within vertical bounds)
+            else if (Math.abs(offsetY) <= box.height / 2) {
+                // Check horizontal position
+                if (offsetX < 0 && offsetX > closest.offset) {
+                    return { offset: offsetX, element: child };
+                }
+            }
+
+            return closest;
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    };
+
+    // Get insert direction from data attribute (default: 'end' for LTR, can be 'start' for RTL)
+    const getInsertDirection = () => {
+        return orderDropZone.getAttribute('data-insert-direction') || 'end';
+    };
+
+    // Setup both click and drag for each item
+    dragItems.forEach(item => {
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
+
+        // Click interaction
+        newItem.addEventListener('click', () => {
+            const parentContainer = newItem.closest('.drag-items-container');
+            const isInDropZone = orderDropZone && orderDropZone.contains(newItem);
+
+            if (isInDropZone) {
+                // Item is in drop zone - return it to container
+                dragItemsContainer.appendChild(newItem);
+                if (orderDropZone.querySelectorAll('.drag-item').length === 0) {
+                    orderDropZone.classList.remove('has-items');
+                }
+                updateDragDropOrderAnswer(question);
+            } else if (parentContainer) {
+                // Item is in container - place in drop zone
+                const insertDirection = getInsertDirection();
+
+                if (insertDirection === 'start') {
+                    // Insert at the beginning (for RTL/Arabic)
+                    const firstItem = orderDropZone.querySelector('.drag-item');
+                    if (firstItem) {
+                        orderDropZone.insertBefore(newItem, firstItem);
+                    } else {
+                        orderDropZone.appendChild(newItem);
+                    }
+                } else {
+                    // Insert at the end (default - for LTR/English)
+                    orderDropZone.appendChild(newItem);
+                }
+
+                orderDropZone.classList.add('has-items');
+                updateDragDropOrderAnswer(question);
+            }
+        });
+
+        // Drag interaction (always enabled)
+        newItem.setAttribute('draggable', 'true');
+
+        newItem.addEventListener('dragstart', (e) => {
+            draggedItem = newItem;
+            newItem.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+
+            // Add class to containers to minimize other items
+            if (orderDropZone) {
+                orderDropZone.classList.add('drag-active');
+            }
+            if (dragItemsContainer) {
+                dragItemsContainer.classList.add('drag-active');
+            }
+        });
+
+        newItem.addEventListener('dragend', () => {
+            newItem.classList.remove('dragging');
+            draggedItem = null;
+
+            // Remove drag-active class from containers
+            if (orderDropZone) {
+                orderDropZone.classList.remove('drag-active');
+            }
+            if (dragItemsContainer) {
+                dragItemsContainer.classList.remove('drag-active');
+            }
+
+            // Remove placeholder if exists
+            if (placeholder && placeholder.parentNode) {
+                placeholder.parentNode.removeChild(placeholder);
+            }
+        });
+
+        // Allow dragging over other items in drop zone to reorder
+        newItem.addEventListener('dragover', (e) => {
+            if (draggedItem && draggedItem !== newItem && orderDropZone.contains(newItem)) {
+                e.preventDefault();
+                const afterElement = getDragAfterElement(orderDropZone, e.clientX, e.clientY);
+                if (afterElement == null) {
+                    orderDropZone.appendChild(createPlaceholder());
+                } else {
+                    orderDropZone.insertBefore(createPlaceholder(), afterElement);
+                }
+            }
+        });
+
+        // Drop on another item - swap it back to container
+        newItem.addEventListener('drop', (e) => {
+            if (draggedItem && draggedItem !== newItem && orderDropZone.contains(newItem)) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Move the item being dropped on back to container
+                dragItemsContainer.appendChild(newItem);
+
+                // Place dragged item where the old item was
+                if (placeholder && placeholder.parentNode) {
+                    placeholder.parentNode.replaceChild(draggedItem, placeholder);
+                }
+
+                updateDragDropOrderAnswer(question);
+            }
+        });
+    });
+
+    // Setup drop zones for drag and drop
+    if (QUIZ_CONFIG.enableDragAndDrop) {
+
+        orderDropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            orderDropZone.classList.add('drag-over');
+
+            if (draggedItem) {
+                const afterElement = getDragAfterElement(orderDropZone, e.clientX, e.clientY);
+                if (afterElement == null) {
+                    orderDropZone.appendChild(createPlaceholder());
+                } else {
+                    orderDropZone.insertBefore(createPlaceholder(), afterElement);
+                }
+            }
+        });
+
+        orderDropZone.addEventListener('dragleave', (e) => {
+            // Only remove if actually leaving the drop zone (not hovering over child)
+            if (!orderDropZone.contains(e.relatedTarget)) {
+                orderDropZone.classList.remove('drag-over');
+                if (placeholder && placeholder.parentNode) {
+                    placeholder.parentNode.removeChild(placeholder);
+                }
+            }
+        });
+
+        orderDropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            orderDropZone.classList.remove('drag-over');
+
+            if (draggedItem) {
+                // Replace placeholder with actual item
+                if (placeholder && placeholder.parentNode) {
+                    placeholder.parentNode.replaceChild(draggedItem, placeholder);
+                } else {
+                    orderDropZone.appendChild(draggedItem);
+                }
+
+                orderDropZone.classList.add('has-items');
+                updateDragDropOrderAnswer(question);
+            }
+        });
+
+        dragItemsContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dragItemsContainer.classList.add('drag-over');
+        });
+
+        dragItemsContainer.addEventListener('dragleave', () => {
+            dragItemsContainer.classList.remove('drag-over');
+        });
+
+        dragItemsContainer.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dragItemsContainer.classList.remove('drag-over');
+            if (draggedItem) {
+                dragItemsContainer.appendChild(draggedItem);
+                if (orderDropZone.querySelectorAll('.drag-item').length === 0) {
+                    orderDropZone.classList.remove('has-items');
+                }
+                updateDragDropOrderAnswer(question);
+            }
+        });
     }
-    return placeholder;
-  };
-
-  // Get element after cursor position (for horizontal layout)
-  const getDragAfterElement = (container, x) => {
-    const draggableElements = [...container.querySelectorAll('.drag-item:not(.dragging)')];
-
-    return draggableElements.reduce((closest, child) => {
-      const box = child.getBoundingClientRect();
-      const offset = x - box.left - box.width / 2;
-
-      if (offset < 0 && offset > closest.offset) {
-        return { offset: offset, element: child };
-      } else {
-        return closest;
-      }
-    }, { offset: Number.NEGATIVE_INFINITY }).element;
-  };
-
-  // Get insert direction from data attribute (default: 'end' for LTR, can be 'start' for RTL)
-  const getInsertDirection = () => {
-    return orderDropZone.getAttribute('data-insert-direction') || 'end';
-  };
-
-  // Setup both click and drag for each item
-  dragItems.forEach(item => {
-    const newItem = item.cloneNode(true);
-    item.parentNode.replaceChild(newItem, item);
-
-    // Click interaction
-    newItem.addEventListener('click', () => {
-      const parentContainer = newItem.closest('.drag-items-container');
-      const isInDropZone = orderDropZone && orderDropZone.contains(newItem);
-
-      if (isInDropZone) {
-        // Item is in drop zone - return it to container
-        dragItemsContainer.appendChild(newItem);
-        if (orderDropZone.querySelectorAll('.drag-item').length === 0) {
-          orderDropZone.classList.remove('has-items');
-        }
-        updateDragDropOrderAnswer(question);
-      } else if (parentContainer) {
-        // Item is in container - place in drop zone
-        const insertDirection = getInsertDirection();
-
-        if (insertDirection === 'start') {
-          // Insert at the beginning (for RTL/Arabic)
-          const firstItem = orderDropZone.querySelector('.drag-item');
-          if (firstItem) {
-            orderDropZone.insertBefore(newItem, firstItem);
-          } else {
-            orderDropZone.appendChild(newItem);
-          }
-        } else {
-          // Insert at the end (default - for LTR/English)
-          orderDropZone.appendChild(newItem);
-        }
-
-        orderDropZone.classList.add('has-items');
-        updateDragDropOrderAnswer(question);
-      }
-    });
-
-    // Drag interaction (always enabled)
-    newItem.setAttribute('draggable', 'true');
-
-    newItem.addEventListener('dragstart', (e) => {
-      draggedItem = newItem;
-      newItem.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-        // Add class to containers to minimize other items
-        if (orderDropZone) {
-            orderDropZone.classList.add('drag-active');
-        }
-        if (dragItemsContainer) {
-            dragItemsContainer.classList.add('drag-active');
-        }
-    });
-
-    newItem.addEventListener('dragend', () => {
-      newItem.classList.remove('dragging');
-      draggedItem = null;
-        // Remove drag-active class from containers
-        if (orderDropZone) {
-            orderDropZone.classList.remove('drag-active');
-        }
-        if (dragItemsContainer) {
-            dragItemsContainer.classList.remove('drag-active');
-        }
-      // Remove placeholder if exists
-      if (placeholder && placeholder.parentNode) {
-        placeholder.parentNode.removeChild(placeholder);
-      }
-    });
-
-    // Allow dragging over other items in drop zone to reorder
-    newItem.addEventListener('dragover', (e) => {
-      if (draggedItem && draggedItem !== newItem && orderDropZone.contains(newItem)) {
-        e.preventDefault();
-        const afterElement = getDragAfterElement(orderDropZone, e.clientX);
-        if (afterElement == null) {
-          orderDropZone.appendChild(createPlaceholder());
-        } else {
-          orderDropZone.insertBefore(createPlaceholder(), afterElement);
-        }
-      }
-    });
-
-    // Drop on another item - swap it back to container
-    newItem.addEventListener('drop', (e) => {
-      if (draggedItem && draggedItem !== newItem && orderDropZone.contains(newItem)) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        // Move the item being dropped on back to container
-        dragItemsContainer.appendChild(newItem);
-
-        // Place dragged item where the old item was
-        if (placeholder && placeholder.parentNode) {
-          placeholder.parentNode.replaceChild(draggedItem, placeholder);
-        }
-
-        updateDragDropOrderAnswer(question);
-      }
-    });
-  });
-
-  // Setup drop zones for drag and drop
-  if (QUIZ_CONFIG.enableDragAndDrop && orderDropZone && dragItemsContainer) {
-
-    orderDropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      orderDropZone.classList.add('drag-over');
-
-      if (draggedItem) {
-        const afterElement = getDragAfterElement(orderDropZone, e.clientX);
-        if (afterElement == null) {
-          orderDropZone.appendChild(createPlaceholder());
-        } else {
-          orderDropZone.insertBefore(createPlaceholder(), afterElement);
-        }
-      }
-    });
-
-    orderDropZone.addEventListener('dragleave', (e) => {
-      // Only remove if actually leaving the drop zone (not hovering over child)
-      if (!orderDropZone.contains(e.relatedTarget)) {
-        orderDropZone.classList.remove('drag-over');
-        if (placeholder && placeholder.parentNode) {
-          placeholder.parentNode.removeChild(placeholder);
-        }
-      }
-    });
-
-    orderDropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      orderDropZone.classList.remove('drag-over');
-
-      if (draggedItem) {
-        // Replace placeholder with actual item
-        if (placeholder && placeholder.parentNode) {
-          placeholder.parentNode.replaceChild(draggedItem, placeholder);
-        } else {
-          orderDropZone.appendChild(draggedItem);
-        }
-
-        orderDropZone.classList.add('has-items');
-        updateDragDropOrderAnswer(question);
-      }
-    });
-
-    dragItemsContainer.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dragItemsContainer.classList.add('drag-over');
-    });
-
-    dragItemsContainer.addEventListener('dragleave', () => {
-      dragItemsContainer.classList.remove('drag-over');
-    });
-
-    dragItemsContainer.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dragItemsContainer.classList.remove('drag-over');
-      if (draggedItem) {
-        dragItemsContainer.appendChild(draggedItem);
-        if (orderDropZone.querySelectorAll('.drag-item').length === 0) {
-          orderDropZone.classList.remove('has-items');
-        }
-        updateDragDropOrderAnswer(question);
-      }
-    });
-  }
 }
 
 /**

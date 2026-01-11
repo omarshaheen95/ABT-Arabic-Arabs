@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('user_assets/lib/green-audio-player/green-audio-player.min.css')}}">
 @endpush
 
-@section('page-name', 'dashboard')
+@section('page-name', 'story-read')
 
 @section('content')
     <div class="lesson-container">
@@ -13,13 +13,13 @@
             <div class="lesson-title-wrapper">
                 <h1 class="lesson-title" id="lessonTitle">{{$story->name}}</h1>
                 <nav class="breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb">
-                    <a href="{{Redirect::back()}}" class="breadcrumb-item">{{t('Stories')}}</a>
+                    <a href="{{Redirect::back()}}" class="breadcrumb-item">القصص</a>
                     <span class="breadcrumb-separator">›</span>
                     <span class="breadcrumb-item active">{{$story->name}}</span>
                 </nav>
             </div>
             <a href="{{route('story.story-index',['id'=>$story->id,'key' => 'test'])}}" class="practice-btn" >
-                {{t('Go to Test')}}
+                اذهب إلى الإختبار
             </a>
         </header>
 
@@ -28,8 +28,8 @@
             <!-- Tab Navigation Container -->
             <div class="lesson-tabs-container">
                 <nav class="lesson-tabs" id="lessonTabs" role="tablist" aria-label="Lesson sections">
-                    <button class="lesson-tab active" role="tab" aria-selected="true" data-section-index="0">Read</button>
-                    <button class="lesson-tab" role="tab" aria-selected="false" data-section-index="1">Certified Recording</button>
+                    <button class="lesson-tab active" role="tab" aria-selected="true" data-section-index="0">اقرأ</button>
+                    <button class="lesson-tab" role="tab" aria-selected="false" data-section-index="1">التسجيلات المعتمدة</button>
                 </nav>
             </div>
 
@@ -41,7 +41,7 @@
                             <div class="section-icon">📖</div>
                             <div class="section-text">
                                 <h2 class="section-title">اقرأ القصة وسجل صوتك</h2>
-                                <p class="section-subtitle">Read the story and record your voice</p>
+{{--                                <p class="section-subtitle">Read the story and record your voice</p>--}}
                             </div>
                         </div>
                         <div class="read-text-container">
@@ -92,9 +92,9 @@
                                                 <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" fill="#6366F1"/>
                                                 <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" fill="#6366F1"/>
                                             </svg>
-                                            <span>{{t('Your Recording')}}</span>
+                                            <span>تسجيلك الصوتي</span>
                                         </div>
-                                        <div class="audio-player-wrapper">
+                                        <div class="audio-player-wrapper" dir="ltr">
                                             <div class="audio-player student-audio-player-corrected">
                                                 <audio preload="metadata">
                                                     <source src="{{asset($user_story->record)}}" type="audio/mpeg">
@@ -111,7 +111,7 @@
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" fill="#10B981"/>
                                                 </svg>
-                                                <h4>{{t('Teacher Feedback')}}</h4>
+                                                <h4>ملاحظات المعلم</h4>
                                             </div>
 
                                             <div class="feedback-content-wrapper">
@@ -121,10 +121,10 @@
                                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" fill="#059669"/>
                                                         </svg>
-                                                        <span>{{t('Written Feedback')}}</span>
+                                                        <span>الملاحظات</span>
                                                     </div>
                                                     <div class="feedback-text">
-                                                        {{$user_story->feedback_message ?? t('No Feedback')}}
+                                                        {{$user_story->feedback_message ?? 'لا توجد ملاحظات'}}
                                                     </div>
                                                 </div>
 
@@ -136,9 +136,9 @@
                                                                 <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" fill="#059669"/>
                                                                 <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" fill="#059669"/>
                                                             </svg>
-                                                            <span>{{t('Audio Feedback')}}</span>
+                                                            <span>الملاحظات الصوتية</span>
                                                         </div>
-                                                        <div class="audio-player-wrapper">
+                                                        <div class="audio-player-wrapper" dir="ltr">
                                                             <div class="audio-player teacher-audio-player">
                                                                 <audio preload="metadata">
                                                                     <source src="{{asset($user_story->feedback_audio_message)}}" type="audio/mpeg">
@@ -169,7 +169,7 @@
                                             </defs>
                                         </svg>
                                     </button>
-                                    <p class="recording-label">Record Your Answer</p>
+                                    <p class="recording-label">سجل اجابتك</p>
                                 </div>
                                 <div class="recording-controls-container" id="readRecordingControls">
                                     <button class="recording-control-btn recording-stop-btn" id="recordingStartBtn">
@@ -190,30 +190,31 @@
                                     </button>
                                 </div>
                                 <div class="recording-actions" id="readRecordingActions" style="display: none;">
-                                    <button class="save-recording-btn" id="saveReadRecordingBtn">
-                                        <span class="btn-text">{{t('Save Recording')}}</span>
-                                        <span class="btn-spinner" style="display: none;">
-                                            <span class="spinner-icon"></span>
-                                            <span>{{t('Saving...')}}</span>
-                                        </span>
+                                    <button type="button" class="save-recording-btn saveRecordingBtn" id="saveReadRecordingBtn">
+                                        <span class="btn-text">حفظ التسجيل</span>
+                                        <span class="btn-spinner" style="display: none; align-items: center; gap: 8px;">
+                                                <span class="spinner-icon" style="width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite;"></span>
+                                                <span>جاري الحفظ ...</span>
+                                            </span>
                                     </button>
-                                    <button class="delete-recording-btn" id="deleteReadRecordingBtn">{{t('Delete')}}</button>
+{{--                                    <button class="delete-recording-btn" id="deleteReadRecordingBtn">{{t('Delete')}}</button>--}}
                                 </div>
                             @endif
                         </div>
                     </div>
                 </div>
-                @if(count($users_story))
                     <div class="section-content" id="certifiedSection" style="background: #ffffff;border-radius: 15px;padding-bottom: 40px; margin-top: 30px;display: none;">
                         <div class="read-section">
                             <div class="section-header">
                                 <div class="section-icon">🎙️</div>
                                 <div class="section-text">
                                     <h2 class="section-title">تسجيلات معتمدة</h2>
-                                    <p class="section-subtitle">Certified Recordings</p>
+{{--                                    <p class="section-subtitle">Certified Recordings</p>--}}
                                 </div>
                             </div>
                             <div class="read-text-container">
+                                @if(count($users_story))
+
                                 @foreach($users_story as $user_story_item)
                                     <div class="certified-recording-item">
                                         <div class="recording-user-info">
@@ -226,7 +227,7 @@
                                                 </div>
                                             @endif
                                         </div>
-                                        <div class="recording-audio-player">
+                                        <div class="recording-audio-player" dir="ltr">
                                             <div class="audio-player certified-audio-player">
                                                 <audio preload="metadata">
                                                     <source src="{{asset($user_story_item->record)}}" type="audio/mpeg">
@@ -256,7 +257,7 @@
                                                             </svg>
                                                             <span>{{ t('Feedback Recording') }}</span>
                                                         </div>
-                                                        <div class="feedback-audio">
+                                                        <div class="feedback-audio" dir="ltr">
                                                             <div class="audio-player certified-feedback-audio-player">
                                                                 <audio preload="metadata">
                                                                     <source src="{{asset($user_story_item->feedback_audio_message)}}" type="audio/mpeg">
@@ -270,10 +271,13 @@
                                         @endif
                                     </div>
                                 @endforeach
+                                @else
+                                    <div style="text-align: center">لا يوجد تسجيلات للطلاب</div>
+                                @endif
+
                             </div>
                         </div>
                     </div>
-                @endif
             </div>
 
 

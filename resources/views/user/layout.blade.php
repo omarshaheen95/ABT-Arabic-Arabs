@@ -50,7 +50,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: #F1F8FE;
+            background: #F1FDF6;
             display: flex;
             flex-direction: column;
             align-items: center;

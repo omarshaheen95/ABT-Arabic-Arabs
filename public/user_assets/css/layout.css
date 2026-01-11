@@ -333,7 +333,7 @@
 }
 
 .notification-item.unread {
-    background: #f1f8fe;
+    background: #F1FDF6;
 }
 
 .notification-item:last-child {
@@ -1110,7 +1110,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
 
 /* Right Sidebar Styles */
 .right-sidebar {
-    background: #F1F8FE;
+    background: #F1FDF6;
     /* padding: 0px 16px; */
     padding-inline-start: 16px;
     display: flex;
