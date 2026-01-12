@@ -89,6 +89,7 @@ class SchoolController extends Controller
         $data['approved'] = 1;
         $data['password'] = bcrypt($request->get('password', 123456));
         $data['student_login'] = $request->get('student_login', false) ? 1 : 0;
+        $data['suspend_student_login'] = $request->get('suspend_student_login', false) ? 1 : 0;
 
         School::create($data);
         return redirect()->route('manager.school.index')->with('message', t('Successfully Added'));
@@ -112,6 +113,7 @@ class SchoolController extends Controller
         $data['active'] = $request->get('active', 0);
         $data['password'] = $request->get('password', false) ? bcrypt($request->get('password', 123456)):$school->password;
         $data['student_login'] = $request->get('student_login', false) ? 1 : 0;
+        $data['suspend_student_login'] = $request->get('suspend_student_login', false) ? 1 : 0;
 
         $school->update($data);
         return redirect()->route('manager.school.index')->with('message', t('Successfully Updated'));
