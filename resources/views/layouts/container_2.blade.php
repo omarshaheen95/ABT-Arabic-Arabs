@@ -38,6 +38,13 @@
     <link rel="stylesheet" href="{{asset('web_assets/css/custom.css')}}?v1">
     <link rel="stylesheet" href="{{asset('web_assets/css/resposive.css')}}">
     @yield('style')
+    <style>
+        .help-block{
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
 
 </head>
 <body @if(!Request::is('')) class="student-page" @endif>
