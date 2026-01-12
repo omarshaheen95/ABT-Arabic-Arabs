@@ -66,7 +66,7 @@ class LoginController extends Controller
         // Check if the user's school has suspended student login
         if ($user && $user->school_id && $user->school && $user->school->suspend_student_login) {
             throw ValidationException::withMessages([
-                $this->username() => [t('Your account is temporarily on hold')],
+                $this->username() => ['حسابك معلق مؤقتا'],
             ]);
         }
 
