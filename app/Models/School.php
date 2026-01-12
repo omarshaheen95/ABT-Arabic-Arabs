@@ -22,7 +22,7 @@ class School extends Authenticatable
 
 
     protected $fillable = [
-        'name', 'email', 'password', 'website', 'mobile', 'logo', 'active','student_login','lang', 'last_login','last_login_info'
+        'name', 'email', 'password', 'website', 'mobile', 'logo', 'active','student_login','suspend_student_login','lang', 'last_login','last_login_info'
     ];
 
     protected $hidden = [

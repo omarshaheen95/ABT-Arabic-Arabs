@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -60,6 +61,13 @@ class LoginController extends Controller
         if ($user && $user->archived) {
             // Optionally, you can log this attempt or notify the user that their account is inactive
             return false;
+        }
+
+        // Check if the user's school has suspended student login
+        if ($user && $user->school_id && $user->school && $user->school->suspend_student_login) {
+            throw ValidationException::withMessages([
+                $this->username() => [t('Your account is temporarily on hold')],
+            ]);
         }
 
         // Attempt to log the user in with the credentials provided
