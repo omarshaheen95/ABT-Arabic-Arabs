@@ -62,7 +62,7 @@ class GeneralController extends Controller
                 ->where('achieved', false)
                 ->whereHas('user', function ($query) use ($user) {
                     $query->where('school_id', $user->school_id)
-                        ->where('grade', $user->grade)
+                        ->where('grade_id', $user->grade_id)
                         ->where('year_id', $user->year_id)
                         ->where('section', $user->section);
                 })

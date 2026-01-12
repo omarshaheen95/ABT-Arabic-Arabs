@@ -192,7 +192,7 @@
 
 <!-- Page Preloader -->
 <div class="page-preloader" id="pagePreloader">
-    <img class="preloader-logo" src="{{asset('user_assets/images/Non-Arabs.svg')}}" alt="Non-Arabs LMS Logo">
+    <img class="preloader-logo" src="{{asset('logo_circle.svg')}}" alt="Non-Arabs LMS Logo">
 </div>
 
 <div class="dashboard-layout">
@@ -201,11 +201,11 @@
             <div class="welcome-banner">
                 <div class="welcome-content">
                     <h1 class="welcome-title">
-                        Welcome back, <span class="user-name">{{str_before($user_data['name'],' ')}}!</span> 👋
+                        مرحبًا بعودتك, <span class="user-name">{{str_before($user_data['name'],' ')}}!</span> 👋
                     </h1>
                     <p class="welcome-subtitle">
-                        It appears that you have created a free account and used it.
-                        Please use the paid account assigned to you by the school and log in using the details that were shared with you through your Arabic teacher.
+                        يبدو أنك قمت بإنشاء حساب مجاني وقمت باستخدامه.
+                        يرجى استخدام الحساب المدفوع المخصص لك من المدرسة واستخدام البيانات التي تمت مشاركتها معك من خلال معلم اللغة العربية.
                     </p>
 
                 </div>

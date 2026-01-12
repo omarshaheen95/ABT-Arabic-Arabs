@@ -8,10 +8,10 @@
                 <div class="card-header">
                     <div class="card-header-text">
                         <h3 class="card-title">{{$student_assignment->story->name}}</h3>
-                        <p class="card-level">{{t('Grade')}} {{$student_assignment->story->grade}}</p>
+                        <p class="card-level">الصف {{$student_assignment->story->grade}}</p>
                     </div>
                     @if((($student_assignment->test_assignment && $student_assignment->done_test_assignment) &&$student_assignment->completed) ||  $student_assignment->completed)
-                        <span class="status-badge completed">{{t('Completed')}}</span>
+                        <span class="status-badge completed">مكتمل</span>
                     @else
                         <div class="assignment-timer" data-deadline="{{$student_assignment->deadline ? $student_assignment->deadline->toIso8601String() : ''}}">
                             <span class="timer-text">--:--:--</span>
@@ -33,7 +33,7 @@
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 5C7 5 2.73 8.11 1 12.5 2.73 16.89 7 20 12 20s9.27-3.11 11-7.5C21.27 8.11 17 5 12 5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
                             </svg>
-                            {{ $student_assignment->done_test_assignment ? t('Test is completed') : t('Go to test') }}
+                            {{ $student_assignment->done_test_assignment ? 'الاختبار مكتمل' : 'اذهب الى الاختبار' }}
                         </button>
                     @endif
                 </div>
@@ -53,10 +53,10 @@
         <table class="homework-table">
             <thead>
             <tr>
-                <th>{{t('Story Name')}}</th>
-                <th>{{t('Grade')}}</th>
-                <th>{{t('Status')}}</th>
-                <th>{{t('Actions')}}</th>
+                <th>اسم القصة</th>
+                <th>الصف</th>
+                <th>الحالة</th>
+                <th>الإجراءات</th>
             </tr>
             </thead>
             <tbody id="homeworkTableBody">
@@ -67,7 +67,7 @@
                     <td>{{$student_assignment->story->grade}}</td>
                     <td>
                         @if((($student_assignment->test_assignment && $student_assignment->done_test_assignment) && $student_assignment->completed) ||  $student_assignment->completed)
-                            <span class="status-badge completed">{{t('Completed')}}</span>
+                            <span class="status-badge completed">مكتمل</span>
                         @else
                             <div class="assignment-timer" data-deadline="{{$student_assignment->deadline ? $student_assignment->deadline->toIso8601String() : ''}}">
                                 <span class="timer-text">--:--:--</span>
@@ -96,7 +96,7 @@
                                     <button class="action-menu-item {{ $student_assignment->done_test_assignment ? 'completed-btn' : '' }}"
                                             onclick="goToTest('{{route('story.story-index',['id'=>$student_assignment->story_id,'key'=>'test'])}}')"
                                             {{ $student_assignment->done_test_assignment ? 'disabled' : '' }}>
-                                        {{ $student_assignment->done_test_assignment ? t('Test is completed') : t('Go to test') }}
+                                        {{ $student_assignment->done_test_assignment ? 'الاختبار مكتمل' : 'اذهب الى الاختبار' }}
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M12 5C7 5 2.73 8.11 1 12.5 2.73 16.89 7 20 12 20s9.27-3.11 11-7.5C21.27 8.11 17 5 12 5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
                                         </svg>

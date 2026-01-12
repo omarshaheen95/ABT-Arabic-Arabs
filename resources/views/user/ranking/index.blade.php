@@ -33,7 +33,7 @@
             </div>
             <div class="banner-info">
                 <h1 class="competition-title">{{ $currentAchievementLevel ? $currentAchievementLevel->name : t('No Level') }}</h1>
-                <p class="competition-description">{{t('The top three advance to the next level')}}</p>
+                <p class="competition-description">يتأهل أفضل ثلاثة إلى المستوى التالي</p>
 {{--                <span class="time-remaining">متبقي يومان</span>--}}
             </div>
         </div>
@@ -61,16 +61,16 @@
                             @if($isCurrentUser)
                                 <div class="user-avatar {{in_array($rank,range(1,3))?'rank-'.$rank:'rank-other'}}" style="background-image: url('{{ $userLevel->user->image ? asset($userLevel->user->image) : asset('user_assets/images/illustrations/avatar.svg') }}')">
                                 </div>
-                                <h3 class="participant-name-current">{{ $userLevel->user->name ?? 'Unknown' }}</h3>
+                                <h3 class="participant-name-current">{{ $userLevel->user->name ?? 'غير معروف' }}</h3>
                             @else
                                 <div class="user-avatar {{in_array($rank,range(1,3))?'rank-'.$rank:'rank-other'}}" style="background-image: url('{{ $userLevel->user->image ? asset($userLevel->user->image) : asset('user_assets/images/illustrations/avatar.svg') }}')"></div>
-                                <h3 class="participant-name{{$rank==1?'-first':''}}">{{ $userLevel->user->name ?? 'Unknown' }}</h3>
+                                <h3 class="participant-name{{$rank==1?'-first':''}}">{{ $userLevel->user->name ?? 'غير معروف' }}</h3>
                             @endif
                         </div>
                         <span class="{{ $isCurrentUser ? 'participant-score-current' : 'participant-score' }}">{{ $userLevel->points }} XP</span>
                     </article>
                 @empty
-                    <p>{{t('No participants in this level yet')}}.</p>
+                    <p>لا يوجد طلاب في هذا المستوى حتى الآن.</p>
                 @endforelse
             </div>
 

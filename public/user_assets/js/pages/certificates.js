@@ -224,7 +224,6 @@ function openTestAnswersDialog(lessonName, testAnswers, status, testInfo) {
   const statusBadge = document.getElementById('testStatusBadge');
   const lessonNameElement = document.getElementById('testLessonName');
   const testScore = document.getElementById('testScore');
-  const testLevel = document.getElementById('testLevel');
   const testGrade = document.getElementById('testGrade');
   const actionMenu = document.getElementById('actionMenu');
 
@@ -249,8 +248,7 @@ function openTestAnswersDialog(lessonName, testAnswers, status, testInfo) {
   // Update test info
   if (testInfo) {
     if (testScore) testScore.textContent = testInfo.score;
-    if (testLevel) testLevel.textContent = testInfo.level;
-    if (testGrade) testGrade.textContent = testInfo.grade;
+    if (testLevel) testLevel.textContent = testInfo.grade;
   }
 
   // Populate table with test answers

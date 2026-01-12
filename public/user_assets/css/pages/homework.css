@@ -221,8 +221,8 @@
 /* Card Divider */
 .card-divider {
   height: 1px;
-  background: #C8E6FF;
-  margin: 16px 0;
+    background: #C8F5DC;
+    margin: 16px 0;
 }
 
 /* Card Actions */
@@ -390,8 +390,8 @@
   transition: all 0.2s ease;
   border-width: 1px 1px 4px 1px;
   border-style: solid;
-  border-color: #C8E6FF;
-  background-color: color-mix(in srgb, #F1F9FE 100%, transparent);
+    border-color: #C8F5DC;
+    background-color: color-mix(in srgb, #F1F9FE 100%, transparent);
   padding: 8px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -497,7 +497,7 @@
   min-width: 40px;
   height: 40px;
   padding: 8px 12px;
-  border: 2px solid #C8E6FF;
+  border: 2px solid #C8F5DC;
   background: white;
   border-radius: 12px;
   font-family: var(--font-family);
@@ -519,14 +519,14 @@
   border-color: var(--primary-color);
   color: var(--primary-color);
   transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.2);
+    box-shadow: 0 2px 8px rgba(19, 137, 68, 0.2);
 }
 
 .pagination-btn.active {
-  background: linear-gradient(89.73deg, #1E4396 -1.48%, #5984E5 95.8%);
-  border-color: transparent;
-  color: white;
-  pointer-events: none;
+    background: linear-gradient(89.73deg, #138944 -1.48%, #34D399 95.8%);
+    border-color: transparent;
+    color: white;
+    pointer-events: none;
 }
 
 .pagination-btn.disabled {

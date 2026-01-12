@@ -1,6 +1,5 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
 /* Expo Arabic Font Faces */
 @font-face {
     font-family: "Expo Arabic";
@@ -33,7 +32,7 @@
 /* CSS Variables */
 :root {
     --primary-color: #138944;
-    --primary-accent: #F1F8FE;
+    --primary-accent: #F1FDF6;
     --primary-hover: #21b25d;
     --text-primary: #1a1a1a;
     --text-secondary: #333333;
@@ -43,7 +42,7 @@
     --gradient-start: rgba(243, 199, 87, 1);
     --gradient-end: rgba(249, 224, 157, 1);
     --font-family: "Expo Arabic", sans-serif;
-    --font-family-secondary: "Nunito", sans-serif;
+    --font-family-secondary: "Almarai", sans-serif;
     --border-radius: 40px;
 }
 

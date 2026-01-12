@@ -6,11 +6,11 @@
             <table class="certificates-table">
                 <thead>
                 <tr>
-                    <th>{{t('Story Name')}}</th>
-                    <th>{{t('Grade')}}</th>
-                    <th>{{t('Score')}}</th>
-                    <th>{{t('Status')}}</th>
-                    <th>{{t('Certificate')}}</th>
+                    <th>اسم القصة</th>
+                    <th>الصف</th>
+                    <th>الدرجة</th>
+                    <th>الحالة</th>
+                    <th>الشهادة</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -33,7 +33,7 @@
                                 <div class="action-menu" style="display: none;">
                                     @if($student_test->status == 'Pass')
                                         <button class="action-menu-item" onclick="previewCertificate('{{route('certificate.get-certificate',['type' => $type,'id'=>$student_test->id])}}')">
-                                            {{t('Certificate')}}
+                                            الشهادة
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M12 5C7 5 2.73 8.11 1 12.5 2.73 16.89 7 20 12 20s9.27-3.11 11-7.5C21.27 8.11 17 5 12 5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
                                             </svg>
@@ -41,7 +41,7 @@
                                     @endif
 
                                     <button class="action-menu-item" onclick="checkAnswers('{{route('certificates.answers',['type' => $type,'id'=>$student_test->id])}}')">
-                                        {{t('Check answers')}}
+                                        عرض الإجابات
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="currentColor"/>
                                         </svg>
@@ -70,7 +70,7 @@
                     <h3 class="card-title">{{$student_test->story->name}}</h3>
                     <span class="status-badge {{$student_test->status=='Pass'?'success':'failed'}}">{{$student_test->status_name}}</span>
                 </div>
-                <p class="card-level">{{t('Grade').' '.$student_test->story->grade}}</p>
+                <p class="card-level">{{'الصف '.$student_test->story->grade_name}}</p>
                 <div class="card-content">
                     <div class="card-progress">
                         <div class="progress-linear-container">
@@ -87,14 +87,14 @@
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 5C7 5 2.73 8.11 1 12.5 2.73 16.89 7 20 12 20s9.27-3.11 11-7.5C21.27 8.11 17 5 12 5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
                             </svg>
-                            {{t('Certificate')}}
+                            الشهادة
                         </button>
                     @endif
                     <button class="btn-check glass-button-component" onclick="checkAnswers('{{route('certificates.answers',['type' => $type,'id'=>$student_test->id])}}')">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="currentColor"/>
                         </svg>
-                        {{t('Check answers')}}
+                        عرض الإجابات
                     </button>
                 </div>
             </div>
@@ -106,5 +106,5 @@
         </div>
     </div>
 @else
-    <h1 style="text-align: center;font-weight: bold">. . . {{t('No Certificates Found')}} . . .</h1>
+    <h1 style="text-align: center;font-weight: bold">. . . لا يوجد شهادات . . .</h1>
 @endif

@@ -17,7 +17,7 @@ class Navbar {
           <a href="${BASE_URL}/home" class="navbar-logo-link">
             <img
               class="navbar-logo"
-              src="${BASE_URL}/user_assets/images/Non-Arabs.svg"
+              src="${BASE_URL}/logo_circle.svg"
               alt="Non-Arabs LMS Logo"
             />
           </a>
@@ -84,7 +84,7 @@ class Navbar {
 
   renderNotifications() {
     if (this.notificationsList.length === 0) {
-      return '<div class="no-notifications">No notifications</div>';
+      return '<div class="no-notifications">لا يوجد اشعارات</div>';
     }
 
     return this.notificationsList.map(notification => `
@@ -196,7 +196,7 @@ class Navbar {
             </div>
           </div>
           <button class="profile-menu-view-btn" id="view-profile-btn">
-            View Full Profile
+            عرض ملفي الشخصي
           </button>
         </div>
       </div>

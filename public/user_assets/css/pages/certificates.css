@@ -137,7 +137,7 @@
 
 .certificates-table th {
   padding: 16px;
-  text-align: left;
+  text-align: right;
   font-size: 14px;
   font-weight: 700;
   color: var(--text-secondary);
@@ -233,7 +233,7 @@
   transition: all 0.2s ease;
   border-width: 1px 1px 4px 1px;
   border-style: solid;
-  border-color: #C8E6FF;
+    border-color: #C8F5DC;
   background-color: color-mix(in srgb, #F1F9FE 100%, transparent);
   padding: 8px;
   -webkit-border-radius: 50%;
@@ -430,10 +430,10 @@
 }
 
 .card-divider{
-  width: 100%;
-  height: 1px;
-  background: #C8E6FF;
-  margin-bottom: 20px;
+    width: 100%;
+    height: 1px;
+    background: #C8F5DC;
+    margin-bottom: 20px;
 
 }
 
@@ -465,19 +465,20 @@ justify-content: space-between;
 }
 
 .btn-check {
-  border-radius: 40px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-   background: white !important;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -ms-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
+    padding: 12px 24px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white !important;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
 }
 
 .btn-check:hover {

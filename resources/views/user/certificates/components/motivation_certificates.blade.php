@@ -6,10 +6,10 @@
             <table class="certificates-table">
                 <thead>
                 <tr>
-                    <th>{{t('Certificate Type')}}</th>
-                    <th>{{t('Certificate For')}}</th>
-                    <th>{{t('Teacher')}}</th>
-                    <th>{{t('Certificate')}}</th>
+                    <th>نوع الشهادة</th>
+                    <th>شهادة ل</th>
+                    <th>المعلم</th>
+                    <th>الشهادة</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -29,7 +29,7 @@
                                 </button>
                                 <div class="action-menu" style="display: none;">
                                     <button class="action-menu-item" onclick="previewCertificate('{{route('certificate.get-certificate',['type' => $type,'id'=>$student_test->id])}}')">
-                                        {{t('Certificate')}}
+                                        الشهادة
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M12 5C7 5 2.73 8.11 1 12.5 2.73 16.89 7 20 12 20s9.27-3.11 11-7.5C21.27 8.11 17 5 12 5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
                                         </svg>
@@ -64,7 +64,7 @@
                         <div class="progress-linear-container">
                             <div class="progress-linear-bg"></div>
                             <div class="progress-linear-bar" style="width: 100%; background: linear-gradient(90deg, #39D670, #B3E69E);"></div>
-                            <span class="progress-text">{{t('Motivational')}}</span>
+                            <span class="progress-text">التحفيز</span>
                         </div>
                     </div>
                     <p class="card-grade">{{$student_test->created_at->format('Y-m-d')}}</p>
@@ -75,7 +75,7 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 5C7 5 2.73 8.11 1 12.5 2.73 16.89 7 20 12 20s9.27-3.11 11-7.5C21.27 8.11 17 5 12 5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
                         </svg>
-                        {{t('Certificate')}}
+                        الشهادة
                     </button>
                 </div>
             </div>
@@ -87,5 +87,5 @@
         </div>
     </div>
 @else
-    <h1 style="text-align: center;font-weight: bold">. . . {{t('No Certificates Found')}} . . .</h1>
+    <h1 style="text-align: center;font-weight: bold">. . . لا يوجد شهادات . . .</h1>
 @endif

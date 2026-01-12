@@ -10,7 +10,7 @@
     grid-template-columns: clamp(200px, 15.625vw, 300px) 2.96fr 1.3fr;
     grid-template-rows: clamp(100px, 8.125vw, 156px) minmax(0, 1fr);
     height: 100vh;
-    background-color: #F1F8FE;
+    background-color: #F1FDF6;
     padding: 16px;
 }
 
@@ -43,7 +43,7 @@
     grid-template-columns: clamp(200px, 15.625vw, 300px) 2.96fr 1.3fr;
     grid-template-rows: clamp(100px, 8.125vw, 156px) minmax(0, 1fr);
     height: 100vh;
-    background-color: #f8fafc;
+    background-color: #F1FDF6;
     padding: 16px;
 }
 
@@ -125,7 +125,7 @@
     border-radius: 53px;
     border-style: solid;
     border-width: 1px 1px 4px 1px;
-    border-color: #C8E6FF;
+    border-color: #C8F5DC;
     backdrop-filter: blur(1.88px) brightness(100%);
     -webkit-backdrop-filter: blur(1.88px) brightness(100%);
     background: linear-gradient(0deg, rgba(241, 248, 254, 1) 0%, rgba(241, 248, 254, 1) 100%);
@@ -192,7 +192,7 @@
     border-radius: 50%;
     border-style: solid;
     border-width: 1px 1px 4px 1px;
-    border-color: #C8E6FF;
+    border-color: #C8F5DC;
     backdrop-filter: blur(1.88px) brightness(100%);
     -webkit-backdrop-filter: blur(1.88px) brightness(100%);
     background: linear-gradient(0deg, rgba(241, 248, 254, 1) 0%, rgba(241, 248, 254, 1) 100%);
@@ -295,7 +295,7 @@
 }
 
 .mark-all-read:hover {
-    background: rgba(74, 144, 226, 0.1);
+    background: rgba(19, 137, 68, 0.1);
 }
 
 .notifications-list {
@@ -353,7 +353,7 @@
 }
 
 .notification-icon-wrapper.course {
-    background: #dbeafe;
+    border-color: #C8F5DC;
 }
 
 .notification-icon-wrapper.achievement {
@@ -361,7 +361,7 @@
 }
 
 .notification-icon-wrapper.message {
-    background: #e0e7ff;
+    border-color: #C8F5DC;
 }
 
 .notification-icon-wrapper.reminder {
@@ -436,7 +436,7 @@
     border-radius: 50%;
     border-style: solid;
     border-width: 1px 1px 4px 1px;
-    border-color: #C8E6FF;
+    border-color: #C8F5DC;
     backdrop-filter: blur(1.88px) brightness(100%);
     -webkit-backdrop-filter: blur(1.88px) brightness(100%);
     background: linear-gradient(0deg, rgba(241, 248, 254, 1) 0%, rgba(241, 248, 254, 1) 100%);
@@ -610,7 +610,7 @@
     right: 0;
     height: 100%;
     min-width: 0;
-    background: linear-gradient(-90deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
+    background: linear-gradient(-90deg, rgba(19, 137, 68, 1) 0%, rgb(52, 211, 108) 100%);
     border-radius: clamp(14px, 1vw, 16px);
     transition: width 0.3s ease;
     -webkit-border-radius: clamp(14px, 1vw, 16px);
@@ -641,7 +641,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
 .profile-menu-view-btn {
     width: 100%;
     padding: clamp(12px, 0.94vw, 18px) clamp(16px, 1.25vw, 24px);
-    background: linear-gradient(-89.73deg, #138944 -1.48%, #34D399 95.8%);
+    background: linear-gradient(-90deg, rgba(19, 137, 68, 1) 0%, rgb(52, 211, 108) 100%);
     color: white;
     border: none;
     border-radius: clamp(20px, 1.56vw, 30px);
@@ -841,7 +841,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
 }
 
 .modal-btn-confirm {
-    background: linear-gradient(-89.73deg, #138944 -1.48%, #34D399 95.8%);
+    background: linear-gradient(-90deg, rgba(19, 137, 68, 1) 0%, rgb(52, 211, 108) 100%);
     color: white;
     border: 2px solid transparent;
 }
@@ -954,8 +954,8 @@ html[dir="rtl"] .profile-menu-progress-bar {
     border-radius: 53px;
     border-width: 1px 1px 4px 1px;
     border-style: solid;
-    border-color: #C8E6FF;
-    background-color: color-mix(in srgb, #F1F9FE 100%, transparent);
+    border-color: #C8F5DC;
+    background-color: color-mix(in srgb, #e2ffee 100%, transparent);
     padding: clamp(8px, 0.625vw, 12px) clamp(8px, 0.93vw, 18px);
 }
 
@@ -1153,7 +1153,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
     flex-direction: column;
     gap: clamp(16px, 2vw, 40px);
     position: relative;
-    background: linear-gradient(0deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
+    background: linear-gradient(0deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 108) 100%);
     background-color: #ffffff;
 }
 
@@ -1298,7 +1298,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
     border-color: #ffffff87;
     backdrop-filter: blur(1.88px) brightness(100%);
     -webkit-backdrop-filter: blur(1.88px) brightness(100%);
-    background: linear-gradient(0deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
+    background: linear-gradient(0deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 108) 100%);
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
@@ -1405,7 +1405,7 @@ html[dir="rtl"] .profile-menu-progress-bar {
     min-width: 0;
     border-radius: 53px;
     transition: width 0.3s ease;
-    background: linear-gradient(-90deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
+    background: linear-gradient(-90deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 108) 100%);
 }
 
 html[dir="rtl"] .level-progress-bar {
@@ -1492,7 +1492,7 @@ html[dir="rtl"] .level-progress-bar {
 }
 
 .day-icon--current {
-    background: linear-gradient(-270deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
+    background: linear-gradient(-270deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 108) 100%);
 }
 
 .day-icon--inactive {
@@ -1532,7 +1532,7 @@ html[dir="rtl"] .level-progress-bar {
 }
 
 .day-label--current {
-    background: linear-gradient(-270deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
+    background: linear-gradient(-270deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 108) 100%);
     -webkit-background-clip: text !important;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1660,7 +1660,7 @@ html[dir="rtl"] .level-progress-bar {
 }
 
 .challenge-progress--complete {
-    background: linear-gradient(-270deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 153, 1) 100%);
+    background: linear-gradient(-270deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 108) 100%);
     border-color: rgba(19, 137, 68, 0.48);
 }
 
@@ -1750,7 +1750,7 @@ html[dir="rtl"] .level-progress-bar {
 }
 
 .mobile-menu-btn:hover {
-    background: rgba(74, 144, 226, 0.1);
+    background: rgba(19, 137, 68, 0.1);
 }
 
 .drawer-backdrop {

@@ -9,8 +9,8 @@
         <!-- Header Section -->
         <header class="certificates-header">
             <div class="header-text">
-                <h1 class="certificates-title">{{t('Certificates')}}</h1>
-                <p class="certificates-subtitle">@if($type=='lessons') {{t('Lessons Certificates')}} @elseif($type=='stories') {{t('Stories Certificates')}} @else {{t('Motivation Certificates')}}  @endif</p>
+                <h1 class="certificates-title">الشهادات</h1>
+                <p class="certificates-subtitle">@if($type=='lessons') شهادات الدروس @elseif($type=='stories') شهادات القصص @else شهادات تحفيزية  @endif</p>
             </div>
             <div class="header-actions">
                 <button class="view-toggle-btn glass-button-component" id="viewToggleBtn" data-view="grid" aria-label="Switch to table view">
@@ -18,9 +18,9 @@
                     <img class="table-icon" src="{{asset('user_assets/images/icons/list.svg')}}" alt="Table view" width="24" height="24" style="display: none;">
                 </button>
                 <select class="filter-dropdown" id="certificatesFilter">
-                    <option value="{{route('certificate.index',['type' => 'lessons'])}}" @if($type=='lessons') selected @endif>{{t('Lessons Certificates')}}</option>
-                    <option value="{{route('certificate.index',['type' => 'stories'])}}" @if($type=='stories') selected @endif>{{t('Stories Certificates')}}</option>
-                    <option value="{{route('certificate.index',['type' => 'motivation'])}}" @if($type=='motivation') selected @endif>{{t('Motivation Certificates')}}</option>
+                    <option value="{{route('certificate.index',['type' => 'lessons'])}}" @if($type=='lessons') selected @endif>شهادات الدروس</option>
+                    <option value="{{route('certificate.index',['type' => 'stories'])}}" @if($type=='stories') selected @endif> شهادات القصص</option>
+                    <option value="{{route('certificate.index',['type' => 'motivation'])}}" @if($type=='motivation') selected @endif>شهادات تحفيزية</option>
                 </select>
             </div>
         </header>

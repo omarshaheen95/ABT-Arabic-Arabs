@@ -157,7 +157,7 @@ function updateAllTimers() {
         timerText.style.webkitTextFillColor = 'transparent';
         timerText.style.backgroundClip = 'text';
       } else if (timeRemaining.totalHours <= 0) {
-        timerText.textContent = 'Expired';
+        timerText.textContent = 'انتهى الوقت';
         timerText.style.background = 'linear-gradient(0deg, #95A5A6 0%, #7F8C8D 100%)';
         timerText.style.webkitBackgroundClip = 'text';
         timerText.style.webkitTextFillColor = 'transparent';
@@ -177,7 +177,7 @@ function calculateTimeRemaining(deadline) {
 
   if (diff <= 0) {
     return {
-      display: 'Expired',
+      display: 'انتهى الوقت',
       totalHours: 0
     };
   }

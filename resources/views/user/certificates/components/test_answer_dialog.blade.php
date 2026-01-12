@@ -3,7 +3,7 @@
     <div class="test-answers-dialog">
         <header class="dialog-header">
             <div class="header-left">
-                <h2 class="dialog-title">{{t('Test Answers')}}</h2>
+                <h2 class="dialog-title">إجابات الاختبار</h2>
                 <p class="dialog-subtitle" id="testLessonName"></p>
             </div>
             <div class="dialog-actions">
@@ -18,20 +18,16 @@
         <!-- Test Info Section -->
         <div class="test-info-section">
             <div class="test-info-item">
-                <span class="test-info-label">{{t('Status')}}:</span>
-                <span class="test-status-badge" id="testStatusBadge">{{t('Pass')}}</span>
+                <span class="test-info-label">الحالة:</span>
+                <span class="test-status-badge" id="testStatusBadge">ناجح</span>
             </div>
             <div class="test-info-item">
-                <span class="test-info-label">{{t('Score')}}:</span>
+                <span class="test-info-label">الدرجة:</span>
                 <span class="test-info-value" id="testScore">0%</span>
             </div>
             <div class="test-info-item">
-                <span class="test-info-label">{{t('Level')}}:</span>
+                <span class="test-info-label">المستوى:</span>
                 <span class="test-info-value" id="testLevel">-</span>
-            </div>
-            <div class="test-info-item">
-                <span class="test-info-label">{{t('Grade')}}:</span>
-                <span class="test-info-value" id="testGrade">-</span>
             </div>
         </div>
 
@@ -42,11 +38,11 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{t('Question')}}</th>
-                            <th>{{t('Question Type')}}</th>
-                            <th>{{t('Your Answer')}}</th>
-                            <th>{{t('Correct Answer')}}</th>
-                            <th>{{t('Status')}}</th>
+                            <th>السؤال</th>
+                            <th>نوع السؤال</th>
+                            <th>إجابتك</th>
+                            <th>الإجابة الصحيحة</th>
+                            <th>الحالة</th>
                         </tr>
                         </thead>
                         <tbody id="testAnswersTableBody">

@@ -26,7 +26,7 @@
                         {{t('Lessons assignments')}}
                         @if(($user_data['uncompletedLessons'] ?? 0) > 0)
                             <span style="color: #EF4444; font-weight: 600;">
-                                ({{$user_data['uncompletedLessons']}} {{t('uncompleted')}})
+                                ({{$user_data['uncompletedLessons']}} {{'غير مكتمل'}})
                             </span>
                         @else
                             <span style="color: #10B981; font-weight: 600;">
@@ -37,11 +37,11 @@
                         {{t('Stories assignments')}}
                         @if(($user_data['uncompletedStories'] ?? 0) > 0)
                             <span style="color: #EF4444; font-weight: 600;">
-                                ({{$user_data['uncompletedStories']}} {{t('uncompleted')}})
+                                ({{$user_data['uncompletedStories']}} {{'غير مكتمل'}})
                             </span>
                         @else
                             <span style="color: #10B981; font-weight: 600;">
-                                ({{t('All completed')}})
+                                (الكل مكتمل)
                             </span>
                         @endif
                     @endif
@@ -54,10 +54,10 @@
                 </button>
                 <select class="filter-dropdown" id="homeworkFilter">
                     <option value="{{route('lesson.assignments')}}" @if($type=='lesson') selected @endif>
-                        {{t('Lessons assignments')}} @if(($user_data['uncompletedLessons'] ?? 0) > 0)({{$user_data['uncompletedLessons']}})@endif
+                        <span>واجبات الدروس</span>  @if(($user_data['uncompletedLessons'] ?? 0) > 0)({{$user_data['uncompletedLessons']}})@endif
                     </option>
                     <option value="{{route('story.assignments')}}" @if($type=='story') selected @endif>
-                        {{t('Stories assignment')}} @if(($user_data['uncompletedStories'] ?? 0) > 0)({{$user_data['uncompletedStories']}})@endif
+                        <span>واجبات القصص</span> @if(($user_data['uncompletedStories'] ?? 0) > 0)({{$user_data['uncompletedStories']}})@endif
                     </option>
                 </select>
             </div>
@@ -68,7 +68,7 @@
         @elseif($type=='story'&& $student_assignments->count()>0)
             @include('user.assignments.stories_assignments')
         @else
-            <h1 style="text-align: center;font-weight: bold">. . . {{t('No Assignment Found')}} . . .</h1>
+            <h1 style="text-align: center;font-weight: bold">. . . لا يوجد واجبات . . .</h1>
         @endif
     </div>
 

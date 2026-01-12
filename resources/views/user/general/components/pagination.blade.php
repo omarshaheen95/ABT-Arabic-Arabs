@@ -4,13 +4,13 @@
     @if ($paginator->onFirstPage())
         <button class="pagination-btn disabled" disabled>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
         </button>
     @else
         <a href="{{ $paginator->previousPageUrl() }}" class="pagination-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
         </a>
     @endif
@@ -28,13 +28,13 @@
     @if ($paginator->hasMorePages())
         <a href="{{ $paginator->nextPageUrl() }}" class="pagination-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
         </a>
     @else
         <button class="pagination-btn disabled" disabled>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
         </button>
     @endif
@@ -58,7 +58,7 @@
             min-width: 40px;
             height: 40px;
             padding: 8px 12px;
-            border: 2px solid #C8E6FF;
+            border: 2px solid #C8F5DC;
             background: white;
             border-radius: 12px;
             font-family: var(--font-family);
@@ -80,11 +80,11 @@
             border-color: var(--primary-color);
             color: var(--primary-color);
             transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(74, 144, 226, 0.2);
+            box-shadow: 0 2px 8px rgba(19, 137, 68, 0.2);
         }
 
         .pagination-btn.active {
-            background: linear-gradient(89.73deg, #1E4396 -1.48%, #5984E5 95.8%);
+            background: linear-gradient(89.73deg, #138944 -1.48%, #34D399 95.8%);
             border-color: transparent;
             color: white;
             pointer-events: none;

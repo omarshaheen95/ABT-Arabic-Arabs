@@ -11,7 +11,7 @@ class SideNavigation {
     const totalUncompleted = (USER_STATUS.uncompletedLessons || 0) + (USER_STATUS.uncompletedStories || 0);
 
     return `
-      <aside class="side-nav">
+      <aside class="side-nav" style="font-family: var(--font-family)">
         <div class="sidenav-user-profile">
           <img src="${this.userProfile.avatar}" alt="User avatar" class="sidenav-user-avatar" />
           <div class="sidenav-user-info">
@@ -26,7 +26,7 @@ class SideNavigation {
                 ${item.text}
               </span>
               ${item.id === 'homework' && totalUncompleted > 0 ? `
-                <span class="assignment-badge" style="position: absolute; top: ${item.id === this.currentPage ? '14px' : '6px'}; right: 2px;">
+                <span class="assignment-badge" style="position: absolute; top: ${item.id === this.currentPage ? '14px' : '6px'}; right: 120px;">
                   <span class="badge-dot"></span>
                 </span>
               ` : ''}
@@ -60,12 +60,12 @@ class SideNavigation {
             </div>
           </div>
           <div class="modal-body">
-            <h2 class="modal-title" id="modal-title">Logout Confirmation</h2>
-            <p class="modal-message">Are you sure you want to logout? Your progress has been saved.</p>
+            <h2 class="modal-title" id="modal-title">تأكيد تسجيل الخروج</h2>
+            <p class="modal-message">هل أنت متأكد من رغبتك في تسجيل الخروج؟ تم حفظ تقدمك</p>
           </div>
           <div class="modal-footer">
-            <button class="modal-btn modal-btn-cancel" id="logout-cancel">Cancel</button>
-            <button class="modal-btn modal-btn-confirm" id="logout-confirm">Logout</button>
+            <button class="modal-btn modal-btn-cancel" id="logout-cancel">إلغاء</button>
+            <button class="modal-btn modal-btn-confirm" id="logout-confirm">تسجيل الخروج</button>
           </div>
         </div>
       </div>
