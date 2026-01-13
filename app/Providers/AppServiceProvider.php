@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
-//        UserTracker::observe(UserTrackerObserver::class);
-//        UserTrackerStory::observe(UserTrackerStoryObserver::class);
+        UserTracker::observe(UserTrackerObserver::class);
+        UserTrackerStory::observe(UserTrackerStoryObserver::class);
     }
 }

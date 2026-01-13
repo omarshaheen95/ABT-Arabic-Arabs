@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\StudentStoryTest;
 use App\Models\UserTrackerStory;
 use App\Services\AchievementLevelService;
+use Illuminate\Support\Facades\DB;
 
 class UserTrackerStoryObserver
 {
@@ -30,28 +31,30 @@ class UserTrackerStoryObserver
 
 
         // Add points to achievement system based on type
-        if ($tracker_count==0) {
-            // Update the tracker record with points
-            $userTrackerStory->update(['points' => $points]);
+        DB::transaction(function () use ($userTrackerStory, $tracker_count, $points) {
+            if ($tracker_count==0) {
+                // Update the tracker record with points
+                $userTrackerStory->update(['points' => $points]);
 
-            // For non-test types, always add points
-            if (in_array($userTrackerStory->type, ['watching', 'reading'])) {
-                $this->achievementLevelService->addPoints($userTrackerStory->user_id, $userTrackerStory->type);
-            }
-            // For test type, only add points if successful
-            elseif ($userTrackerStory->type === 'test') {
-                $student_test = StudentStoryTest::where('story_id',$userTrackerStory->story_id)
-                    ->where('user_id', $userTrackerStory->user_id)->first();
-
-                $mark = 25;
-
-                //if student pass test add points
-                if ($student_test && $student_test->total>=$mark) {
-                    $this->achievementLevelService->addPoints($userTrackerStory->user_id, $userTrackerStory->type);
+                // For non-test types, always add points
+                if (in_array($userTrackerStory->type, ['watching', 'reading'])) {
+                    $this->achievementLevelService->addPoints($userTrackerStory->type,$userTrackerStory->user_id);
                 }
+                // For test type, only add points if successful
+                elseif ($userTrackerStory->type === 'test') {
+                    $student_test = StudentStoryTest::where('story_id',$userTrackerStory->story_id)
+                        ->where('user_id', $userTrackerStory->user_id)->first();
 
+                    $mark = 25;
+
+                    //if student pass test add points
+                    if ($student_test && $student_test->total>=$mark) {
+                        $this->achievementLevelService->addPoints($userTrackerStory->type,$userTrackerStory->user_id);
+                    }
+
+                }
             }
-        }
+        });
     }
 
 

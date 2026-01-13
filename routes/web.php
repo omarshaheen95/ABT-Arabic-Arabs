@@ -112,7 +112,7 @@ Route::group(['namespace' => 'User', 'middleware' => [ 'auth','share_user_data']
     Route::get('/lessons/{id}/level/{type}', 'LessonController@lessonsByLevel')->name('lesson.lessons-by-level');
     Route::get('/lesson/{id}/level/{key}', 'LessonController@lesson')->name('lesson.lesson-index');
     Route::get('/lessons/assignments', 'LessonController@assignments')->name('lesson.assignments');
-    Route::post('/lessons/{id}/save/learn', 'LessonController@saveUserLearnAnswers')->name('lesson.save-user-learn-answers');
+//    Route::post('/lessons/{id}/save/learn', 'LessonController@saveUserLearnAnswers')->name('lesson.save-user-learn-answers');
     Route::post('/lessons/{id}/tracking/{key}', 'LessonController@trackLesson')->name('lesson.tracking');
     Route::post('/lessons/{id}/save/test', 'LessonController@saveLessonTest')->name('lesson.save-test');
     Route::post('/lessons/{id}/save/writing-test', 'LessonController@saveLessonWritingTest')->name('lesson.save-writing-test');
