@@ -357,7 +357,7 @@
 /* Primary Button - Listen & Watch */
 .story-action-btn--primary {
 
-    background: linear-gradient(135deg, #34D399 0%, #138944 100%);
+    background: linear-gradient(135deg, #138944 0%, #16a34a 100%);
     color: white;
     box-shadow: 0 4px 15px rgba(19, 137, 68, 0.4);
     position: relative;
@@ -378,7 +378,7 @@
 .story-action-btn--primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(19, 137, 68, 0.5);
-    background: linear-gradient(135deg, #138944 0%, #34D399 100%);
+    background: linear-gradient(135deg, #0ea75d 0%, #138944 100%);
 }
 
 .story-action-btn--primary:hover::before {
@@ -392,9 +392,9 @@
 
 /* Secondary Button - Read Story */
 .story-action-btn--secondary {
-    background: linear-gradient(135deg, #53c73d 0%, #339a5e 100%);
-    color: white;
-    box-shadow: 0 4px 15px rgba(83, 199, 61, 0.4);
+    background: linear-gradient(135deg, #FDD886 0%, #F9C65D 100%);
+    color: #1a1a1a;
+    box-shadow: 0 4px 15px rgba(253, 216, 134, 0.4);
     position: relative;
     overflow: hidden;
 }
@@ -412,8 +412,8 @@
 
 .story-action-btn--secondary:hover {
     transform: translateY(-2px);
-    background: linear-gradient(135deg, #339a5e 0%, #53c73d 100%);
-    box-shadow: 0 6px 20px rgba(83, 199, 61, 0.5);
+    background: linear-gradient(135deg, #F9C65D 0%, #FDD886 100%);
+    box-shadow: 0 6px 20px rgba(253, 216, 134, 0.5);
 }
 
 .story-action-btn--secondary:hover::before {
@@ -422,7 +422,7 @@
 
 .story-action-btn--secondary:active {
     transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(83, 199, 61, 0.3);
+    box-shadow: 0 2px 10px rgba(253, 216, 134, 0.3);
 }
 
 /* Accent Button - Assess Yourself */

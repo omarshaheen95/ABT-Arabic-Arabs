@@ -65,8 +65,16 @@
 
                             </div>
                             <div class="lesson-actions">
+                                @php
+                                    if (in_array($data['skill'],['grammar','dictation','rhetoric'])){
+                                        $url = route('lessons.sub-levels', ['id'=>$grade->id, 'type'=>$data['skill']]);
+                                    }else{
+                                        $url = route('lesson.lessons-by-level', ['id'=>$grade->id, 'type'=>$data['skill']]);
+                                    }
+                                @endphp
+
                                 <button class="lesson-action-btn lesson-action-btn--success" data-action="test"
-                                        data-url="{{route('lesson.lessons-by-level', ['id'=>$grade->id, 'type'=>$data['skill']])}}">
+                                        data-url="{{$url}}">
                                     <span>دخول</span>
                                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
@@ -139,8 +147,15 @@
 
                             </div>
                             <div class="lesson-actions">
+                                @php
+                                    if (in_array($data['skill'],['grammar','dictation','rhetoric'])){
+                                        $url = route('lessons.sub-levels', ['id'=>$grade->id, 'type'=>$data['skill']]);
+                                    }else{
+                                        $url = route('lesson.lessons-by-level', ['id'=>$grade->id, 'type'=>$data['skill']]);
+                                    }
+                                @endphp
                                 <button class="lesson-action-btn lesson-action-btn--success" data-action="test"
-                                        data-url="{{route('lesson.lessons-by-level', ['id'=>$grade->id, 'type'=>$data['skill']])}}">
+                                        data-url="{{$url}}">
                                     <span>دخول</span>
                                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">

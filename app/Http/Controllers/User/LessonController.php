@@ -115,8 +115,69 @@ class LessonController extends Controller
 
         return view('user.lessons.levels', compact('allGrades', 'completedGradeIds', 'grades', 'alternate_grades'));
     }
+    public function lessonsSubLevels($grade, $type)
+    {
+        if ($type == 'grammar') {
+            $type_name = 'القواعد النحوية';
+        } elseif ($type == 'dictation') {
+            $type_name = 'الإملاء';
+        } else {
+            $type_name = 'البلاغة';
+        }
+        $title = 'مستويات الدروس -  ' . $type_name;
+        $user = Auth::guard('web')->user();
 
-    public function lessonsByLevel($id, $type)
+        // Get completed lesson IDs for this user (approved = 1)
+        $completedLessonIds = UserTest::query()
+            ->where('user_id', $user->id)
+            ->where('approved', 1)
+            ->pluck('lesson_id')
+            ->unique()
+            ->toArray();
+
+        if ($user->demo) {
+            $grade = Grade::query()->findOrFail($grade);
+            $gradeId = $grade->id;
+        } else {
+            $grade = Grade::query()->where('id', Auth::user()->grade_id)->first();
+            $gradeId = Auth::user()->grade_id;
+        }
+
+        // Get all levels with lesson counts
+        $levels = Lesson::query()
+            ->whereNotNull('level')
+            ->where('lesson_type', $type)
+            ->where('grade_id', $gradeId)
+            ->select('level', 'grade_id', \DB::raw('COUNT(*) as c'))
+            ->groupBy('level', 'grade_id')
+            ->havingRaw('c > 0')
+            ->get();
+
+        // Calculate progress for each level
+        $levels = $levels->map(function ($level) use ($gradeId, $type, $completedLessonIds) {
+            // Get all lessons for this level
+            $levelLessons = Lesson::query()
+                ->where('grade_id', $gradeId)
+                ->where('lesson_type', $type)
+                ->where('level', $level->level)
+                ->pluck('id')
+                ->toArray();
+
+            $totalLessons = count($levelLessons);
+            $completedLessons = count(array_intersect($levelLessons, $completedLessonIds));
+
+            $level->progress = $totalLessons > 0 ? round(($completedLessons / $totalLessons) * 100) : 0;
+            $level->completed_lessons = $completedLessons;
+            $level->total_lessons = $totalLessons;
+            $level->isCompleted = $level->progress == 100 && $totalLessons > 0;
+
+            return $level;
+        })->values()->toArray();
+
+        return view('user.lessons.sub-levels', compact('title', 'type', 'grade', 'levels'));
+    }
+
+    public function lessonsByLevel($id, $type,$level)
     {
         $user = Auth::guard('web')->user();
 
@@ -132,6 +193,9 @@ class LessonController extends Controller
             })
             ->where('lesson_type', $type)
             ->where('grade_id', $grade->id)
+            ->when($level,function ($query) use ($level){
+                $query->where('level', $level);
+            })
             ->get();
 
 

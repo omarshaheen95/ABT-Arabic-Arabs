@@ -44,7 +44,7 @@
                     <div class="lesson-actions">
                         @if($lesson->lesson_type != 'writing' && $lesson->lesson_type != 'speaking')
                             <div class="lesson-actions-row">
-                                <button class="lesson-action-btn lesson-action-btn--primary" data-action="learn"
+                                <button class="lesson-action-btn lesson-action-btn--success" data-action="learn"
                                         data-url="{{route('lesson.lesson-index',['id'=>$lesson->id,'key'=>'learn'])}}"
                                         class="btn btn-soft-success">
 
