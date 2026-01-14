@@ -42,7 +42,7 @@
                 صح
             </button>
             <button class="true-false-btn false-btn" data-answer="false" data-question-id="{{$question->id}}">
-                 حطأ
+                 خطأ
             </button>
         </div>
         <!-- Answer Feedback for this question -->

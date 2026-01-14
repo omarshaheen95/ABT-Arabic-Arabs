@@ -145,18 +145,18 @@
     padding: clamp(12px, 3.25vw, 25px);
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #1E4396 0%, #5984E5 100%);
+    background: linear-gradient(135deg, #138944 0%, #34D399 100%);
     border: none;
     border-radius: 50%;
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(30, 67, 150, 0.3);
+    box-shadow: 0 4px 12px rgba(19, 137, 68, 0.3);
 }
 
 .audio-play-button:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(30, 67, 150, 0.4);
+    box-shadow: 0 6px 16px rgba(19, 137, 68, 0.4);
 }
 
 /* Audio playing animation */
@@ -170,12 +170,12 @@
 
 @keyframes audioPlaying {
     0%, 100% {
-        box-shadow: 0 4px 12px rgba(30, 67, 150, 0.3),
-                    0 0 0 0 rgba(30, 67, 150, 0.4);
+        box-shadow: 0 4px 12px rgba(19, 137, 68, 0.3),
+        0 0 0 0 rgba(19, 137, 68, 0.4);
     }
     50% {
-        box-shadow: 0 6px 20px rgba(30, 67, 150, 0.5),
-                    0 0 0 10px rgba(30, 67, 150, 0);
+        box-shadow: 0 6px 20px rgba(19, 137, 68, 0.5),
+        0 0 0 10px rgba(19, 137, 68, 0);
     }
 }
 
@@ -287,7 +287,7 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #1E4396 0%, #5984E5 100%);
+    background: linear-gradient(135deg, #138944 0%, #34D399 100%);
     color: white;
     font-size: 16px;
     font-weight: 700;
@@ -360,15 +360,15 @@
 
 .drag-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(30, 67, 150, 0.4);
+    box-shadow: 0 4px 12px rgba(19, 137, 68, 0.4);
 }
 
 .drag-item.selected {
-    background: linear-gradient(135deg, #1E4396 0%, #5984E5 100%);
+    background: linear-gradient(135deg, #138944 0%, #34D399 100%);
     color: white;
-    border-color: #1E4396;
+    border-color: #138944;
     transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(30, 67, 150, 0.5);
+    box-shadow: 0 6px 20px rgba(19, 137, 68, 0.5);
 }
 
 .drag-item.dragging {
@@ -619,9 +619,9 @@
 }
 
 .question-number-btn.active {
-    background: linear-gradient(135deg, #1E4396 0%, #5984E5 100%);
+    background: linear-gradient(135deg, #138944 0%, #34D399 100%);
     color: white;
-    border-color: #1E4396;
+    border-color: #138944;
 }
 
 .question-number-btn.answered {
@@ -677,15 +677,15 @@
 }
 
 .training-quiz-nav-btn.primary {
-    background: linear-gradient(89.73deg, #1E4396 -1.48%, #5984E5 95.8%);
+    background: linear-gradient(89.73deg, #138944 -1.48%, #34D399 95.8%);
     color: white;
     border: none;
-    box-shadow: 0 4px 12px rgba(30, 67, 150, 0.3);
+    box-shadow: 0 4px 12px rgba(19, 137, 68, 0.3);
 }
 
 .training-quiz-nav-btn.primary:hover {
-    background: linear-gradient(89.73deg, #153374 -1.48%, #4669c4 95.8%);
-    box-shadow: 0 6px 16px rgba(30, 67, 150, 0.4);
+    background: linear-gradient(89.73deg, #0d5a2e -1.48%, #1fb359 95.8%);
+    box-shadow: 0 6px 16px rgba(19, 137, 68, 0.4);
 }
 
 .training-quiz-nav-btn:disabled {
@@ -909,14 +909,14 @@
 }
 
 .completion-btn.primary {
-    background: linear-gradient(89.73deg, #1E4396 -1.48%, #5984E5 95.8%);
+    background: linear-gradient(89.73deg, #138944 -1.48%, #34D399 95.8%);
     color: white;
-    box-shadow: 0 4px 16px rgba(30, 67, 150, 0.3);
+    box-shadow: 0 4px 16px rgba(19, 137, 68, 0.3);
 }
 
 .completion-btn.primary:hover {
-    background: linear-gradient(89.73deg, #153374 -1.48%, #4669c4 95.8%);
-    box-shadow: 0 6px 20px rgba(30, 67, 150, 0.4);
+    background: linear-gradient(89.73deg, #0d5a2e -1.48%, #1fb359 95.8%);
+    box-shadow: 0 6px 20px rgba(19, 137, 68, 0.4);
     transform: translateY(-2px);
 }
 

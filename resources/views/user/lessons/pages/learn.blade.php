@@ -38,8 +38,8 @@
 
             <!-- Audio Player Section -->
             @if($lesson->getFirstMediaUrl('audioLessons'))
-                <div class="lesson-audio-section">
-                    <div class="audio-player">
+                <div class="lesson-audio-section" dir="ltr">
+                    <div class="audio-player" style="width: 100% !important;">
                         <audio>
                             <source src="{{asset($lesson->getFirstMediaUrl('audioLessons'))}}" type="audio/mpeg"/>
                         </audio>

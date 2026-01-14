@@ -1,6 +1,6 @@
 @extends('user.layout')
 @push('style')
-    <link rel="stylesheet" type="text/css" href="{{asset('user_assets/css/pages/speaking-test.css')}}?v=1"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('user_assets/css/pages/speaking-test.css')}}?v=2"/>
     <link rel="stylesheet" type="text/css" href="{{asset('user_assets/lib/green-audio-player/green-audio-player.min.css')}}">
     <style>
 
@@ -25,6 +25,69 @@
                 العودة إلى الدروس
             </a>
         </header>
+
+        <!-- Feedback Section (Corrected Test) -->
+        @if($isCorrected && isset($existingTest))
+            <div class="feedback-container">
+                <div class="feedback-card">
+                    <!-- Score Badge -->
+                    <div class="feedback-score-section">
+                        <div class="score-badge-large">
+                            <div class="score-icon-wrapper">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="11" stroke="#138944" stroke-width="2" fill="none"/>
+                                    <path d="M9 12l2 2 4-4" stroke="#138944" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="score-content">
+                                <span class="score-label">النتيجة النهائية</span>
+                                <div class="score-display">
+                                    <span class="score-number">{{$totalScore}}</span>
+                                    <span class="score-separator">/</span>
+                                    <span class="score-max">{{$maxScore}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text Feedback -->
+                    @if(!empty($existingTest->feedback_message))
+                        <div class="feedback-text-section">
+                            <div class="feedback-text-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" stroke="#138944" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <path d="M8 10h8M8 14h4" stroke="#138944" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <h3 class="feedback-text-title">ملاحظات المعلم</h3>
+                            </div>
+                            <div class="feedback-text-content">
+                                {{$existingTest->feedback_message}}
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Audio Feedback -->
+                    @if(!empty($existingTest->feedback_record))
+                        <div class="feedback-audio-section">
+                            <div class="feedback-audio-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" stroke="#138944" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M8 22h8" stroke="#138944" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <h3 class="feedback-audio-title">تسجيل صوتي من المعلم</h3>
+                            </div>
+                            <div class="feedback-audio-player-wrapper" dir="ltr">
+                                <div class="green-audio-player-feedback">
+                                    <audio preload="metadata">
+                                        <source src="{{asset($existingTest->feedback_record)}}" type="audio/mpeg">
+                                    </audio>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        @endif
 
         <!-- Questions Container -->
         <div class="lesson-tabs-wrapper">
@@ -100,14 +163,16 @@
                                                         </audio>
                                                     </div>
                                                 </div>
-                                                <div style="text-align: center; margin-top: 20px;">
-                                                    <button type="button" class="rerecord-btn" data-question-id="{{$question->id}}" >
-                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; vertical-align: middle; margin-right: 5px;">
-                                                            <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="white"/>
-                                                        </svg>
-                                                        إعادة التسجيل
-                                                    </button>
-                                                </div>
+                                                @if(!$isCorrected)
+                                                    <div style="text-align: center; margin-top: 20px;">
+                                                        <button type="button" class="rerecord-btn" data-question-id="{{$question->id}}" >
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; vertical-align: middle; margin-right: 5px;">
+                                                                <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="white"/>
+                                                            </svg>
+                                                            إعادة التسجيل
+                                                        </button>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     @endif
@@ -211,4 +276,15 @@
 @push('script')
     <script src="{{asset('user_assets/lib/green-audio-player/green-audio-player.min.js')}}"></script>
     <script src="{{asset('user_assets/js/pages/speaking-test.js')}}"></script>
+    <script>
+        // Initialize green audio player for feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.querySelector('.green-audio-player-feedback')) {
+                GreenAudioPlayer.init({
+                    selector: '.green-audio-player-feedback',
+                    stopOthersOnPlay: true
+                });
+            }
+        });
+    </script>
 @endpush

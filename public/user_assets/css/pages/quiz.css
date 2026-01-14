@@ -666,15 +666,15 @@
 .quiz-nav-btn.submit-btn {
     flex-direction: column;
     gap: 4px;
-    background: linear-gradient(89.73deg, #39D670 -1.48%, #B3E69E 95.8%);
+    background: linear-gradient(89.73deg, #138944 -1.48%, #34D399 95.8%);
     color: white;
     border: none;
-    box-shadow: 0 4px 12px rgba(57, 214, 112, 0.3);
+    box-shadow: 0 4px 12px rgba(19, 137, 68, 0.3);
 }
 
 .quiz-nav-btn.submit-btn:hover {
-    background: linear-gradient(89.73deg, #2cbd5f -1.48%, #9dd389 95.8%);
-    box-shadow: 0 6px 16px rgba(57, 214, 112, 0.4);
+    background: linear-gradient(89.73deg, #0d5a2e -1.48%, #1fb359 95.8%);
+    box-shadow: 0 6px 16px rgba(19, 137, 68, 0.4);
 }
 
 .quiz-nav-btn.submit-btn .btn-subtitle {

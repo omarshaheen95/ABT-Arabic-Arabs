@@ -394,7 +394,218 @@
     margin-top: 30px;
 }
 
-/* Score Badge */
+/* Feedback Container */
+.feedback-container {
+    margin: 24px 0;
+    padding: 0 24px;
+}
+
+.feedback-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 8px 32px rgba(19, 137, 68, 0.12);
+    border: 2px solid #dcfce7;
+    animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Score Badge Large */
+.feedback-score-section {
+    text-align: center;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 2px solid #dcfce7;
+}
+
+.score-badge-large {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 40px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 3px solid #138944;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(19, 137, 68, 0.2);
+    transition: all 0.3s ease;
+}
+
+.score-badge-large:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(19, 137, 68, 0.25);
+}
+
+.score-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #138944 0%, #16a34a 100%);
+    border-radius: 50%;
+    padding: 14px;
+    box-shadow: 0 4px 12px rgba(19, 137, 68, 0.3);
+}
+
+.score-icon-wrapper svg {
+    width: 100%;
+    height: 100%;
+}
+
+.score-icon-wrapper svg path,
+.score-icon-wrapper svg circle {
+    stroke: #ffffff !important;
+}
+
+.score-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.score-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #065f46;
+    text-align: right;
+}
+
+.score-display {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    direction: ltr;
+}
+
+.score-number {
+    font-size: 48px;
+    font-weight: 900;
+    color: #138944;
+    line-height: 1;
+    text-shadow: 0 2px 4px rgba(19, 137, 68, 0.1);
+}
+
+.score-separator {
+    font-size: 36px;
+    font-weight: 700;
+    color: #16a34a;
+    margin: 0 4px;
+}
+
+.score-max {
+    font-size: 36px;
+    font-weight: 700;
+    color: #065f46;
+}
+
+/* Text Feedback Section */
+.feedback-text-section {
+    margin-bottom: 24px;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 2px solid #dcfce7;
+    transition: all 0.3s ease;
+}
+
+.feedback-text-section:hover {
+    border-color: #138944;
+    box-shadow: 0 4px 16px rgba(19, 137, 68, 0.1);
+}
+
+.feedback-text-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0fdf4;
+}
+
+.feedback-text-header svg {
+    flex-shrink: 0;
+}
+
+.feedback-text-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #138944;
+    margin: 0;
+}
+
+.feedback-text-content {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #374151;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    /*white-space: pre-wrap;*/
+    word-wrap: break-word;
+}
+
+/* Audio Feedback Section */
+.feedback-audio-section {
+    padding: 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+    border-radius: 16px;
+    border: 2px solid #dcfce7;
+    transition: all 0.3s ease;
+}
+
+.feedback-audio-section:hover {
+    border-color: #138944;
+    box-shadow: 0 4px 16px rgba(19, 137, 68, 0.1);
+}
+
+.feedback-audio-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.feedback-audio-header svg {
+    flex-shrink: 0;
+}
+
+.feedback-audio-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #138944;
+    margin: 0;
+}
+
+.feedback-audio-player-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Green Audio Player Customization for Feedback */
+.green-audio-player-feedback {
+    width: 100%;
+    min-height: 52px;
+}
+
+
+
+/* Score Badge (Old - kept for compatibility) */
 .score-badge-container {
     margin-top: 15px;
 }
@@ -731,6 +942,64 @@ body.ui-keyboard-has-focus {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    /* Feedback Responsive */
+    .feedback-container {
+        padding: 0 12px;
+    }
+
+    .feedback-card {
+        padding: 20px;
+    }
+
+    .score-badge-large {
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px 24px;
+    }
+
+    .score-icon-wrapper {
+        width: 50px;
+        height: 50px;
+    }
+
+    .score-content {
+        align-items: center;
+    }
+
+    .score-label {
+        text-align: center;
+    }
+
+    .score-number {
+        font-size: 40px;
+    }
+
+    .score-separator {
+        font-size: 32px;
+    }
+
+    .score-max {
+        font-size: 32px;
+    }
+
+    .feedback-text-section,
+    .feedback-audio-section {
+        padding: 16px;
+    }
+
+    .feedback-text-title,
+    .feedback-audio-title {
+        font-size: 18px;
+    }
+
+    .feedback-text-content {
+        font-size: 15px;
+    }
+
+    .feedback-audio-player-wrapper {
+        padding: 12px;
+    }
+
     .success-dialog {
         padding: 30px 25px;
         max-width: 95%;
@@ -800,6 +1069,47 @@ body.ui-keyboard-has-focus {
 }
 
 @media (max-width: 480px) {
+    /* Feedback Responsive for Small Screens */
+    .feedback-card {
+        padding: 16px;
+    }
+
+    .score-badge-large {
+        padding: 16px 20px;
+    }
+
+    .score-icon-wrapper {
+        width: 44px;
+        height: 44px;
+    }
+
+    .score-number {
+        font-size: 36px;
+    }
+
+    .score-separator {
+        font-size: 28px;
+    }
+
+    .score-max {
+        font-size: 28px;
+    }
+
+    .feedback-text-section,
+    .feedback-audio-section {
+        padding: 12px;
+    }
+
+    .feedback-text-title,
+    .feedback-audio-title {
+        font-size: 16px;
+    }
+
+    .feedback-text-content {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+
     .ui-keyboard {
         width: 99% !important;
         bottom: 2px !important;

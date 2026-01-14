@@ -43,13 +43,13 @@ class UserTrackerObserver
                }
                // For test type, only add points if successful
                elseif ($userTracker->type === 'test') {
-                   $student_test = UserTest::with('lesson.level')
+                   $student_test = UserTest::with('lesson')
                        ->where('lesson_id',$userTracker->lesson_id)
                        ->where('user_id', $userTracker->user_id)->first();
 
                    $lesson = $student_test->lesson;
 
-                   $mark = $lesson->level->level_mark;
+                   $mark = $lesson->success_mark;
 
                    //if student pass test add points
                    if ($student_test && $lesson && $student_test->total>=$mark) {

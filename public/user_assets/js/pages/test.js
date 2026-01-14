@@ -1005,7 +1005,7 @@ function populateSortingAnswer(question, form) {
     if (!answer || !Array.isArray(answer)) return;
 
     //if we not reverse array the answers be wrong because the if we show the first item in order container it be last in html so must reverse array
-    answer = answer.reverse(); //reverse array to get correct order
+    // answer = answer.reverse(); //reverse array to get correct order
 
     // Convert array to uid→position format
     answer.forEach((itemId, index) => {

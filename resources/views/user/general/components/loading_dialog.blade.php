@@ -7,7 +7,7 @@
                     <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
                 </svg>
             </div>
-            <p class="loading-text">جاري المعالحة...</p>
+            <p class="loading-text">جاري المعالجة...</p>
             <p class="loading-subtext">الرجاء الإنتظار...</p>
         </div>
     </div>

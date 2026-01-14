@@ -25,7 +25,7 @@
                                 <path d="M2 7L5.5 10.5L12 3.5" stroke="currentColor" stroke-width="2"
                                       stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <span>{{t('Completed')}}</span>
+                            <span>مكتمل ومصحح</span>
                         </div>
                     @endif
                     <div class="lesson-icon-container">

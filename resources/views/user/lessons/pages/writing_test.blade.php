@@ -1,8 +1,9 @@
 @extends('user.layout')
 @push('style')
-    <link rel="stylesheet" type="text/css" href="{{asset('user_assets/css/pages/writing-test.css')}}?v=8"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('user_assets/css/pages/writing-test.css')}}?v=9"/>
     <link rel="stylesheet" type="text/css" href="{{asset('assets_v1/js/keyboard/keyboard.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets_v1/js/keyboard/jquery-ui.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('user_assets/lib/green-audio-player/green-audio-player.min.css')}}">
 @endpush
 
 @section('page-name', 'lesson-writing-test')
@@ -18,23 +19,74 @@
                     <span class="breadcrumb-separator">›</span>
                     <span class="breadcrumb-item active">{{$lesson->name}}</span>
                 </nav>
-                @if($isCorrected)
-                    <div class="score-badge-container">
-                        <div class="score-badge">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#138944"/>
-                            </svg>
-                            <span class="score-text">النتيجة:</span>
-                            <span class="score-value">{{$totalScore}}</span>
-                            <span class="score-total">/{{$maxScore}}</span>
-                        </div>
-                    </div>
-                @endif
             </div>
             <a href="{{route('lesson.lessons-by-level', [$lesson->grade_id, $lesson->lesson_type])}}" class="practice-btn">
                 العودة إلى الدروس
             </a>
         </header>
+
+        <!-- Feedback Section (Corrected Test) -->
+        @if($isCorrected && isset($existingTest))
+            <div class="feedback-container">
+                <div class="feedback-card">
+                    <!-- Score Badge -->
+                    <div class="feedback-score-section">
+                        <div class="score-badge-large">
+                            <div class="score-icon-wrapper">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="11" stroke="#138944" stroke-width="2" fill="none"/>
+                                    <path d="M9 12l2 2 4-4" stroke="#138944" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="score-content">
+                                <span class="score-label">النتيجة النهائية</span>
+                                <div class="score-display">
+                                    <span class="score-number">{{$totalScore}}</span>
+                                    <span class="score-separator">/</span>
+                                    <span class="score-max">{{$maxScore}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text Feedback -->
+                    @if(!empty($existingTest->feedback_message))
+                        <div class="feedback-text-section">
+                            <div class="feedback-text-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" stroke="#138944" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <path d="M8 10h8M8 14h4" stroke="#138944" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <h3 class="feedback-text-title">ملاحظات المعلم</h3>
+                            </div>
+                            <div class="feedback-text-content">
+                                {{$existingTest->feedback_message}}
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Audio Feedback -->
+                    @if(!empty($existingTest->feedback_record))
+                        <div class="feedback-audio-section">
+                            <div class="feedback-audio-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" stroke="#138944" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M8 22h8" stroke="#138944" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <h3 class="feedback-audio-title">تسجيل صوتي من المعلم</h3>
+                            </div>
+                            <div class="feedback-audio-player-wrapper" dir="ltr">
+                                <div class="green-audio-player-feedback">
+                                    <audio preload="metadata">
+                                        <source src="{{asset($existingTest->feedback_record)}}" type="audio/mpeg">
+                                    </audio>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        @endif
 
         <!-- Questions Container -->
         <div class="lesson-tabs-wrapper">
@@ -245,4 +297,15 @@
     <script type="text/javascript" src="{{asset('assets_v1/js/keyboard/jquery.keyboard.extension-typing.js')}}" charset="UTF-8"></script>
     <script type="text/javascript" src="{{asset('assets_v1/js/keyboard/keyboard-layouts-microsoft.min.js')}}" charset="UTF-8"></script>
     <script type="text/javascript" src="{{asset('user_assets/js/pages/writing-test.js')}}?v=7"></script>
+    <script>
+        // Initialize green audio player for feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.querySelector('.green-audio-player-feedback')) {
+                GreenAudioPlayer.init({
+                    selector: '.green-audio-player-feedback',
+                    stopOthersOnPlay: true
+                });
+            }
+        });
+    </script>
 @endpush
