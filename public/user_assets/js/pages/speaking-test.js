@@ -389,7 +389,7 @@ function setupQuestionRecording(questionId) {
                 }
 
                 // Move to next question or redirect
-                setTimeout(function() {
+                document.getElementById('okBtn').addEventListener('click',function() {
                     if (currentQuestionIndex < totalQuestions) {
                         document.getElementById('nextQuestion').click();
                     } else {
@@ -402,7 +402,7 @@ function setupQuestionRecording(questionId) {
                             window.location.href = defaultRedirect;
                         }
                     }
-                }, 2000);
+                });
             },
             error: function(xhr, status, error) {
                 console.error('Error:', error);

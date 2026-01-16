@@ -298,6 +298,20 @@ function setupRecordingControls() {
     const recordingStartBtn = document.getElementById('recordingStartBtn');
     const recordingRemoveBtn = document.getElementById('recordingRemoveBtn');
 
+    // Setup re-record button
+    const rerecordBtn = document.getElementById('rerecordBtn');
+    if (rerecordBtn) {
+        rerecordBtn.addEventListener('click', function() {
+            const existingContainer = document.getElementById('existingRecording');
+            if (existingContainer) {
+                existingContainer.style.display = 'none';
+            }
+            if (readRecordingInitial) {
+                readRecordingInitial.style.display = 'flex';
+            }
+        });
+    }
+
     if (!recordBtn || !readRecordingControls) return;
 
     let isRecording = false;
@@ -607,9 +621,9 @@ function setupRecordingControls() {
                     }
 
                     // Reload after 2 seconds
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2000);
+                    // setTimeout(() => {
+                    //     window.location.reload();
+                    // }, 2000);
                 },
                 error: function (xhr, status, error) {
                     console.error('Error:', error);

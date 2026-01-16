@@ -1,6 +1,6 @@
 @extends('user.layout')
 @push('style')
-    <link rel="stylesheet" type="text/css" href="{{asset('user_assets/css/pages/story-training.css')}}?v=1"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('user_assets/css/pages/story-training.css')}}?v=3"/>
     <link rel="stylesheet" type="text/css" href="{{asset('user_assets/lib/green-audio-player/green-audio-player.min.css')}}">
 @endpush
 
@@ -48,114 +48,110 @@
                             <div class="read-text">
                                 {!! $story->content !!}
                             </div>
+                            <!-- Existing Recording  -->
                             @if($user_story && !is_null($user_story->record))
-                                <div class="user-recording-status-card">
-                                    <!-- Status Badge -->
-                                    <div class="status-header">
-                                        @if($user_story->status == 'pending')
-                                            <div class="status-badge status-pending">
-                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
-                                                </svg>
-                                                <span>{{$user_story->status_name}}</span>
-                                            </div>
-                                        @endif
-                                        @if($user_story->status == 'corrected')
-                                            <div class="status-badge status-corrected">
-                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"/>
-                                                </svg>
-                                                <span>{{$user_story->status_name}}</span>
-                                            </div>
-                                            <div class="score-badge">
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" fill="currentColor"/>
-                                                </svg>
-                                                <span class="score-value">{{$user_story->mark}}</span>
-                                                <span class="score-total">/10</span>
-                                            </div>
-                                        @endif
-                                        @if($user_story->status == 'returned')
-                                            <div class="status-badge status-returned">
-                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="currentColor"/>
-                                                </svg>
-                                                <span>{{$user_story->status_name}}</span>
-                                            </div>
-                                        @endif
-                                    </div>
-
-                                    <!-- Audio Player -->
-                                    <div class="recording-playback-section">
-                                        <div class="playback-label">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" fill="#6366F1"/>
-                                                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" fill="#6366F1"/>
+                                <div class="existing-recording-container" id="existingRecording" style="padding: 30px 0;">
+                                    <div style="background: #f0fdf4; border-radius: 12px; padding: 25px; border: 2px solid #138944; margin-bottom: 20px;">
+                                        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px;">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#138944"/>
                                             </svg>
-                                            <span>تسجيلك الصوتي</span>
+                                            <span style="color: #138944; font-weight: 600; font-size: 16px;">
+                                                @if($user_story->status == 'corrected')
+                                                    تم التصحيح - {{$user_story->status_name}}
+                                                @elseif($user_story->status == 'pending')
+                                                    تم تسليم تسجيلك بنجاح
+                                                @else
+                                                    {{$user_story->status_name}}
+                                                @endif
+                                            </span>
                                         </div>
-                                        <div class="audio-player-wrapper" dir="ltr">
-                                            <div class="audio-player student-audio-player-corrected">
+                                        <div class="audio-player-wrapper" style="display:flex;flex-direction:row;overflow-x:auto; margin: 0 auto;" dir="ltr">
+                                            <div class="audio-player student-audio-player-existing">
                                                 <audio preload="metadata">
-                                                    <source src="{{asset($user_story->record)}}" type="audio/mpeg">
-                                                    Your browser does not support the audio element.
+                                                    <source src="{{asset($user_story->record)}}" type="audio/wav">
                                                 </audio>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Feedback Section (Only for Corrected) -->
-                                    @if($user_story->status == 'corrected')
-                                        <div class="teacher-feedback-section">
-                                            <div class="feedback-header">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" fill="#10B981"/>
-                                                </svg>
-                                                <h4>ملاحظات المعلم</h4>
+                                        @if($user_story->status != 'corrected')
+                                            <div style="text-align: center; margin-top: 20px;">
+                                                <button type="button" class="rerecord-btn" id="rerecordBtn">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block;">
+                                                        <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="white"/>
+                                                    </svg>
+                                                    إعادة التسجيل
+                                                </button>
                                             </div>
+                                        @endif
+                                    </div>
+                                </div>
 
-                                            <div class="feedback-content-wrapper">
-                                                <!-- Text Feedback -->
-                                                <div class="feedback-item">
-                                                    <div class="feedback-label">
-                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" fill="#059669"/>
+                                <!-- Feedback Section (Corrected) with New Design -->
+                                @if($user_story->status == 'corrected')
+                                    <div class="feedback-container" style="margin: 24px 0; padding: 0;">
+                                        <div class="feedback-card">
+                                            <!-- Score Badge -->
+                                            <div class="feedback-score-section">
+                                                <div class="score-badge-large">
+                                                    <div class="score-icon-wrapper">
+                                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <circle cx="12" cy="12" r="11" stroke="#138944" stroke-width="2" fill="none"/>
+                                                            <path d="M9 12l2 2 4-4" stroke="#138944" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                         </svg>
-                                                        <span>الملاحظات</span>
                                                     </div>
-                                                    <div class="feedback-text">
-                                                        {{$user_story->feedback_message ?? 'لا توجد ملاحظات'}}
+                                                    <div class="score-content">
+                                                        <span class="score-label">النتيجة النهائية</span>
+                                                        <div class="score-display">
+                                                            <span class="score-number">{{$user_story->mark}}</span>
+                                                            <span class="score-separator">/</span>
+                                                            <span class="score-max">10</span>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            </div>
 
-                                                <!-- Audio Feedback -->
-                                                @if($user_story && !is_null($user_story->feedback_audio_message))
-                                                    <div class="feedback-item">
-                                                        <div class="feedback-label">
-                                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" fill="#059669"/>
-                                                                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" fill="#059669"/>
-                                                            </svg>
-                                                            <span>الملاحظات الصوتية</span>
-                                                        </div>
-                                                        <div class="audio-player-wrapper" dir="ltr">
-                                                            <div class="audio-player teacher-audio-player">
-                                                                <audio preload="metadata">
-                                                                    <source src="{{asset($user_story->feedback_audio_message)}}" type="audio/mpeg">
-                                                                    Your browser does not support the audio element.
-                                                                </audio>
-                                                            </div>
+                                            <!-- Text Feedback -->
+                                            @if(!empty($user_story->feedback_message))
+                                                <div class="feedback-text-section">
+                                                    <div class="feedback-text-header">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" stroke="#138944" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                                            <path d="M8 10h8M8 14h4" stroke="#138944" stroke-width="2" stroke-linecap="round"/>
+                                                        </svg>
+                                                        <h3 class="feedback-text-title">ملاحظات المعلم</h3>
+                                                    </div>
+                                                    <div class="feedback-text-content">
+                                                        {{$user_story->feedback_message}}
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            <!-- Audio Feedback -->
+                                            @if(!empty($user_story->feedback_audio_message))
+                                                <div class="feedback-audio-section">
+                                                    <div class="feedback-audio-header">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" stroke="#138944" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                                            <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M8 22h8" stroke="#138944" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                        <h3 class="feedback-audio-title">تسجيل صوتي من المعلم</h3>
+                                                    </div>
+                                                    <div class="feedback-audio-player-wrapper" dir="ltr">
+                                                        <div class="green-audio-player-feedback">
+                                                            <audio preload="metadata">
+                                                                <source src="{{asset($user_story->feedback_audio_message)}}" type="audio/mpeg">
+                                                            </audio>
                                                         </div>
                                                     </div>
-                                                @endif
-                                            </div>
+                                                </div>
+                                            @endif
                                         </div>
-                                    @endif
-                                </div>
+                                    </div>
+                                @endif
                             @endif
 
                             @if(!$user_story || ($user_story && $user_story->status == 'pending') || ($user_story && $user_story->status == 'returned'))
-                                <div class="recording-controls" id="readRecordingInitial">
+                                <div class="recording-controls" id="readRecordingInitial" style="@if($user_story && !is_null($user_story->record)) display: none; @endif">
                                     <button class="record-btn" id="recordBtn">
                                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_1837_2433)">
@@ -300,16 +296,13 @@
                         <path class="success-check" d="M25 40 L35 50 L55 30" fill="none" stroke-width="4"></path>
                     </svg>
                 </div>
-                <h3 class="success-title">{{t('Success')}}!</h3>
-                <p class="success-text" id="successText">{{t('You have successfully submitted your tasks to your teacher')}}</p>
+                <h3 class="success-title">نجاح العملية !</h3>
+                <p class="success-text" id="successText">تم حفظ التسجيل بنجاح</p>
                 <div class="success-buttons">
                     <a href="{{route('story.story-index',['id'=>$story->id,'key' => 'test'])}}" class="practice-btn-dialog">
-                        <span>{{t('Go to Test')}}</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <span>اذهب إلى الاختبار</span>
                     </a>
-                    <button class="ok-btn" id="okBtn" onclick="location.reload()">{{t('OK')}}</button>
+                    <button class="ok-btn" id="okBtn" onclick="location.reload()">متابعة</button>
                 </div>
             </div>
         </div>
@@ -323,6 +316,16 @@
         const SAVE_RECORDING_URL = '{{route('save-read-record-answer', $story->id)}}';
         const TRACKING_URL = '{{route('story.tracking', [$story->id, 'reading'])}}';
         const STORY_ID = {{$story->id}};
+
+        // Initialize green audio player for feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.querySelector('.green-audio-player-feedback')) {
+                GreenAudioPlayer.init({
+                    selector: '.green-audio-player-feedback',
+                    stopOthersOnPlay: true
+                });
+            }
+        });
     </script>
     <script src="{{asset('user_assets/js/pages/story-training.js')}}?v=1"></script>
 @endpush

@@ -177,7 +177,7 @@ class LessonController extends Controller
         return view('user.lessons.sub-levels', compact('title', 'type', 'grade', 'levels'));
     }
 
-    public function lessonsByLevel($id, $type,$level)
+    public function lessonsByLevel($id, $type,$level=null)
     {
         $user = Auth::guard('web')->user();
 
