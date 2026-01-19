@@ -81,7 +81,7 @@ class RightSidebar {
 
                   </p>
                   <p class="user-grade">
-                    <span class="grade-label">${TRANS['Year']}:</span>
+                    <span class="grade-label">السنة:</span>
                     <span class="grade-number">${this.userProfile.yearArabic}</span>
                   </p>
                 </div>

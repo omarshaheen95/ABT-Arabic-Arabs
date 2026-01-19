@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <title>{{ isset($title) ? $title. " | ":''  }}{{ t('Non Arab') }}</title>
-
-    <meta name="description"
-          content="اللغة العربية لغير الناطقين،  غير الناطقين،  دروس غير الناطقين بالعربية Non-Arabs, Non-arabs.com, Non Arabs">
-    <meta name="keywords"
-          content="اللغة العربية لغير الناطقين،  غير الناطقين،  دروس غير الناطقين بالعربية Non-Arabs, Non-arabs.com, Non Arabs">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ isset($title) ? $title. " | ":''  }}منصة لغتي الأولى</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta name="author" content="">
     <meta name="robots" content="index, follow">
@@ -22,20 +16,20 @@
     <meta name="google" content="notranslate">
 
     <meta property="og:type" content="" />
-    <meta property="og:title" content="{{ isset($title) ? $title. " | ":''  }}{{ t('Non Arab') }}" />
-    <meta property="og:description" content="اللغة العربية لغير الناطقين،  غير الناطقين،  دروس غير الناطقين بالعربية Non-Arabs, Non-arabs.com, Non Arabs" />
-    <meta property="og:image" content="{{asset('logo_min.svg')}}" />
+    <meta property="og:title" content="{{ isset($title) ? $title. " | ":''  }}منصة لغتي الأولى" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="{{!settingCache('logo_min')? asset('logo_min.svg'):asset(settingCache('logo_min'))}}"/>
     <meta property="og:url" content="" />
     <meta property="og:site_name" content="" />
 
-    <meta name="twitter:title" content="{{ isset($title) ? $title. " | ":''  }}{{ t('Non Arab') }}">
-    <meta name="twitter:description" content="اللغة العربية لغير الناطقين،  غير الناطقين،  دروس غير الناطقين بالعربية Non-Arabs, Non-arabs.com, Non Arabs">
-    <meta name="twitter:image" content="{{asset('logo_min.svg')}}">
-    <meta name="twitter:site" content="">
-    <meta name="twitter:creator" content="">
+    <meta name="twitter:title" content="{{ isset($title) ? $title. " | ":''  }}منصة لغتي الأولى"/>
+    <meta name="twitter:description" content=""/>
+    <meta name="twitter:image" content="{{!settingCache('logo_min')? asset('logo_min.svg'):asset(settingCache('logo_min'))}}"/>
+    <meta name="twitter:site" content=""/>
+    <meta name="twitter:creator" content=""/>
 
     <link rel="canonical" href="" />
-    <link rel="shortcut icon" href="{{!settingCache('logo_min')? asset('logo_min.svg?v=1'):asset(settingCache('logo_min'))}}" />
+    <link rel="shortcut icon" href="{{!settingCache('logo_min')? asset('logo_min.svg'):asset(settingCache('logo_min'))}}" type="image/x-icon">
 
     <link rel="stylesheet" href="{{asset('user_assets/css/global.css')}}" />
     <link rel="stylesheet" href="{{asset('user_assets/css/components.css')}}" />
@@ -100,7 +94,7 @@
         /* Welcome Banner */
         .welcome-banner {
             position: relative;
-            background: linear-gradient(270deg, rgba(30, 67, 151, 1) 0%, rgba(48, 95, 203, 1) 100%);
+            background: linear-gradient(270deg, rgba(19, 137, 68, 1) 0%, rgba(52, 211, 108) 100%);
             border-radius: 12px;
             padding: clamp(12px, 1.2vw, 20px) clamp(16px, 1.5vw, 24px);
             display: flex;
@@ -243,9 +237,9 @@
         { id: 'logout', icon: '🚪', text: 'تسجيل الخروج', href: '../pages/login.html', special: 'logout' }
     ];
     var CALANDER = {
-        currentDate: '{{ \Carbon\Carbon::now()->format("d M Y") }}',
+        currentDate: '{{ \Carbon\Carbon::now()->locale("ar")->translatedFormat("d F Y") }}',
         streakCount: {{ $user_data['streak'] ?? 0 }},
-        currentDay: '{{ \Carbon\Carbon::now()->format("D") }}',
+        currentDay: '{{ \Carbon\Carbon::now()->locale("ar")->dayName }}',
         days: @json($dashboard_data['week_days'] ?? [])
     }
     var NOTIFICATION_LIST = @json($dashboard_data['notifications'] ?? []);

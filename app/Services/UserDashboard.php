@@ -89,7 +89,7 @@ class UserDashboard
     {
         $days = [];
         $today = Carbon::now();
-        $startOfWeek = $today->copy()->startOfWeek(Carbon::SUNDAY);
+        $startOfWeek = $today->copy()->startOfWeek(Carbon::SATURDAY);
         $user = Auth::guard('web')->user();
 
         // Get all login dates for this week
@@ -109,9 +109,9 @@ class UserDashboard
             $dateString = $currentDay->format('Y-m-d');
 
             $days[] = [
-                'name' => $currentDay->format('D'), // Short day name (Sun, Mon, etc.)
-                'day' => $currentDay->format('l'), // Full day name
-                'short' => $currentDay->format('D'), // Short day name (Sun, Mon, etc.)
+                'name' => $currentDay->locale('ar')->dayName, // Full day name in Arabic
+                'day' => $currentDay->locale('ar')->dayName, // Full day name in Arabic
+                'short' => $currentDay->locale('ar')->minDayName, // Short day name in Arabic
                 'number' => $currentDay->dayOfWeek, // 0-6 (Sun-Sat)
                 'date' => $dateString, // Full date
                 'day_of_month' => $currentDay->format('j'), // Day of month (1-31)

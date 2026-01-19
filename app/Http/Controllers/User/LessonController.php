@@ -338,7 +338,7 @@ class LessonController extends Controller
                     $existingResults = [];
                     $isCorrected = false;
                     $totalScore = 0;
-                    $maxScore = $lesson->success_mark;
+                    $maxScore = $lesson->max_test_total;
 
                     if ($existingTest) {
                         $isCorrected = $existingTest->corrected == 1;
