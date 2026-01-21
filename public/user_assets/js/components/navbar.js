@@ -57,8 +57,8 @@ class Navbar {
             </button>
             <div class="notifications-dropdown" id="notifications-dropdown">
               <div class="notifications-header">
-                <h3 class="notifications-title">Notifications</h3>
-                <button class="mark-all-read" id="mark-all-read">Mark all as read</button>
+                <h3 class="notifications-title">الإشعارات</h3>
+                <button class="mark-all-read" id="mark-all-read">تحديد الكل كمقروء</button>
               </div>
               <div class="notifications-list">
                 ${this.renderNotifications()}
