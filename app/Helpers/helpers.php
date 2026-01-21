@@ -193,17 +193,17 @@ function t($key, $placeholder = [], $locale = null)
     // Define the languages
     $languages = ['ar', 'en'];
 
+
     // Add the new translation key to each language file
     foreach ($languages as $lang) {
         $translationFile = base_path("resources/lang/{$lang}/{$group}.php");
-
+        $keyEscaped = addslashes($key);
         // Ensure the file exists
         if (file_exists($translationFile)) {
             // Read the file content
             $content = file_get_contents($translationFile);
 
             // Prepare the new key-value pair with newlines
-            $keyEscaped = addslashes($key);
             $newKey = "\n\t'{$keyEscaped}' => '{$key}',\n];";
 
             // Add the new key before the closing bracket
