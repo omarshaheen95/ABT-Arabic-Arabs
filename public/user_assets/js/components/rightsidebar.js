@@ -40,6 +40,13 @@ class RightSidebar {
     };
   }
 
+  getShortName(fullName) {
+    if (!fullName) return '';
+    const parts = fullName.trim().split(/\s+/);
+    if (parts.length <= 3) return fullName;
+    return `${parts[0]} ${parts[1]}  ${parts[parts.length - 1]}`;
+  }
+
   render() {
     return `
       <aside class="right-sidebar">
@@ -75,7 +82,7 @@ class RightSidebar {
               </div>
               <div class="user-info">
                 <div class="user-details">
-                  <h2 class="user-full-name">${this.userProfile.fullName}</h2>
+                  <h2 class="user-full-name">${this.getShortName(this.userProfile.fullName)}</h2>
                   <p class="user-grade">
                     <span class="grade-number">${this.userProfile.gradeArabic}</span>
 
