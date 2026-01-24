@@ -14,6 +14,7 @@ use App\Models\StoryAssignment;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\Year;
+use App\Notifications\NewStoryAssignmentNotification;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -155,12 +156,18 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
                     }
                 }
 
-                $student->user_story_assignments()->create([
+                $userAssignment = $student->user_story_assignments()->create([
                     'story_assignment_id' => $story_assignment->id,
                     'story_id' => $story_id,
                     'deadline' => $request->get('deadline', null),
                     'test_assignment' => 1
                 ]);
+
+                // Send notification to student about new story assignment
+                $storyModel = Story::find($story_id);
+                if ($storyModel) {
+                    $student->notify(new NewStoryAssignmentNotification($userAssignment, $storyModel));
+                }
             }
 
         }
@@ -241,7 +248,7 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
         {
             foreach ($stories as $story_id)
             {
-                $student->user_story_assignments()->updateOrCreate(
+                $userAssignment = $student->user_story_assignments()->updateOrCreate(
                     [
                         'story_assignment_id' => $id,
                         'story_id' => $story_id,
@@ -251,6 +258,14 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
                         'deadline' => $request->get('deadline', null),
                         'test_assignment' => 1
                     ]);
+
+                // Send notification to student if this is a new assignment
+                if ($userAssignment->wasRecentlyCreated) {
+                    $storyModel = Story::find($story_id);
+                    if ($storyModel) {
+                        $student->notify(new NewStoryAssignmentNotification($userAssignment, $storyModel));
+                    }
+                }
             }
 
         }
@@ -268,6 +283,13 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
             if ($request->get('with_user_assignments')){
                 $assignment->userStoryAssignments()->delete();
             }
+
+            // Delete notifications related to this lesson assignment
+            \App\Models\Notification::query()
+                ->where('data->model_type', \App\Models\StoryAssignment::class)
+                ->where('data->model_id', $assignment->id)
+                ->delete();
+
             $assignment->delete();
         }
         return Response::response([Response::DELETED_SUCCESSFULLY]);

@@ -14,7 +14,7 @@ class UserTracker extends Model
     use SoftDeletes;
     //Type 'learn', 'practise', 'test'
     protected $fillable = [
-        'user_id', 'lesson_id', 'type', 'color', 'start_at', 'end_at'
+        'user_id', 'lesson_id', 'type', 'color', 'start_at', 'end_at','points'
     ];
 
     public function scopeFilter(Builder $query, $request =null): Builder

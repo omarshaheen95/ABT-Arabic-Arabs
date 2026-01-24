@@ -27,6 +27,16 @@ class SettingTableSeeder extends Seeder
             ['name' => 'English Name', 'key' => 'name_en', 'value' => null, 'type' => 'text', 'group' => 'general'],
             ['name' => 'Mobile', 'key' => 'mobile', 'value' => null, 'type' => 'text', 'group' => 'general'],
             ['name' => 'Email', 'key' => 'email', 'value' => null, 'type' => 'text', 'group' => 'general'],
+
+            //Social Links
+            ['name' => 'Whatsapp', 'key' => 'whatsapp', 'value' => null, 'type' => 'text', 'group' => 'Social Media Links'],
+            ['name' => 'Facebook', 'key' => 'facebook', 'value' => null, 'type' => 'text', 'group' => 'Social Media Links'],
+            ['name' => 'Twitter', 'key' => 'twitter', 'value' => null, 'type' => 'text', 'group' => 'Social Media Links'],
+            ['name' => 'Instagram', 'key' => 'instagram', 'value' => null, 'type' => 'text', 'group' => 'Social Media Links'],
+            ['name' => 'Linkedin', 'key' => 'linkedin', 'value' => null, 'type' => 'text', 'group' => 'Social Media Links'],
+            ['name' => 'Youtube', 'key' => 'youtube', 'value' => null, 'type' => 'text', 'group' => 'Social Media Links'],
+
+
             //SMTP
             ['name' => 'SMTP MAIL Driver', 'key' => 'smtp_mail_driver', 'value' => 'smtp', 'type' => 'text', 'group' => 'SMTP'],
             ['name' => 'SMTP MAIL HOST', 'key' => 'smtp_mail_host', 'value' => 'smtp.office365.com', 'type' => 'text', 'group' => 'SMTP'],

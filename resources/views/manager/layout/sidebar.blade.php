@@ -487,7 +487,7 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
 
 
                 <div data-kt-menu-trigger="click"
-                     class="menu-item menu-accordion {{Route::is('manager.year.*') ||Request::is('manager/activity-log*') || Request::is('manager/settings*') || Request::is('manager/text_translation') ||  Request::is('manager/import_files*') || Request::is('manager/login_sessions*') ?'here show':''}}">
+                     class="menu-item menu-accordion {{Route::is('manager.year.*') ||Request::is('manager/activity-log*') || Request::is('manager/settings*') || Request::is('manager/text_translation') ||  Request::is('manager/import_files*') || Request::is('manager/login_sessions*'|| Request::is(getGuard().'/achievement_levels*')) ?'here show':''}}">
                                            <span class="menu-link">
                                                 <span class="menu-icon">
                                                 <i class="ki-duotone ki-setting-4 fs-2">
@@ -498,6 +498,18 @@ if (isset($_COOKIE["sidebar_minimize_state"]) && $_COOKIE["sidebar_minimize_stat
 										</span>
                     <!--begin:Menu sub-->
                     <div class="menu-sub menu-sub-accordion">
+                        @can('show achievement levels')
+                            <div class="menu-item">
+                                <a href="{{route(getGuard().'.achievement_levels.index')}}"
+                                   class="menu-link {{Route::is(getGuard().'.achievement_levels.*')?'active':''}}">
+                                            <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                    <span class="menu-title">{{t('Achievement Levels')}}</span>
+                                </a>
+                            </div>
+                        @endcan
+
                         @can('show years')
                             <div class="menu-item">
                                 <a href="{{route('manager.year.index')}}"

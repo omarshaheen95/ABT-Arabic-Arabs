@@ -9,11 +9,23 @@
     font-family: "Bahij_TheSansArabic";
     src: url("../fonts/Bahij_TheSansArabic-Plain.ttf") format("truetype");
 }
-
+@font-face {
+    font-family: "Almarai";
+    src: url("../../assets_v1/fonts/Almarai/Almarai-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Almarai";
+    src: url("../../assets_v1/fonts/Almarai/Almarai-Regular.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
 :root {
     --color-theme: #0f893b;
     --color-theme-rgb: 15, 137, 59;
     --color-dark: #095e28;
+    --color-secondary: #FDB416;
     --color-lgiht: #777E90;
     --color-yellow: #FFCB57;
 
@@ -747,12 +759,12 @@ form.disabled {
 }
 
 .price-card .price-box:nth-child(even) .price-day .btn {
-    background-color: rgb(255, 255, 255, .1);
+    background-color: rgba(255, 255, 255, .1);
     border: 2px solid #fff
 }
 
 .price-card .price-box:nth-child(even) .price-day .btn:hover {
-    color: rgb(255, 255, 255, .1) !important;
+    color: var(--color-theme) !important;
     background-color: #fff;
     border: 2px solid #fff
 }

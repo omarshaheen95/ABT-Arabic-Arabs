@@ -356,6 +356,11 @@ class PermissionsTableSeeder extends Seeder
 
             ['name' => 'usage report', 'guard_name' => 'manager', 'group' => 'reports'],
 
+            ['name' => 'show achievement levels', 'guard_name' => 'manager', 'group' => 'achievement_levels'],
+            ['name' => 'add achievement levels', 'guard_name' => 'manager', 'group' => 'achievement_levels'],
+            ['name' => 'edit achievement levels', 'guard_name' => 'manager', 'group' => 'achievement_levels'],
+            ['name' => 'delete achievement levels', 'guard_name' => 'manager', 'group' => 'achievement_levels'],
+
 
         ];
 
@@ -570,11 +575,11 @@ class PermissionsTableSeeder extends Seeder
 
         $permissions = array_merge($manager, $school, $teacher, $supervisor);
 
-        // Disable foreign key checks
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Permission::truncate();
-        // Enable foreign key checks
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+//        // Disable foreign key checks
+//        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+//        Permission::truncate();
+//        // Enable foreign key checks
+//        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         //insert permissions
         foreach ($permissions as $permission) {
@@ -587,8 +592,8 @@ class PermissionsTableSeeder extends Seeder
 //        $school_role = Role::updateOrCreate(['name' => 'School','guard_name' => 'school']);
 //        $school_role->syncPermissions(collect($school)->pluck('name'));
 
-        $teacher_role =  Role::updateOrCreate(['name' => 'Teacher','guard_name' => 'teacher']);
-        $teacher_role->syncPermissions(collect($teacher)->pluck('name'));
+//        $teacher_role =  Role::updateOrCreate(['name' => 'Teacher','guard_name' => 'teacher']);
+//        $teacher_role->syncPermissions(collect($teacher)->pluck('name'));
 //
 //        $supervisor_role = Role::updateOrCreate(['name' => 'Supervisor','guard_name' => 'supervisor']);
 //        $supervisor_role->syncPermissions(collect($supervisor)->pluck('name'));

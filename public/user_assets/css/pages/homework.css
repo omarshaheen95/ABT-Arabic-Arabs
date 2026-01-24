@@ -1,0 +1,855 @@
+/* Homework Page Styles */
+
+.homework-container {
+  padding: 40px;
+  background: white;
+  border-radius: 32px;
+  -webkit-border-radius: 32px;
+  -moz-border-radius: 32px;
+  -ms-border-radius: 32px;
+  -o-border-radius: 32px;
+}
+
+/* Header Section */
+.homework-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.header-text {
+  flex: 1;
+}
+
+.homework-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 8px 0;
+}
+
+.homework-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.view-toggle-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: var(--text-muted);
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.view-toggle-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.view-toggle-btn.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.filter-dropdown {
+  padding: 12px 20px;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  background: white;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  min-width: 200px;
+  transition: all 0.3s ease;
+}
+
+.filter-dropdown:hover {
+  border-color: var(--primary-color);
+}
+
+.filter-dropdown:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Grid View */
+.homework-grid-wrapper {
+  background: #F1FDF6;
+  border-radius: 16px;
+  padding: 32px 24px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.homework-grid-wrapper.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.homework-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.assignment-card {
+  background: white;
+  border: none;
+  border-radius: 24px;
+  padding: 32px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.assignment-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.card-header-text {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 16px 0;
+}
+
+.card-level {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin: 0 0 16px 0;
+}
+
+.card-status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.status-badge.completed {
+  background: linear-gradient(90deg, rgba(57, 214, 112, 0.2) 10.67%, rgba(179, 230, 158, 0.2) 135.81%);
+  color: #28a745;
+}
+
+.status-badge.pending {
+  background: linear-gradient(90deg, rgba(255, 165, 0, 0.2) 10.67%, rgba(255, 140, 0, 0.2) 135.81%);
+  color: #FF8C00;
+}
+
+/* Timer */
+.assignment-timer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.assignment-timer svg {
+  width: 20px;
+  height: 20px;
+  color: #e74c3c;
+}
+
+.assignment-timer .timer-text {
+  font-weight: 900;
+  font-size: 32px;
+  /* line-height: 20px; */
+  letter-spacing: 0;
+  letter-spacing: 0%;
+  text-align: center;
+  background: linear-gradient(0deg, #FD869C 0%, #F7496E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card Divider */
+.card-divider {
+  height: 1px;
+    background: #C8F5DC;
+    margin: 16px 0;
+}
+
+/* Card Actions */
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.btn-outline,
+.btn-primary {
+  max-width:max-content ;
+  flex: 1;
+  background: white;
+  padding: 12px 20px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 53px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-border-radius: 53px;
+  -moz-border-radius: 53px;
+  -ms-border-radius: 53px;
+  -o-border-radius: 53px;
+}
+
+
+.btn-outline:hover {
+  background: var(--primary-accent);
+}
+
+.btn-outline.completed-btn,
+.action-menu-item.completed-btn {
+  background: #12601a !important;
+  color: white !important;
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.btn-outline.completed-btn:hover,
+.action-menu-item.completed-btn:hover {
+  background: #10b981 !important;
+  opacity: 0.9;
+}
+
+.btn-outline.completed-btn[disabled],
+.action-menu-item.completed-btn[disabled] {
+  pointer-events: none;
+}
+
+
+/* Table View */
+.homework-table-container {
+  background: #F1FDF6;
+  border-radius: 16px;
+  padding: 32px 24px;
+  overflow: visible;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.homework-table-container.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.homework-table-wraper {
+  width: 100%;
+  padding: 12px;
+  background: white;
+  border-radius: 24px;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  -ms-border-radius: 24px;
+  -o-border-radius: 24px;
+  overflow: visible;
+}
+
+.homework-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  background: transparent;
+}
+
+.homework-table thead {
+  background: transparent;
+}
+
+.homework-table th {
+  padding: 16px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.homework-table tbody tr {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.homework-table tbody tr:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.homework-table tbody tr td:first-child {
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+
+.homework-table tbody tr td:last-child {
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.homework-table td {
+  padding: 20px 16px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+}
+
+.homework-table .lesson-name {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Action Menu - Same as Certificates */
+.action-menu-wrapper {
+  position: relative;
+}
+
+.action-btn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+  border-width: 1px 1px 4px 1px;
+  border-style: solid;
+    border-color: #C8F5DC;
+    background-color: color-mix(in srgb, #F1F9FE 100%, transparent);
+  padding: 8px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.action-btn:hover {
+  color: var(--text-primary);
+}
+
+.action-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  z-index: 20;
+  background: var(--primary-accent);
+  padding: 16px;
+  border-radius: 20px;
+  min-width: 200px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.action-menu.show {
+  display: block;
+}
+
+.action-menu-item {
+  border-radius: 16px;
+  opacity: 1;
+  justify-content: space-between;
+  border: none;
+  cursor: pointer;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  width: 100%;
+  margin-bottom: 8px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  transition: transform 0.3s ease;
+  -webkit-transition: transform 0.3s ease;
+  -moz-transition: transform 0.3s ease;
+  -ms-transition: transform 0.3s ease;
+  -o-transition: transform 0.3s ease;
+}
+
+.action-menu-item:last-child {
+  margin-bottom: 0;
+}
+
+.action-menu-item:hover {
+  transform: scale(1.02);
+  -webkit-transform: scale(1.02);
+  -moz-transform: scale(1.02);
+  -ms-transform: scale(1.02);
+  -o-transform: scale(1.02);
+}
+
+/* Loading Animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Pagination Styles */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  padding: 16px 0;
+}
+
+.pagination-btn {
+  min-width: 40px;
+  height: 40px;
+  padding: 8px 12px;
+  border: 2px solid #C8F5DC;
+  background: white;
+  border-radius: 12px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+}
+
+.pagination-btn:hover:not(.disabled):not(.active) {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(19, 137, 68, 0.2);
+}
+
+.pagination-btn.active {
+    background: linear-gradient(89.73deg, #138944 -1.48%, #34D399 95.8%);
+    border-color: transparent;
+    color: white;
+    pointer-events: none;
+}
+
+.pagination-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.pagination-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.pagination-ellipsis {
+  padding: 8px 4px;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  user-select: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .homework-grid-container {
+    grid-template-columns: 1fr;
+  }
+
+  .homework-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-actions {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .homework-container {
+    padding: 20px;
+  }
+
+  .homework-title {
+    font-size: 24px;
+  }
+
+  .homework-grid-container {
+    grid-template-columns: 1fr;
+  }
+
+  .homework-table-container {
+    overflow-x: auto;
+  }
+
+  .homework-table {
+    min-width: 600px;
+  }
+
+  .table-actions {
+    flex-direction: column;
+  }
+}
+
+/* Enhanced mobile styles for assignment cards below 760px */
+@media (max-width: 760px) {
+  .view-toggle-btn {
+    display: none;
+  }
+
+  .homework-container {
+    padding: 16px;
+    border-radius: 24px;
+  }
+
+  .homework-header {
+    margin-bottom: 24px;
+    gap: 16px;
+  }
+
+  .homework-title {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+
+  .homework-subtitle {
+    font-size: 14px;
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
+  }
+
+  .view-toggle-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .filter-dropdown {
+    min-width: 160px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .homework-grid-wrapper {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .homework-grid-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .assignment-card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .assignment-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .card-header {
+    margin-bottom: 12px;
+    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .card-level {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .card-status-row {
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .status-badge {
+    padding: 5px 12px;
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .assignment-timer {
+    gap: 4px;
+  }
+
+  .assignment-timer svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .assignment-timer .timer-text {
+    font-size: 24px;
+  }
+
+  .card-divider {
+    margin: 12px 0;
+  }
+
+  .card-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-outline,
+  .btn-primary {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .homework-table-container {
+    padding: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .homework-table-wraper {
+    padding: 8px;
+    min-width: 100%;
+    overflow-x: auto;
+  }
+
+  /* Convert table to card layout on mobile */
+  .homework-table {
+    display: block;
+    min-width: auto;
+  }
+
+  .homework-table thead {
+    display: none; /* Hide table headers on mobile */
+  }
+
+  .homework-table tbody {
+    display: block;
+  }
+
+  .homework-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    padding: 16px;
+    border-radius: 16px;
+    background: white;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .homework-table tbody tr:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .homework-table tbody tr td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+  }
+
+  .homework-table tbody tr td:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .homework-table tbody tr td:first-child {
+    padding-top: 0;
+  }
+
+  /* Add labels for mobile table */
+  .homework-table tbody tr td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: 12px;
+  }
+
+  .homework-table .lesson-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  /* Status badges in table */
+  .homework-table .status-badge {
+    padding: 4px 12px;
+    font-size: 11px;
+  }
+
+  /* Timer in table */
+  .homework-table .assignment-timer {
+    gap: 4px;
+  }
+
+  .homework-table .assignment-timer svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .homework-table .assignment-timer .timer-text {
+    font-size: 20px;
+  }
+
+  .action-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .action-menu {
+    min-width: 180px;
+    padding: 12px;
+    right: auto;
+    left: 0;
+  }
+
+  .action-menu-item {
+    padding: 12px;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  /* Ensure table actions are visible */
+  .action-menu-wrapper {
+    position: static;
+  }
+
+  /* Pagination on mobile */
+  .pagination-container {
+    gap: 6px;
+    margin-top: 20px;
+    padding: 12px 0;
+    flex-wrap: wrap;
+  }
+
+  .pagination-btn {
+    min-width: 36px;
+    height: 36px;
+    padding: 6px 10px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  .pagination-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .pagination-ellipsis {
+    padding: 6px 2px;
+    font-size: 13px;
+  }
+}
