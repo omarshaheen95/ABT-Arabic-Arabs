@@ -52,6 +52,21 @@ class SettingTableSeeder extends Seeder
             //Captcha
             ['name' => 'reCAPTCHA secret key', 'key' => 'captcha_secret_key', 'value' => null, 'type' => 'text', 'group' => 'captcha'],
             ['name' => 'reCAPTCHA site key', 'key' => 'captcha_site_key', 'value' => null, 'type' => 'text', 'group' => 'captcha'],
+
+            //XP Award Login Settings
+            ['name' => 'Enable XP Award on Login', 'key' => 'enable_xp_award_on_login', 'value' => '0', 'type' => 'radio', 'group' => 'xp_award'],
+            ['name' => 'XP Award on Login Points', 'key' => 'xp_award_on_login_points', 'value' => '10', 'type' => 'number', 'group' => 'xp_award'],
+            ['name' => 'XP Award on Login Days Count', 'key' => 'xp_award_on_login_days_count', 'value' => '1', 'type' => 'number', 'group' => 'xp_award'],
+
+            //Streak XP Award Settings
+            ['name' => 'Enable Weekly Streak XP', 'key' => 'enable_weekly_streak_xp', 'value' => '1', 'type' => 'radio', 'group' => 'streak_xp'],
+            ['name' => 'Weekly Streak XP Points', 'key' => 'weekly_streak_xp_points', 'value' => '50', 'type' => 'number', 'group' => 'streak_xp'],
+            ['name' => 'Weekly Streak Days Required', 'key' => 'weekly_streak_days_required', 'value' => '7', 'type' => 'number', 'group' => 'streak_xp'],
+            ['name' => 'Enable Monthly Streak XP', 'key' => 'enable_monthly_streak_xp', 'value' => '1', 'type' => 'radio', 'group' => 'streak_xp'],
+            ['name' => 'Monthly Streak XP Points', 'key' => 'monthly_streak_xp_points', 'value' => '200', 'type' => 'number', 'group' => 'streak_xp'],
+            ['name' => 'Monthly Streak Days Required', 'key' => 'monthly_streak_days_required', 'value' => '30', 'type' => 'number', 'group' => 'streak_xp'],
+
+
         ];
 
         $rows = Setting::query()->get();
