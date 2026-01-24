@@ -1,0 +1,629 @@
+/* =================================================================
+   COURSE ROAD MAP PAGE - PAGE-SPECIFIC STYLES
+   ================================================================= */
+
+/* =================================================================
+   ROADMAP CONTENT
+   ================================================================= */
+
+.roadmap-content {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.roadmap-content::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+/* .roadmap-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.roadmap-content::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.roadmap-content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.roadmap-content::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+} */
+
+/* Section Headers */
+.section-header {
+  display: flex;
+  width: 100%;
+  max-width: 1016px;
+  align-items: center;
+  gap: 38px;
+  margin: 52px auto 0;
+  justify-content: center;
+}
+
+.section-header--secondary {
+  margin-top: 120px;
+}
+
+.section-header--tertiary {
+  margin-top: 120px;
+}
+
+.section-divider {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  /* background: linear-gradient(90deg, transparent 0%, #3256D5 50%, transparent 100%); */
+  background: linear-gradient(90deg, #3255d53e 0%, #3256D53e 50%, #3256D53e 100%);
+}
+
+.section-divider--short {
+  position: relative;
+  width: 381px;
+  height: 2px;
+  background: #839DAD52;
+}
+
+.section-title {
+  position: relative;
+  width: fit-content;
+  background: linear-gradient(270deg, rgba(50, 86, 213, 1) 0%, rgba(138, 164, 255, 1) 100%);
+  -webkit-background-clip: text !important;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 900;
+  color: transparent;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 32px;
+  white-space: nowrap;
+}
+
+.section-subtitle {
+  position: relative;
+  width: fit-content;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 700;
+  color: #1e3a8a;
+  font-size: 24px;
+  letter-spacing: -0.48px;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+.section-subtitle--muted {
+  position: relative;
+  width: fit-content;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 700;
+  color: #829dac;
+  font-size: 24px;
+  letter-spacing: -0.48px;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+/* =================================================================
+   LEARNING MODULES
+   ================================================================= */
+
+.learning-module {
+  position: relative;
+  width: 100%;
+  max-width: 686px;
+  height: 642px;
+  margin: 48px auto;
+}
+
+.learning-module--locked {
+  position: relative;
+  width: 100%;
+  max-width: 686px;
+  height: 642px;
+  margin: 48px auto;
+  opacity: 0.6;
+  filter: grayscale(0.3);
+}
+
+/* .module-decoration {
+  position: absolute;
+  top: 77px;
+  left: calc(50% - 204px);
+  width: 408px;
+  height: 565px;
+} */
+
+/* .module-decoration--locked {
+  width: 408px;
+  height: 565px;
+  position: relative;
+} */
+
+.decoration-image {
+  position: absolute;
+  width: 23.04%;
+  height: 23.01%;
+  top: 69.03%;
+  left: 2.7%;
+}
+
+/* Lesson Steps */
+.lesson-steps {
+  position: absolute;
+  top: 0;
+  right: 15%;
+  width: 287px;
+  height: 512px;
+}
+
+.lesson-steps--mirrored {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 287px;
+  height: 512px;
+}
+
+.lesson-steps--locked {
+  position: absolute;
+  top: 0;
+  right: 15%;
+  width: 287px;
+  height: 512px;
+  display: flex;
+  flex-direction: column;
+}
+
+.lesson-step {
+  position: absolute;
+  width: 76px;
+  height: 70px;
+  overflow: visible;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  filter: drop-shadow(0 2px 4px rgba(50, 86, 213, 0.1));
+}
+
+.lesson-step:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 4px 12px rgba(50, 86, 213, 0.3));
+  z-index: 10;
+}
+
+.last-step--last {
+  width: 120px;
+  height: 120px;
+}
+
+.last-step--last:hover {
+  transform: scale(1.1);
+}
+
+/* Add connecting path visual effect */
+.roadmap-path {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.roadmap-container:hover .roadmap-path {
+  opacity: 1;
+}
+
+/* Step status classes - positioning handled by JavaScript inline styles */
+.lesson-step--complete,
+.lesson-step--progress,
+.lesson-step--incomplete,
+.lesson-step--locked {
+  /* Base styling only - position is set inline by JS */
+}
+
+.step-icon {
+  position: absolute;
+  width: 100%;
+  height: 89.55%;
+  top: 10.45%;
+  left: 18px;
+  pointer-events: none;
+}
+
+/* Lesson Name Tooltip on Hover */
+.lesson-step::before {
+  content: attr(data-name-arabic);
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: linear-gradient(135deg, #3256D5 0%, #5979E7 100%);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-family: "Expo Arabic", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 15px rgba(50, 86, 213, 0.3);
+  z-index: 100;
+}
+
+.lesson-step::after {
+  content: '';
+  position: absolute;
+  bottom: -42px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #3256D5;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 100;
+}
+
+.lesson-step:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.lesson-step:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* CTA Bubble */
+.cta-bubble {
+  position: absolute;
+  top: 189px;
+  left: 191px;
+  width: 116px;
+  height: 94px;
+  box-shadow: 0px 6px 14.1px #c8e6ff40;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.cta-arrow {
+  position: absolute;
+  top: 68px;
+  left: calc(50% - 6px);
+  width: 13px;
+  height: 13px;
+  background-color: #ffffff;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-color: #c8e6ff61;
+  transform: rotate(-45deg);
+}
+
+.cta-box {
+  display: flex;
+  flex-direction: column;
+  width: 116px;
+  height: 59px;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 16px 24px;
+  position: absolute;
+  top: 16px;
+  left: 0;
+  background-color: #ffffff;
+  border-radius: 15px;
+  border-style: solid;
+  border-color: #c8e6ff61;
+}
+
+.cta-button {
+  position: relative;
+  width: fit-content;
+  background: linear-gradient(270deg, rgba(50, 86, 213, 1) 0%, rgba(138, 164, 255, 1) 100%);
+  -webkit-background-clip: text !important;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: -0.32px;
+  line-height: 20px;
+  white-space: nowrap;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+}
+
+/* Module Illustrations */
+.module-illustration {
+  position: absolute;
+  top: 103px;
+  left: 0;
+  width: 377px;
+  height: 335px;
+}
+
+.module-illustration--mirrored {
+  position: absolute;
+  top: 103px;
+  right: 0;
+  width: 377px;
+  height: 335px;
+}
+
+.module-illustration--locked {
+  position: absolute;
+  top: 103px;
+  right: 0;
+  width: 328px;
+  height: 292px;
+}
+
+/* Module Decoration */
+.module-decoration {
+  position: absolute;
+  top: 77px;
+  left: 0;
+  width: 408px;
+  height: 565px;
+}
+
+.module-decoration--mirrored {
+  position: absolute;
+  top: 77px;
+  right: 0;
+  left: auto;
+  width: 408px;
+  height: 565px;
+}
+
+/* =================================================================
+   LESSON CARD (replaces CTA)
+   ================================================================= */
+
+.lesson-card {
+  position: absolute;
+  width: 420px;
+  background: linear-gradient(270deg, #3256D5 -5.32%, #8AA4FF 110.05%);
+  border-radius: 30px;
+  padding: 60px 30px 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-width: 1px 1px 4px 1px;
+  border-style: solid;
+  border-color: #C8E6FF61;
+  gap: 20px;
+}
+
+.lesson-card--hidden {
+  display: none;
+}
+
+/* Arrow pointing up to the step */
+.lesson-card-arrow {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 26px;
+  height: 26px;
+  background: #5979E7;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.1);
+  z-index: -1;
+}
+
+.lesson-card-star-icon {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(180deg, #6B8FE8 0%, #5984E5 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 18px;
+  z-index: 10;
+}
+
+.lesson-card-star-icon img {
+  width: 44px;
+  height: 44px;
+}
+
+.lesson-card-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lesson-card-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.lesson-card-close-btn::before,
+.lesson-card-close-btn::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 2px;
+  background: white;
+}
+
+.lesson-card-close-btn::before {
+  transform: rotate(45deg);
+}
+
+.lesson-card-close-btn::after {
+  transform: rotate(-45deg);
+}
+
+.lesson-card-title {
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 700;
+  font-size: 28px;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.lesson-card-subtitle {
+  font-family: "Expo Arabic", Helvetica;
+  font-weight: 600;
+  font-size: 22px;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+}
+
+.lesson-card-learn-btn {
+  width: 100%;
+  max-width: 360px;
+  padding: 16px 32px;
+  background: #ffffff;
+  border: none;
+  border-radius: 50px;
+  font-family: var(--font-family-secondary);
+  font-weight: 700;
+  font-size: 18px;
+  background: linear-gradient(270.1deg, #D3D8F1 2.52%, #FFFFFF 97.65%);
+  color: #3256D5;
+  /* -webkit-background-clip: text; */
+  /* background-clip: text; */
+  /* -webkit-text-fill-color: transparent; */
+  cursor: pointer;
+  border-width: 1px 1px 4px 1px;
+  border-style: solid;
+  border-color: #3B5ED938;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+}
+
+.lesson-card-learn-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.lesson-card-action-btn {
+  width: calc(50% - 8px);
+  padding: 14px 20px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+  font-family: var(--font-family-secondary);
+  font-weight: 800;
+  font-size: 16px;
+  border-width: 1px 1px 4px 1px;
+  border-style: solid;
+  border-color: #FFFFFF;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+}
+
+.lesson-card-action-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.lesson-card-actions {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  max-width: 360px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .learning-module,
+  .learning-module--locked {
+    max-width: 100%;
+    height: auto;
+    min-height: 500px;
+  }
+
+  .section-header {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .section-divider--short {
+    width: 100px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .section-subtitle,
+  .section-subtitle--muted {
+    font-size: 18px;
+  }
+
+  .lesson-card {
+    width: 90%;
+    max-width: 360px;
+    padding: 30px 20px 20px;
+  }
+
+  .lesson-card-title {
+    font-size: 24px;
+  }
+
+  .lesson-card-subtitle {
+    font-size: 18px;
+  }
+}

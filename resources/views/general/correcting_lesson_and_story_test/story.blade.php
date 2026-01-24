@@ -9,7 +9,7 @@
                         <h1 class="title"> {{$story->name}} </h1>
                         <h1 class="title"><p id="countdown" class="mb-0 text-danger" style="font-size:32px"></p></h1>
                         <nav class="breadcrumb">
-                            <a class="breadcrumb-item" href="{{route('stories.list', $story->grade)}}"> Stories </a>
+                            <a class="breadcrumb-item" href=""> Stories </a>
                             <span class="breadcrumb-item active" aria-current="page"> Test </span>
                         </nav>
                     </div>

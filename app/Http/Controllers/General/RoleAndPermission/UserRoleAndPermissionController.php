@@ -26,7 +26,7 @@ class UserRoleAndPermissionController extends Controller
                 ->escapeColumns([])
                 ->addColumn('name', function ($row) use ($user_guard) {
                     if ($user_guard == 'school'){
-                        return $row->getTranslation('name','en');
+                        return $row->name;
                     }
                     return $row->name;
 

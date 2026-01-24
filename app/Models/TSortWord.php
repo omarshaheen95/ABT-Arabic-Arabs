@@ -14,6 +14,13 @@ class TSortWord extends Model
         't_question_id', 'content', 'ordered',
     ];
     protected static $recordEvents = ['updated'];
+
+    public function getUidAttribute()
+    {
+        //for compatibility with sorting questions and other questions has uid
+        return (string)$this->attributes['id'];
+    }
+
     public function question()
     {
         $this->belongsTo(TQuestion::class);

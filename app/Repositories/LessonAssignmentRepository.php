@@ -16,6 +16,7 @@ use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UserAssignment;
 use App\Models\Year;
+use App\Notifications\NewLessonAssignmentNotification;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -159,12 +160,17 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
                     }
                 }
 
-                $student->user_assignments()->create([
+                $userAssignment = $student->user_assignments()->create([
                     'lesson_assignment_id' => $lesson_assignment->id,
                     'lesson_id' => $lesson,
                     'deadline' => $request->get('deadline', null),
                     'test_assignment' => $data['test_assignment'],
                 ]);
+                // Send notification to student about new lesson assignment
+                $lessonModel = Lesson::find($lesson);
+                if ($lessonModel) {
+                    $student->notify(new NewLessonAssignmentNotification($userAssignment, $lessonModel));
+                }
             }
 
         }
@@ -253,7 +259,7 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
         {
             foreach ($lessons as $lesson)
             {
-                $student->user_assignments()->updateOrCreate(
+                $userAssignment = $student->user_assignments()->updateOrCreate(
                     [
                         'lesson_assignment_id' => $id,
                         'lesson_id' => $lesson,
@@ -263,6 +269,14 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
                         'deadline' => $request->get('deadline', null),
                         'test_assignment' => $data['test_assignment'],
                     ]);
+
+                // Send notification to student if this is a new assignment
+                if ($userAssignment->wasRecentlyCreated) {
+                    $lessonModel = Lesson::find($lesson);
+                    if ($lessonModel) {
+                        $student->notify(new NewLessonAssignmentNotification($userAssignment, $lessonModel));
+                    }
+                }
             }
 
         }
@@ -280,6 +294,12 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
             if ($request->get('with_user_assignments')){
                 $assignment->userAssignments()->delete();
             }
+            // Delete notifications related to this lesson assignment
+            \App\Models\Notification::query()
+                ->where('data->model_type', \App\Models\LessonAssignment::class)
+                ->where('data->model_id', $assignment->id)
+                ->delete();
+
             $assignment->delete();
         }
         return Response::response([Response::DELETED_SUCCESSFULLY]);

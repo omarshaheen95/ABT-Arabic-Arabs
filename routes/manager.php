@@ -120,6 +120,9 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::resource('package', 'PackageController')->except(['destroy']);
     Route::delete('package/delete', 'PackageController@destroy')->name('package.destroy');
 
+    //Achievement Levels
+    Route::resource('achievement_levels', 'AchievementLevelController')->except(['destroy']);
+    Route::delete('achievement_levels/delete', 'AchievementLevelController@destroy')->name('achievement_levels.destroy');
 
     Route::get('seed',function (){
         if (!defined('STDIN')) {

@@ -131,6 +131,10 @@ class Lesson extends Model implements HasMedia
                 return 'عام';
         }
     }
+    public function getMaxTestTotalAttribute()
+    {
+        return 100;
+    }
 
     public function grade()
     {

@@ -16,6 +16,9 @@ class UserStoryAssignment extends Model
         'user_id','story_assignment_id', 'story_id', 'test_assignment', 'done_test_assignment', 'completed', 'deadline', 'completed_at', 'deadline', 'completed_at'
     ];
 
+    protected $dates = [
+        'deadline'
+    ];
     public function getActionButtonsAttribute()
     {
         $actions = [];

@@ -21,10 +21,11 @@
                 @if($user_test->lesson->lesson_type == "writing")
                     @foreach($user_test->writingResults as $writingResult)
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label"></label>
+                            <label class="col-xl-3 col-lg-3 col-form-label">{{'Student Answers'}}</label>
                             <div class="col-lg-9 col-xl-6">
                                 <label class="col-form-label">
-                                    {{ $writingResult->question->content }}
+                                   <span class="text-primary fw-bolder"> ❋ {{t('Q')}} :</span>   {{ $writingResult->question->content }}
+                                    <div class="separator separator-dotted my-2"></div>
 
                                     @if($writingResult->question->getFirstMediaUrl('imageQuestion'))
                                         :
@@ -51,7 +52,48 @@
                                     @endif
                                 </label>
                                 <br>
-                                <textarea disabled class="form-control">{{$writingResult->result}}</textarea>
+                                @if(!empty($writingResult->result))
+                                    <div class="mb-2">
+                                        <span class="badge badge-light-info">
+                                            <i class="ki-duotone ki-text fs-3">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </i>
+                                             {{t('Word Count')}}: {{ str_word_count($writingResult->result) }}
+                                        </span>
+                                    </div>
+                                @endif
+                                <textarea disabled class="form-control" style="min-height: 150px;">{{$writingResult->result}}</textarea>
+
+                                @if(!empty($writingResult->attachment))
+                                    <div class="mt-3">
+                                        @php
+                                            $extension = pathinfo($writingResult->attachment, PATHINFO_EXTENSION);
+                                            $isImage = in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp']);
+                                        @endphp
+
+                                            <a href="{{asset($writingResult->attachment)}}" target="_blank" class="btn btn-success btn-icon-text">
+                                                @if(in_array(strtolower($extension), ['pdf']))
+                                                    <i class="ki-duotone ki-file-down fs-3">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </i>
+                                                @elseif(in_array(strtolower($extension), ['doc', 'docx']))
+                                                    <i class="ki-duotone ki-document fs-3">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </i>
+                                                @else
+                                                    <i class="ki-duotone ki-file fs-3">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </i>
+                                                @endif
+                                                 ({{strtoupper($extension)}}) - {{t('View Attached File')}}
+                                            </a>
+                                    </div>
+                                @endif
                             </div>
 
                         </div>
@@ -60,10 +102,10 @@
                 @if($user_test->lesson->lesson_type == "speaking")
                     @foreach($user_test->speakingResults as $speakingResult)
                         <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label"></label>
-                            <div class="col-lg-9">
+                            <label class="col-xl-3 col-lg-3 col-form-label">{{'Student Answers'}}</label>
+                            <div class="col-lg-9 col-xl-6">
                                 <label class="col-form-label">
-                                    {{ $speakingResult->question->content }}
+                                    <span class="text-primary fw-bolder"> ❋ {{t('Q')}} :</span> {{ $speakingResult->question->content }}
                                     @if($speakingResult->question->getFirstMediaUrl('imageQuestion'))
                                         :
                                         <div class="row justify-content-center py-3">
@@ -96,6 +138,7 @@
                     @endforeach
                 @endif
             </div>
+            <div class="separator separator-dashed my-2"></div>
             <div class="form-group row">
                 <label class="col-xl-3 col-lg-3 col-form-label">تغذية راجعة</label>
                 <div class="col-lg-9 col-xl-6">

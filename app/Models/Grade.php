@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use function Symfony\Component\String\s;
 
 class Grade extends Model
 {
@@ -24,11 +25,37 @@ class Grade extends Model
     }
 
 
-        public function lessons()
+    public function lessons()
     {
         return $this->hasMany(Lesson::class);
     }
 
+    public function getGradeSkillsAttribute()
+    {
+        $skill = [];
+        if($this->reading){
+            $skill[]= ['skill'=>'reading','title'=>'مهارة القراءة'];
+        }
+        if($this->writing){
+            $skill[]= ['skill'=>'writing','title'=>'مهارة الكتابة'];
+        }
+        if($this->listening){
+            $skill[]= ['skill'=>'listening','title'=>'مهارة الاستماع'];
+        }
+        if($this->speaking){
+            $skill[]= ['skill'=>'speaking','title'=>'مهارة التحدث'];
+        }
+        if($this->grammar){
+            $skill[]= ['skill'=>'grammar','title'=>'القواعد النحوية'];
+        }
+        if($this->dictation){
+            $skill[]= ['skill'=>'dictation','title'=>'الإملاء'];
+        }
+        if($this->rhetoric){
+            $skill[]= ['skill'=>'rhetoric','title'=>'البلاغة'];
+        }
+        return $skill;
+    }
     public function getGradeNameAttribute()
     {
         switch($this->grade_number)
