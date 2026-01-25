@@ -1,6 +1,6 @@
 @extends('user.layout')
 @push('style')
-        <link rel="stylesheet" href="{{asset('user_assets/css/pages/participant-info.css')}}?v=1" />
+        <link rel="stylesheet" href="{{asset('user_assets/css/pages/participant-info.css')}}?v=2" />
 @endpush
 
 @section('page-name', 'participant-info')
@@ -26,11 +26,11 @@
                     @if($user->package)
                         <div style="display: flex; flex-direction: column; gap: 4px; padding-top: 8px; border-top: 1px solid #e2e8f0;">
                             <div style="display: flex; align-items: center; gap: 8px;">
-                                <span style="font-size: 14px; color: #4a5568; font-weight: 600;">{{t('Package')}}:</span>
+                                <span style="font-size: 14px; color: #4a5568; font-weight: 600;">الباقة:</span>
                                 <span style="font-size: 14px; color: #2d3748;">{{ $user->package->name ?? '—' }}</span>
                             </div>
                             <div style="display: flex; align-items: center; gap: 8px;">
-                                <span style="font-size: 13px; color: #4a5568; font-weight: 600;">{{t('Period')}}:</span>
+                                <span style="font-size: 13px; color: #4a5568; font-weight: 600;">الفترة:</span>
                                 <span style="font-size: 13px; color: #718096;">
                                     {{ $user->active_from ? $user->active_from->format('Y-m-d') : '—' }} → {{ $user->active_to ? $user->active_to->format('Y-m-d') : '—' }}
                                 </span>
@@ -42,7 +42,7 @@
                 <!-- Edit Button -->
                 <div style="flex-shrink: 0;">
                     <button class="edit-profile-btn" id="editProfileBtn" aria-label="Edit profile">
-                        {{t('Edit Profile')}}
+                        تعديل الحساب
                     </button>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                         aria-valuemax="{{$user_data['maxXp']}}"
                         aria-label="Level progress: {{$user_data['currentXp']}} out of {{$user_data['maxXp']}} XP"
                         id="levelProgressBar"
-                        style="position: absolute; top: 0; left: 0; height: 32px; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); border-radius: 16px; transition: width 0.3s ease;"
+                        style="position: absolute; top: 0; left: 0; height: 32px; border-radius: 16px; transition: width 0.3s ease;"
                     ></div>
                     <span class="participant-level-progress-text" id="levelProgressText" style="position: absolute; top: 84%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: 600; font-size: 14px;">{{$user_data['currentXp']}}/{{$user_data['maxXp']}}xp</span>
                 </div>
@@ -89,8 +89,8 @@
                         </div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-value" id="streakDays">{{$user_data['streak']}} Days</h3>
-                        <p class="card-label">{{t('Continuous streak')}}</p>
+                        <h3 class="card-value" id="streakDays">{{$user_data['streak']}} يوم</h3>
+                        <p class="card-label">استمرارية الحماس</p>
                     </div>
                 </div>
 
@@ -114,7 +114,7 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-value" id="totalXp">{{$user_data['currentXp']}} xp</h3>
-                        <p class="card-label">{{t('Total xp')}}</p>
+                        <p class="card-label">مجموع النقاط</p>
                     </div>
                 </div>
             </div>
@@ -132,7 +132,7 @@
                 </button>
 
                 <div class="modal-inner-content">
-                    <h2 class="modal-title" id="modalTitle">{{t('EDIT PROFILE')}}</h2>
+                    <h2 class="modal-title" id="modalTitle">تعديل الحساب</h2>
 
                     <div class="modal-avatar-section">
                         <div class="modal-avatar">
@@ -150,7 +150,7 @@
                     <form class="modal-form" id="editProfileForm">
                         <div class="modal-input-group">
                             <label class="modal-label" for="profileName">
-                                {{t('Name')}}<span class="required-star">*</span>
+                                الاسم<span class="required-star">*</span>
                             </label>
                             <input
                                 type="text"
@@ -165,7 +165,7 @@
 
                         <div class="modal-input-group">
                             <label class="modal-label" for="profileEmail">
-                                {{t('Email')}}<span class="required-star">*</span>
+                                البريد الالكتروني<span class="required-star">*</span>
                             </label>
                             <input
                                 type="email"
@@ -180,49 +180,49 @@
 
                         <!-- Read-only User Information -->
                         <div class="modal-input-group">
-                            <label class="modal-label">{{t('Grade')}}</label>
+                            <label class="modal-label">الصف</label>
                             <div class="modal-input" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>
                                 {{ $user->grade_name ?? '—' }}
                             </div>
                         </div>
 
                         <div class="modal-input-group">
-                            <label class="modal-label">{{t('School')}}</label>
+                            <label class="modal-label">المدرسة</label>
                             <div class="modal-input" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>
                                 {{ $user->school->name ?? '—' }}
                             </div>
                         </div>
 
                         <div class="modal-input-group">
-                            <label class="modal-label">{{t('Teacher')}}</label>
+                            <label class="modal-label">المعلم</label>
                             <div class="modal-input" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>
                                 {{ $user->teacher->name ?? '—' }}
                             </div>
                         </div>
 
                         <div class="modal-input-group">
-                            <label class="modal-label">{{t('Mobile')}}</label>
+                            <label class="modal-label">الهاتف</label>
                             <div class="modal-input" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>
                                 {{ $user->mobile ?? '—' }}
                             </div>
                         </div>
 
                         <div class="modal-input-group">
-                            <label class="modal-label">{{t('Gender')}}</label>
+                            <label class="modal-label">الجنس</label>
                             <div class="modal-input text-capitalize" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>
                                 {{ $user->gender ?? '—' }}
                             </div>
                         </div>
 
                         <div class="modal-input-group">
-                            <label class="modal-label">{{t('Active to')}}</label>
+                            <label class="modal-label">نشط حتى</label>
                             <div class="modal-input" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>
                                 {{ \Carbon\Carbon::parse($user->active_to)->format('d M Y') ?? '—' }}
                             </div>
                         </div>
 
                         <div class="modal-input-group">
-                            <label class="modal-label">{{t('Joined On')}}</label>
+                            <label class="modal-label">تم الانضمام في</label>
                             <div class="modal-input" style="background-color: #f5f5f5; cursor: not-allowed;" disabled>
                                 {{ $user->created_at->format('d M Y') ?? '—' }}
                             </div>
@@ -231,7 +231,7 @@
 {{--                        <button type="submit" class="modal-save-btn">{{t('Save')}}</button>--}}
 
                         <button type="button" class="modal-change-password" id="changePasswordBtn">
-                            {{t('Change password?')}}
+                            تغيير كلمة المرور
                         </button>
                     </form>
                 </div>
@@ -250,12 +250,12 @@
                 </button>
 
                 <div class="modal-inner-content">
-                    <h2 class="modal-title" id="changePasswordModalTitle">{{t('CHANGE PASSWORD')}}</h2>
+                    <h2 class="modal-title" id="changePasswordModalTitle">تغيير كلمة المرور</h2>
 
                     <form class="modal-form" id="changePasswordForm">
                         <div class="modal-input-group">
                             <label class="modal-label" for="currentPassword">
-                                {{t('Current Password')}}<span class="required-star">*</span>
+                                كلمة المرور الحالية<span class="required-star">*</span>
                             </label>
                             <input
                                 type="password"
@@ -269,7 +269,7 @@
 
                         <div class="modal-input-group">
                             <label class="modal-label" for="newPassword">
-                                {{t('New Password')}}<span class="required-star">*</span>
+                                كلمة المرور الجديدة<span class="required-star">*</span>
                             </label>
                             <input
                                 type="password"
@@ -283,7 +283,7 @@
 
                         <div class="modal-input-group">
                             <label class="modal-label" for="confirmPassword">
-                                {{t('Confirm New Password')}}<span class="required-star">*</span>
+                                تأكيد كلمة المرور الجديدة<span class="required-star">*</span>
                             </label>
                             <input
                                 type="password"
@@ -295,16 +295,17 @@
                             />
                         </div>
 
-                        <button type="submit" class="modal-save-btn">{{t('Save')}}</button>
+                        <button type="submit" class="modal-save-btn">حفظ</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+@include('user.general.components.loading_dialog')
 @push('script')
     <script>
     </script>
-    <script src="{{asset('user_assets/js/pages/participant-info.js')}}"></script>
+    <script src="{{asset('user_assets/js/pages/participant-info.js')}}?v=1"></script>
 
 @endpush

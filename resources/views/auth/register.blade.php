@@ -1,7 +1,7 @@
 @extends('layouts.container_2')
 
 @section('p_style')
-    <link rel="stylesheet" href="{{ asset('web_assets/css/auth-modern.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="{{ asset('web_assets/css/auth-modern.css') }}?v=2">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 @endsection
 
