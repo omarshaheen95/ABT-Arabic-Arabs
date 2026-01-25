@@ -1,7 +1,7 @@
 @extends('layouts.container_2')
 
 @section('p_style')
-    <link rel="stylesheet" href="{{ asset('web_assets/css/auth-modern.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="{{ asset('web_assets/css/auth-modern.css') }}?v=2">
 @endsection
 
 @section('content')

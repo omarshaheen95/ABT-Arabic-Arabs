@@ -597,13 +597,13 @@ html[dir="rtl"] .register-link {
    Accessibility
    ======================================== */
 
-.input-field:focus-visible,
-.btn-auth-primary:focus-visible,
-.forgot-password-link:focus-visible,
-.register-link:focus-visible {
-    outline: 2px solid var(--color-theme);
-    outline-offset: 2px;
-}
+/*.input-field:focus-visible,*/
+/*.btn-auth-primary:focus-visible,*/
+/*.forgot-password-link:focus-visible,*/
+/*.register-link:focus-visible {*/
+/*    outline: 2px solid var(--color-theme);*/
+/*    outline-offset: 2px;*/
+/*}*/
 
 /* ========================================
    RTL Adjustments

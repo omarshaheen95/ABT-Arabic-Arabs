@@ -7,7 +7,7 @@
                     <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
                 </svg>
             </div>
-            <p class="loading-text">جاري المعالجة...</p>
+            <p id="loading-text" class="loading-text">جاري المعالجة...</p>
             <p class="loading-subtext">الرجاء الإنتظار...</p>
         </div>
     </div>
@@ -127,14 +127,19 @@
         /**
          * Show loading dialog
          */
-        function showLoadingDialog() {
+        function showLoadingDialog(text='جاري المعالجة...') {
             const loadingDialog = document.getElementById('loadingDialog');
+            const loadingText = document.getElementById('loading-text');
+
             if (loadingDialog) {
                 loadingDialog.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
             }
-        }
 
+            if (loadingText) {
+                loadingText.textContent = text;
+            }
+        }
         /**
          * Hide loading dialog
          */

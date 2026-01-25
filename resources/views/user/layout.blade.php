@@ -7,6 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <meta name="csrf-token" content="{{csrf_token()}}">
+
     <meta name="author" content="">
     <meta name="robots" content="index, follow">
 
@@ -31,7 +33,7 @@
     <link rel="canonical" href="" />
     <link rel="shortcut icon" href="{{!settingCache('logo_min')? asset('logo_min.svg'):asset(settingCache('logo_min'))}}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{asset('user_assets/css/global.css')}}" />
+    <link rel="stylesheet" href="{{asset('user_assets/css/global.css')}}?v=1" />
     <link rel="stylesheet" href="{{asset('user_assets/css/components.css')}}" />
     <link rel="stylesheet" href="{{asset('user_assets/css/layout.css')}}" />
     <link rel="stylesheet" href="{{asset('user_assets/lib/toastr/toastr.min.css')}}" />

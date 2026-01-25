@@ -194,7 +194,7 @@ function initChangePasswordModal() {
       }
 
       // Show loading dialog
-      showLoadingDialog('Updating password...');
+      showLoadingDialog('تعديل كلمة المرور ...');
 
       // Get CSRF token
       const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -219,7 +219,7 @@ function initChangePasswordModal() {
           closeModal();
 
           // Show success message
-          showMessage(response.message || 'Password changed successfully!', 'success');
+          showMessage(response.message || 'تم تعديل كلمة المرور بنجاح!', 'success');
 
           // Reset form
           if (form) form.reset();
@@ -228,7 +228,7 @@ function initChangePasswordModal() {
           // Hide loading dialog
           hideLoadingDialog();
 
-          let errorMessage = 'Failed to update password. Please try again.';
+          let errorMessage = 'فشل تعديل كلمة المرور , حاول مرة اخرى.';
 
           if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.errors) {
             // Validation errors
@@ -277,92 +277,3 @@ function animateLevelProgressBar() {
     }, 300);
   }
 }
-
-// =============================================================================
-// HELPER FUNCTIONS
-// =============================================================================
-
-/**
- * Show loading dialog
- */
-function showLoadingDialog(message = 'Loading...') {
-  // Remove existing loading dialog if any
-  hideLoadingDialog();
-
-  // Create loading overlay
-  const loadingOverlay = document.createElement('div');
-  loadingOverlay.id = 'loadingDialog';
-  loadingOverlay.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  `;
-
-  // Create loading content
-  const loadingContent = document.createElement('div');
-  loadingContent.style.cssText = `
-    background: white;
-    padding: 30px 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    max-width: 300px;
-  `;
-
-  // Create spinner
-  const spinner = document.createElement('div');
-  spinner.style.cssText = `
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #1E4396;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 15px;
-  `;
-
-  // Add keyframes for spinner animation
-  if (!document.getElementById('spinnerAnimation')) {
-    const style = document.createElement('style');
-    style.id = 'spinnerAnimation';
-    style.innerHTML = `
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  // Create message text
-  const messageText = document.createElement('p');
-  messageText.textContent = message;
-  messageText.style.cssText = `
-    margin: 0;
-    color: #333;
-    font-size: 16px;
-  `;
-
-  loadingContent.appendChild(spinner);
-  loadingContent.appendChild(messageText);
-  loadingOverlay.appendChild(loadingContent);
-  document.body.appendChild(loadingOverlay);
-}
-
-/**
- * Hide loading dialog
- */
-function hideLoadingDialog() {
-  const loadingDialog = document.getElementById('loadingDialog');
-  if (loadingDialog) {
-    loadingDialog.remove();
-  }
-}
-
