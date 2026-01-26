@@ -141,7 +141,7 @@
             $(this).find(".icon-spinner").toggleClass("d-none");
             $(this).css('pointer-events', "none");
             let csrf = $('meta[name="csrf-token"]').attr('content');
-            var URL = '{{route('stories.record', $story->id)}}';
+            var URL = '';
             var METHOD = 'post';
             var fd = new FormData();
 

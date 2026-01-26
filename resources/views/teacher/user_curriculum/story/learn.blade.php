@@ -3,7 +3,7 @@
 @endsection
 @push('breadcrumb')
     <li class="breadcrumb-item">
-        <a href="{{ route('stories.list', $story->grade) }}">القصص</a>
+        <a href="{{ route('teacher.stories.list', $story->grade) }}">القصص</a>
     </li>
 @endpush
 @section('content')
