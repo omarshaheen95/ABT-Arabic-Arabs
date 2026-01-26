@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="exam-card box-shado-question" dir="rtl">
                     <div class="exam-body question-list">
-                        <form action="{{route('lesson_writing_test', $lesson->id)}}" enctype="multipart/form-data" id="term_form" method="post">
+                        <form action="" enctype="multipart/form-data" id="term_form" method="post">
                             {{csrf_field()}}
                             <input type="hidden" name="start_at" value="{{\Carbon\Carbon::now()}}">
                             <div class="justify-content-between align-items-center mb-4">
