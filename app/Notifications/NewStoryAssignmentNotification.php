@@ -42,7 +42,7 @@ class NewStoryAssignmentNotification extends Notification
             "model_id" => $this->userAssignment->story_assignment_id,
             'model_type' => \App\Models\StoryAssignment::class,
             'title'=>'New Story Assignment',
-            'message'=>'('.$this->story->getTranslation('name','en').')'.' Story Assignment and will expired at '.' [ '.$this->userAssignment->deadline->format('d M Y h:i A').' ] ',
+            'message'=>'('.$this->story->name.')'.' Story Assignment and will expired at '.' [ '.$this->userAssignment->deadline->format('d M Y h:i A').' ] ',
             "other" => [
                 "user_assignment_id" => $this->userAssignment->id,
                 "story_id" => $this->story->id,
@@ -75,7 +75,7 @@ class NewStoryAssignmentNotification extends Notification
 
         $this->message = [
             "title" => t("New Story Assignment"),
-            'details'=>'('.$this->story->getTranslation('name','en').')'.' Story Assignment and will expired at '.' [ '.$this->userAssignment->deadline->format('d M Y h:i A').' ] ',
+            'details'=>'('.$this->story->name.')'.' Story Assignment and will expired at '.' [ '.$this->userAssignment->deadline->format('d M Y h:i A').' ] ',
         ];
         $this->message['others'] = [
             "model_id" => $this->userAssignment->story_assignment_id,
