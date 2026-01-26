@@ -117,7 +117,7 @@
                                 <tr>
                                     <td>
                                         <div class="audio-player">
-                                            <audio >
+                                            <audio controls>
                                                 <source
                                                     src="{{asset($lesson->getFirstMediaUrl('audioLessons'))}}"
                                                     type="audio/mpeg" />
