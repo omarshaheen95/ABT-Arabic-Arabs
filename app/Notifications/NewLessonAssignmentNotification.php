@@ -43,7 +43,7 @@ class NewLessonAssignmentNotification extends Notification
             "model_id" => $this->userAssignment->lesson_assignment_id,
             'model_type' => \App\Models\LessonAssignment::class,
             'title'=>'New Lesson Assignment',
-            'message'=>'('.$this->lesson->getTranslation('name','en').')'.' Lesson Assignment and will expired at '.' [ '.$this->userAssignment->deadline->format('d M Y h:i A').' ] ',
+            'message'=>'('.$this->lesson->name.')'.' Lesson Assignment and will expired at '.' [ '.$this->userAssignment->deadline->format('d M Y h:i A').' ] ',
             "other" => [
                 "user_assignment_id" => $this->userAssignment->id,
                 "lesson_id" => $this->lesson->id,
@@ -76,7 +76,7 @@ class NewLessonAssignmentNotification extends Notification
 
         $this->message = [
             "title" => t("New Lesson Assignment"),
-            'details'=>'('.$this->lesson->getTranslation('name','en').')'.' Lesson Assignment and will expired at '.' [ '.$this->userAssignment->deadline->format('d M Y h:i A').' ] ',
+            'details'=>'('.$this->lesson->name.')'.' Lesson Assignment and will expired at '.' [ '.$this->userAssignment->deadline->format('d M Y h:i A').' ] ',
         ];
         $this->message['others'] = [
             "model_id" => $this->userAssignment->lesson_assignment_id,
