@@ -10,21 +10,13 @@
                         <h3 class="card-title">{{$student_assignment->story->name}}</h3>
                         <p class="card-level">الصف {{$student_assignment->story->grade}}</p>
                     </div>
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        @if((($student_assignment->test_assignment && $student_assignment->done_test_assignment) &&$student_assignment->completed) ||  $student_assignment->completed)
-                            <span class="status-badge completed">مكتمل</span>
-                        @else
-                            <div class="assignment-timer" data-deadline="{{$student_assignment->deadline ? $student_assignment->deadline->toIso8601String() : ''}}">
-                                <span class="timer-text">--:--:--</span>
-                            </div>
-                        @endif
-                        <a href="{{route('story.story-index',['id'=>$student_assignment->story_id,'key'=>'watch'])}}" class="btn-outline glass-button-component btn-sm" style="margin-top: 6px; font-size: 12px; color: var(--primary-color)">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="currentColor"/>
-                            </svg>
-                            اذهب الى القصة
-                        </a>
-                    </div>
+                    @if((($student_assignment->test_assignment && $student_assignment->done_test_assignment) &&$student_assignment->completed) ||  $student_assignment->completed)
+                        <span class="status-badge completed">مكتمل</span>
+                    @else
+                        <div class="assignment-timer" data-deadline="{{$student_assignment->deadline ? $student_assignment->deadline->toIso8601String() : ''}}">
+                            <span class="timer-text">--:--:--</span>
+                        </div>
+                    @endif
                 </div>
                 <div class="card-divider"></div>
                 <div class="card-actions">
@@ -110,14 +102,6 @@
                                         </svg>
                                     </button>
                                 @endif
-
-                                <button class="action-menu-item"
-                                        onclick="goToTest('{{route('story.story-index',['id'=>$student_assignment->story_id,'key'=>'watch'])}}')">
-                                    اذهب الى القصة
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="currentColor"/>
-                                    </svg>
-                                </button>
                             </div>
                         </div>
                     </td>
