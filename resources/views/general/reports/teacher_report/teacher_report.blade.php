@@ -93,16 +93,16 @@
     <div class="subpage-w">
         <div class="row justify-content-center align-items-center">
             <div class="col-8 justify-content-center text-center">
-                <img src="{{asset('report_assets/images/circle-logo.svg')}}" width="100%"
+                <img src="{{asset('report_assets/images/circle-logo.svg')}}" width="40%"
                      alt="">
             </div>
         </div>
 
         <div class="row text-center justify-content-center mt-5">
-            <div class="col-6">
+            <div class="col-12">
                 <h3 class="main-color">تقرير إحصائيات المعلمين</h3>
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <h3 class="main-color">Teacher Statistics Report</h3>
             </div>
         </div>
