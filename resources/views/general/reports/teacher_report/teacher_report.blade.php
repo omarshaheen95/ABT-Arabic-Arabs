@@ -88,7 +88,7 @@
     </style>
 
 </head>
-<body>
+<body dir="rtl">
 
 {{-- ===== صفحة الغلاف ===== --}}
 <div class="page">
@@ -192,7 +192,7 @@
 
                         {{-- اختبارات الدروس --}}
                         <tr class="text-center stat-group-header">
-                            <td colspan="4">{{t('Lesson Assessments')}} (UserTest)</td>
+                            <td colspan="4">{{t('Lesson Assessments')}} </td>
                         </tr>
                         <tr class="text-center">
                             <td class="sub-td">{{t('Total')}}</td>
@@ -209,7 +209,7 @@
 
                         {{-- اختبارات القصص --}}
                         <tr class="text-center stat-group-header">
-                            <td colspan="4">{{t('Story Assessments')}} (StudentStoryTest)</td>
+                            <td colspan="4">{{t('Story Assessments')}} </td>
                         </tr>
                         <tr class="text-center">
                             <td class="sub-td">{{t('Total')}}</td>
@@ -229,11 +229,11 @@
                             <td colspan="4">{{t('Assignments')}}</td>
                         </tr>
                         <tr class="text-center">
-                            <td class="sub-td" colspan="2">{{t('Lesson Assignments')}} (LessonAssignment)</td>
+                            <td class="sub-td" colspan="2">{{t('Lesson Assignments')}} </td>
                             <td colspan="2"><strong>{{ $teacher->total_lesson_assignments }}</strong></td>
                         </tr>
                         <tr class="text-center">
-                            <td class="sub-td" colspan="2">{{t('Story Assignments')}} (StoryAssignment)</td>
+                            <td class="sub-td" colspan="2">{{t('Story Assignments')}} </td>
                             <td colspan="2"><strong>{{ $teacher->total_story_assignments }}</strong></td>
                         </tr>
 
@@ -242,19 +242,19 @@
                             <td colspan="4">{{t('Student Homework')}}</td>
                         </tr>
                         <tr class="text-center">
-                            <td class="sub-td" colspan="2">{{t('Lesson Homework Total')}} (UserAssignment)</td>
+                            <td class="sub-td" colspan="2">{{t('Lesson Homework Total')}} </td>
                             <td><strong>{{ $teacher->total_lesson_hw }}</strong></td>
                             <td><span class="badge-corrected">{{t('Done')}}: {{ $teacher->completed_lesson_hw }}</span></td>
                         </tr>
                         <tr class="text-center">
-                            <td class="sub-td" colspan="2">{{t('Story Homework Total')}} (UserStoryAssignment)</td>
+                            <td class="sub-td" colspan="2">{{t('Story Homework Total')}} </td>
                             <td><strong>{{ $teacher->total_story_hw }}</strong></td>
                             <td><span class="badge-corrected">{{t('Done')}}: {{ $teacher->completed_story_hw }}</span></td>
                         </tr>
 
                         {{-- تسجيلات القصص --}}
                         <tr class="text-center stat-group-header">
-                            <td colspan="4">{{t('Story Recordings')}} (StoryUserRecord)</td>
+                            <td colspan="4">{{t('Story Recordings')}} </td>
                         </tr>
                         <tr class="text-center">
                             <td class="sub-td">{{t('Total')}}</td>
