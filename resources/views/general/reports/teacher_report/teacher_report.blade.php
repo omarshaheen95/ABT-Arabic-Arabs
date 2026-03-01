@@ -15,33 +15,31 @@
 
     <style>
         .teacher-info-card {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 15px;
+            padding: 14px 20px;
             border: 1px solid #D3D3D3;
             border-radius: 12px;
             margin-bottom: 20px;
             background: #f9f9f9;
+            border-right: 5px solid #138944;
         }
-        .teacher-avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #138944;
-            flex-shrink: 0;
-        }
-        .teacher-details h4 {
-            margin: 0 0 5px;
+        .teacher-info-card h4 {
+            margin: 0 0 8px;
             color: #138944;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 20px;
+            font-weight: 700;
         }
-        .teacher-details p {
-            margin: 2px 0;
+        .teacher-info-card .info-row {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .teacher-info-card .info-item {
             font-size: 13px;
             color: #444;
+        }
+        .teacher-info-card .info-item span {
+            font-weight: 600;
+            color: #222;
         }
         .stat-group-header td {
             background-color: #138944 !important;
@@ -157,18 +155,12 @@
         <div class="row justify-content-center mb-3">
             <div class="col-11">
                 <div class="teacher-info-card">
-                    <img class="teacher-avatar"
-                         src="{{ $teacher->image ? asset($teacher->image) : asset('assets/media/avatars/blank.png') }}"
-                         alt="{{ $teacher->name }}"
-                         onerror="this.src='{{ asset('assets/media/avatars/blank.png') }}'">
-                    <div class="teacher-details">
-                        <h4>{{ $teacher->name }}</h4>
+                    <h4>{{ $teacher->name }}</h4>
+                    <div class="info-row">
                         @if($teacher->email)
-                            <p>&#9993; {{ $teacher->email }}</p>
+                            <div class="info-item">{{t('Email')}} : <span>{{ $teacher->email }}</span></div>
                         @endif
-                        @if($teacher->mobile)
-                            <p>&#128222; {{ $teacher->mobile }}</p>
-                        @endif
+                        <div class="info-item">{{t('Registration Date')}} : <span>{{ $teacher->created_at ? $teacher->created_at->format('Y-m-d') : '-' }}</span></div>
                     </div>
                 </div>
             </div>
