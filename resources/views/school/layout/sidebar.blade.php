@@ -353,6 +353,19 @@
                         <span class="menu-title">{{t('Usage Report')}}</span>
                     </a>
                 </div>
+                <div class="menu-item">
+                    <a href="{{route('school.report.pre_teacher_report')}}"
+                       class="menu-link {{request()->url() == route('school.report.pre_teacher_report')?'active':''}}">
+                        <span class="menu-icon">
+                           <i class="ki-duotone ki-teacher fs-2">
+                             <span class="path1"></span>
+                             <span class="path2"></span>
+                             <span class="path3"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">{{t('Teacher Report')}}</span>
+                    </a>
+                </div>
 
 
             </div>
