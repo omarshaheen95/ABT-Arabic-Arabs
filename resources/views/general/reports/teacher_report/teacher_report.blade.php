@@ -93,7 +93,7 @@
     <div class="subpage-w">
         <div class="row justify-content-center align-items-center">
             <div class="col-8 justify-content-center text-center">
-                <img src="{{!settingCache('logo')? asset('logo.svg?v=1'):asset(settingCache('logo'))}}" width="100%"
+                <img src="{{asset('report_assets/images/circle-logo.svg')}}" width="100%"
                      alt="">
             </div>
         </div>
@@ -126,16 +126,20 @@
                     <h5>{{t('From')}} : {{$start_date}} &nbsp;&nbsp; {{t('To')}} : {{$end_date}}</h5>
                 @endif
                 <h5>{{t('Release Date')}} : {{now()->format('Y-m-d')}}</h5>
-                <h5>www.abt-assessments.com</h5>
-                <h5>support@abt-assessments.com</h5>
+{{--                <h5>www.abt-assessments.com</h5>--}}
+{{--                <h5>support@abt-assessments.com</h5>--}}
             </div>
         </div>
 
-        <div class="row mt-5">
-            <div class="col-12 text-center">
-                <img src="{{asset('report_assets/images/footer-logos.svg')}}?v=1" width="100%" alt="">
-            </div>
-        </div>
+{{--        <div class="row mt-5">--}}
+{{--            <div class="col-12 text-center">--}}
+{{--                <img src="{{asset('report_assets/images/footer-logos.svg')}}?v=1" width="100%" alt="">--}}
+{{--            </div>--}}
+{{--        </div>--}}
+    </div>
+    {{-- Footer --}}
+    <div class="footer text-center mt-3">
+        <small>www.abt-assessments.com &nbsp;|&nbsp; support@abt-assessments.com</small>
     </div>
 </div>
 
