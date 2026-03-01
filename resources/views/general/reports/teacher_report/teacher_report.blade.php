@@ -195,16 +195,14 @@
                             <td colspan="4">{{t('Lesson Assessments')}} </td>
                         </tr>
                         <tr class="text-center">
-                            <td class="sub-td">{{t('Total')}}</td>
+                            <td colspan="2" class="sub-td">{{t('Total')}}</td>
                             <td class="sub-td"><span class="badge-pass">{{t('Pass')}}</span></td>
                             <td class="sub-td"><span class="badge-fail">{{t('Fail')}}</span></td>
-                            <td></td>
                         </tr>
                         <tr class="text-center">
-                            <td><strong>{{ $teacher->total_lesson_tests }}</strong></td>
+                            <td colspan="2"><strong>{{ $teacher->total_lesson_tests }}</strong></td>
                             <td><span class="badge-pass">{{ $teacher->pass_lesson_tests }}</span></td>
                             <td><span class="badge-fail">{{ $teacher->fail_lesson_tests }}</span></td>
-                            <td></td>
                         </tr>
 
                         {{-- اختبارات القصص --}}
