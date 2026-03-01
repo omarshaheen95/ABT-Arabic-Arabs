@@ -100,10 +100,10 @@
 
         <div class="row text-center justify-content-center mt-5">
             <div class="col-6">
-                <h3 class="main-color">Teacher Statistics Report</h3>
+                <h3 class="main-color">تقرير إحصائيات المعلمين</h3>
             </div>
             <div class="col-6">
-                <h3 class="main-color">تقرير إحصائيات المعلمين</h3>
+                <h3 class="main-color">Teacher Statistics Report</h3>
             </div>
         </div>
 
