@@ -233,7 +233,9 @@ class SettingController extends Controller
         $teachers = Teacher::query()
             ->where('school_id', $school_id)
             ->when($guard === 'supervisor', function ($q) use ($guard_user) {
-                $q->whereHas('supervisor_teachers', fn($q) => $q->where('supervisor_id', $guard_user->id));
+                $q->whereHas('supervisor_teachers', function ($q) use ($guard_user) {
+                    $q->where('supervisor_id', $guard_user->id);
+                });
             })
             ->get();
 
