@@ -73,7 +73,7 @@ class TeacherReport
                 ->when($end_date, function ($q) use ($end_date) {
                     $q->whereDate('created_at', '<=', $end_date);
                 })
-                ->get(['status']);
+                ->get(['status', 'corrected', 'approved']);
             $teacher->total_lesson_tests = $lessonTests->count();
             $teacher->pass_lesson_tests  = $lessonTests->where('status', 'Pass')->count();
             $teacher->fail_lesson_tests  = $lessonTests->where('status', 'Fail')->count();
