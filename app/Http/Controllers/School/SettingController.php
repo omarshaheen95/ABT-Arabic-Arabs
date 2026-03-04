@@ -221,4 +221,37 @@ class SettingController extends Controller
         $general = new GeneralFunctions();
         return $general->usageReport($request);
     }
+
+    public function preTeacherReport()
+    {
+        $title = t('Teacher Report');
+        $years = Year::query()->get();
+        $guard = getGuard();
+        $guard_user = Auth::guard($guard)->user();
+        $school_id = $guard === 'school' ? $guard_user->id : $guard_user->school_id;
+
+        $teachers = Teacher::query()
+            ->where('school_id', $school_id)
+            ->when($guard === 'supervisor', function ($q) use ($guard_user) {
+                $q->whereHas('supervisor_teachers', function ($q) use ($guard_user) {
+                    $q->where('supervisor_id', $guard_user->id);
+                });
+            })
+            ->get();
+
+        try {
+            $date_range = checkDateRangeForCurrentYear(now());
+        } catch (\Exception $e) {
+            $date_range = [];
+        }
+        $url = route('school.report.teacher_report');
+        return view('general.reports.teacher_report.pre_teacher_report',
+            compact('title', 'url', 'teachers', 'years', 'date_range'));
+    }
+
+    public function teacherReport(Request $request)
+    {
+        $report = new \App\Reports\TeacherReport($request);
+        return $report->report();
+    }
 }
