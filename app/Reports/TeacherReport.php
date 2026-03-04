@@ -79,6 +79,7 @@ class TeacherReport
             $teacher->fail_lesson_tests  = $lessonTests->where('status', 'Fail')->count();
             $teacher->correction_required = $lessonTests->where('corrected', 0)->where('approved', 0)->count();
 
+
             // اختبارات القصص — StudentStoryTest
             $storyTests = StudentStoryTest::whereIn('user_id', $studentIds)
                 ->when($start_date, function ($q) use ($start_date) {
