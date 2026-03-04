@@ -77,7 +77,7 @@ class TeacherReport
             $teacher->total_lesson_tests = $lessonTests->count();
             $teacher->pass_lesson_tests  = $lessonTests->where('status', 'Pass')->count();
             $teacher->fail_lesson_tests  = $lessonTests->where('status', 'Fail')->count();
-            $teacher->correction_required = $lessonTests->where('corrected', 0)->count();
+            $teacher->correction_required = $lessonTests->where('corrected', 0)->where('approved', 0)->count();
 
             // اختبارات القصص — StudentStoryTest
             $storyTests = StudentStoryTest::whereIn('user_id', $studentIds)
