@@ -7,7 +7,7 @@
                     <div class="section-title">
                         <h1 class="title"> الشهادات </h1>
                         <nav class="breadcrumb">
-                            <a class="breadcrumb-item" href="{{route(getGuard().'.lessons_tests.certificate')}}"> الشهادات </a>
+                            <a class="breadcrumb-item" href="{{route(getGuard().'.lessons_tests.certificate',$student_test->id)}}"> الشهادات </a>
                             <span class="breadcrumb-item active" aria-current="page"> إجابات الأسئلة </span>
                         </nav>
                     </div>
