@@ -181,7 +181,13 @@ class User extends Authenticatable
 
     }
 
-
+    public function getMinimizedNameAttribute()
+    {
+        $name_parts = preg_split('/\s+/', trim($this->name));
+        return count($name_parts) === 4
+            ? $name_parts[0].' '.$name_parts[1].' '.$name_parts[3]
+            : $this->name;
+    }
 
     public function school()
     {
