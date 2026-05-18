@@ -34,6 +34,7 @@ class AddNewStudentMail extends Mailable implements ShouldQueue
 //                'it@abt-assessments.com',
                 'operations@abt-assessments.com',
                 'communication@abt-assessments.com',
+                'contact@abt-assessments.com',
             ])
             //New Student Added To My First Lang Platform
             ->subject('إضافة طالب جديد إلى منصة لغتي الأولى')
