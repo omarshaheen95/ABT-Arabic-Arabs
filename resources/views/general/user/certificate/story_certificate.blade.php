@@ -18,12 +18,16 @@
       $dir = 'ltr';
       $local='en';
     }
+    $name_parts = preg_split('/\s+/', trim($student_test->user->name));
+     $display_name = count($name_parts) === 4
+        ? $name_parts[0].' '.$name_parts[1].' '.$name_parts[3]
+        : $student_test->user->name;
 @endphp
 <html lang="en" dir="rtl">
 <head>
     <link rel="stylesheet" href="{{asset('certification/css/bootstrap-5.0.2/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('certification/css/style.css')}}?v=2">
-    <title>تم منح هذه الشهادة لـ {{$student_test->user->name}}</title>
+    <title>تم منح هذه الشهادة لـ {{$display_name}}</title>
     <link rel="shortcut icon" href="{{asset('web_assets/img/logo.svg')}}" type="image/x-icon">
 </head>
 <body class="no-page-break">
@@ -39,7 +43,7 @@
             <div class="d-flex justify-content-center mb-2 gap-1">
                 <h5 class="p-text"> تم منح هذه الشهادة لـ </h5>
                 <h5 class="p-text"> : </h5>
-                <h5 class="p-s-text">{{$student_test->user->name}}</h5>
+                <h5 class="p-s-text">{{$display_name}}</h5>
             </div>
 
             <div class="d-flex justify-content-center gap-1 text-center">
