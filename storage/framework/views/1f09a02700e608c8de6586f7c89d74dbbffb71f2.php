@@ -1,0 +1,1 @@
+<?php /**PATH /home/omar/websites/arabic-arabs/resources/views/general/user/test_preview/questions/writing.blade.php ENDPATH**/ ?>

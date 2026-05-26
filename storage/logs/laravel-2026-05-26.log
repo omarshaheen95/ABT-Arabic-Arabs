@@ -1,0 +1,16 @@
+[2026-05-26 00:00:01] production.DEBUG: API Request Exception - http://arabic-arabs.com////web////.env -   
+[2026-05-26 00:00:05] production.DEBUG: API Request Exception - http://arabic-arabs.com/web/.env -   
+[2026-05-26 00:00:16] production.DEBUG: API Request Exception - http://arabic-arabs.com/web/.env -  - {"param":"value\u00b6m=value2","redirect":"\/web\/.env"}  
+[2026-05-26 00:00:32] production.DEBUG: API Request Exception - http://arabic-arabs.com/////web/.env -   
+[2026-05-26 00:00:38] production.DEBUG: API Request Exception - http://arabic-arabs.com////web//.env -   
+[2026-05-26 00:00:43] production.DEBUG: API Request Exception - http://arabic-arabs.com/%EF%BF%BD%EF%BF%BD/web/.env -   
+[2026-05-26 00:00:57] production.DEBUG: API Request Exception - http://arabic-arabs.com/web/.env -   
+[2026-05-26 01:00:01] production.ALERT: Expired User : 0  
+[2026-05-26 09:45:36] production.DEBUG: API Request Exception - http://arabic-arabs.com/lessons/5339/tracking/learn - CSRF token mismatch. - {"_token":"dP0p4l2pjyxBZB4ewbkzfy02Yb3UOUL2MmdOZ3xz"}  
+[2026-05-26 11:53:42] production.DEBUG: API Request Exception - http://arabic-arabs.com/stories/48/tracking/watching - CSRF token mismatch. - {"_token":"dQfb5lCsnd7zt4NWwFJw5mrbgZ8PQKUPqf6IUqmV"}  
+[2026-05-26 12:35:51] production.DEBUG: API Request Exception - http://arabic-arabs.com/stories/48/tracking/watching - CSRF token mismatch. - {"_token":"dQfb5lCsnd7zt4NWwFJw5mrbgZ8PQKUPqf6IUqmV"}  
+[2026-05-26 13:00:02] production.ALERT: Expired User : 0  
+[2026-05-26 14:22:05] production.DEBUG: API Request Exception - http://arabic-arabs.com/stories/48/tracking/watching - CSRF token mismatch. - {"_token":"dQfb5lCsnd7zt4NWwFJw5mrbgZ8PQKUPqf6IUqmV"}  
+[2026-05-26 14:42:29] production.DEBUG: API Request Exception - http://arabic-arabs.com/lessons/155/tracking/learn - CSRF token mismatch. - {"_token":"OsbjI5ZVx3eKBrdxoiXvEnMjU6CQP0unOqlpRcJ8"}  
+[2026-05-26 15:43:41] production.DEBUG: API Request Exception - http://arabic-arabs.com/mcp -  - {"jsonrpc":"2.0","id":7800626,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{"sampling":[],"elicitation":[],"roots":{"listChanged":true}},"clientInfo":{"name":"gitmc-org-mcp-scanner","version":"1.0.0"}}}  
+[2026-05-26 15:43:42] production.DEBUG: API Request Exception - http://arabic-arabs.com/sse -   

@@ -1,0 +1,24 @@
+[2026-05-16 00:28:06] production.DEBUG: API Request Exception - http://arabic-arabs.com/web/administrator -   
+[2026-05-16 01:00:01] production.ALERT: Expired User : 1  
+[2026-05-16 03:51:07] production.DEBUG: API Request Exception - http://arabic-arabs.com/web/.env -   
+[2026-05-16 03:51:12] production.DEBUG: API Request Exception - http://arabic-arabs.com/livewire/update -  - {"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":null}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}  
+[2026-05-16 03:51:12] production.DEBUG: API Request Exception - http://arabic-arabs.com/api/user/99999999 -   
+[2026-05-16 03:51:12] production.DEBUG: API Request Exception - http://arabic-arabs.com/api/login -   
+[2026-05-16 03:51:12] production.DEBUG: API Request Exception - http://arabic-arabs.com/api/users/99999999 -   
+[2026-05-16 03:51:12] production.DEBUG: API Request Exception - http://arabic-arabs.com/api/login -   
+[2026-05-16 03:51:12] production.DEBUG: API Request Exception - http://arabic-arabs.com/api/doesnotexist_5290 -   
+[2026-05-16 03:51:14] production.DEBUG: API Request Exception - http://arabic-arabs.com/login - The PATCH method is not supported for this route. Supported methods: GET, HEAD, POST.  
+[2026-05-16 03:51:14] production.DEBUG: API Request Exception - http://arabic-arabs.com/livewire/update -   
+[2026-05-16 03:51:14] production.DEBUG: API Request Exception - http://arabic-arabs.com/livewire/update -   
+[2026-05-16 03:51:15] production.DEBUG: API Request Exception - http://arabic-arabs.com/_ignition/execute-solution -  - {"solution":"Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution","parameters":{"variableName":"x","viewFile":"php:\/\/filter\/read=convert.base64-encode\/resource=\/\/proc\/self\/environ"}}  
+[2026-05-16 03:51:15] production.DEBUG: API Request Exception - http://arabic-arabs.com/doesnotexist_0718 -   
+[2026-05-16 03:51:16] production.DEBUG: API Request Exception - http://arabic-arabs.com/_ignition/execute-solution -  - {"solution":"Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution","parameters":{"variableName":"x","viewFile":"php:\/\/filter\/read=convert.base64-encode\/resource=\/..%2F..%2F..%2F..%2F..%2Fproc\/self\/environ"}}  
+[2026-05-16 03:51:17] production.DEBUG: API Request Exception - http://arabic-arabs.com/_ignition/execute-solution -  - {"solution":"Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution","parameters":{"variableName":"x","viewFile":"php:\/\/filter\/read=convert.base64-encode\/resource=\/\/proc\/self\/cmdline"}}  
+[2026-05-16 03:51:20] production.DEBUG: API Request Exception - http://arabic-arabs.com/_ignition/execute-solution -  - {"solution":"Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution","parameters":{"variableName":"x","viewFile":"php:\/\/filter\/read=convert.base64-encode\/resource=\/\/proc\/1\/environ"}}  
+[2026-05-16 05:37:30] production.DEBUG: API Request Exception - http://arabic-arabs.com/mcp -  - {"jsonrpc":"2.0","id":8349996,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{"sampling":[],"elicitation":[],"roots":{"listChanged":true}},"clientInfo":{"name":"gitmc-org-mcp-scanner","version":"1.0.0"}}}  
+[2026-05-16 05:37:31] production.DEBUG: API Request Exception - http://arabic-arabs.com/sse -   
+[2026-05-16 09:17:59] production.DEBUG: API Request Exception - http://arabic-arabs.com//web/wp-includes/wlwmanifest.xml -   
+[2026-05-16 13:00:02] production.ALERT: Expired User : 1  
+[2026-05-16 16:57:19] production.DEBUG: API Request Exception - http://arabic-arabs.com/lessons/53/tracking/learn - CSRF token mismatch. - {"_token":"NoSjJmNDxnaZpHCXrDnL28dQUtgHqIMgHkTkBMQy"}  
+[2026-05-16 16:58:43] production.DEBUG: API Request Exception - http://arabic-arabs.com/lessons/53/tracking/learn - CSRF token mismatch. - {"_token":"NoSjJmNDxnaZpHCXrDnL28dQUtgHqIMgHkTkBMQy"}  
+[2026-05-16 23:18:23] production.DEBUG: API Request Exception - http://arabic-arabs.com/public/plugins/elfinder/connectors/php/connector.php -   

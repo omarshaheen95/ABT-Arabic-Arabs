@@ -1,0 +1,11 @@
+[2026-05-14 01:00:02] production.ALERT: Expired User : 0  
+[2026-05-14 08:17:36] production.DEBUG: API Request Exception - http://arabic-arabs.com//web/wp-includes/wlwmanifest.xml -   
+[2026-05-14 09:28:46] production.DEBUG: API Request Exception - http://arabic-arabs.com/track_story/6/reading -  - {"_token":"0jaWFOWhZAOCdRH1Ko1I1zltlVmwMwTg4JzVzsIr"}  
+[2026-05-14 09:39:06] production.DEBUG: API Request Exception - http://arabic-arabs.com/stories/107/tracking/reading - CSRF token mismatch. - {"_token":"bM5u6fmUKQXFlBDZr2ofKCb7CVn0WM3jkEbjiP1J"}  
+[2026-05-14 09:40:05] production.DEBUG: API Request Exception - http://arabic-arabs.com/stories/99/tracking/watching - CSRF token mismatch. - {"_token":"bM5u6fmUKQXFlBDZr2ofKCb7CVn0WM3jkEbjiP1J"}  
+[2026-05-14 13:00:02] production.ALERT: Expired User : 0  
+[2026-05-14 14:35:37] production.DEBUG: API Request Exception - http://arabic-arabs.com/lessons/53/tracking/learn - CSRF token mismatch. - {"_token":"I7fM2cbRtzUyNq8rQSvItRifPqTf4gAoDJNXzKs0"}  
+[2026-05-14 14:48:03] production.DEBUG: API Request Exception - http://arabic-arabs.com//web/wp-includes/wlwmanifest.xml -   
+[2026-05-14 17:29:42] production.DEBUG: API Request Exception - http://arabic-arabs.com//web/wp-includes/wlwmanifest.xml -   
+[2026-05-14 20:54:33] production.DEBUG: API Request Exception - http://arabic-arabs.com/stories/21/tracking/watching - CSRF token mismatch. - {"_token":"IIesqIOeyAU3pbXcO9R5brxOmPMw4T45Fy04jYag"}  
+[2026-05-14 21:30:19] production.DEBUG: API Request Exception - http://arabic-arabs.com//web/wp-includes/wlwmanifest.xml -   

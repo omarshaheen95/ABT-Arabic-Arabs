@@ -1,0 +1,16 @@
+[2026-05-13 01:00:01] production.ALERT: Expired User : 1  
+[2026-05-13 05:29:22] production.DEBUG: API Request Exception - http://arabic-arabs.com/livewire/update -  - {"708":null}  
+[2026-05-13 05:29:23] production.DEBUG: API Request Exception - http://arabic-arabs.com/public/livewire/update -  - {"708":null}  
+[2026-05-13 08:45:25] production.DEBUG: API Request Exception - http://arabic-arabs.com/lessons/36/tracking/learn - CSRF token mismatch. - {"_token":"lnxqvPvmXFnUnTbyyBb30SCxMScxf49HxWTKJLDg"}  
+[2026-05-13 10:00:51] production.DEBUG: API Request Exception - http://arabic-arabs.com/lessons/1087/tracking/learn - CSRF token mismatch. - {"_token":"RYhDDHPqiMQhCnHoyzGFbfvw9zUJUA4Hnj6Ht9cw"}  
+[2026-05-13 11:19:20] production.DEBUG: API Request Exception - http://arabic-arabs.com/lessons/1092/tracking/learn - CSRF token mismatch. - {"_token":"8OtN1q7KCEQlcdKeanVhtn1t2AwVQbBJ0V964RCg"}  
+[2026-05-13 11:25:32] production.DEBUG: API Request Exception - http://arabic-arabs.com/track_story/61/watching -  - {"_token":"bc4S2ZLuctadW3OLgN1UXwMBKuydufeot0982v71"}  
+[2026-05-13 12:24:30] production.DEBUG: API Request Exception - http://arabic-arabs.com/stories/60/tracking/reading - CSRF token mismatch. - {"_token":"DITwFowcwsBg6FVP8aGTnpcP7RT1ja0vGLMs8ohy"}  
+[2026-05-13 13:00:02] production.ALERT: Expired User : 0  
+[2026-05-13 14:04:06] production.DEBUG: API Request Exception - http://arabic-arabs.com/file-manager/ckeditor -   
+[2026-05-13 14:19:46] production.DEBUG: API Request Exception - http://arabic-arabs.com/stories/100/tracking/reading - CSRF token mismatch. - {"_token":"HMfOCNDGtrGuATeZTccrUQyLeaRzsf4Q4LZAQTCO"}  
+[2026-05-13 15:26:58] production.DEBUG: API Request Exception - http://arabic-arabs.com/file-manager/ckeditor -   
+[2026-05-13 19:01:30] production.DEBUG: API Request Exception - http://arabic-arabs.com/web/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php -   
+[2026-05-13 22:42:53] production.DEBUG: API Request Exception - http://arabic-arabs.com/web/app_dev.php/_profiler/open -  - {"file":null}  
+[2026-05-13 22:43:23] production.DEBUG: API Request Exception - http://arabic-arabs.com/frontend/web/debug/default/view -   
+[2026-05-13 22:43:25] production.DEBUG: API Request Exception - http://arabic-arabs.com/web/debug/default/view -   

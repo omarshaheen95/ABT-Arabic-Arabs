@@ -1,0 +1,15 @@
+[2026-05-20 01:00:01] production.ALERT: Expired User : 1  
+[2026-05-20 05:13:50] production.DEBUG: API Request Exception - http://arabic-arabs.com/web/xmlrpc.php -   
+[2026-05-20 08:14:29] production.DEBUG: API Request Exception - http://arabic-arabs.com/file-manager/initialize -   
+[2026-05-20 08:14:30] production.DEBUG: API Request Exception - http://arabic-arabs.com/filemanager/initialize -   
+[2026-05-20 08:14:30] production.DEBUG: API Request Exception - http://arabic-arabs.com/laravel-file-manager/initialize -   
+[2026-05-20 08:14:30] production.DEBUG: API Request Exception - http://arabic-arabs.com/laravel-filemanager/initialize -   
+[2026-05-20 10:32:23] production.DEBUG: API Request Exception - http://arabic-arabs.com/stories/54/tracking/reading - CSRF token mismatch. - {"_token":"vUJcRD2b6Lr4kTbaomWHWEMUf6Lbnnof0eeDH3Nr"}  
+[2026-05-20 13:00:02] production.ALERT: Expired User : 1  
+[2026-05-20 13:50:13] production.DEBUG: API Request Exception - http://arabic-arabs.com/doesnotexist_5034 -   
+[2026-05-20 16:40:40] production.DEBUG: API Request Exception - http://arabic-arabs.com//web/wp-includes/wlwmanifest.xml -   
+[2026-05-20 18:53:57] production.DEBUG: API Request Exception - http://arabic-arabs.com/stories/90/tracking/watching - CSRF token mismatch. - {"_token":"m9vNN4EWJ25XxARE2ga4dURtSCGINSJfxMI952yq"}  
+[2026-05-20 22:40:07] production.DEBUG: API Request Exception - http://arabic-arabs.com/file-manager/initialize -   
+[2026-05-20 22:40:08] production.DEBUG: API Request Exception - http://arabic-arabs.com/filemanager/initialize -   
+[2026-05-20 22:40:08] production.DEBUG: API Request Exception - http://arabic-arabs.com/laravel-file-manager/initialize -   
+[2026-05-20 22:40:08] production.DEBUG: API Request Exception - http://arabic-arabs.com/laravel-filemanager/initialize -   

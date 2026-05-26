@@ -1,0 +1,19 @@
+[2026-05-23 01:00:02] production.ALERT: Expired User : 1  
+[2026-05-23 04:06:49] production.DEBUG: API Request Exception - http://arabic-arabs.com//web/wp-includes/wlwmanifest.xml -   
+[2026-05-23 05:00:17] production.DEBUG: API Request Exception - http://arabic-arabs.com/web/.env -   
+[2026-05-23 05:00:19] production.DEBUG: API Request Exception - http://arabic-arabs.com/livewire/update -  - {"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":{"a":null}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}  
+[2026-05-23 05:00:19] production.DEBUG: API Request Exception - http://arabic-arabs.com/livewire/update -   
+[2026-05-23 05:00:19] production.DEBUG: API Request Exception - http://arabic-arabs.com/api/users/99999999 -   
+[2026-05-23 05:00:19] production.DEBUG: API Request Exception - http://arabic-arabs.com/login - The PATCH method is not supported for this route. Supported methods: GET, HEAD, POST.  
+[2026-05-23 05:00:19] production.DEBUG: API Request Exception - http://arabic-arabs.com/api/user/99999999 -   
+[2026-05-23 05:00:19] production.DEBUG: API Request Exception - http://arabic-arabs.com/livewire/update -   
+[2026-05-23 05:00:19] production.DEBUG: API Request Exception - http://arabic-arabs.com/api/doesnotexist_6857 -   
+[2026-05-23 05:00:19] production.DEBUG: API Request Exception - http://arabic-arabs.com/api/login -   
+[2026-05-23 05:00:19] production.DEBUG: API Request Exception - http://arabic-arabs.com/api/login -   
+[2026-05-23 05:00:20] production.DEBUG: API Request Exception - http://arabic-arabs.com/_ignition/execute-solution -  - {"solution":"Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution","parameters":{"variableName":"x","viewFile":"php:\/\/filter\/read=convert.base64-encode\/resource=\/\/proc\/self\/environ"}}  
+[2026-05-23 05:00:20] production.DEBUG: API Request Exception - http://arabic-arabs.com/_ignition/execute-solution -  - {"solution":"Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution","parameters":{"variableName":"x","viewFile":"php:\/\/filter\/read=convert.base64-encode\/resource=\/..\/..\/..\/..\/..\/..\/proc\/self\/environ"}}  
+[2026-05-23 05:00:20] production.DEBUG: API Request Exception - http://arabic-arabs.com/doesnotexist_6992 -   
+[2026-05-23 05:00:20] production.DEBUG: API Request Exception - http://arabic-arabs.com/_ignition/execute-solution -  - {"solution":"Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution","parameters":{"variableName":"x","viewFile":"php:\/\/filter\/read=convert.base64-encode\/resource=\/..%2F..%2F..%2F..%2F..%2Fproc\/self\/environ"}}  
+[2026-05-23 05:00:21] production.DEBUG: API Request Exception - http://arabic-arabs.com/_ignition/execute-solution -  - {"solution":"Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution","parameters":{"variableName":"x","viewFile":"php:\/\/filter\/read=convert.base64-encode\/resource=\/\/proc\/self\/cmdline"}}  
+[2026-05-23 05:00:21] production.DEBUG: API Request Exception - http://arabic-arabs.com/_ignition/execute-solution -  - {"solution":"Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution","parameters":{"variableName":"x","viewFile":"php:\/\/filter\/read=convert.base64-encode\/resource=\/\/proc\/1\/environ"}}  
+[2026-05-23 13:00:02] production.ALERT: Expired User : 0  
