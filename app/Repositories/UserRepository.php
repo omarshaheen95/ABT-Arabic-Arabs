@@ -16,6 +16,7 @@ use App\Models\Teacher;
 use App\Models\TeacherUser;
 use App\Models\User;
 use App\Models\Year;
+use App\Services\PdfZipService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -282,32 +283,19 @@ class UserRepository implements UserRepositoryInterface
                 'url' => $url,
             ];
         }
-        $client = new \GuzzleHttp\Client([
-            'timeout' => 36000,
-        ]);
+        $pdfZipService = new PdfZipService();
+        $fileName = 'students_cards';
+        $form_params = [
+            'platform' => 'arabic-arabs',
+            'urls' => $urls,
+            'data' => [],
+        ];
 
-        $data = [];
-        $res = $client->request('POST', 'https://pdfservice.arabic-uae.com/getpdf.php', [
-            'form_params' => [
-                'platform' => 'arabic-arabs',
-                'urls' => $urls,
-                'data' => $data,
-            ],
-        ]);
-        $data = json_decode($res->getBody());
-        $url = $data->url;
-        $fileContent = file_get_contents($url);
-        if ($fileContent === false) {
-            throw new \Exception('Unable to download file');
-        }elseif ($students->count() == 0) {
-            throw new \Exception(t('You dont have any students,so you cant export writing papers'));
-        } else {
-            return response($fileContent, 200, [
-                'Content-Type' => 'application/zip',
-                'Content-Disposition' => 'inline; filename="reports.zip"'
-            ]);
+        try {
+            return $pdfZipService->generate($form_params, $fileName);
+        } catch (\RuntimeException $e) {
+            throw new \Exception(t('An error occurred while generating the PDF reports. Please try again later.'));
         }
-        return redirect($data->url);
     }
 
     public function report(Request $request, $id)
@@ -522,30 +510,19 @@ class UserRepository implements UserRepositoryInterface
             ->select(['id', 'name as student_name', 'id_number as std_id'])->get()->values()->toArray();
 //        dd($students);
 
-        $client = new \GuzzleHttp\Client([
-            'timeout'  => 36000,
-        ]);
+        $pdfZipService = new PdfZipService();
+        $fileName = 'students_reports';
+        $form_params = [
+            'platform' => 'arabic-arabs',
+            'studentid' => $students,
+            'data' => [],
+        ];
 
-        $data = [];
-        $res = $client->request('POST', 'https://pdfservice.arabic-uae.com/getpdf.php', [
-            'form_params' => [
-                'platform' => 'arabic-arabs',
-                'studentid' => $students,
-                'data' => $data,
-            ],
-        ]);
-        $data = json_decode($res->getBody());
-        $url = $data->url;
-        $fileContent = file_get_contents($url);
-        if ($fileContent === false) {
-            throw new \Exception('Unable to download file');
-        }else{
-            return response($fileContent, 200, [
-                'Content-Type' => 'application/zip',
-                'Content-Disposition' => 'inline; filename="reports.zip"'
-            ]);
+        try {
+            return $pdfZipService->generate($form_params, $fileName);
+        } catch (\RuntimeException $e) {
+            throw new \Exception(t('An error occurred while generating the PDF reports. Please try again later.'));
         }
-        return redirect($data->url);
     }
 
 }
