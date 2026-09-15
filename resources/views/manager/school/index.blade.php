@@ -22,6 +22,11 @@
             @can('school activation')
                     <li><a class="dropdown-item text-primary" href="#!" data-bs-toggle="modal" data-bs-target="#school_activation_modal">{{t('Activation')}}</a></li>
             @endcan
+            @can('edit schools')
+                <li><a class="dropdown-item text-warning" href="#!"
+                       data-filtered-action="{{route('manager.school.force-password-change')}}"
+                       data-confirm="{{t('Password change will be enforced on every account matching the current filters. Continue?')}}">{{t('Force Password Change')}}</a></li>
+            @endcan
             @can('delete school')
                     <li><a class="dropdown-item text-danger d-none checked-visible" href="#!" id="delete_rows">{{t('Delete')}}</a></li>
             @endcan

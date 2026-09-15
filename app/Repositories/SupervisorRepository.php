@@ -103,6 +103,8 @@ class SupervisorRepository implements SupervisorRepositoryInterface
         }
         $data['active'] = $request->get('active', 0);
         $data['password'] = bcrypt($request->get('password', 123456));
+        $data['force_password_change'] = $request->get('force_password_change', 0);
+        $data['password_changed_at'] = now();
 
         if (guardIs('manager')){
             $data['approved'] = $request->get('approved', 0);
@@ -138,7 +140,13 @@ class SupervisorRepository implements SupervisorRepositoryInterface
             $data['image'] = uploadFile($request->file('image'), 'supervisors')['path'];
         }
         $data['active'] = $request->get('active', 0);
-        $data['password'] = $request->get('password', false) ? bcrypt($request->get('password', 123456)) : $supervisor->password;
+        $password_changed = (bool) $request->get('password', false);
+        $data['password'] = $password_changed ? bcrypt($request->get('password')) : $supervisor->password;
+        if ($password_changed) {
+            $data['password_changed_at'] = now();
+        }
+        // a password handed over by a manager or a school is temporary by default
+        $data['force_password_change'] = $request->get('force_password_change', $password_changed ? 1 : 0);
         if (guardIs('manager')){
             $data['approved'] = $request->get('approved', 0);
         }
@@ -151,6 +159,7 @@ class SupervisorRepository implements SupervisorRepositoryInterface
     {
         Supervisor::query()->findOrFail($id);
         Auth::guard('supervisor')->loginUsingId($id);
+        \App\Http\Middleware\ForcePasswordChange::impersonate('supervisor', $id);
         return redirect()->route('supervisor.home');
     }
 
@@ -197,7 +206,52 @@ class SupervisorRepository implements SupervisorRepositoryInterface
     {
         $request->validate(['password'=>'required|string']);
         $password = $request->get('password');
-        $update = Supervisor::query()->filter()->update(['password' => bcrypt($password)]);
+        $update = $this->scopedSupervisors()->filter()->update([
+            'password' => bcrypt($password),
+            'password_changed_at' => now(),
+            // a password handed over in bulk is temporary: the account
+            // is sent to the change screen on its next sign in
+            'force_password_change' => 1,
+        ]);
         return Response::response(t('Password Reset Successfully').': '.$password.' for ('.$update.') '.t('supervisor'));
      }
+
+    /**
+     * Raise the forced password change flag on the supervisors the table is
+     * currently showing. Same contract as the export: the filters come from the
+     * #filter form and row_id narrows it down to the checked rows.
+     */
+    public function forcePasswordChange(Request $request)
+    {
+        $query = $this->scopedSupervisors()->filter($request);
+
+        // count the matched rows, not the changed ones: MySQL does not report a
+        // row that already carried the flag
+        $affected = (clone $query)->count();
+        $query->update(['force_password_change' => 1]);
+
+        return response()->json([
+            'status' => true,
+            'message' => t('Password change was enforced on :count account(s).', ['count' => $affected]),
+            'data' => ['affected' => $affected],
+        ]);
+    }
+
+    /**
+     * Base query for supervisor wide writes.
+     *
+     * The manager works across the platform, a school only over its own staff.
+     * The listing does not enforce this today, so anything that writes has to
+     * pin it here rather than trust the incoming filters.
+     */
+    protected function scopedSupervisors()
+    {
+        $query = Supervisor::query();
+
+        if (getGuard() === 'school' && ($school = Auth::guard('school')->user())) {
+            $query->where('school_id', $school->id);
+        }
+
+        return $query;
+    }
 }
