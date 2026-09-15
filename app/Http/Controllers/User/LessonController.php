@@ -635,6 +635,11 @@ class LessonController extends Controller
 
     public function saveLessonWritingTest(Request $request, $id)
     {
+        $request->validate([
+            'writing_attachment.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image', 'pdf'),
+        ], [
+            'writing_attachment.*.mimetypes' => t('The answer file must be an image or a pdf file'),
+        ]);
         $student = Auth::user();
         if ($student->demo){
             return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');
@@ -704,6 +709,12 @@ class LessonController extends Controller
 
     public function saveLessonSpeakingTest(Request $request, $id)
     {
+        //the browser recorder sends a webm blob named recording.wav, so the record is an audio or a webm video
+        $request->validate([
+            'record' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('audio', 'video'),
+        ], [
+            'record.mimetypes' => t('The record must be an audio file'),
+        ]);
         $student = Auth::user();
         if ($student->demo) {
             return redirect()->route('home')->with('message', "(Demo)تمت العملية بنجاح")->with('m-class', 'success');

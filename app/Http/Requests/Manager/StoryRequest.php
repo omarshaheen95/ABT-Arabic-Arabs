@@ -25,9 +25,9 @@ class StoryRequest extends FormRequest
     {
         $rules = [];
         $rules["name"] = 'required';
-        $rules["image"] = 'nullable|image';
-        $rules["video"] = 'nullable';
-        $rules["alternative_video"] = 'nullable';
+        $rules["image"] = 'nullable|file|mimetypes:' . allowedUploadMimetypes('image');
+        $rules["video"] = 'nullable|file|mimetypes:' . allowedUploadMimetypes('video');
+        $rules["alternative_video"] = 'nullable|file|mimetypes:' . allowedUploadMimetypes('video');
         $rules["content"] = 'nullable';
         $rules["grade"] = 'required';
 //        $rules["ordered"] = 'required';

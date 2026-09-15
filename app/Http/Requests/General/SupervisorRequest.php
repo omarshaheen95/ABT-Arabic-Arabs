@@ -28,6 +28,7 @@ class SupervisorRequest extends FormRequest
         $rules["name"] = 'required';
         $rules["school_id"] = 'required|exists:schools,id';
         $rules["teachers"] = 'nullable|array';
+        $rules["image"] = 'nullable|file|mimetypes:' . allowedUploadMimetypes('image');
         if (Route::currentRouteName() == 'manager.supervisor.edit' || Route::currentRouteName() == 'manager.supervisor.update')
         {
             $id = $this->route('supervisor');

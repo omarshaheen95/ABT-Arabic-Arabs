@@ -35,7 +35,7 @@ class UserController extends Controller
     {
 //        dd($request->all());
         $user = Auth::guard('web')->user();
-        $this->validationRules["image"] = 'nullable|image';
+        $this->validationRules["image"] = 'nullable|file|mimetypes:' . allowedUploadMimetypes('image');
         $this->validationRules["name"] = 'required';
         $this->validationRules["email"] = "required|unique:users,email,$user->id,id,deleted_at,NULL";
         $this->validationRules["country_code"] = 'required';

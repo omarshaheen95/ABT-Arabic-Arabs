@@ -119,6 +119,19 @@ class TrainingController extends Controller
 
     public function update(Request $request, $id, $type)
     {
+        $image = 'nullable|file|mimetypes:' . allowedUploadMimetypes('image');
+        $request->validate([
+            't_f_q_attachment.*' => $image,
+            'old_t_f_q_attachment.*' => $image,
+            'c_q_attachment.*' => $image,
+            'old_c_q_attachment.*' => $image,
+            'm_q_attachment.*' => $image,
+            'old_m_q_attachment.*' => $image,
+            'm_q_image.*.*' => $image,
+            'old_m_q_image.*' => $image,
+            's_q_attachment.*' => $image,
+            'old_s_q_attachment.*' => $image,
+        ]);
         $lesson = Lesson::query()->findOrFail($id);
         switch ($type) {
             case 1:

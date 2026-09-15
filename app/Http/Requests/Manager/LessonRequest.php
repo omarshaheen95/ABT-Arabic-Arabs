@@ -36,9 +36,9 @@ class LessonRequest extends FormRequest
         ];
 
         if (in_array(Route::currentRouteName(), ['manager.news.store', 'manager.news.create'])) {
-            $rules['image'] = 'required|image';
+            $rules['image'] = 'required|file|mimetypes:' . allowedUploadMimetypes('image');
         } else {
-            $rules['image'] = 'nullable|image';
+            $rules['image'] = 'nullable|file|mimetypes:' . allowedUploadMimetypes('image');
         }
         return $rules;
     }

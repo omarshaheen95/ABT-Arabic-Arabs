@@ -273,6 +273,7 @@ class Question extends Model implements HasMedia
             ->singleFile();
         $this
             ->addMediaCollection('imageQuestion')
+            ->acceptsFile(acceptsUploadTypes('image'))
             ->singleFile();
     }
 

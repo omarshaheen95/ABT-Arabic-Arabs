@@ -32,7 +32,7 @@ class UserRequest extends FormRequest
         $rules= [
             'name' =>['required', new UserNameRule()],
             'password' => 'nullable|min:6',
-            'image' => 'nullable|image',
+            'image' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image'),
             'school_id' => 'required|exists:schools,id',
             'grade_id' => 'required',
             'alternate_grade_id' => 'nullable',
