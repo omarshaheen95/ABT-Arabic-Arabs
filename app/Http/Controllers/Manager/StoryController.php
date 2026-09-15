@@ -192,6 +192,14 @@ class StoryController extends Controller
     public function storeAssessmentStory(Request $request, $id, $step)
     {
 //        dd($request->all());
+        //the question attachment is shown as an image or played as an audio
+        $request->validate([
+            't_f_q_attachment.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image', 'audio'),
+            'c_q_attachment.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image', 'audio'),
+            'm_q_attachment.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image', 'audio'),
+            's_q_attachment.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image', 'audio'),
+            'm_q_image.*.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image'),
+        ]);
         $story = Story::query()->findOrFail($id);
         $old_questions = StoryQuestion::query()->where('story_id', $story->id)->where('type', $step)->get();
 //        if (count($old_questions)) {
@@ -370,6 +378,14 @@ class StoryController extends Controller
 
     public function updateAssessmentStory(Request $request, $id, $step)
     {
+        //the question attachment is shown as an image or played as an audio
+        $request->validate([
+            't_f_q_attachment.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image', 'audio'),
+            'c_q_attachment.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image', 'audio'),
+            'm_q_attachment.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image', 'audio'),
+            's_q_attachment.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image', 'audio'),
+            'm_q_image.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image'),
+        ]);
         $story = Story::query()->findOrFail($id);
         $story_questions = StoryQuestion::with(['trueFalse','options','sort_words','matches'])
             ->where('story_id', $story->id)->get();

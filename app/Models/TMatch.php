@@ -32,6 +32,7 @@ class TMatch extends Model implements HasMedia
     {
         $this
             ->addMediaCollection('t_match')
+            ->acceptsFile(acceptsUploadTypes('image'))
             ->singleFile();
     }
 }

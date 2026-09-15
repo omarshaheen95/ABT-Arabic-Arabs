@@ -421,6 +421,9 @@ class LessonTestRepository implements LessonTestRepositoryInterface
         //Just for[ writing,speaking] Lessons
         $request->validate([
             'mark' => 'required|max:100|min:0',
+            'feedback_audio_message' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('audio'),
+        ], [
+            'feedback_audio_message.mimetypes' => t('The record must be an audio file'),
         ]);
 //        dd($request->allFiles());
         $user_test = UserTest::query()->with(['lesson', 'user'])

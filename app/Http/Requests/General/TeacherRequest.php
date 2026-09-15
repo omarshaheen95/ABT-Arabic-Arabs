@@ -39,6 +39,7 @@ class TeacherRequest extends FormRequest
         $rules["active_to"] = 'required|date_format:Y-m-d';
         $rules["mobile"] = 'required';
         $rules["school_id"] = 'required|exists:schools,id';
+        $rules["image"] = 'nullable|file|mimetypes:' . allowedUploadMimetypes('image');
         return $rules;
     }
 }

@@ -27,6 +27,7 @@ class TeacherProfileRequest extends FormRequest
         $rules = [
             'name' => 'required',
             'mobile' => 'required',
+            'image' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image'),
         ];
         $user = Auth::guard('teacher')->user()->id;
         $rules['email'] = "required|email|unique:teachers,email,$user,id,deleted_at,NULL";

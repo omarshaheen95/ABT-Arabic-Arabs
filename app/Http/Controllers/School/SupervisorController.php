@@ -90,7 +90,7 @@ class SupervisorController extends Controller
         $supervisor = Supervisor::query()->where('school_id', $school->id)->findOrFail($id);
         $data = $request->validated();
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadImage($request->file('image'), 'supervisors');
+            $data['image'] = uploadFile($request->file('image'), 'supervisors')['path'];
         }
         $data['active'] = $request->get('active', 0);
         $data['password'] = $request->get('password', false) ? bcrypt($request->get('password', 123456)) : $supervisor->password;

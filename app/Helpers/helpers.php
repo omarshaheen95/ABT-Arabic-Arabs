@@ -92,6 +92,14 @@ function allowedUploadMimetypes(...$types)
     return implode(',', $mimetypes);
 }
 
+//the media library saves files without uploadFile(), so its collections check the file names with this => ->acceptsFile(acceptsUploadTypes('image'))
+function acceptsUploadTypes(...$types)
+{
+    return function ($file) use ($types) {
+        return in_array(strtolower(pathinfo($file->name, PATHINFO_EXTENSION)), allowedUploadExtensions(...$types));
+    };
+}
+
 function uploadFile($file, $path, $with_date = true)
 {
     $fileName = $file->getClientOriginalName();

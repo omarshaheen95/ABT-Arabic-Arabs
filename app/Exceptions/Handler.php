@@ -72,6 +72,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        //a file its media collection does not accept is answered like a file uploadFile() does not allow
+        if ($exception instanceof \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileUnacceptableForCollection) {
+            $exception = new GeneralException(t('This file type is not allowed'));
+        }
+
         if (request()->isXmlHttpRequest() || request()->ajax() || request()->isJson() || request()->wantsJson() || strpos($request->url(), '/web/') !== false) {
             \Log::debug('API Request Exception - '.$request->url().' - '.$exception->getMessage().(!empty($request->all()) ? ' - '.json_encode($request->except(['password'])) : ''));
 

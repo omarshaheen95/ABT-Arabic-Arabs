@@ -96,6 +96,7 @@ class TQuestion extends Model  implements HasMedia
             ->singleFile();
         $this
             ->addMediaCollection('t_imageQuestion')
+            ->acceptsFile(acceptsUploadTypes('image'))
             ->singleFile();
     }
 }
