@@ -12,6 +12,7 @@ use App\Models\UserAssignment;
 use App\Models\UserStoryAssignment;
 use App\Models\UserTest;
 use App\Models\Year;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,7 +38,25 @@ class TeacherReport
         $start_date = $request->get('start_date') ?: null;
         $end_date   = $request->get('end_date') ?: null;
 
+        // Compared against the raw datetime rather than DATE(created_at), so the
+        // created_at index can actually be used.
+        $from = $start_date ? Carbon::parse($start_date)->startOfDay() : null;
+        $to   = $end_date ? Carbon::parse($end_date)->endOfDay() : null;
+
+        $betweenDates = function ($q) use ($from, $to) {
+            $q->when($from, function ($q) use ($from) {
+                $q->where('created_at', '>=', $from);
+            })->when($to, function ($q) use ($to) {
+                $q->where('created_at', '<=', $to);
+            });
+        };
+
         $teacher_ids = (array) $request->get('teacher_ids', ['all']);
+
+        // Archiving only blocks a student from logging in; the work they did is
+        // still the teacher's output. Defaults to true so an older link without
+        // the parameter keeps reporting everything.
+        $include_archived = $request->boolean('include_archived', true);
 
         $teachers = Teacher::query()
             ->where('school_id', $school_id)
@@ -54,6 +73,9 @@ class TeacherReport
         foreach ($teachers as $teacher) {
             // طلاب المعلم في السنة الدراسية المحددة
             $studentIds = User::query()
+                ->when($include_archived, function ($q) {
+                    $q->withoutGlobalScope('not_archived');
+                })
                 ->where('school_id', $school_id)
                 ->when($year, function ($q) use ($year) {
                     $q->where('year_id', $year->id);
@@ -67,12 +89,7 @@ class TeacherReport
 
             // اختبارات الدروس — UserTest
             $lessonTests = UserTest::whereIn('user_id', $studentIds)
-                ->when($start_date, function ($q) use ($start_date) {
-                    $q->whereDate('created_at', '>=', $start_date);
-                })
-                ->when($end_date, function ($q) use ($end_date) {
-                    $q->whereDate('created_at', '<=', $end_date);
-                })
+                ->tap($betweenDates)
                 ->get(['status', 'corrected', 'approved']);
             $teacher->total_lesson_tests = $lessonTests->count();
             $teacher->pass_lesson_tests  = $lessonTests->where('status', 'Pass')->count();
@@ -82,12 +99,7 @@ class TeacherReport
 
             // اختبارات القصص — StudentStoryTest
             $storyTests = StudentStoryTest::whereIn('user_id', $studentIds)
-                ->when($start_date, function ($q) use ($start_date) {
-                    $q->whereDate('created_at', '>=', $start_date);
-                })
-                ->when($end_date, function ($q) use ($end_date) {
-                    $q->whereDate('created_at', '<=', $end_date);
-                })
+                ->tap($betweenDates)
                 ->get(['status']);
             $teacher->total_story_tests = $storyTests->count();
             $teacher->pass_story_tests  = $storyTests->where('status', 'Pass')->count();
@@ -98,12 +110,7 @@ class TeacherReport
                 ->when($year, function ($q) use ($year) {
                     $q->where('year_id', $year->id);
                 })
-                ->when($start_date, function ($q) use ($start_date) {
-                    $q->whereDate('created_at', '>=', $start_date);
-                })
-                ->when($end_date, function ($q) use ($end_date) {
-                    $q->whereDate('created_at', '<=', $end_date);
-                })
+                ->tap($betweenDates)
                 ->count();
 
             // مهام القصص بواسطة المعلم — StoryAssignment
@@ -111,46 +118,26 @@ class TeacherReport
                 ->when($year, function ($q) use ($year) {
                     $q->where('year_id', $year->id);
                 })
-                ->when($start_date, function ($q) use ($start_date) {
-                    $q->whereDate('created_at', '>=', $start_date);
-                })
-                ->when($end_date, function ($q) use ($end_date) {
-                    $q->whereDate('created_at', '<=', $end_date);
-                })
+                ->tap($betweenDates)
                 ->count();
 
             // واجبات الدروس المنجزة للطلاب — UserAssignment
             $lessonHw = UserAssignment::whereIn('user_id', $studentIds)
-                ->when($start_date, function ($q) use ($start_date) {
-                    $q->whereDate('created_at', '>=', $start_date);
-                })
-                ->when($end_date, function ($q) use ($end_date) {
-                    $q->whereDate('created_at', '<=', $end_date);
-                })
+                ->tap($betweenDates)
                 ->get(['completed']);
             $teacher->total_lesson_hw     = $lessonHw->count();
             $teacher->completed_lesson_hw = $lessonHw->where('completed', 1)->count();
 
             // واجبات القصص المنجزة للطلاب — UserStoryAssignment
             $storyHw = UserStoryAssignment::whereIn('user_id', $studentIds)
-                ->when($start_date, function ($q) use ($start_date) {
-                    $q->whereDate('created_at', '>=', $start_date);
-                })
-                ->when($end_date, function ($q) use ($end_date) {
-                    $q->whereDate('created_at', '<=', $end_date);
-                })
+                ->tap($betweenDates)
                 ->get(['completed']);
             $teacher->total_story_hw     = $storyHw->count();
             $teacher->completed_story_hw = $storyHw->where('completed', 1)->count();
 
             // تسجيلات القصص — StoryUserRecord
             $storyRecords = StoryUserRecord::whereIn('user_id', $studentIds)
-                ->when($start_date, function ($q) use ($start_date) {
-                    $q->whereDate('created_at', '>=', $start_date);
-                })
-                ->when($end_date, function ($q) use ($end_date) {
-                    $q->whereDate('created_at', '<=', $end_date);
-                })
+                ->tap($betweenDates)
                 ->get(['status']);
             $teacher->total_story_records     = $storyRecords->count();
             $teacher->corrected_story_records = $storyRecords->where('status', 'corrected')->count();
@@ -159,6 +146,6 @@ class TeacherReport
         }
 
         return view('general.reports.teacher_report.teacher_report',
-            compact('teachers', 'school', 'year', 'start_date', 'end_date'));
+            compact('teachers', 'school', 'year', 'start_date', 'end_date', 'include_archived'));
     }
 }

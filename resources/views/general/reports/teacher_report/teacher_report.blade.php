@@ -125,6 +125,11 @@
                 @if($start_date && $end_date)
                     <h5>{{t('From')}} : {{$start_date}} &nbsp;&nbsp; {{t('To')}} : {{$end_date}}</h5>
                 @endif
+                @if(!$include_archived)
+                    {{-- only shown for the non default choice, so the reader knows
+                         why the figures are lower than the school's own records --}}
+                    <h5>{{t('Archived students are excluded')}}</h5>
+                @endif
                 <h5>{{t('Release Date')}} : {{now()->format('Y-m-d')}}</h5>
 {{--                <h5>www.abt-assessments.com</h5>--}}
 {{--                <h5>support@abt-assessments.com</h5>--}}
