@@ -59,6 +59,11 @@
                 @if($start_date && $end_date)
                     <h5>{{t('From')}} : {{$start_date}} {{t('To')}} : {{$end_date}}</h5>
                 @endif
+                @if(!$include_archived)
+                    {{-- only shown for the non default choice, so the reader knows
+                         why the figures are lower than the school's own records --}}
+                    <h5>{{t('Archived students are excluded')}}</h5>
+                @endif
                 <h5>{{t('Release Date')}} : {{now()->format('Y-m-d')}}</h5>
                 <h5>www.abt-assessments.com</h5>
                 <h5>support@abt-assessments.com</h5>
@@ -131,6 +136,10 @@
                             <td>{{$data['total_fail_tests']}}</td>
                         </tr>
                         <tr class="text-center">
+                            <td class="sub-td">Unmarked Lessons assessments</td>
+                            <td>{{$data['total_unmarked_tests']}}</td>
+                        </tr>
+                        <tr class="text-center">
                             <td class="sub-td">Submitted Stories assessments</td>
                             <td>{{$data['total_story_tests']}}</td>
                         </tr>
@@ -197,6 +206,14 @@
                         <div id="teacher_tests_{{$key}}" style="height: 650px"></div>
                     </div>
                 </div>
+                {{-- a student may be linked to more than one teacher, so each of
+                     their teachers is credited with the result; the bars can add
+                     up to more than the school totals on page 1 --}}
+                <div class="row justify-content-center">
+                    <div class="col-11 text-center">
+                        <small>{{t('Counted per teacher: a student shared between teachers is credited to each of them.')}}</small>
+                    </div>
+                </div>
             </div>
         </div>
     @endforeach
@@ -214,6 +231,14 @@
                 <div class="row justify-content-center">
                     <div class="col-11">
                         <div id="teacher_stories_tests_{{$key}}" style="height: 650px"></div>
+                    </div>
+                </div>
+                {{-- a student may be linked to more than one teacher, so each of
+                     their teachers is credited with the result; the bars can add
+                     up to more than the school totals on page 1 --}}
+                <div class="row justify-content-center">
+                    <div class="col-11 text-center">
+                        <small>{{t('Counted per teacher: a student shared between teachers is credited to each of them.')}}</small>
                     </div>
                 </div>
             </div>
@@ -276,6 +301,10 @@
                                         <tr>
                                             <td class="sub-td">Lessons Below assessments</td>
                                             <td>{{$grade_data['total_fail_tests']}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sub-td">Lessons Unmarked assessments</td>
+                                            <td>{{$grade_data['total_unmarked_tests']}}</td>
                                         </tr>
                                         <tr>
                                             <td class="sub-td">Submitted Stories assessments</td>

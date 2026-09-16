@@ -201,6 +201,9 @@ function initializeDateRangePicker(id = "date_range_picker", range = []) {
 
         dateRangePicker.on('cancel.daterangepicker', function (ev, picker) {
             $(this).val('');
+            //clearing the visible input must clear the submitted values too
+            $('#start_' + id).val('');
+            $('#end_' + id).val('');
         });
     }
 
