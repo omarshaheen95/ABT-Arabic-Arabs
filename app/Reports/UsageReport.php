@@ -47,8 +47,8 @@ class UsageReport
         $sysGrade = [13, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
         $grades = array_intersect($selected_grades, $sysGrade);
 
-        $start_date = false;//$request->get('start_date', false);
-        $end_date = false;//$request->get('end_date', false);
+        $start_date = $request->get('start_date', false);
+        $end_date = $request->get('end_date', false);
 
         $guard = getGuard();
         $guard_user = Auth::guard($guard)->user();
