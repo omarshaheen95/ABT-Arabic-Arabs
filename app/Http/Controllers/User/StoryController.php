@@ -159,6 +159,12 @@ class StoryController extends Controller
 
     public function saveReadRecordAnswer(Request $request, $id)
     {
+        //the browser recorder sends a webm blob named recording.wav, so the record is an audio or a webm video
+        $request->validate([
+            'record' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('audio', 'video'),
+        ], [
+            'record.mimetypes' => t('The record must be an audio file'),
+        ]);
         $story = Story::query()->findOrFail($id);
         $user = Auth::guard('web')->user();
         if ($user->demo){

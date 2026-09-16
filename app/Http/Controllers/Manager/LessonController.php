@@ -151,6 +151,11 @@ class LessonController extends Controller
 
     public function updateLessonLearn(Request $request, $id)
     {
+        $request->validate([
+            'audio' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('audio'),
+            'videos.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('video'),
+            'old_videos.*' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('video'),
+        ]);
         $lesson = Lesson::query()->findOrFail($id);
         $lesson->update([
             'content' => $request->get('content', false),
@@ -194,6 +199,7 @@ class LessonController extends Controller
 
     public function uploadImageLesson(Request $request)
     {
+        $request->validate(['imageFile' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image')]);
         if ($request->hasFile('imageFile')) {
             $image = asset(uploadFile($request->file('imageFile'), 'lesson_images')['path']);
             return response()->json(["link" => $image]);

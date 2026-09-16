@@ -26,7 +26,7 @@ class SupervisorProfileRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'image' => 'nullable',
+            'image' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('image'),
             'name' => 'required',
         ];
         $user = Auth::guard('supervisor')->user()->id;

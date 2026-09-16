@@ -29,6 +29,7 @@ class QMatch extends Model implements HasMedia
     {
         $this
             ->addMediaCollection('match')
+            ->acceptsFile(acceptsUploadTypes('image'))
             ->singleFile();
     }
 }

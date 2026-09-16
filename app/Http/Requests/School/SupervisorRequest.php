@@ -27,7 +27,7 @@ class SupervisorRequest extends FormRequest
         $rules = [
             'name'=>'required',
             'teachers'=>'nullable|array',
-            'image'=>'nullable'
+            'image'=>'nullable|file|mimetypes:' . allowedUploadMimetypes('image')
         ];
 
         if (Route::currentRouteName() == 'school.supervisor.edit' || Route::currentRouteName() == 'school.supervisor.update')

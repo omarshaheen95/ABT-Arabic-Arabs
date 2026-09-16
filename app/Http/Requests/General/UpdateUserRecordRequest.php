@@ -28,6 +28,7 @@ class UpdateUserRecordRequest extends FormRequest
             's_status' => 'required|in:pending,corrected,returned',
             'mark' => 'required|integer|min:0|max:10',
             'feedback_message' => 'nullable',
+            'feedback_audio_message' => 'nullable|file|mimetypes:' . allowedUploadMimetypes('audio'),
 
         ];
 
