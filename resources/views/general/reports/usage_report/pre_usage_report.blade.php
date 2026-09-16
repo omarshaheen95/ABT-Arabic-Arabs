@@ -49,12 +49,30 @@
                 </div>
                 <div class="col-lg-4 mb-2">
                     <label>{{t('Select date')}} :</label>
-                    <input autocomplete="disabled" class="form-control form-control-solid" id="date_range"
-                           name="date_range_report" value="" placeholder="{{t('Pick date range')}}"/>
-                    <input type="hidden" name="start_date" id="start_date_range"
-                           value="{{isset($date_range['start']) ? $date_range['start']:''}}"/>
-                    <input type="hidden" name="end_date" id="end_date_range"
-                           value="{{isset($date_range['end']) ? $date_range['end']:''}}"/>
+                    <div class="input-group">
+                        <input autocomplete="disabled" class="form-control form-control-solid" id="date_range"
+                               name="date_range_report" value="" placeholder="{{t('Pick date range')}}"/>
+                        <button class="btn btn-light-danger" type="button" id="clear_date_range"
+                                title="{{t('Clear')}}">&times;</button>
+                    </div>
+                    <div class="form-text">{{t('Leave empty to cover the whole year')}}</div>
+                    {{-- Left empty on purpose: no date range means the full school year. --}}
+                    <input type="hidden" name="start_date" id="start_date_range" value=""/>
+                    <input type="hidden" name="end_date" id="end_date_range" value=""/>
+                </div>
+
+                <div class="col-lg-12 mb-2">
+                    {{-- the hidden field makes sure the choice is always submitted,
+                         so an unticked box is not read as "not answered" --}}
+                    <input type="hidden" name="include_archived" value="0"/>
+                    <div class="form-check form-check-custom">
+                        <input class="form-check-input" type="checkbox" value="1" id="include_archived"
+                               name="include_archived" checked/>
+                        <label class="form-check-label ms-2" for="include_archived">
+                            {{t('Include archived students')}}
+                        </label>
+                    </div>
+                    <div class="form-text">{{t('Archived students kept their activity; unticking hides it from the report.')}}</div>
                 </div>
 
                 <div class="separator my-4"></div>
@@ -75,8 +93,14 @@
     <script>
         $(document).ready(function () {
 
-            initializeDateRangePicker('date_range', ["{{$date_range['start']}}", "{{$date_range['end']}}"])
+            // No default range: the report covers the whole year until the user picks one.
+            initializeDateRangePicker('date_range')
 
+            $('#clear_date_range').on('click', function () {
+                $('#date_range').val('');
+                $('#start_date_range').val('');
+                $('#end_date_range').val('');
+            });
 
             onSelectAllClick('grades')
 
