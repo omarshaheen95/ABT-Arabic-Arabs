@@ -231,14 +231,9 @@ class SettingController extends Controller
             })
             ->get();
 
-        try {
-            $date_range = checkDateRangeForCurrentYear(now());
-        } catch (\Exception $e) {
-            $date_range = [];
-        }
         $url = route('school.report.teacher_report');
         return view('general.reports.teacher_report.pre_teacher_report',
-            compact('title', 'url', 'teachers', 'years', 'date_range'));
+            compact('title', 'url', 'teachers', 'years'));
     }
 
     public function teacherReport(Request $request)

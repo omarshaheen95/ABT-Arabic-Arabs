@@ -146,78 +146,16 @@ class GeneralFunctions
 
     public function userReport(Request $request, $id)
     {
-        $student = User::query()->with(['school', 'teacher'])->filter()->findOrFail($id);
-        $report = New StudentReport($student);
+        // Archiving only blocks the student from logging in, it does not erase
+        // the work they did, so their report has to stay reachable.
+        $student = User::withoutGlobalScope('not_archived')
+            ->with(['school', 'teacher'])
+            ->filter()
+            ->findOrFail($id);
+
+        $report = new StudentReport($student);
+
         return $report->report();
-        $title = t('Student report');
-        $student = User::query()->filter($request)->findOrFail($id);
-        if ($student->teacherUser && $student->teacherUser->teacher) {
-            $teacher = $student->teacherUser->teacher;
-        } else {
-            $teacher = null;
-        }
-
-        $start_date = $request->get('start_date', Carbon::now()->startOfMonth()->toDateString());
-        $end_date = $request->get('end_date', Carbon::now()->endOfMonth()->toDateString());
-        $grade = $request->get('grade', $student->grade);
-
-        $student_tests = UserTracker::query()->where('user_id', $student->id)
-            ->pluck('lesson_id')->unique()->values()->all();
-        $user_tracker_data = UserTracker::query()->where('user_id', $student->id)
-            ->whereIn('lesson_id', $student_tests)->get();
-        $user_tests_data = UserTest::query()->where('user_id', $student->id)->whereIn('lesson_id', $student_tests)->get();
-        $user_lessons_data = UserLesson::query()->where('user_id', $student->id)->whereIn('lesson_id', $student_tests)->get();
-        $lessons = Lesson::query()->whereIn('id',$student_tests)->get();
-
-        $user_games = 0;
-        $user_tests = 0;
-        $user_learning = 0;
-        $user_training = 0;
-        $user_tracker = 0;
-        $lessons_info = [];
-
-        foreach ($student_tests as $lesson) {
-            $lesson_info = [];
-            $user_tests = $user_tracker_data->where('type', 'test')->where('lesson_id', $lesson)->count();
-            $user_learning = $user_tracker_data->where('type', 'learn')->where('lesson_id', $lesson)->count();
-            $user_training = $user_tracker_data->where('type', 'practise')->where('lesson_id', $lesson)->count();
-
-            $user_tracker = $user_tracker_data->where('lesson_id', $lesson)->count();
-            if ($user_tracker) {
-                $lesson_info['tests'] = round(($user_tests / $user_tracker) * 100, 1);
-                $lesson_info['trainings'] = round(($user_training / $user_tracker) * 100, 1);
-                $lesson_info['learnings'] = round(($user_learning / $user_tracker) * 100, 1);
-                $lesson_info['tracker'] = $user_tracker;
-            } else {
-                $lesson_info['tests'] = 0;
-                $lesson_info['trainings'] = 0;
-                $lesson_info['learnings'] = 0;
-                $lesson_info['tracker'] = 0;
-            }
-
-            $user_test = $lesson_info['user_test'] = $user_tests_data->where('lesson_id', $lesson)->sortByDesc('total')->first();
-
-            if (isset($user_test) && !is_null($user_test->start_at) && !is_null($user_test->end_at)) {
-                $time1 = new \DateTime($user_test->start_at);
-                $time2 = new \DateTime($user_test->end_at);
-                $interval = $time1->diff($time2);
-
-                $lesson_info['time_consumed'] = $interval->format('%i minute(s)');
-
-            } else {
-                $lesson_info['time_consumed'] = '-';
-            }
-
-            $lesson_info['user_lesson'] = $user_lessons_data->where('lesson_id', $lesson)->where('status', 'corrected')->first();
-
-            $lesson_info['lesson'] = $lessons->where('id',$lesson)->first();
-
-            array_push($lessons_info, $lesson_info);
-        }
-
-        $lessons_info = array_chunk($lessons_info, 2);
-        return view('general.reports.user_report', compact('student', 'teacher', 'lessons_info'));
-
     }
 
     public function teacherReport(Request $request, $id):View
