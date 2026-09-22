@@ -62,7 +62,7 @@ class StudentInformation implements WithMapping, Responsable, WithHeadings, From
     {
         return [
             $student->name,
-            $student->student_id,
+            $student->id_number,
             $student->grade_name,
             $student->section,
             $student->email,
