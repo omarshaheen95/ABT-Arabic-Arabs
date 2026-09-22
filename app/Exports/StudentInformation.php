@@ -44,6 +44,7 @@ class StudentInformation implements WithMapping, Responsable, WithHeadings, From
     {
         return [
             'Student Name',
+            'Student ID',
             'Grade',
             'Section',
             'Email',
@@ -61,6 +62,7 @@ class StudentInformation implements WithMapping, Responsable, WithHeadings, From
     {
         return [
             $student->name,
+            $student->student_id,
             $student->grade_name,
             $student->section,
             $student->email,
@@ -100,10 +102,10 @@ class StudentInformation implements WithMapping, Responsable, WithHeadings, From
         });
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $cellRange = 'A1:K1';
+                $cellRange = 'A1:L1';
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setBold('bold')->setSize(12);
                 $event->sheet->styleCells(
-                    "A1:K$this->length",
+                    "A1:L$this->length",
                     [
                         'alignment' => [
                             'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
