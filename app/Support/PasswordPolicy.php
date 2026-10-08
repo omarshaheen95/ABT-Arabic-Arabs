@@ -90,7 +90,11 @@ class PasswordPolicy
      */
     public static function temporaryRules($required = true)
     {
-        return [$required ? 'required' : 'nullable', 'string', 'min:' . self::MIN_LENGTH_TEMPORARY];
+        // no whitespace, the same as the full policy: a password stored with a
+        // leading or trailing space can never be typed back, because the old
+        // password field is compared after the request has been trimmed
+        return [$required ? 'required' : 'nullable', 'string',
+            'min:' . self::MIN_LENGTH_TEMPORARY, 'regex:/^[^\s]+$/'];
     }
 
     /**
@@ -103,6 +107,14 @@ class PasswordPolicy
      */
     public static function requireStrongUnlessForced(Validator $validator, $field = 'password', array $identity = [])
     {
+        // JsValidator checks remote rules (such as unique on the email) by
+        // posting the whole form through this same request; the error would
+        // land on that other field and stay cached there, so leave this check
+        // to the real submit
+        if (request()->has(config('jsvalidation.remote_validation_field', '_jsvalidation'))) {
+            return;
+        }
+
         $validator->after(function (Validator $validator) use ($field, $identity) {
             $data = $validator->getData();
             $password = $data[$field] ?? null;

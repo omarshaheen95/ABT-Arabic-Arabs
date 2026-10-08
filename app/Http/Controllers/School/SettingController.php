@@ -204,13 +204,8 @@ class SettingController extends Controller
         $title = t('Usage Report');
         $grades = Grade::query()->get();
         $years = Year::query()->get();
-        try {
-            $date_range = checkDateRangeForCurrentYear(now());
-        } catch (\Exception $e) {
-            $date_range = [];
-        }
         $url = route('school.report.usage_report');
-        return view('general.reports.usage_report.pre_usage_report', compact('title','url', 'grades', 'years', 'date_range'));
+        return view('general.reports.usage_report.pre_usage_report', compact('title', 'url', 'grades', 'years'));
     }
 
     public function usageReport(Request $request)
@@ -236,14 +231,9 @@ class SettingController extends Controller
             })
             ->get();
 
-        try {
-            $date_range = checkDateRangeForCurrentYear(now());
-        } catch (\Exception $e) {
-            $date_range = [];
-        }
         $url = route('school.report.teacher_report');
         return view('general.reports.teacher_report.pre_teacher_report',
-            compact('title', 'url', 'teachers', 'years', 'date_range'));
+            compact('title', 'url', 'teachers', 'years'));
     }
 
     public function teacherReport(Request $request)

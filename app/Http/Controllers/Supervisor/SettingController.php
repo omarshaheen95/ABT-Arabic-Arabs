@@ -89,12 +89,15 @@ class SettingController extends Controller
         $title = t('Usage Report');
         $grades = Grade::query()->get();
         $years = Year::query()->get();
-        try {
-            $date_range = checkDateRangeForCurrentYear(now());
-        } catch (\Exception $e) {
-            $date_range = [];
-        }
-        return view('general.reports.usage_report.pre_usage_report', compact('title', 'grades', 'years', 'date_range'));
+        //the screen lets the supervisor narrow the report down to one of their own teachers
+        $teachers = Teacher::query()
+            ->whereHas('supervisor_teachers', function (Builder $query) {
+                $query->where('supervisor_id', Auth::guard('supervisor')->id());
+            })
+            ->orderBy('name')
+            ->get();
+        $url = route('supervisor.report.usage_report');
+        return view('general.reports.usage_report.pre_usage_report', compact('title', 'url', 'teachers', 'grades', 'years'));
     }
 
     public function usageReport(Request $request)
@@ -109,14 +112,9 @@ class SettingController extends Controller
         $title = t('Usage Report');
         $grades = Grade::query()->get();
         $years = Year::query()->get();
-        try {
-            $date_range = checkDateRangeForCurrentYear(now());
-        } catch (\Exception $e) {
-            $date_range = [];
-        }
         $teachers = Teacher::query()->filter()->get();
         $url = route('supervisor.report.teacher_pre_usage_report');
-        return view('general.reports.usage_report.pre_usage_report', compact('title','teachers','url', 'grades', 'years', 'date_range'));
+        return view('general.reports.usage_report.pre_usage_report', compact('title', 'teachers', 'url', 'grades', 'years'));
     }
 
     public function teacherUsageReport(Request $request)
