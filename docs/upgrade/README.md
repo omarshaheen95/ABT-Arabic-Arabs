@@ -22,16 +22,18 @@
 | `df807145` | حذف routes الـ artisan العامة |
 | `c501c1e9` | إصلاح فحص الـ IP في `api/update_settings`، و`TrustedIpApiTest` |
 | `b807e9c9` | إيقاف حفظ hash كلمة المرور في activity log |
-| (آخر commit) | هذا التوثيق ونتائج المقارنة |
+| `346df7c5` | هذا التوثيق ونتائج المقارنة |
+| (آخر commit) | إيقاف حفظ `remember_token` في activity log |
 
 ## قرارات صاحب المشروع (قبل أي تعديل)
-عُرضت المشاكل الأمنية التالية قبل الترقية، وكلها موجودة على Laravel 8 وليست منها:
+عُرضت المشاكل الأمنية التالية على صاحب المشروع (كلها قبل الترقية ما عدا الأخيرة)، وكلها موجودة على Laravel 8 وليست منها:
 
 | المشكلة | القرار | التنفيذ |
 | --- | --- | --- |
 | `GET migrate` و`view` و`command` (يشغّل `schedule:work` الذي لا ينتهي) و`cache` في `routes/web.php` بلا أي حماية | تُحذف | `df807145` |
 | `getRealIpAddress()` تثق بـ `X-Forwarded-For` وأخواتها، فأي شخص يغيّر جدول `settings` (ومنه SMTP وtoken الـ Telegram) عبر `POST api/update_settings` | تُصلح | `c501c1e9` (انظر "ثغرة أُصلحت") |
 | hash كلمة المرور في activity log (1980 سجلاً محلياً) | يُوقف التسجيل فقط، والسجلات القديمة تبقى | `b807e9c9` |
+| **وُجد بعد الترقية:** `remember_token` (توكن "تذكرني") يُسجَّل في activity log بنفس الطريقة (1933 سجلاً محلياً؛ يتغير مع كل دخول بـ "تذكرني" وكل خروج) | يُوقف التسجيل، والسجلات القديمة تبقى | commit مستقل بعد التوثيق |
 | log viewer (arcanedev) بلا middleware | opcodesio خلف دخول المشرف | ضمن `4a6a4a7a` |
 | **وُجد أثناء الفحص:** `GET students-cards-by-section?school_id=N` بلا دخول يعرض كل طلاب أي مدرسة بالبريد وكلمة المرور الافتراضية `123456` ورمز QR للدخول (`General\UserController@cards`) | يبقى كما هو ويُوثَّق | لم يُلمس |
 | **وُجد أثناء الفحص:** `POST api/upload_image` بلا دخول يرفع صوراً إلى `public/uploads/lesson_images` (بالامتدادات المسموحة فقط) | يُوثَّق ويُصلح لاحقاً بعد معرفة من يستدعيه | لم يُلمس |
@@ -137,7 +139,6 @@
 
 ## مشاكل كانت موجودة قبل الترقية (لم نلمسها)
 - `students-cards-by-section` و`api/upload_image` بلا دخول (أعلاه، بقرار صاحب المشروع).
-- **`remember_token` في activity log**: نفس سبب كلمة المرور، يُسجَّل في 1933 سجلاً محلياً (يتغير مع كل خروج). لم يكن ضمن القرار، فلم يُلمس.
 - `user/{id}/report` يعرض تقرير أي طالب برقمه لأي زائر (middleware `web` و`local` فقط).
 - routes بطلب GET تغيّر البيانات خلف دخول المشرف: `seed` و`give_roles` و`give_all_permissions/{guard}` و`remove_space` و`copy-teacher-data` و`copy_lessons`، و`get_marks` و`correct_tests` تنتهي بـ `dd()`.
 - 3 routes تشير إلى methods غير موجودة: `Manager\LessonController@export` و`General\UserController@studentsImportFileCards` و`General\UserController@updateLearningYears`. وصفحات `create` لـ `lessons_tests` و`stories_tests` و`stories_records` و`login_sessions` ترجع 500 (Route::resource لـ methods غير موجودة)، و`my_students` ترجع 500 للوحات، و`student/password/reset/{token}` ترجع 500.
@@ -148,7 +149,7 @@
 
 ## متابعات مقترحة
 - `trustProxies` إن كان السيرفر خلف proxy (قبل النشر).
-- قرار بشأن `remember_token` في activity log، و`students-cards-by-section`، و`api/upload_image` (من يستدعيه؟)، و`user/{id}/report`.
+- قرار بشأن `students-cards-by-section`، و`api/upload_image` (من يستدعيه؟)، و`user/{id}/report`.
 - إصلاح routes الـ GET التي تغيّر البيانات أو تنتهي بـ `dd()`، والـ routes التي تشير إلى methods غير موجودة (`->only([...])` على `Route::resource`).
 - التأكد من نسخة MySQL على السيرفر (المحلي 8.0.30).
 - الانتقال من Laravel Mix إلى Vite في خطوة منفصلة.
