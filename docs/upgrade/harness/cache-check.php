@@ -1,9 +1,9 @@
 <?php
 // Checks that values cached by one version are read back by the other. The keys
-// hold the kinds of values nonarab caches: a Setting model and a Collection of
-// them ('settings', see cached() and updateSettingsApi()), the settings array
-// (SettingServiceProvider), and a student's dashboard data
-// (UserDataCacheService: arrays holding models).
+// hold the kinds of values arabic-arabs caches: a Setting model and a
+// Collection of them ('settings', see cached() and updateSettingsApi()), the
+// settings array (SettingServiceProvider, settingCache()), and a student's
+// user and dashboard data (UserDataCacheService: arrays holding models).
 //   php cache-check.php <project_dir> write
 //   php cache-check.php <project_dir> read [true|false]   overrides cache.serializable_classes
 //   php cache-check.php <project_dir> clean
@@ -20,16 +20,19 @@ register_shutdown_function(function () {
 });
 
 $student = function () {
-    // the student of SmokeRoutesTest
+    // the student of SmokeRoutesTest (school 2139, its teacher with the most
+    // students who are not archived, that teacher's student with the most tests)
     $teacher = Illuminate\Support\Facades\DB::table('teachers')
-        ->join('teacher_students', 'teacher_students.teacher_id', '=', 'teachers.id')
-        ->where('teachers.school_id', 71)->where('teachers.active', 1)->where('teachers.approved', 1)
-        ->whereNull('teachers.deleted_at')->whereNull('teacher_students.deleted_at')
+        ->join('teacher_users', 'teacher_users.teacher_id', '=', 'teachers.id')
+        ->join('users', 'users.id', '=', 'teacher_users.user_id')
+        ->where('teachers.school_id', 2139)->where('teachers.active', 1)->where('teachers.approved', 1)
+        ->whereNull('teachers.deleted_at')->whereNull('teacher_users.deleted_at')
+        ->where('users.archived', 0)->whereNull('users.deleted_at')
         ->groupBy('teachers.id')->orderByRaw('count(*) desc')->orderBy('teachers.id')->value('teachers.id');
-    $id = Illuminate\Support\Facades\DB::table('users')->join('teacher_students', 'teacher_students.user_id', '=', 'users.id')
-        ->where('teacher_students.teacher_id', $teacher)->whereNull('teacher_students.deleted_at')
+    $id = Illuminate\Support\Facades\DB::table('users')->join('teacher_users', 'teacher_users.user_id', '=', 'users.id')
+        ->where('teacher_users.teacher_id', $teacher)->whereNull('teacher_users.deleted_at')
         ->where('users.active', 1)->where('users.archived', 0)->whereNull('users.deleted_at')
-        ->orderByRaw('(select count(*) from student_tests where student_tests.user_id = users.id) + (select count(*) from student_story_tests where student_story_tests.user_id = users.id) desc')
+        ->orderByRaw('(select count(*) from user_tests where user_tests.user_id = users.id and user_tests.deleted_at is null) + (select count(*) from student_story_tests where student_story_tests.user_id = users.id and student_story_tests.deleted_at is null) desc')
         ->orderBy('users.id')->value('users.id');
 
     return App\Models\User::query()->find($id);
@@ -45,6 +48,13 @@ $values = function () use ($student) {
         'collection' => App\Models\Setting::query()->get(),
         'array' => App\Models\Setting::query()->get()->pluck('value', 'key')->all(),
         'dashboard' => (new App\Services\UserDashboard())->getData(),
+        // UserDataCacheService::generateUserData(), what getUserData() caches
+        'user_data' => (function () use ($user) {
+            $service = new App\Services\UserDataCacheService();
+            $m = new ReflectionMethod($service, 'generateUserData');
+            $m->setAccessible(true); // PHP 7.4
+            return $m->invoke($service, $user->id);
+        })(),
     ];
 };
 
@@ -79,7 +89,7 @@ if ($argv[2] === 'write') {
     exit;
 }
 if ($argv[2] === 'clean') {
-    foreach (['model', 'collection', 'array', 'dashboard', 'prints'] as $name) {
+    foreach (['model', 'collection', 'array', 'dashboard', 'user_data', 'prints'] as $name) {
         cache()->forget('upgrade_check_'.$name);
     }
     exit;

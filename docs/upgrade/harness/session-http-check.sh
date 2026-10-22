@@ -4,18 +4,19 @@
 # directions; and does the same with only a student's "remember me" cookie.
 #   bash session-http-check.sh <php old> <old dir> <php new> <new dir> <work dir>
 # Both copies must share the database and APP_KEY. The accounts used get a
-# known password for the run; their password, last_login columns and the
-# login_sessions rows written are put back at the end.
+# known password for the run (and the manager no forced password change);
+# their columns and the login_sessions and activity_log rows written are put
+# back at the end.
 set -u
 php_old="$1"; old="$(cd "$2" && pwd)"; php_new="$3"; new="$(cd "$4" && pwd)"; work="$5"
 mkdir -p "$work"
 here="$(cd "$(dirname "$0")" && pwd)"
-mysql="${MYSQL:-/c/laragon/bin/mysql/mysql-8.0.30-winx64/bin/mysql} -uroot nonarabs"
+mysql="${MYSQL:-/c/laragon/bin/mysql/mysql-8.0.30-winx64/bin/mysql} -uroot arabicarabs"
 password='Upgrade-Check-2026!'
 
 # the manager and the student of SmokeRoutesTest
-manager_id=$($mysql -N -e "select id from managers where active=1 and force_password_change=0 and deleted_at is null order by (select count(*) from model_has_permissions where model_type='App\\\\Models\\\\Manager' and model_id=managers.id) desc, id limit 1")
-student_id=$($mysql -N -e "select u.id from users u join teacher_students ts on ts.user_id=u.id where ts.teacher_id=(select t.id from teachers t join teacher_students x on x.teacher_id=t.id where t.school_id=71 and t.active=1 and t.approved=1 and t.force_password_change=0 and t.deleted_at is null and x.deleted_at is null group by t.id order by count(*) desc, t.id limit 1) and ts.deleted_at is null and u.active=1 and u.archived=0 and u.deleted_at is null order by u.id limit 1")
+manager_id=$($mysql -N -e "select id from managers where active=1 and deleted_at is null order by (select count(*) from model_has_permissions where model_type='App\\\\Models\\\\Manager' and model_id=managers.id) desc, id limit 1")
+student_id=$($mysql -N -e "select u.id from users u join teacher_users tu on tu.user_id=u.id where tu.teacher_id=(select t.id from teachers t join teacher_users x on x.teacher_id=t.id join users y on y.id=x.user_id where t.school_id=2139 and t.active=1 and t.approved=1 and t.deleted_at is null and x.deleted_at is null and y.archived=0 and y.deleted_at is null group by t.id order by count(*) desc, t.id limit 1) and tu.deleted_at is null and u.active=1 and u.archived=0 and u.deleted_at is null order by u.id limit 1")
 manager_email=$($mysql -N -e "select email from managers where id=$manager_id")
 student_email=$($mysql -N -e "select email from users where id=$student_id")
 # copies of the two rows, to put their columns back at the end
@@ -26,7 +27,7 @@ max_activity=$($mysql -N -e "select coalesce(max(id),0) from activity_log")
 max_streak=$($mysql -N -e "select coalesce(max(id),0) from user_streak_rewards")
 $mysql -e "drop table if exists upgrade_check_levels; create table upgrade_check_levels as select * from user_achievement_levels where user_id=$student_id"
 hash=$("$php_new" -r 'echo password_hash($argv[1], PASSWORD_BCRYPT, ["cost" => 10]);' "$password")
-$mysql -e "update managers set password='$hash' where id=$manager_id; update users set password='$hash' where id=$student_id"
+$mysql -e "update managers set password='$hash', force_password_change=0, password_changed_at=null where id=$manager_id; update users set password='$hash' where id=$student_id"
 
 "$php_old" -S 127.0.0.1:8781 -t "$old/public" "$old/server.php" > "$work/old-server.log" 2>&1 &
 old_pid=$!
@@ -81,8 +82,8 @@ kill $old_pid $new_pid 2>/dev/null
 wait $old_pid $new_pid 2>/dev/null
 
 # put the accounts and the log tables back
-set_cols="t.password = b.password, t.last_login = b.last_login, t.last_login_info = b.last_login_info, t.remember_token = b.remember_token, t.local = b.local, t.updated_at = b.updated_at"
-$mysql -e "update managers t join upgrade_check_managers b on b.id = t.id set $set_cols; update users t join upgrade_check_users b on b.id = t.id set $set_cols; drop table upgrade_check_managers, upgrade_check_users"
+set_cols="t.password = b.password, t.last_login = b.last_login, t.last_login_info = b.last_login_info, t.remember_token = b.remember_token, t.updated_at = b.updated_at"
+$mysql -e "update managers t join upgrade_check_managers b on b.id = t.id set $set_cols, t.lang = b.lang, t.force_password_change = b.force_password_change, t.password_changed_at = b.password_changed_at; update users t join upgrade_check_users b on b.id = t.id set $set_cols; drop table upgrade_check_managers, upgrade_check_users"
 $mysql -e "delete from login_sessions where id > $max_session; delete from activity_log where id > $max_activity; delete from user_streak_rewards where id > $max_streak"
 $mysql -e "delete from user_achievement_levels where user_id=$student_id; insert into user_achievement_levels select * from upgrade_check_levels; drop table upgrade_check_levels"
 echo "accounts restored, login_sessions rows after $max_session and activity_log rows after $max_activity deleted"

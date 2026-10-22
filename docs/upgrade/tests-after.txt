@@ -1,0 +1,41 @@
+PHPUnit 12.5.40 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.7
+Configuration: C:\laragon\www\arabic-arabs\phpunit.xml
+
+.....................                                             21 / 21 (100%)
+
+Time: 00:43.961, Memory: 178.00 MB
+
+Example (Tests\Feature\Example)
+ ✔ Example
+
+Example (Tests\Unit\Example)
+ ✔ Example
+
+Login Activity (Tests\Feature\LoginActivity)
+ ✔ Login session routes and view use current project resources
+ ✔ Unknown failed attempt is logged without secrets and can be filtered
+ ✔ Lockout keeps the current guard
+ ✔ Success and logout events record the account
+ ✔ Prune dry run preserves old rows and rejects invalid retention
+ ✔ Datatable displays unknown accounts and escapes identifiers
+
+Smoke Routes (Tests\Feature\SmokeRoutes)
+ ✔ Guest pages
+ ✔ Manager pages
+ ✔ School pages
+ ✔ Teacher pages
+ ✔ Supervisor pages
+ ✔ Student pages
+
+Trusted Ip Api (Tests\Feature\TrustedIpApi)
+ ✔ Update settings refuses a forged forwarding header with data set "HTTP_X_FORWARDED_FOR"
+ ✔ Update settings refuses a forged forwarding header with data set "HTTP_X_FORWARDED"
+ ✔ Update settings refuses a forged forwarding header with data set "HTTP_X_CLUSTER_CLIENT_IP"
+ ✔ Update settings refuses a forged forwarding header with data set "HTTP_FORWARDED_FOR"
+ ✔ Update settings refuses a forged forwarding header with data set "HTTP_FORWARDED"
+ ✔ A trusted server can still update settings
+ ✔ An untrusted server is refused without any header
+
+OK (21 tests, 59 assertions)
