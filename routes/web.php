@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'WebController@home')->name('main');
-Route::get('page/{key}', 'WebController@page')->name('page');
+Route::get('/', [\App\Http\Controllers\WebController::class, 'home'])->name('main');
+Route::get('page/{key}', [\App\Http\Controllers\WebController::class, 'page'])->name('page');
 
-Route::get('/schools', 'WebController@schools')->name('schools');
+Route::get('/schools', [\App\Http\Controllers\WebController::class, 'schools'])->name('schools');
 Route::get('students-cards-by-section', [\App\Http\Controllers\General\UserController::class, 'cards']);
 
 //Route::get('lang/{locale}', function ($locale) {
@@ -42,54 +42,54 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['prefix' => 'manager', 'namespace' => 'ManagerAuth', 'as' => 'manager.'], function () {
-    Route::get('/login', 'LoginController@showLoginForm')->name('login');
-    Route::post('/login', 'LoginController@login');
-    Route::post('/logout', 'LoginController@logout')->name('logout');
+Route::group(['prefix' => 'manager', 'as' => 'manager.'], function () {
+    Route::get('/login', [\App\Http\Controllers\ManagerAuth\LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [\App\Http\Controllers\ManagerAuth\LoginController::class, 'login']);
+    Route::post('/logout', [\App\Http\Controllers\ManagerAuth\LoginController::class, 'logout'])->name('logout');
 
 
-    Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-    Route::post('/password/reset', 'ResetPasswordController@reset')->name('password.email');
-    Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-    Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
+    Route::post('/password/email', [\App\Http\Controllers\ManagerAuth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.request');
+    Route::post('/password/reset', [\App\Http\Controllers\ManagerAuth\ResetPasswordController::class, 'reset'])->name('password.email');
+    Route::get('/password/reset', [\App\Http\Controllers\ManagerAuth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.reset');
+    Route::get('/password/reset/{token}', [\App\Http\Controllers\ManagerAuth\ResetPasswordController::class, 'showResetForm']);
 });
 
-Route::group(['prefix' => 'school', 'namespace' => 'SchoolAuth', 'as' => 'school.'], function () {
-    Route::get('/login', 'LoginController@showLoginForm')->name('login');
-    Route::post('/login', 'LoginController@login');
-    Route::post('/logout', 'LoginController@logout')->name('logout');
+Route::group(['prefix' => 'school', 'as' => 'school.'], function () {
+    Route::get('/login', [\App\Http\Controllers\SchoolAuth\LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [\App\Http\Controllers\SchoolAuth\LoginController::class, 'login']);
+    Route::post('/logout', [\App\Http\Controllers\SchoolAuth\LoginController::class, 'logout'])->name('logout');
 
 //  Route::get('/register', 'SchoolAuth\RegisterController@showRegistrationForm')->name('register');
 //  Route::post('/register', 'SchoolAuth\RegisterController@register');
 
-    Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-    Route::post('/password/reset', 'ResetPasswordController@reset')->name('password.email');
-    Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-    Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
+    Route::post('/password/email', [\App\Http\Controllers\SchoolAuth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.request');
+    Route::post('/password/reset', [\App\Http\Controllers\SchoolAuth\ResetPasswordController::class, 'reset'])->name('password.email');
+    Route::get('/password/reset', [\App\Http\Controllers\SchoolAuth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.reset');
+    Route::get('/password/reset/{token}', [\App\Http\Controllers\SchoolAuth\ResetPasswordController::class, 'showResetForm']);
 });
 
-Route::group(['prefix' => 'teacher', 'namespace' => 'TeacherAuth', 'as' => 'teacher.'], function () {
-    Route::get('/login', 'LoginController@showLoginForm')->name('login');
-    Route::post('/login', 'LoginController@login');
-    Route::post('/logout', 'LoginController@logout')->name('logout');
+Route::group(['prefix' => 'teacher', 'as' => 'teacher.'], function () {
+    Route::get('/login', [\App\Http\Controllers\TeacherAuth\LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [\App\Http\Controllers\TeacherAuth\LoginController::class, 'login']);
+    Route::post('/logout', [\App\Http\Controllers\TeacherAuth\LoginController::class, 'logout'])->name('logout');
 
 
-    Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-    Route::post('/password/reset', 'ResetPasswordController@reset')->name('password.email');
-    Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-    Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
+    Route::post('/password/email', [\App\Http\Controllers\TeacherAuth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.request');
+    Route::post('/password/reset', [\App\Http\Controllers\TeacherAuth\ResetPasswordController::class, 'reset'])->name('password.email');
+    Route::get('/password/reset', [\App\Http\Controllers\TeacherAuth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.reset');
+    Route::get('/password/reset/{token}', [\App\Http\Controllers\TeacherAuth\ResetPasswordController::class, 'showResetForm']);
 });
 
-Route::group(['prefix' => 'supervisor', 'namespace' => 'SupervisorAuth', 'as' => 'supervisor.'], function () {
-    Route::get('/login', 'LoginController@showLoginForm')->name('login');
-    Route::post('/login', 'LoginController@login');
-    Route::post('/logout', 'LoginController@logout')->name('logout');
+Route::group(['prefix' => 'supervisor', 'as' => 'supervisor.'], function () {
+    Route::get('/login', [\App\Http\Controllers\SupervisorAuth\LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [\App\Http\Controllers\SupervisorAuth\LoginController::class, 'login']);
+    Route::post('/logout', [\App\Http\Controllers\SupervisorAuth\LoginController::class, 'logout'])->name('logout');
 
 
-    Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-    Route::post('/password/reset', 'ResetPasswordController@reset')->name('password.email');
-    Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-    Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
+    Route::post('/password/email', [\App\Http\Controllers\SupervisorAuth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.request');
+    Route::post('/password/reset', [\App\Http\Controllers\SupervisorAuth\ResetPasswordController::class, 'reset'])->name('password.email');
+    Route::get('/password/reset', [\App\Http\Controllers\SupervisorAuth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.reset');
+    Route::get('/password/reset/{token}', [\App\Http\Controllers\SupervisorAuth\ResetPasswordController::class, 'showResetForm']);
 });
 
 Route::get('migrate', function () {
@@ -105,47 +105,47 @@ Route::get('cache', function () {
     \Illuminate\Support\Facades\Artisan::call('cache:clear');
     \Illuminate\Support\Facades\Artisan::call('config:cache');
 });
-Route::group(['namespace' => 'User', 'middleware' => ['auth', 'share_user_data']], function () {
+Route::group(['middleware' => ['auth', 'share_user_data']], function () {
     //Lessons
-    Route::get('/home', 'LessonController@lessonsLevels')->name('home');
-    Route::get('/lessons/levels', 'LessonController@lessonsLevels')->name('lessons.levels');
-    Route::get('/lessons/{id}/sub-levels/{type}', 'LessonController@lessonsSubLevels')->name('lessons.sub-levels');
-    Route::get('/lessons/{id}/level/{type}/{level?}', 'LessonController@lessonsByLevel')->name('lesson.lessons-by-level');
-    Route::get('/lesson/{id}/level/{key}', 'LessonController@lesson')->name('lesson.lesson-index');
-    Route::get('/lessons/assignments', 'LessonController@assignments')->name('lesson.assignments');
+    Route::get('/home', [\App\Http\Controllers\User\LessonController::class, 'lessonsLevels'])->name('home');
+    Route::get('/lessons/levels', [\App\Http\Controllers\User\LessonController::class, 'lessonsLevels'])->name('lessons.levels');
+    Route::get('/lessons/{id}/sub-levels/{type}', [\App\Http\Controllers\User\LessonController::class, 'lessonsSubLevels'])->name('lessons.sub-levels');
+    Route::get('/lessons/{id}/level/{type}/{level?}', [\App\Http\Controllers\User\LessonController::class, 'lessonsByLevel'])->name('lesson.lessons-by-level');
+    Route::get('/lesson/{id}/level/{key}', [\App\Http\Controllers\User\LessonController::class, 'lesson'])->name('lesson.lesson-index');
+    Route::get('/lessons/assignments', [\App\Http\Controllers\User\LessonController::class, 'assignments'])->name('lesson.assignments');
 //    Route::post('/lessons/{id}/save/learn', 'LessonController@saveUserLearnAnswers')->name('lesson.save-user-learn-answers');
-    Route::post('/lessons/{id}/tracking/{key}', 'LessonController@trackLesson')->name('lesson.tracking');
-    Route::post('/lessons/{id}/save/test', 'LessonController@saveLessonTest')->name('lesson.save-test');
-    Route::post('/lessons/{id}/save/writing-test', 'LessonController@saveLessonWritingTest')->name('lesson.save-writing-test');
-    Route::post('/lessons/{id}/save/speaking-test', 'LessonController@saveLessonSpeakingTest')->name('lesson.save-lesson-speaking-test');
+    Route::post('/lessons/{id}/tracking/{key}', [\App\Http\Controllers\User\LessonController::class, 'trackLesson'])->name('lesson.tracking');
+    Route::post('/lessons/{id}/save/test', [\App\Http\Controllers\User\LessonController::class, 'saveLessonTest'])->name('lesson.save-test');
+    Route::post('/lessons/{id}/save/writing-test', [\App\Http\Controllers\User\LessonController::class, 'saveLessonWritingTest'])->name('lesson.save-writing-test');
+    Route::post('/lessons/{id}/save/speaking-test', [\App\Http\Controllers\User\LessonController::class, 'saveLessonSpeakingTest'])->name('lesson.save-lesson-speaking-test');
 
     //Stories
-    Route::get('/stories/levels', 'StoryController@storiesLevels')->name('stories.levels');
-    Route::get('/stories/{id}/level', 'StoryController@storiesByLevel')->name('story.stories-by-level');
-    Route::get('/stories/{id}/story/{key}', 'StoryController@story')->name('story.story-index');
-    Route::get('/stories/assignments', 'StoryController@assignments')->name('story.assignments');
-    Route::post('/stories/{id}/tracking/{key}', 'StoryController@trackStory')->name('story.tracking');
-    Route::post('/stories/{id}/save/read', 'StoryController@saveReadRecordAnswer')->name('save-read-record-answer');
-    Route::post('/stories/{id}/save/test', 'StoryController@saveStoryTest')->name('story.save-test');
+    Route::get('/stories/levels', [\App\Http\Controllers\User\StoryController::class, 'storiesLevels'])->name('stories.levels');
+    Route::get('/stories/{id}/level', [\App\Http\Controllers\User\StoryController::class, 'storiesByLevel'])->name('story.stories-by-level');
+    Route::get('/stories/{id}/story/{key}', [\App\Http\Controllers\User\StoryController::class, 'story'])->name('story.story-index');
+    Route::get('/stories/assignments', [\App\Http\Controllers\User\StoryController::class, 'assignments'])->name('story.assignments');
+    Route::post('/stories/{id}/tracking/{key}', [\App\Http\Controllers\User\StoryController::class, 'trackStory'])->name('story.tracking');
+    Route::post('/stories/{id}/save/read', [\App\Http\Controllers\User\StoryController::class, 'saveReadRecordAnswer'])->name('save-read-record-answer');
+    Route::post('/stories/{id}/save/test', [\App\Http\Controllers\User\StoryController::class, 'saveStoryTest'])->name('story.save-test');
 
     //Certificate
-    Route::get('{type}/certificates', 'CertificateController@index')->name('certificate.index');
-    Route::get('{type}/certificates-export/{id}', 'CertificateController@certificate')->name('certificate.get-certificate');
-    Route::get('{type}/certificates-answers/{id}', 'CertificateController@certificateAnswers')->name('certificates.answers');
+    Route::get('{type}/certificates', [\App\Http\Controllers\User\CertificateController::class, 'index'])->name('certificate.index');
+    Route::get('{type}/certificates-export/{id}', [\App\Http\Controllers\User\CertificateController::class, 'certificate'])->name('certificate.get-certificate');
+    Route::get('{type}/certificates-answers/{id}', [\App\Http\Controllers\User\CertificateController::class, 'certificateAnswers'])->name('certificates.answers');
 
     //Notifications
-    Route::get('notification/{id}/read', 'NotificationController@read')->name('notification.read');
-    Route::get('notification/read-all', 'NotificationController@readAll')->name('notification.read-all');
+    Route::get('notification/{id}/read', [\App\Http\Controllers\User\NotificationController::class, 'read'])->name('notification.read');
+    Route::get('notification/read-all', [\App\Http\Controllers\User\NotificationController::class, 'readAll'])->name('notification.read-all');
 
     //General
-    Route::get('ranking', 'GeneralController@ranking')->name('ranking');
+    Route::get('ranking', [\App\Http\Controllers\User\GeneralController::class, 'ranking'])->name('ranking');
 
     //User
-    Route::get('profile', 'UserController@profile')->name('user.profile');
-    Route::post('profile/update', 'UserController@updateProfile')->name('user.profile-update');
-    Route::get('password', 'UserController@password')->name('user.password');
-    Route::post('password/update', 'UserController@updatePassword')->name('user.password-update');
-    Route::get('logout', 'UserController@logout')->name('user.logout');
+    Route::get('profile', [\App\Http\Controllers\User\UserController::class, 'profile'])->name('user.profile');
+    Route::post('profile/update', [\App\Http\Controllers\User\UserController::class, 'updateProfile'])->name('user.profile-update');
+    Route::get('password', [\App\Http\Controllers\User\UserController::class, 'password'])->name('user.password');
+    Route::post('password/update', [\App\Http\Controllers\User\UserController::class, 'updatePassword'])->name('user.password-update');
+    Route::get('logout', [\App\Http\Controllers\User\UserController::class, 'logout'])->name('user.logout');
 
 });
 
@@ -234,7 +234,7 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'share_user_data']
 //
 //
 //});
-Route::get('user/{id}/report', 'General\UserController@report')->name('user.report');
+Route::get('user/{id}/report', [\App\Http\Controllers\General\UserController::class, 'report'])->name('user.report');
 
 Route::get('/lang/{local}', function ($local) {
     session(['lang' => $local]);

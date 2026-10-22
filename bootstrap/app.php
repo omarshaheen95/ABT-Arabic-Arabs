@@ -22,17 +22,14 @@ $app = Application::configure(basePath: dirname(__DIR__))
                 Route::middleware(['web', $panel, "auth:$panel", 'checkIfActive', 'local', "session.password:$panel", "force.password:$panel"])
                     ->prefix($panel)
                     ->as("$panel.")
-                    ->namespace('App\Http\Controllers')
                     ->group(base_path("routes/$panel.php"));
             }
 
             Route::prefix('api')
                 ->middleware('api')
-                ->namespace('App\Http\Controllers')
                 ->group(base_path('routes/api.php'));
 
             Route::middleware(['web', 'local'])
-                ->namespace('App\Http\Controllers')
                 ->group(base_path('routes/web.php'));
         },
     )
