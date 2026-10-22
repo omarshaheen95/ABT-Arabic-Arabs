@@ -24,6 +24,7 @@ class AuthFlowSnapshotTest extends TestCase
         // Reported exceptions are posted to Telegram by this job (sync queue).
         // Never send them from a test run.
         \Illuminate\Support\Facades\Bus::fake([\App\Jobs\LogMessageJob::class]);
+        SmokeRoutesTest::unlockAccounts();
     }
 
     private $log = [];
@@ -54,7 +55,7 @@ class AuthFlowSnapshotTest extends TestCase
             $this->record($guard, 'login ok', $r, ['authenticated' => auth($guard)->check()]);
             $home = $this->get($r->headers->get('Location') ?: "/$guard/home");
             $this->record($guard, 'follow redirect', $home);
-            $again = $this->get("/$guard/profile");
+            $again = $this->get("/$guard/profile/edit");
             $this->record($guard, 'second page', $again, ['authenticated' => auth($guard)->check()]);
             $r = $this->post("/$guard/logout");
             $this->record($guard, 'logout', $r, ['authenticated' => auth($guard)->check()]);
@@ -105,7 +106,7 @@ class AuthFlowSnapshotTest extends TestCase
         $manager = $users['manager'];
         $student = SmokeRoutesTest::student();
         foreach ([
-            'school' => ["/manager/school-login/{$users['school']->id}", '/school/home'],
+            'school' => ["/manager/school/{$users['school']->id}/login", '/school/home'],
             'teacher' => ["/manager/teacher/{$users['teacher']->id}/login", '/teacher/home'],
             'supervisor' => ["/manager/supervisor/{$users['supervisor']->id}/login", '/supervisor/home'],
             'web' => ["/manager/user/{$student->id}/login", '/home'],

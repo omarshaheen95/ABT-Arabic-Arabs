@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Upgrade harness (not part of the project): imports student files (xlsx and a
- * UTF-8 csv with Arabic names; valid rows, wrong rows, an email already used
+ * UTF-8 csv with Arabic text; valid rows, wrong rows, an email already used
  * in the same school and in another one), then the same students again in
  * "update" mode, and a teachers file, from the manager panel. Writes the
  * answer, the import_files row, its logs and the students and teachers it
@@ -26,6 +26,7 @@ class ImportSnapshotTest extends TestCase
         // Reported exceptions are posted to Telegram by this job (sync queue).
         // Never send them from a test run.
         \Illuminate\Support\Facades\Bus::fake([\App\Jobs\LogMessageJob::class]);
+        SmokeRoutesTest::unlockAccounts();
     }
 
     private function sheet(array $rows, $type, $name)
@@ -70,6 +71,8 @@ class ImportSnapshotTest extends TestCase
             $heading,
             ['UPG-7', 'طالب الفحص الأول', 'upgrade-import-7@example.invalid', null, null, 3, null, 'أ', 2, 'Boy', 1, 'الإمارات', null, null],
             ['UPG-8', 'طالبة الفحص الثانية', null, null, null, 5, null, 'ب', 3, 'Girl', 1, null, null, null],
+            // student names must be English (UserNameRule): the Arabic is in the other columns
+            ['UPG-10', 'Upgrade Csv Student', 'upgrade-import-10@example.invalid', null, null, 3, null, 'أ', 2, 'Boy', 1, 'الإمارات', null, null],
         ];
         $base = [
             'type' => 'User', 'school_id' => $i['school'], 'package_id' => $i['package'], 'active_to' => '2027-06-30',
@@ -122,7 +125,7 @@ class ImportSnapshotTest extends TestCase
             foreach (DB::table('teachers')->where('id', '>', $maxTeacher)->orderBy('id')->get() as $row) {
                 $out .= 'NEW TEACHER ' . json_encode($this->clean((array) $row), JSON_UNESCAPED_UNICODE) . "\n";
             }
-            $out .= 'TEACHER STUDENTS ' . DB::table('teacher_students')->where('teacher_id', $teacher->id)->whereIn('user_id', DB::table('users')->where('id', '>', $maxUser)->pluck('id'))->count() . "\n";
+            $out .= 'TEACHER STUDENTS ' . DB::table('teacher_users')->where('teacher_id', $teacher->id)->whereIn('user_id', DB::table('users')->where('id', '>', $maxUser)->pluck('id'))->count() . "\n";
             // generated emails end in a random number (UserImport::generateEmail())
             $out = preg_replace('/-\d+@upgrade\.invalid/', '-N@upgrade.invalid', $out);
             file_put_contents("$dir/import_$name.txt", $out);

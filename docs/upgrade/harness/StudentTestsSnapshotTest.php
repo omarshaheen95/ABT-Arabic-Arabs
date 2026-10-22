@@ -9,8 +9,8 @@ use Tests\TestCase;
 /**
  * Upgrade harness (not part of the project): the student of SmokeRoutesTest
  * answers a lesson test and a story test (true/false, choice, matching and
- * sorting; once with every answer right, once half wrong), saves the learn
- * answers, tracks a lesson and a story, and the teacher opens the results.
+ * sorting; once with every answer right, once half wrong), tracks a lesson
+ * and a story, and the teacher opens the results.
  * Writes the answers, the rows each step added (results, totals, pass/fail,
  * trackers, points, assignments) and the pages to SNAPSHOT_DIR. Everything is
  * rolled back.
@@ -19,9 +19,9 @@ class StudentTestsSnapshotTest extends TestCase
 {
     use DatabaseTransactions;
 
-    private const WATCH = ['student_tests', 'true_false_results', 'option_results', 'match_results', 'sort_results',
+    private const WATCH = ['user_tests', 'true_false_results', 'option_results', 'match_results', 'sort_results',
         'student_story_tests', 'story_true_false_results', 'story_option_results', 'story_match_results', 'story_sort_results',
-        'user_trackers', 'user_tracker_stories', 'user_lessons', 'user_records', 'user_grades', 'user_achievement_levels',
+        'user_trackers', 'user_tracker_stories', 'user_lessons', 'story_user_records', 'user_grades', 'user_achievement_levels',
         'user_streak_rewards', 'notifications'];
 
     protected function setUp(): void
@@ -30,6 +30,7 @@ class StudentTestsSnapshotTest extends TestCase
         // Reported exceptions are posted to Telegram by this job (sync queue).
         // Never send them from a test run.
         \Illuminate\Support\Facades\Bus::fake([\App\Jobs\LogMessageJob::class]);
+        SmokeRoutesTest::unlockAccounts();
     }
 
     /** answers for a lesson (prefix '') or story (prefix 'story_') test, $right of them correct */
@@ -84,12 +85,12 @@ class StudentTestsSnapshotTest extends TestCase
             ['lesson test, all right', 'post', "/lessons/{$i['lesson']}/save/test", $this->answers($lessonQuestions, '', true)],
             ['lesson test, half wrong', 'post', "/lessons/{$i['lesson']}/save/test", $this->answers($lessonQuestions, '', false)],
             ['lesson tracking learn', 'post', "/lessons/{$i['lesson']}/tracking/learn", ['start_at' => '2026-10-22 09:40:00']],
-            ['lesson tracking training', 'post', "/lessons/{$i['lesson']}/tracking/training", ['start_at' => '2026-10-22 09:45:00']],
-            ['lesson learn answers', 'post', "/lessons/{$i['lesson']}/save/learn", ['writing_answer' => 'Upgrade check writing answer', 'reading_answer' => null]],
+            ['lesson tracking practise', 'post', "/lessons/{$i['lesson']}/tracking/practise", ['start_at' => '2026-10-22 09:45:00']],
+            ['lesson tracking play', 'post', "/lessons/{$i['lesson']}/tracking/play", ['start_at' => '2026-10-22 09:47:00']],
             ['story test, all right', 'post', "/stories/{$i['story']}/save/test", $this->answers($storyQuestions, 'story_', true)],
             ['story test, half wrong', 'post', "/stories/{$i['story']}/save/test", $this->answers($storyQuestions, 'story_', false)],
-            ['story tracking watch', 'post', "/stories/{$i['story']}/tracking/watch", ['start_at' => '2026-10-22 09:30:00']],
-            ['story tracking read', 'post', "/stories/{$i['story']}/tracking/read", ['start_at' => '2026-10-22 09:35:00']],
+            ['story tracking watching', 'post', "/stories/{$i['story']}/tracking/watching", ['start_at' => '2026-10-22 09:30:00']],
+            ['story tracking reading', 'post', "/stories/{$i['story']}/tracking/reading", ['start_at' => '2026-10-22 09:35:00']],
         ];
 
         $n = 0;
@@ -118,11 +119,11 @@ class StudentTestsSnapshotTest extends TestCase
                     continue;
                 }
                 foreach (DB::table($t)->where('id', '>', $max[$t])->orderBy('id')->get() as $row) {
-                    if (in_array($t, ['student_tests', 'student_story_tests'], true)) {
+                    if (in_array($t, ['user_tests', 'student_story_tests'], true)) {
                         $newTests[] = $row->id;
                     }
                     $row = (array) $row;
-                    foreach (['id', 'created_at', 'updated_at', 'student_test_id', 'student_story_test_id'] as $k) {
+                    foreach (['id', 'created_at', 'updated_at', 'user_test_id', 'student_story_test_id'] as $k) {
                         unset($row[$k]);
                     }
                     $out .= "NEW $t " . json_encode($row, JSON_UNESCAPED_UNICODE) . "\n";
@@ -137,14 +138,14 @@ class StudentTestsSnapshotTest extends TestCase
         }
 
         // what the student and the teacher see afterwards
-        $test = DB::table('student_tests')->where('user_id', $student->id)->orderByDesc('id')->value('id');
+        $test = DB::table('user_tests')->where('user_id', $student->id)->orderByDesc('id')->value('id');
         $storyTest = DB::table('student_story_tests')->where('user_id', $student->id)->orderByDesc('id')->value('id');
         foreach ([
             ['web', $student, '/lessons/certificates'], ['web', $student, "/lessons/certificates-answers/$test"],
             ['web', $student, '/stories/certificates'], ['web', $student, "/stories/certificates-answers/$storyTest"],
             ['web', $student, '/home'], ['web', $student, '/ranking'],
-            ['teacher', $teacher, "/teacher/lessons_tests/$test"], ['teacher', $teacher, "/teacher/lessons_tests/$test/preview"],
-            ['teacher', $teacher, "/teacher/stories_tests/$storyTest"], ['teacher', $teacher, "/teacher/stories_tests/$storyTest/preview"],
+            ['teacher', $teacher, "/teacher/lessons_tests/preview_answers/$test"], ['teacher', $teacher, "/teacher/lessons_tests/correcting/$test"],
+            ['teacher', $teacher, "/teacher/stories_tests/correcting/$storyTest"], ['teacher', $teacher, "/teacher/stories_tests/$storyTest/certificate"],
             ['teacher', $teacher, '/teacher/home'],
         ] as $k => [$guard, $user, $url]) {
             $this->actingAs($user, $guard);

@@ -21,6 +21,7 @@ class LogViewerAccessSnapshotTest extends TestCase
         // Reported exceptions are posted to Telegram by this job (sync queue).
         // Never send them from a test run.
         \Illuminate\Support\Facades\Bus::fake([\App\Jobs\LogMessageJob::class]);
+        SmokeRoutesTest::unlockAccounts();
     }
 
     public function test_access()

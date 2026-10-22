@@ -38,6 +38,18 @@
 - **لا يوجد class اسمه `Match`** هنا (الأسماء `QMatch` و`TMatch` و`StoryMatch`)، فمشكلة الكلمة المحجوزة في nonarab وreadingbenchmark غير موجودة. `t('Match')` نص فقط.
 - ما ثبت في المشاريع السابقة ويُفحص هنا: `session.serialization` و`cache.serializable_classes` (وما يُحفظ في الكاش من objects)، prefix الكاش، Carbon 3، أسماء `.env` القديمة، `rehash_on_login`، مسار الـ local disk، ترميز CSV في Laravel Excel، الـ routes التي تشير إلى methods غير موجودة، ترتيب `sortBy` المستقر في PHP 8، صفحات الأخطاء.
 
+## قرارات صاحب المشروع (22-10-2026، قبل أي تعديل)
+عُرضت المشاكل الأمنية أعلاه ومعها اثنتان وُجدتا أثناء الفحص، وكلها موجودة على Laravel 8 وليست من الترقية:
+
+| المشكلة | القرار |
+| --- | --- |
+| routes `migrate` و`view` و`command` و`cache` العامة في `routes/web.php` | **تُحذف** |
+| ثغرة الـ IP في `api/update_settings` | **تُصلح** بـ `$request->ip()` مع `TrustProxies`، ومعها `TrustedIpApiTest`، في commit مستقل |
+| hash كلمة المرور في activity log | **يُوقف التسجيل فقط**، والسجلات القديمة (1980) تبقى كما هي |
+| log viewer | opcodesio **خلف دخول المشرف** (`manager` و`auth:manager`) |
+| **جديد:** `GET students-cards-by-section?school_id=N` بدون دخول، يعرض كل طلاب أي مدرسة بالبريد وكلمة المرور الافتراضية `123456` ورمز QR للدخول (`General\UserController@cards`، ولا middleware عليه) | **يبقى كما هو ويُوثَّق** |
+| **جديد:** `POST api/upload_image` بدون دخول، يرفع صوراً إلى `public/uploads/lesson_images` (بالامتدادات المسموحة فقط) | **يُوثَّق الآن ويُصلح لاحقاً** بعد معرفة من يستدعيه |
+
 ## أول الخطوات
 1. `git fetch`، ثم فرع `upgrade/laravel-13` وtag لنقطة البداية.
 2. تعطيل كل ما يرسل إلى الخارج (Telegram، البريد) قبل أول تشغيل.

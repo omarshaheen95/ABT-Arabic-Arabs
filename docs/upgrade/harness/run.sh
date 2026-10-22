@@ -19,7 +19,8 @@ cd "$project" || exit 1
 lang_backup="$(mktemp -d)"
 cp -a resources/lang/. "$lang_backup/"
 # exports leave their temporary files behind when the download is not sent
-excel_before="$(ls storage/framework/laravel-excel 2>/dev/null)"
+excel_dir=storage/framework/cache/laravel-excel
+excel_before="$(ls $excel_dir 2>/dev/null)"
 for t in "${tests[@]}"; do
     start=$(date +%s)
     result=$(SNAPSHOT_DIR="$snap" DEBUGBAR_ENABLED=false "$php" -d memory_limit=-1 vendor/bin/phpunit "tests/Feature/${t}SnapshotTest.php" 2>"$snap/_${t}.stderr" | tail -1)
@@ -27,6 +28,6 @@ for t in "${tests[@]}"; do
 done
 cp -a "$lang_backup/." resources/lang/
 rm -rf "$lang_backup"
-for f in $(ls storage/framework/laravel-excel 2>/dev/null); do
-    echo "$excel_before" | grep -qx "$f" || rm -f "storage/framework/laravel-excel/$f"
+for f in $(ls $excel_dir 2>/dev/null); do
+    echo "$excel_before" | grep -qx "$f" || rm -f "$excel_dir/$f"
 done

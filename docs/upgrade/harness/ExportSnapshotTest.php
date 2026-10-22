@@ -22,6 +22,7 @@ class ExportSnapshotTest extends TestCase
         // Reported exceptions are posted to Telegram by this job (sync queue).
         // Never send them from a test run.
         \Illuminate\Support\Facades\Bus::fake([\App\Jobs\LogMessageJob::class]);
+        SmokeRoutesTest::unlockAccounts();
     }
 
     public function test_exports()
@@ -42,28 +43,30 @@ class ExportSnapshotTest extends TestCase
         $dates = ['start_date' => '2024-09-01', 'end_date' => '2025-06-30'];
 
         $calls = [];
+        // pdfReports is left out: it posts to the external pdf service (PdfZipService)
         foreach ([
-            'export_schools' => [], 'manager/export' => [], 'export_levels' => [], 'export_stories' => [],
-            'export_lessons' => [], 'export_hidden_lessons' => [], 'export_hidden_story' => [], 'export_packages' => [],
+            'school/export' => [], 'manager/export' => [], 'lesson/export' => ['grade_id' => $ids['grade']],
+            'hidden_lesson/export' => [], 'export_hidden_story' => [],
             'import_files_export_data' => [], 'login_sessions/export' => ['model_type' => \App\Models\School::class],
         ] as $uri => $data) {
             $calls[] = ['manager', 'post', "/manager/$uri", $data];
         }
+        $calls[] = ['manager', 'get', "/manager/import_files/{$ids['import_file']}/user_cards", []];
         $general = [
             'supervisor/export' => $school, 'teacher/export' => $school, 'tracking_teachers_export' => $school + $dates,
             'user/export' => $school, 'lessons_tests/export' => $school, 'stories_tests/export' => $school,
-            'stories_records/export' => $school, 'students_works/export' => $school,
+            'stories_records/export' => $school,
             'lesson_assignment/export' => $school, 'user_lesson_assignment/export' => $school,
             'story_assignment/export' => $school, 'user_story_assignment/export' => $school,
-            'motivational_certificates/export' => $school, 'usage_report_excel' => $school + $dates,
+            'motivational_certificates/export' => $school,
         ];
         foreach (SmokeRoutesTest::PANELS as $panel) {
             foreach ($general as $uri => $data) {
                 // the other panels are already limited to their own school
                 $calls[] = [$panel, 'post', "/$panel/$uri", $panel === 'manager' ? $data : $dates];
             }
-            $calls[] = [$panel, 'get', "/$panel/user/cards_and_qr", $school + ['grade' => $ids['grade']]];
-            $calls[] = [$panel, 'post', "/$panel/user/cards_by_section", $school + ['grade' => $ids['grade']]];
+            $calls[] = [$panel, 'get', "/$panel/user/cards_and_qr", $school + ['grade_id' => $ids['grade']]];
+            $calls[] = [$panel, 'post', "/$panel/user/cards_by_section", $school + ['grade_id' => $ids['grade']]];
         }
 
         foreach ($calls as [$guard, $method, $url, $data]) {

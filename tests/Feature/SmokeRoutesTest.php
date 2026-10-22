@@ -100,11 +100,28 @@ class SmokeRoutesTest extends TestCase
     }
 
     /**
-     * School 740: the active school whose supervisors have the most teachers
-     * assigned, so every panel has real data to show (892 students; the next
-     * one, 429, has 6,494 and makes some pages very slow).
+     * School 2139: the active school whose students who are not archived have
+     * the most lesson tests (1,230 students, 14,843 tests), so the school,
+     * teacher and student pages have real data to show. It has no
+     * supervisors; see supervisorSchoolId().
      */
     public static function schoolId()
+    {
+        return (int) DB::table('user_tests')
+            ->join('users', 'users.id', '=', 'user_tests.user_id')
+            ->join('schools', 'schools.id', '=', 'users.school_id')
+            ->where('schools.active', 1)->whereNull('schools.deleted_at')
+            ->where('users.archived', 0)->whereNull('users.deleted_at')->whereNull('user_tests.deleted_at')
+            ->groupBy('schools.id')
+            ->orderByRaw('count(*) desc')->orderBy('schools.id')
+            ->value('schools.id');
+    }
+
+    /**
+     * School 740: the active school whose supervisors have the most teachers
+     * assigned (only three schools have any). The supervisor is picked there.
+     */
+    public static function supervisorSchoolId()
     {
         return (int) DB::table('supervisor_teachers')
             ->join('supervisors', 'supervisors.id', '=', 'supervisor_teachers.supervisor_id')
@@ -122,14 +139,16 @@ class SmokeRoutesTest extends TestCase
         return School::query()->findOrFail(self::schoolId());
     }
 
-    /** The approved teacher of that school with the most students. */
+    /** The approved teacher of that school with the most students who are not archived. */
     public static function teacher()
     {
         $id = DB::table('teachers')
             ->join('teacher_users', 'teacher_users.teacher_id', '=', 'teachers.id')
+            ->join('users', 'users.id', '=', 'teacher_users.user_id')
             ->where('teachers.school_id', self::schoolId())
             ->where('teachers.active', 1)->where('teachers.approved', 1)
             ->whereNull('teachers.deleted_at')->whereNull('teacher_users.deleted_at')
+            ->where('users.archived', 0)->whereNull('users.deleted_at')
             ->groupBy('teachers.id')
             ->orderByRaw('count(*) desc')->orderBy('teachers.id')
             ->value('teachers.id');
@@ -137,12 +156,12 @@ class SmokeRoutesTest extends TestCase
         return Teacher::query()->findOrFail($id);
     }
 
-    /** The approved supervisor of that school with the most teachers. */
+    /** The approved supervisor of school 740 with the most teachers. */
     public static function supervisor()
     {
         $id = DB::table('supervisors')
             ->join('supervisor_teachers', 'supervisor_teachers.supervisor_id', '=', 'supervisors.id')
-            ->where('supervisors.school_id', self::schoolId())
+            ->where('supervisors.school_id', self::supervisorSchoolId())
             ->where('supervisors.active', 1)->where('supervisors.approved', 1)
             ->whereNull('supervisors.deleted_at')->whereNull('supervisor_teachers.deleted_at')
             ->groupBy('supervisors.id')
@@ -153,16 +172,17 @@ class SmokeRoutesTest extends TestCase
     }
 
     /**
-     * The student with the most lesson and story tests among those who can
-     * log in (active, not archived, subscription not ended). Every student of
-     * school 740 is archived, so this is not one of its students: it is
-     * student 1 of school 1 (15 lesson tests and a story test).
+     * The student of that teacher with the most lesson and story tests among
+     * those who can log in (active and not archived; the login does not look
+     * at active_to, and these students' subscriptions ended in July 2026).
      */
     public static function student()
     {
         $id = DB::table('users')
+            ->join('teacher_users', 'teacher_users.user_id', '=', 'users.id')
+            ->where('teacher_users.teacher_id', self::teacher()->id)
+            ->whereNull('teacher_users.deleted_at')
             ->where('users.active', 1)->where('users.archived', 0)->whereNull('users.deleted_at')
-            ->where('users.active_to', '>', '2026-10-22')
             ->orderByRaw('(select count(*) from user_tests where user_tests.user_id = users.id and user_tests.deleted_at is null) + (select count(*) from student_story_tests where student_story_tests.user_id = users.id and student_story_tests.deleted_at is null) desc')
             ->orderBy('users.id')
             ->value('users.id');
