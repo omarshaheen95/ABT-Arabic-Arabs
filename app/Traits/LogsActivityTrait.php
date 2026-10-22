@@ -20,7 +20,8 @@ trait LogsActivityTrait
     {
         return LogOptions::defaults()
             ->logAll()
-            ->logExcept(['created_at','updated_at','last_login','last_login_info'])
+            // nor the password hash: the activity log is a page the managers read
+            ->logExcept(['created_at','updated_at','last_login','last_login_info','password'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }
