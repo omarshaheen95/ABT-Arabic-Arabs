@@ -32,15 +32,18 @@ class SmokeRoutesTest extends TestCase
         // Reported exceptions are posted to Telegram by this job (sync queue).
         // Never send them from a test run.
         \Illuminate\Support\Facades\Bus::fake([\App\Jobs\LogMessageJob::class]);
+        self::unlockAccounts();
     }
 
     /**
-     * GET routes that write data (the one-off repair and copy routes of
-     * routes/manager.php, marking notifications read, seeding), end in dd()
-     * (duplicate_teacher_students), point at a missing controller, stream
-     * exports or card sheets, or log out.
+     * GET routes that must never run from a test: the public artisan routes of
+     * routes/web.php (migrate, view, command runs schedule:work forever,
+     * cache), the one-off routes of routes/manager.php that seed, give roles
+     * or permissions, copy or rewrite data, or end in dd() (get_marks,
+     * correct_tests), marking notifications read, exports and card sheets,
+     * and logging out.
      */
-    public const SKIP = '#(^|/)(duplicate_teacher_students|update_[a-z_]+|deleteSchoolStudents|copy-teacher-data|seed|give_roles|give_all_permissions|correctTest|read_all|read-all|logout)(/|$)|export|excel|cards|_debugbar|log-viewer#i';
+    public const SKIP = '#^(migrate|view|command|cache)$|(^|/)(seed|give_roles|give_all_permissions|get_marks|correct_tests|copy_lessons|copy-teacher-data|remove_space|read_all|read-all|logout)(/|$)|export|excel|cards|_debugbar|log-viewer#i';
 
     private const BASELINE = 'tests/smoke-baseline.json';
 
@@ -79,14 +82,15 @@ class SmokeRoutesTest extends TestCase
 
     /**
      * The accounts every upgrade check logs in with, picked the same way on
-     * both versions. All of them are active, approved and have no forced
-     * password change pending in the local database, so nothing is changed.
+     * both versions: active and approved, but not by the forced password
+     * change flag, which is raised on every supervisor and most teachers of
+     * the local database. unlockAccounts() clears it for these five inside
+     * the test's transaction.
      */
     public static function manager()
     {
         return Manager::query()
             ->where('active', 1)
-            ->where('force_password_change', 0)
             ->orderBy('id')
             ->get()
             ->sortByDesc(function ($manager) {
@@ -96,18 +100,18 @@ class SmokeRoutesTest extends TestCase
     }
 
     /**
-     * School 71: the largest active school whose supervisors have teachers
-     * assigned, so every panel has real data to show (the bigger schools have
-     * 4,000 to 6,000 students and make some pages very slow).
+     * School 740: the active school whose supervisors have the most teachers
+     * assigned, so every panel has real data to show (892 students; the next
+     * one, 429, has 6,494 and makes some pages very slow).
      */
     public static function schoolId()
     {
         return (int) DB::table('supervisor_teachers')
             ->join('supervisors', 'supervisors.id', '=', 'supervisor_teachers.supervisor_id')
             ->join('schools', 'schools.id', '=', 'supervisors.school_id')
-            ->where('schools.active', 1)->where('schools.approved', 1)->where('schools.force_password_change', 0)
+            ->where('schools.active', 1)
             ->where('supervisors.active', 1)->where('supervisors.approved', 1)
-            ->whereNull('schools.deleted_at')->whereNull('supervisors.deleted_at')
+            ->whereNull('schools.deleted_at')->whereNull('supervisors.deleted_at')->whereNull('supervisor_teachers.deleted_at')
             ->groupBy('schools.id')
             ->orderByRaw('count(*) desc')->orderBy('schools.id')
             ->value('schools.id');
@@ -122,10 +126,10 @@ class SmokeRoutesTest extends TestCase
     public static function teacher()
     {
         $id = DB::table('teachers')
-            ->join('teacher_students', 'teacher_students.teacher_id', '=', 'teachers.id')
+            ->join('teacher_users', 'teacher_users.teacher_id', '=', 'teachers.id')
             ->where('teachers.school_id', self::schoolId())
-            ->where('teachers.active', 1)->where('teachers.approved', 1)->where('teachers.force_password_change', 0)
-            ->whereNull('teachers.deleted_at')->whereNull('teacher_students.deleted_at')
+            ->where('teachers.active', 1)->where('teachers.approved', 1)
+            ->whereNull('teachers.deleted_at')->whereNull('teacher_users.deleted_at')
             ->groupBy('teachers.id')
             ->orderByRaw('count(*) desc')->orderBy('teachers.id')
             ->value('teachers.id');
@@ -139,8 +143,8 @@ class SmokeRoutesTest extends TestCase
         $id = DB::table('supervisors')
             ->join('supervisor_teachers', 'supervisor_teachers.supervisor_id', '=', 'supervisors.id')
             ->where('supervisors.school_id', self::schoolId())
-            ->where('supervisors.active', 1)->where('supervisors.approved', 1)->where('supervisors.force_password_change', 0)
-            ->whereNull('supervisors.deleted_at')
+            ->where('supervisors.active', 1)->where('supervisors.approved', 1)
+            ->whereNull('supervisors.deleted_at')->whereNull('supervisor_teachers.deleted_at')
             ->groupBy('supervisors.id')
             ->orderByRaw('count(*) desc')->orderBy('supervisors.id')
             ->value('supervisors.id');
@@ -148,19 +152,41 @@ class SmokeRoutesTest extends TestCase
         return Supervisor::query()->findOrFail($id);
     }
 
-    /** The student of that teacher with the most lesson and story tests. */
+    /**
+     * The student with the most lesson and story tests among those who can
+     * log in (active, not archived, subscription not ended). Every student of
+     * school 740 is archived, so this is not one of its students: it is
+     * student 1 of school 1 (15 lesson tests and a story test).
+     */
     public static function student()
     {
         $id = DB::table('users')
-            ->join('teacher_students', 'teacher_students.user_id', '=', 'users.id')
-            ->where('teacher_students.teacher_id', self::teacher()->id)
-            ->whereNull('teacher_students.deleted_at')
             ->where('users.active', 1)->where('users.archived', 0)->whereNull('users.deleted_at')
-            ->orderByRaw('(select count(*) from student_tests where student_tests.user_id = users.id) + (select count(*) from student_story_tests where student_story_tests.user_id = users.id) desc')
+            ->where('users.active_to', '>', '2026-10-22')
+            ->orderByRaw('(select count(*) from user_tests where user_tests.user_id = users.id and user_tests.deleted_at is null) + (select count(*) from student_story_tests where student_story_tests.user_id = users.id and student_story_tests.deleted_at is null) desc')
             ->orderBy('users.id')
             ->value('users.id');
 
         return User::query()->findOrFail($id);
+    }
+
+    /**
+     * Clears the forced password change flag and the password age of the four
+     * panel accounts, so they reach their pages instead of the change
+     * password screen. Must run inside the test's transaction (after
+     * parent::setUp()), which rolls it back.
+     */
+    public static function unlockAccounts()
+    {
+        $accounts = [
+            'managers' => self::manager()->id,
+            'schools' => self::schoolId(),
+            'teachers' => self::teacher()->id,
+            'supervisors' => self::supervisor()->id,
+        ];
+        foreach ($accounts as $table => $id) {
+            DB::table($table)->where('id', $id)->update(['force_password_change' => 0, 'password_changed_at' => null]);
+        }
     }
 
     /**
