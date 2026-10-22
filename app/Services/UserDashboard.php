@@ -265,7 +265,7 @@ class UserDashboard
         $currentStreak = 1;
 
         for ($i = 1; $i < $loginDates->count(); $i++) {
-            $diff = $loginDates[$i]->diffInDays($loginDates[$i - 1]);
+            $diff = (int) $loginDates[$i]->diffInDays($loginDates[$i - 1], true);
 
             if ($diff == 1) {
                 // Consecutive day

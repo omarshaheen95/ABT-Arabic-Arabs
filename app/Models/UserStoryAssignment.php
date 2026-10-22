@@ -16,8 +16,9 @@ class UserStoryAssignment extends Model
         'user_id','story_assignment_id', 'story_id', 'test_assignment', 'done_test_assignment', 'completed', 'deadline', 'completed_at', 'deadline', 'completed_at'
     ];
 
-    protected $dates = [
-        'deadline'
+    // was $dates, which Laravel 10 removed
+    protected $casts = [
+        'deadline' => 'datetime',
     ];
     public function getActionButtonsAttribute()
     {

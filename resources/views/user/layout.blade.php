@@ -197,7 +197,7 @@
             <div class="welcome-banner">
                 <div class="welcome-content">
                     <h1 class="welcome-title">
-                        مرحبًا بعودتك, <span class="user-name">{{str_before($user_data['name'],' ')}}!</span> 👋
+                        مرحبًا بعودتك, <span class="user-name">{{\Illuminate\Support\Str::before($user_data['name'],' ')}}!</span> 👋
                     </h1>
                     <p class="welcome-subtitle">
                         يبدو أنك قمت بإنشاء حساب مجاني وقمت باستخدامه.

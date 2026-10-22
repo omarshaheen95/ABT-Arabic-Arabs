@@ -38,7 +38,7 @@ class LoginSession extends Model
         return $this->morphTo();
     }
 
-    public function scopeFilter(Builder $query, Request $request = null): Builder
+    public function scopeFilter(Builder $query, ?Request $request = null): Builder
     {
         $request = $request ?: request();
         return $query->when($value = $request->get('model_id'), function (Builder $query)use ($value) {

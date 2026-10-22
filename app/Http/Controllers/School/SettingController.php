@@ -101,9 +101,9 @@ class SettingController extends Controller
             'end_date' => 'required',
             'model' => 'required',
         ]);
-        if (Carbon::parse($request->start_date)->diffInMonths(Carbon::parse($request->end_date)) > 1) {
+        if ((int) Carbon::parse($request->start_date)->diffInMonths(Carbon::parse($request->end_date), true) > 1) {
             $format = "%Y-%m";
-        } elseif (Carbon::parse($request->start_date)->diffInDays(Carbon::parse($request->end_date)) > 1) {
+        } elseif ((int) Carbon::parse($request->start_date)->diffInDays(Carbon::parse($request->end_date), true) > 1) {
             $format = "%Y-%m-%d";
         } else {
             $format = "%h:00 %p";

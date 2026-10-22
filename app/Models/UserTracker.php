@@ -55,7 +55,7 @@ class UserTracker extends Model
     {
         if (!is_null($this->start_at) && !is_null($this->end_at))
         {
-            return Carbon::parse($this->start_at)->diffInMinutes($this->end_at);
+            return (int) Carbon::parse($this->start_at)->diffInMinutes($this->end_at, true);
         }else{
             return '';
         }
@@ -77,7 +77,7 @@ class UserTracker extends Model
                 {
                     $start = Carbon::parse($this->start_at);
                     $end = Carbon::parse($this->end_at);
-                    $diff = $start->diffInMinutes($end, false);
+                    $diff = (int) $start->diffInMinutes($end, false);
                     $content .= ' <span class="badge badge-info">'.$diff.' د </span>';
                 }
                 return $content;

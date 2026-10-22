@@ -11,13 +11,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Lesson extends Model implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait, CascadeSoftDeletes,LogsActivityTrait;
+    use SoftDeletes, InteractsWithMedia, CascadeSoftDeletes,LogsActivityTrait;
 
     //lesson type : 'reading', 'writing', 'listening', 'speaking', 'grammar', 'dictation', 'rhetoric'
     //section type : 'informative', 'literary'
@@ -157,7 +157,7 @@ class Lesson extends Model implements HasMedia
             ->acceptsFile(acceptsUploadTypes('video'));
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('minImage')
             ->width(368)
