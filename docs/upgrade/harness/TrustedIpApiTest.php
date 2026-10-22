@@ -61,7 +61,7 @@ class TrustedIpApiTest extends TestCase
 
     public function test_a_trusted_server_can_still_update_settings()
     {
-        $setting = Setting::query()->where('key', 'note_date')->firstOrFail();
+        $setting = Setting::query()->where('key', 'twitter')->firstOrFail();
         $trusted = config('app.trusted_ips')[1];
 
         $response = $this->withServerVariables(['REMOTE_ADDR' => $trusted])
