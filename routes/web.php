@@ -92,19 +92,6 @@ Route::group(['prefix' => 'supervisor', 'as' => 'supervisor.'], function () {
     Route::get('/password/reset/{token}', [\App\Http\Controllers\SupervisorAuth\ResetPasswordController::class, 'showResetForm']);
 });
 
-Route::get('migrate', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate');
-});
-Route::get('view', function () {
-    \Illuminate\Support\Facades\Artisan::call('view:clear');
-});
-Route::get('command', function () {
-    \Illuminate\Support\Facades\Artisan::call('schedule:work');
-});
-Route::get('cache', function () {
-    \Illuminate\Support\Facades\Artisan::call('cache:clear');
-    \Illuminate\Support\Facades\Artisan::call('config:cache');
-});
 Route::group(['middleware' => ['auth', 'share_user_data']], function () {
     //Lessons
     Route::get('/home', [\App\Http\Controllers\User\LessonController::class, 'lessonsLevels'])->name('home');
