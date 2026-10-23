@@ -92,6 +92,15 @@ Route::group(['prefix' => 'supervisor', 'as' => 'supervisor.'], function () {
     Route::get('/password/reset/{token}', [\App\Http\Controllers\SupervisorAuth\ResetPasswordController::class, 'showResetForm']);
 });
 
+// The image upload of the text editor in the manager's lesson, story and
+// assessment pages. It was in routes/api.php, open to anybody; it keeps its
+// URL and name (the pages call route('uploadImageLesson')) but needs the
+// manager login, the manager panel's middleware and the CSRF token the pages
+// send.
+Route::post('api/upload_image', [\App\Http\Controllers\Manager\LessonController::class, 'uploadImageLesson'])
+    ->middleware(['manager', 'auth:manager', 'checkIfActive', 'session.password:manager', 'force.password:manager'])
+    ->name('uploadImageLesson');
+
 Route::group(['middleware' => ['auth', 'share_user_data']], function () {
     //Lessons
     Route::get('/home', [\App\Http\Controllers\User\LessonController::class, 'lessonsLevels'])->name('home');

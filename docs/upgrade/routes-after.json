@@ -9817,8 +9817,18 @@
         "name": "uploadImageLesson",
         "action": "App\\Http\\Controllers\\Manager\\LessonController@uploadImageLesson",
         "mw": [
-            "Illuminate\\Routing\\Middleware\\ThrottleRequests:api",
-            "Illuminate\\Routing\\Middleware\\SubstituteBindings"
+            "Illuminate\\Cookie\\Middleware\\EncryptCookies",
+            "Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse",
+            "Illuminate\\Session\\Middleware\\StartSession",
+            "Illuminate\\View\\Middleware\\ShareErrorsFromSession",
+            "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestForgery",
+            "App\\Http\\Middleware\\Authenticate:manager",
+            "Illuminate\\Routing\\Middleware\\SubstituteBindings",
+            "App\\Http\\Middleware\\SetLocalLanguage",
+            "App\\Http\\Middleware\\RedirectIfNotManager",
+            "App\\Http\\Middleware\\CheckIfActive",
+            "App\\Http\\Middleware\\ValidateSessionPassword:manager",
+            "App\\Http\\Middleware\\ForcePasswordChange:manager"
         ]
     },
     {
