@@ -1,1 +1,0 @@
-<img<?php echo $attributeString; ?> srcset="<?php echo e($media->getSrcset($conversion)); ?>" src="<?php echo e($media->getUrl($conversion)); ?>" width="<?php echo e($width); ?>"><?php /**PATH /home/omar/websites/arabic-arabs/vendor/spatie/laravel-medialibrary/resources/views/responsiveImage.blade.php ENDPATH**/ ?>

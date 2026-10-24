@@ -1,1 +1,0 @@
-<?php /**PATH /home/omar/websites/arabic-arabs/resources/views/general/correcting_lesson_and_story_test/questions/speaking.blade.php ENDPATH**/ ?>

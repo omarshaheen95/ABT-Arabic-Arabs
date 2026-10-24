@@ -1,2 +1,0 @@
-<img<?php echo $attributeString; ?> srcset="<?php echo e($media->getSrcset($conversion)); ?>" onload="this.onload=null;this.sizes=Math.ceil(this.getBoundingClientRect().width/window.innerWidth*100)+'vw';" sizes="1px" src="<?php echo e($media->getUrl($conversion)); ?>" width="<?php echo e($width); ?>">
-<?php /**PATH /home/omar/websites/arabic-arabs/vendor/spatie/laravel-medialibrary/resources/views/responsiveImageWithPlaceholder.blade.php ENDPATH**/ ?>
