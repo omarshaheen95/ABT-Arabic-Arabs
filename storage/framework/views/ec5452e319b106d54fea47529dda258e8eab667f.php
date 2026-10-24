@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title'); ?>
     <?php echo e(isset($manager) ? 'Edit Manager' : 'Add Manager'); ?>
 
@@ -37,10 +36,13 @@
                                class="form-control" autocomplete="off"
                                value="<?php echo e(isset($manager) ? $manager->email : old("email")); ?>"/>
                     </div>
-                    <div class="col-lg-3">
-                        <label class="mb-2"><?php echo e(t('Password')); ?> :</label>
-                        <input name="password" type="text" placeholder="<?php echo e(t('Password')); ?>" class="form-control" <?php if(!isset($manager)): ?> value="123456" <?php endif; ?>/>
-                    </div>
+                    <?php echo $__env->make('components.password-fields', [
+                        'confirm' => false,
+                        'col' => 'col-lg-4 mb-2',
+                        'required' => !isset($manager),
+                        'simple' => true,
+                    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                    <?php echo $__env->make('components.force-password-change', ['row' => $manager ?? null], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     <div class="col-lg-2">
                         <label class="mb-2"><?php echo e(t(' Status')); ?> :</label>
 

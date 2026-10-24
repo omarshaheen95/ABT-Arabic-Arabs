@@ -39,12 +39,30 @@
 
                 <div class="col-lg-4 mb-2">
                     <label><?php echo e(t('Select date')); ?> :</label>
-                    <input autocomplete="disabled" class="form-control form-control-solid" id="date_range"
-                           name="date_range_report" value="" placeholder="<?php echo e(t('Pick date range')); ?>"/>
-                    <input type="hidden" name="start_date" id="start_date_range"
-                           value="<?php echo e(isset($date_range['start']) ? $date_range['start']:''); ?>"/>
-                    <input type="hidden" name="end_date" id="end_date_range"
-                           value="<?php echo e(isset($date_range['end']) ? $date_range['end']:''); ?>"/>
+                    <div class="input-group">
+                        <input autocomplete="disabled" class="form-control form-control-solid" id="date_range"
+                               name="date_range_report" value="" placeholder="<?php echo e(t('Pick date range')); ?>"/>
+                        <button class="btn btn-light-danger" type="button" id="clear_date_range"
+                                title="<?php echo e(t('Clear')); ?>">&times;</button>
+                    </div>
+                    <div class="form-text"><?php echo e(t('Leave empty to cover the whole year')); ?></div>
+                    
+                    <input type="hidden" name="start_date" id="start_date_range" value=""/>
+                    <input type="hidden" name="end_date" id="end_date_range" value=""/>
+                </div>
+
+                <div class="col-lg-12 mb-2">
+                    
+                    <input type="hidden" name="include_archived" value="0"/>
+                    <div class="form-check form-check-custom">
+                        <input class="form-check-input" type="checkbox" value="1" id="include_archived"
+                               name="include_archived" checked/>
+                        <label class="form-check-label ms-2" for="include_archived">
+                            <?php echo e(t('Include archived students')); ?>
+
+                        </label>
+                    </div>
+                    <div class="form-text"><?php echo e(t('Archived students kept their activity; unticking hides it from the report.')); ?></div>
                 </div>
 
                 <div class="separator my-4"></div>
@@ -61,7 +79,14 @@
     <script>
         $(document).ready(function () {
 
-            initializeDateRangePicker('date_range', ["<?php echo e($date_range['start'] ?? ''); ?>", "<?php echo e($date_range['end'] ?? ''); ?>"])
+            // No default range: the report covers the whole year until the user picks one.
+            initializeDateRangePicker('date_range')
+
+            $('#clear_date_range').on('click', function () {
+                $('#date_range').val('');
+                $('#start_date_range').val('');
+                $('#end_date_range').val('');
+            });
 
             onSelectAllClick('teachers')
 

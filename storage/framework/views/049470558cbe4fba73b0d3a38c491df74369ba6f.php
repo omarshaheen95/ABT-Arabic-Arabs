@@ -57,6 +57,10 @@
                 <?php if($start_date && $end_date): ?>
                     <h5><?php echo e(t('From')); ?> : <?php echo e($start_date); ?> <?php echo e(t('To')); ?> : <?php echo e($end_date); ?></h5>
                 <?php endif; ?>
+                <?php if(!$include_archived): ?>
+                    
+                    <h5><?php echo e(t('Archived students are excluded')); ?></h5>
+                <?php endif; ?>
                 <h5><?php echo e(t('Release Date')); ?> : <?php echo e(now()->format('Y-m-d')); ?></h5>
                 <h5>www.abt-assessments.com</h5>
                 <h5>support@abt-assessments.com</h5>
@@ -129,6 +133,10 @@
                             <td><?php echo e($data['total_fail_tests']); ?></td>
                         </tr>
                         <tr class="text-center">
+                            <td class="sub-td">Unmarked Lessons assessments</td>
+                            <td><?php echo e($data['total_unmarked_tests']); ?></td>
+                        </tr>
+                        <tr class="text-center">
                             <td class="sub-td">Submitted Stories assessments</td>
                             <td><?php echo e($data['total_story_tests']); ?></td>
                         </tr>
@@ -195,6 +203,12 @@
                         <div id="teacher_tests_<?php echo e($key); ?>" style="height: 650px"></div>
                     </div>
                 </div>
+                
+                <div class="row justify-content-center">
+                    <div class="col-11 text-center">
+                        <small><?php echo e(t('Counted per teacher: a student shared between teachers is credited to each of them.')); ?></small>
+                    </div>
+                </div>
             </div>
         </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -212,6 +226,12 @@
                 <div class="row justify-content-center">
                     <div class="col-11">
                         <div id="teacher_stories_tests_<?php echo e($key); ?>" style="height: 650px"></div>
+                    </div>
+                </div>
+                
+                <div class="row justify-content-center">
+                    <div class="col-11 text-center">
+                        <small><?php echo e(t('Counted per teacher: a student shared between teachers is credited to each of them.')); ?></small>
                     </div>
                 </div>
             </div>
@@ -274,6 +294,10 @@
                                         <tr>
                                             <td class="sub-td">Lessons Below assessments</td>
                                             <td><?php echo e($grade_data['total_fail_tests']); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sub-td">Lessons Unmarked assessments</td>
+                                            <td><?php echo e($grade_data['total_unmarked_tests']); ?></td>
                                         </tr>
                                         <tr>
                                             <td class="sub-td">Submitted Stories assessments</td>

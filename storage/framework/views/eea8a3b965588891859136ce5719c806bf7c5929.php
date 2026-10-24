@@ -102,6 +102,7 @@
                                 <?php if (! empty(trim($__env->yieldContent('pre-content')))): ?>
                                     <?php echo $__env->yieldContent('pre-content'); ?>
                                 <?php endif; ?>
+                                <?php echo $__env->make('components.password-expiry-notice', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                 <?php if (! empty(trim($__env->yieldContent('content')))): ?>
                                     <div class="card py-2 px-3">
                                         <!--begin::Card header-->

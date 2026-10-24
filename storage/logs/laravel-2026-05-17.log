@@ -1,6 +1,0 @@
-[2026-05-17 01:00:02] production.ALERT: Expired User : 2  
-[2026-05-17 10:40:49] production.DEBUG: API Request Exception - http://arabic-arabs.com/stories/116/tracking/watching - CSRF token mismatch. - {"_token":"Iz1WeYmaTFs601SCR4V0EP00tcLhHT5y1BD8Hw9h"}  
-[2026-05-17 13:00:02] production.ALERT: Expired User : 0  
-[2026-05-17 18:05:15] production.DEBUG: API Request Exception - http://arabic-arabs.com/lessons/118/tracking/practise - CSRF token mismatch. - {"_token":"seUOsjEYXJ0fGuekyBdOAjIVLR5AlU9fIULNqDfx"}  
-[2026-05-17 22:38:26] production.DEBUG: API Request Exception - http://arabic-arabs.com/web/.env -   
-[2026-05-17 22:38:27] production.DEBUG: API Request Exception - http://arabic-arabs.com/web/.env -  - {"0x01":["legion"]}  

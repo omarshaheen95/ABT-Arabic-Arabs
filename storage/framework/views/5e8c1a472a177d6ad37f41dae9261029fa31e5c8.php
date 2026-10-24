@@ -125,6 +125,10 @@
                 <?php if($start_date && $end_date): ?>
                     <h5><?php echo e(t('From')); ?> : <?php echo e($start_date); ?> &nbsp;&nbsp; <?php echo e(t('To')); ?> : <?php echo e($end_date); ?></h5>
                 <?php endif; ?>
+                <?php if(!$include_archived): ?>
+                    
+                    <h5><?php echo e(t('Archived students are excluded')); ?></h5>
+                <?php endif; ?>
                 <h5><?php echo e(t('Release Date')); ?> : <?php echo e(now()->format('Y-m-d')); ?></h5>
 
 

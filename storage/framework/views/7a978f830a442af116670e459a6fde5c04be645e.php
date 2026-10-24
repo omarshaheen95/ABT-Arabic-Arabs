@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title'); ?>
     <?php echo e($title); ?>
 
@@ -95,11 +93,13 @@
                 </div>
 
                 <div class="col-6 mb-2">
-                    <div class="form-group">
-                        <label for="password" class="form-label"><?php echo e(t('Password')); ?></label>
-                        <input type="text" id="password" name="password" class="form-control"
-                               placeholder="<?php echo e(t('Password')); ?>" <?php if(!isset($teacher)): ?> value="123456" <?php endif; ?> required>
-                    </div>
+                    <?php echo $__env->make('components.password-fields', [
+                        'confirm' => false,
+                        'col' => 'col-lg-4 mb-2',
+                        'required' => !isset($teacher),
+                        'simple' => true,
+                    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                    <?php echo $__env->make('components.force-password-change', ['row' => $teacher ?? null], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 </div>
 
                 <div class="col-6 mb-2">

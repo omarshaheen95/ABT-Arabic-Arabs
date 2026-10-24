@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title',$title); ?>
 
 
@@ -40,6 +38,11 @@
             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('reset teachers passwords')): ?>
                 <li><a class="dropdown-item" href="#!" data-bs-toggle="modal"
                        data-bs-target="#reset_passwords_modal"><?php echo e(t('Reset Passwords')); ?></a></li>
+            <?php endif; ?>
+            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit teachers')): ?>
+                <li><a class="dropdown-item text-warning" href="#!"
+                       data-filtered-action="<?php echo e(route(getGuard().'.teacher.force-password-change')); ?>"
+                       data-confirm="<?php echo e(t('Password change will be enforced on every account matching the current filters. Continue?')); ?>"><?php echo e(t('Force Password Change')); ?></a></li>
             <?php endif; ?>
             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete teachers')): ?>
                 <li><a class="dropdown-item text-danger d-none checked-visible" href="#!" id="delete_rows"><?php echo e(t('Delete')); ?></a></li>
