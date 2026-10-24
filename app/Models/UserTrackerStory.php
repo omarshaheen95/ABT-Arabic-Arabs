@@ -33,7 +33,7 @@ class UserTrackerStory extends Model
     {
         if (!is_null($this->start_at) && !is_null($this->end_at))
         {
-            return Carbon::parse($this->start_at)->diffInMinutes($this->end_at);
+            return (int) Carbon::parse($this->start_at)->diffInMinutes($this->end_at, true);
         }else{
             return '';
         }
@@ -64,7 +64,7 @@ class UserTrackerStory extends Model
                 {
                     $start = Carbon::parse($this->start_at);
                     $end = Carbon::parse($this->end_at);
-                    $diff = $start->diffInMinutes($end, false);
+                    $diff = (int) $start->diffInMinutes($end, false);
                     $content .= ' <span class="kt-badge kt-badge--info kt-badge--inline kt-badge--pill">'.$diff.' '.t('min').'</span>';
                 }
                 return $content;

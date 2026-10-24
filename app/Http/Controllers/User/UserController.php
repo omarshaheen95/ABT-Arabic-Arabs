@@ -46,7 +46,8 @@ class UserController extends Controller
         $this->validationRules["year_learning"] = 'required';
         $request->validate($this->validationRules);
         $data = $request->only(['image','name','email','mobile', 'year_learning']);
-        $data['mobile'] = PhoneNumber::make($request->get('mobile'))->ofCountry($request->get('short_country'));
+        // laravel-phone 5 dropped make()/ofCountry(): same number and country
+        $data['mobile'] = new PhoneNumber((string) $request->get('mobile'), $request->get('short_country'));
         if ($request->hasFile('image'))
         {
             $data['image'] = uploadFile($request->file('image'), 'users')['path'];

@@ -34,7 +34,8 @@ class LessonAssignmentRepository implements LessonAssignmentRepositoryInterface
 
             $lessons = Lesson::query()->select(['id','name'])->get();
 
-            return DataTables::eloquent($rows)
+            // eloquent() is not static in datatables 10+; make() builds the same EloquentDataTable
+            return DataTables::make($rows)
                 ->escapeColumns([])
                 ->addColumn('school', function ($row) {
                     $html = '<div class="d-flex flex-column">' ;

@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Question extends Model implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait,LogsActivityTrait;
+    use SoftDeletes, InteractsWithMedia,LogsActivityTrait;
     //type : 1:true&false, 2:choose, 3:match, 4:sortWords, 5:writing, 6:speaking
     protected $fillable = [
         'lesson_id', 'content', 'type', 'mark',

@@ -44,7 +44,9 @@ class Controller extends BaseController
         return response()->json($response, $code);
     }
 
-    protected function redirectWith($back = false, string $route = null, string $message, $status = 'success'): \Illuminate\Http\RedirectResponse
+    // $back and $route were already required (a default before a required
+    // parameter does not make it optional); PHP 8.4 reports them.
+    protected function redirectWith($back, ?string $route, string $message, $status = 'success'): \Illuminate\Http\RedirectResponse
     {
         if ($back)
             return redirect()->back()->with('message', $message)->with('m-class', $status);

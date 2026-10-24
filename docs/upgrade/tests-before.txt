@@ -1,0 +1,27 @@
+PHPUnit 9.6.22 by Sebastian Bergmann and contributors.
+
+Example (Tests\Unit\Example)
+ ✔ Example
+
+Example (Tests\Feature\Example)
+ ✔ Example
+
+Login Activity (Tests\Feature\LoginActivity)
+ ✔ Login session routes and view use current project resources
+ ✔ Unknown failed attempt is logged without secrets and can be filtered
+ ✔ Lockout keeps the current guard
+ ✔ Success and logout events record the account
+ ✔ Prune dry run preserves old rows and rejects invalid retention
+ ✔ Datatable displays unknown accounts and escapes identifiers
+
+Smoke Routes (Tests\Feature\SmokeRoutes)
+ ✔ Guest pages
+ ✔ Manager pages
+ ✔ School pages
+ ✔ Teacher pages
+ ✔ Supervisor pages
+ ✔ Student pages
+
+Time: 00:26.380, Memory: 340.00 MB
+
+OK (14 tests, 45 assertions)

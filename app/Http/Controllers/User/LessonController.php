@@ -596,7 +596,7 @@ class LessonController extends Controller
             // Calculate timing in minutes
             $start = \Carbon\Carbon::parse($request->get('start_at', now()));
             $end = \Carbon\Carbon::now();
-            $timingMinutes = $start->diffInMinutes($end);
+            $timingMinutes = (int) $start->diffInMinutes($end, true);
 
             $xpEarned = Constant::POINTS_LIST['test'];
 

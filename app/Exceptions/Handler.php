@@ -7,6 +7,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -16,6 +17,13 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    /**
+     * Status code of the JSON error responses (see setStatusCode()).
+     *
+     * @var int
+     */
+    protected $statusCode;
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -73,7 +81,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         //a file its media collection does not accept is answered like a file uploadFile() does not allow
-        if ($exception instanceof \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileUnacceptableForCollection) {
+        if ($exception instanceof \Spatie\MediaLibrary\MediaCollections\Exceptions\FileUnacceptableForCollection) {
             $exception = new GeneralException(t('This file type is not allowed'));
         }
 
@@ -184,7 +192,7 @@ class Handler extends ExceptionHandler
             return $this->setStatusCode(401)->respondWithError('Unauthenticated');
         }
 
-        $guard = array_get($exception->guards(), 0);
+        $guard = Arr::get($exception->guards(), 0);
         if (strpos($request->url(), '/api/') !== false){
             return $this->setStatusCode(401)->respondWithError('Unauthenticated');
         }

@@ -1831,34 +1831,15 @@ function checkDateRangeForCurrentYear($date) {
     }
 }
 
-function getRealIpAddress(\Illuminate\Http\Request $request)
-{
-    $headers = [
-        'HTTP_X_FORWARDED_FOR',
-        'HTTP_X_FORWARDED',
-        'HTTP_X_CLUSTER_CLIENT_IP',
-        'HTTP_FORWARDED_FOR',
-        'HTTP_FORWARDED',
-        'REMOTE_ADDR'
-    ];
-
-    foreach ($headers as $header) {
-        if (!empty($_SERVER[$header])) {
-            $ips = explode(',', $_SERVER[$header]);
-            return trim($ips[0]);
-        }
-    }
-
-    return $request->ip();
-}
-
-
+/**
+ * Whether the request comes from one of config('app.trusted_ips').
+ *
+ * The address is the connection's own (REMOTE_ADDR), through TrustProxies:
+ * never one the client writes into X-Forwarded-For and the like, which
+ * anybody can set. If the server sits behind a proxy or a load balancer, its
+ * address goes into trustProxies() in bootstrap/app.php (never '*').
+ */
 function isTrustIpAddress(\Illuminate\Http\Request $request)
 {
-    $trustedIps = config('app.trusted_ips');
-    $requestIp = getRealIpAddress($request);
-    if (!in_array($requestIp, $trustedIps)) {
-        return false;
-    }
-    return true;
+    return in_array($request->ip(), config('app.trusted_ips'), true);
 }

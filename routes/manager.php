@@ -11,57 +11,57 @@ use Spatie\Permission\Models\Permission;
 
 require base_path('routes/general.php');
 
-Route::group(['namespace' => 'Manager'], function(){
+Route::group([], function(){
 
-    Route::get('/home', 'SettingController@home')->name('home');
-    Route::post('statistics/chart_statistics_data',  'SettingController@chartStatisticsData')->name('statistics.chart_statistics_data');
+    Route::get('/home', [\App\Http\Controllers\Manager\SettingController::class, 'home'])->name('home');
+    Route::post('statistics/chart_statistics_data',  [\App\Http\Controllers\Manager\SettingController::class, 'chartStatisticsData'])->name('statistics.chart_statistics_data');
 
     //School
-    Route::resource('school', 'SchoolController')->except(['destroy']);
-    Route::delete('delete_school', 'SchoolController@destroy')->name('school.destroy');
-    Route::post('school/activation', 'SchoolController@activation')->name('school.activation');
-    Route::post('school/export', 'SchoolController@export')->name('school.export');
-    Route::post('school/force-password-change', 'SchoolController@forcePasswordChange')->name('school.force-password-change');
-    Route::get('school/{id}/login', 'SchoolController@login')->name('school.login');
+    Route::resource('school', \App\Http\Controllers\Manager\SchoolController::class)->except(['destroy']);
+    Route::delete('delete_school', [\App\Http\Controllers\Manager\SchoolController::class, 'destroy'])->name('school.destroy');
+    Route::post('school/activation', [\App\Http\Controllers\Manager\SchoolController::class, 'activation'])->name('school.activation');
+    Route::post('school/export', [\App\Http\Controllers\Manager\SchoolController::class, 'export'])->name('school.export');
+    Route::post('school/force-password-change', [\App\Http\Controllers\Manager\SchoolController::class, 'forcePasswordChange'])->name('school.force-password-change');
+    Route::get('school/{id}/login', [\App\Http\Controllers\Manager\SchoolController::class, 'login'])->name('school.login');
 
 
     //Settings Management
-    Route::get('settings', 'SettingController@settings')->name('settings.general');
-    Route::post('settings', 'SettingController@updateSettings')->name('settings.updateSettings');
-    Route::get('lang/{local}', 'SettingController@lang')->name('switch-language');
+    Route::get('settings', [\App\Http\Controllers\Manager\SettingController::class, 'settings'])->name('settings.general');
+    Route::post('settings', [\App\Http\Controllers\Manager\SettingController::class, 'updateSettings'])->name('settings.updateSettings');
+    Route::get('lang/{local}', [\App\Http\Controllers\Manager\SettingController::class, 'lang'])->name('switch-language');
 
 
     //Manager Management
-    Route::resource('manager', 'ManagerController')->except(['destroy']);
-    Route::delete('manager/delete', 'ManagerController@destroy')->name('manager.destroy');
-    Route::post('/manager/export', 'ManagerController@export')->name('manager.export');
-    Route::post('manager/force-password-change', 'ManagerController@forcePasswordChange')->name('manager.force-password-change');
+    Route::resource('manager', \App\Http\Controllers\Manager\ManagerController::class)->except(['destroy']);
+    Route::delete('manager/delete', [\App\Http\Controllers\Manager\ManagerController::class, 'destroy'])->name('manager.destroy');
+    Route::post('/manager/export', [\App\Http\Controllers\Manager\ManagerController::class, 'export'])->name('manager.export');
+    Route::post('manager/force-password-change', [\App\Http\Controllers\Manager\ManagerController::class, 'forcePasswordChange'])->name('manager.force-password-change');
 
     //Profile
-    Route::get('profile/edit', 'ManagerController@editProfile')->name('edit-profile');
-    Route::post('profile/update', 'ManagerController@updateProfile')->name('update-profile');
-    Route::get('password/edit', 'ManagerController@editPassword')->name('edit-password');
-    Route::post('password/update', 'ManagerController@updatePassword')->middleware('throttle:10,1')->name('update-password');
+    Route::get('profile/edit', [\App\Http\Controllers\Manager\ManagerController::class, 'editProfile'])->name('edit-profile');
+    Route::post('profile/update', [\App\Http\Controllers\Manager\ManagerController::class, 'updateProfile'])->name('update-profile');
+    Route::get('password/edit', [\App\Http\Controllers\Manager\ManagerController::class, 'editPassword'])->name('edit-password');
+    Route::post('password/update', [\App\Http\Controllers\Manager\ManagerController::class, 'updatePassword'])->middleware('throttle:10,1')->name('update-password');
 
     //Activity Log Controller
-    Route::get('activity-log', 'ActivityLogController@index')->name('activity-log.index');
-    Route::get('activity-log/{id}', 'ActivityLogController@show')->name('activity-log.show');
-    Route::delete('activity-log', 'ActivityLogController@destroy')->name('activity-log.delete');
+    Route::get('activity-log', [\App\Http\Controllers\Manager\ActivityLogController::class, 'index'])->name('activity-log.index');
+    Route::get('activity-log/{id}', [\App\Http\Controllers\Manager\ActivityLogController::class, 'show'])->name('activity-log.show');
+    Route::delete('activity-log', [\App\Http\Controllers\Manager\ActivityLogController::class, 'destroy'])->name('activity-log.delete');
 
     //Import Controller
-    Route::resource('import_files', 'ImportFileController')->except(['destroy']);
-    Route::post('import_files_export_data', 'ImportFileController@exportDataAsExcel')->name('import_files.export_excel');
-    Route::get('import_files/{id}/user_cards', 'ImportFileController@usersCards')->name('import_files.users_cards');
-    Route::delete('delete_import_files', 'ImportFileController@destroy')->name('import_files.delete');
+    Route::resource('import_files', \App\Http\Controllers\Manager\ImportFileController::class)->except(['destroy']);
+    Route::post('import_files_export_data', [\App\Http\Controllers\Manager\ImportFileController::class, 'exportDataAsExcel'])->name('import_files.export_excel');
+    Route::get('import_files/{id}/user_cards', [\App\Http\Controllers\Manager\ImportFileController::class, 'usersCards'])->name('import_files.users_cards');
+    Route::delete('delete_import_files', [\App\Http\Controllers\Manager\ImportFileController::class, 'destroy'])->name('import_files.delete');
     //Logs
-    Route::get('import_files/{id}/show_logs', 'ImportFileController@showFromErrors')->name('import_files.show_logs');
-    Route::delete('import_files/delete_student_file_logs', 'ImportFileController@deleteLogs')->name('import_files.delete_logs');
-    Route::post('import_files/save_student_data_logs', 'ImportFileController@saveLogs')->name('import_files.save_logs');
+    Route::get('import_files/{id}/show_logs', [\App\Http\Controllers\Manager\ImportFileController::class, 'showFromErrors'])->name('import_files.show_logs');
+    Route::delete('import_files/delete_student_file_logs', [\App\Http\Controllers\Manager\ImportFileController::class, 'deleteLogs'])->name('import_files.delete_logs');
+    Route::post('import_files/save_student_data_logs', [\App\Http\Controllers\Manager\ImportFileController::class, 'saveLogs'])->name('import_files.save_logs');
 
     //Lesson
-    Route::resource('lesson','LessonController')->except('destroy');
-    Route::delete('lesson/delete', 'LessonController@destroy')->name('lesson.destroy');
-    Route::post('lesson/export', 'LessonController@export')->name('lesson.export');
+    Route::resource('lesson',\App\Http\Controllers\Manager\LessonController::class)->except('destroy');
+    Route::delete('lesson/delete', [\App\Http\Controllers\Manager\LessonController::class, 'destroy'])->name('lesson.destroy');
+    Route::post('lesson/export', [\App\Http\Controllers\Manager\LessonController::class, 'export'])->name('lesson.export');
     Route::get('lesson/{id}/learn', [LessonController::class,'lessonLearn'])->name('lesson.learn');
     Route::get('lesson/{id}/review/{step}', [LessonController::class,'lessonReview'])->name('lesson.review');
     Route::post('lesson/{id}/learn', [LessonController::class,'updateLessonLearn'])->name('lesson.update_learn');
@@ -86,47 +86,47 @@ Route::group(['namespace' => 'Manager'], function(){
     Route::get('wrong_audio_lessons', [LessonController::class,'getLessonsMedia'])->name('lesson.wrong_audio_lessons');
 
     //Hidden lesson
-    Route::resource('hidden_lesson', 'HiddenLessonController')->except(['destroy', 'show', 'edit', 'update']);
-    Route::delete('hidden_lesson/delete', 'HiddenLessonController@destroy')->name('hidden_lesson.destroy');
-    Route::post('hidden_lesson/export', 'HiddenLessonController@export')->name('hidden_lesson.export');
+    Route::resource('hidden_lesson', \App\Http\Controllers\Manager\HiddenLessonController::class)->except(['destroy', 'show', 'edit', 'update']);
+    Route::delete('hidden_lesson/delete', [\App\Http\Controllers\Manager\HiddenLessonController::class, 'destroy'])->name('hidden_lesson.destroy');
+    Route::post('hidden_lesson/export', [\App\Http\Controllers\Manager\HiddenLessonController::class, 'export'])->name('hidden_lesson.export');
 
     //Story
-    Route::resource('story', 'StoryController')->except('destroy');
-    Route::delete('story/delete', 'StoryController@destroy')->name('story.destroy');
-    Route::get('story/{id}/review/{type}', 'StoryController@review')->name('story.review');
-    Route::post('story/{id}/remove_attachment/{type}', 'StoryController@removeStoryAttachment')->name('story.remove-attachment');
-    Route::get('story/{id}/assessment', 'StoryController@storyAssessment')->name('story.assessment');
-    Route::post('story/{id}/assessment/{step}', 'StoryController@storeAssessmentStory')->name('story.assessment.store');
-    Route::post('story/{id}/assessment/update/{step}', 'StoryController@updateAssessmentStory')->name('story.assessment.update');
-    Route::post('story_remove_attachment/{id}', 'StoryController@removeAttachment')->name('story.remove_attachment');
-    Route::post('story_remove_sort_word/{id}', 'StoryController@removeSortWord')->name('story.remove_sort_word');
-    Route::post('story_remove_match_attachment/{id}', 'StoryController@removeMatchAttachment')->name('story.remove_match_attachment');
+    Route::resource('story', \App\Http\Controllers\Manager\StoryController::class)->except('destroy');
+    Route::delete('story/delete', [\App\Http\Controllers\Manager\StoryController::class, 'destroy'])->name('story.destroy');
+    Route::get('story/{id}/review/{type}', [\App\Http\Controllers\Manager\StoryController::class, 'review'])->name('story.review');
+    Route::post('story/{id}/remove_attachment/{type}', [\App\Http\Controllers\Manager\StoryController::class, 'removeStoryAttachment'])->name('story.remove-attachment');
+    Route::get('story/{id}/assessment', [\App\Http\Controllers\Manager\StoryController::class, 'storyAssessment'])->name('story.assessment');
+    Route::post('story/{id}/assessment/{step}', [\App\Http\Controllers\Manager\StoryController::class, 'storeAssessmentStory'])->name('story.assessment.store');
+    Route::post('story/{id}/assessment/update/{step}', [\App\Http\Controllers\Manager\StoryController::class, 'updateAssessmentStory'])->name('story.assessment.update');
+    Route::post('story_remove_attachment/{id}', [\App\Http\Controllers\Manager\StoryController::class, 'removeAttachment'])->name('story.remove_attachment');
+    Route::post('story_remove_sort_word/{id}', [\App\Http\Controllers\Manager\StoryController::class, 'removeSortWord'])->name('story.remove_sort_word');
+    Route::post('story_remove_match_attachment/{id}', [\App\Http\Controllers\Manager\StoryController::class, 'removeMatchAttachment'])->name('story.remove_match_attachment');
 
     //Hidden story
-    Route::resource('hidden_story', 'HiddenStoryController')->except(['destroy', 'show', 'edit', 'update']);
-    Route::delete('delete_hidden_story', 'HiddenStoryController@destroy')->name('hidden_story.destroy');
-    Route::post('export_hidden_story', 'HiddenStoryController@export')->name('hidden_story.export');
+    Route::resource('hidden_story', \App\Http\Controllers\Manager\HiddenStoryController::class)->except(['destroy', 'show', 'edit', 'update']);
+    Route::delete('delete_hidden_story', [\App\Http\Controllers\Manager\HiddenStoryController::class, 'destroy'])->name('hidden_story.destroy');
+    Route::post('export_hidden_story', [\App\Http\Controllers\Manager\HiddenStoryController::class, 'export'])->name('hidden_story.export');
 
     //Year
-    Route::resource('year','YearController')->except('destroy');
-    Route::delete('year', 'YearController@destroy')->name('year.destroy');
+    Route::resource('year',\App\Http\Controllers\Manager\YearController::class)->except('destroy');
+    Route::delete('year', [\App\Http\Controllers\Manager\YearController::class, 'destroy'])->name('year.destroy');
 
     //Login Sessions
 
     Route::post('login_sessions/export', [\App\Http\Controllers\Manager\LoginSessionController::class, 'export'])->name('login_sessions.export');
-    Route::resource('login_sessions', 'LoginSessionController');
+    Route::resource('login_sessions', \App\Http\Controllers\Manager\LoginSessionController::class);
 
     //Text translation
-    Route::get('text_translation', 'TextTranslationController@index')->name('text_translation.index');
-    Route::post('update_translation/{lang}/{file}', 'TextTranslationController@updateTranslations')->name('text_translation.update');
+    Route::get('text_translation', [\App\Http\Controllers\Manager\TextTranslationController::class, 'index'])->name('text_translation.index');
+    Route::post('update_translation/{lang}/{file}', [\App\Http\Controllers\Manager\TextTranslationController::class, 'updateTranslations'])->name('text_translation.update');
 
     //package
-    Route::resource('package', 'PackageController')->except(['destroy']);
-    Route::delete('package/delete', 'PackageController@destroy')->name('package.destroy');
+    Route::resource('package', \App\Http\Controllers\Manager\PackageController::class)->except(['destroy']);
+    Route::delete('package/delete', [\App\Http\Controllers\Manager\PackageController::class, 'destroy'])->name('package.destroy');
 
     //Achievement Levels
-    Route::resource('achievement_levels', 'AchievementLevelController')->except(['destroy']);
-    Route::delete('achievement_levels/delete', 'AchievementLevelController@destroy')->name('achievement_levels.destroy');
+    Route::resource('achievement_levels', \App\Http\Controllers\Manager\AchievementLevelController::class)->except(['destroy']);
+    Route::delete('achievement_levels/delete', [\App\Http\Controllers\Manager\AchievementLevelController::class, 'destroy'])->name('achievement_levels.destroy');
 
     Route::get('seed',function (){
         if (!defined('STDIN')) {
@@ -199,11 +199,11 @@ Route::group(['namespace' => 'Manager'], function(){
     });
 
 
-    Route::get('correct_tests', 'LessonController@reCorlessonTest');
+    Route::get('correct_tests', [\App\Http\Controllers\Manager\LessonController::class, 'reCorlessonTest']);
 
-    Route::get('copy_lessons', 'LessonController@copyLessons');
+    Route::get('copy_lessons', [\App\Http\Controllers\Manager\LessonController::class, 'copyLessons']);
 
-    Route::get('copy-teacher-data', 'SettingController@copyTeacherData');
+    Route::get('copy-teacher-data', [\App\Http\Controllers\Manager\SettingController::class, 'copyTeacherData']);
 
     Route::get('remove_space', function (){
         $users = \App\Models\User::query()

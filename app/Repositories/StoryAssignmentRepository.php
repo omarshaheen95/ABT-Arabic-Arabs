@@ -32,7 +32,8 @@ class StoryAssignmentRepository implements StoryAssignmentRepositoryInterface
 
             $stories = Story::query()->select(['id','name'])->get();
 
-            return DataTables::eloquent($rows)
+            // eloquent() is not static in datatables 10+; make() builds the same EloquentDataTable
+            return DataTables::make($rows)
                 ->escapeColumns([])
 
                 ->addColumn('school', function ($row) {

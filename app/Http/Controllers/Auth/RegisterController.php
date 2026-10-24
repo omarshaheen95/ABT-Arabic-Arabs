@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Grade;
 use App\Models\Package;
 use App\Models\School;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -90,7 +89,8 @@ class RegisterController extends Controller
         $data['password'] = Hash::make($data['password']);
         $data['active_from'] = now();
         $data['active_to'] = now();
-        $data['mobile'] = PhoneNumber::make($data['mobile'])->ofCountry($data['short_country']);
+        // laravel-phone 5 dropped make()/ofCountry(): same number and country
+        $data['mobile'] = new PhoneNumber((string) $data['mobile'], $data['short_country']);
         $user = User::query()->create($data);
         return $user;
     }

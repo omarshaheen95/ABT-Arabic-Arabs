@@ -15,8 +15,9 @@ class UserAssignment extends Model
     protected $fillable = [
         'user_id', 'lesson_id', 'test_assignment', 'done_test_assignment', 'completed', 'deadline', 'completed_at','lesson_assignment_id'
     ];
-    protected $dates = [
-        'deadline'
+    // was $dates, which Laravel 10 removed
+    protected $casts = [
+        'deadline' => 'datetime',
     ];
     public function getActionButtonsAttribute()
     {

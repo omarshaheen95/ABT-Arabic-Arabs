@@ -24,6 +24,7 @@ class UserImport implements ToModel, SkipsOnFailure, SkipsOnError, WithHeadingRo
 {
     public $row_num;
     public $request;
+    public $log_errors;
     private $failures = [];
     private $created_rows_count = 0;
     private $updated_rows_count = 0;

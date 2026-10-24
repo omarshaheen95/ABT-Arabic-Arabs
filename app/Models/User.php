@@ -33,10 +33,9 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
-
-    protected $dates = [
-        'active_from', 'active_to'
+        // were $dates, which Laravel 10 removed
+        'active_from' => 'datetime',
+        'active_to' => 'datetime',
     ];
 
     protected $cascadeDeletes = [
