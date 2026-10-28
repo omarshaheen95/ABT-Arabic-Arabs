@@ -1,7 +1,6 @@
 <!doctype html>
 @php
-    app()->setLocale('en');
-    $isRtl = app()->getLocale() == 'ar';
+    $isRtl = false;
 @endphp
 <html lang="{{ app()->getLocale() }}" dir="{{ $isRtl ? 'rtl' : 'ltr' }}">
 <head>
