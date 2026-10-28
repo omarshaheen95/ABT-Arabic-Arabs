@@ -57,7 +57,7 @@
                                         <li>{{t('Username')}}: <br /><span class="username" dir="ltr">{{ $std->email}}</span></li>
                                         <li>{{t('Password')}}: <span class="username" dir="ltr">123456</span></li>
                                     </ul>
-                                    <div class="col-5 mt-1 d-flex justify-content-end p-0 pe-1" style="position: absolute; {{ $isRtl ? 'left' : 'right' }}: 180px">
+                                    <div class="col-5 mt-1 d-flex justify-content-end p-0 pe-1" style="position: absolute; {{ $isRtl ? 'right' : 'left' }}: 180px">
                                         @if($std->gender == 'Girl')
                                             {!! QrCode::color(255, 0, 194)->size(100)->generate(sysDomain()."/login?username=$std->email".'&password=123456'); !!}
                                         @elseif($std->gender == 'Boy')
