@@ -1,13 +1,14 @@
 <!doctype html>
 @php
-app()->setLocale('en')
- @endphp
-<html lang="en" dir="ltr">
+    app()->setLocale('en');
+    $isRtl = app()->getLocale() == 'ar';
+@endphp
+<html lang="{{ app()->getLocale() }}" dir="{{ $isRtl ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="{{ asset('assets_v1/lib/bootstrap-5.0.2/css/bootstrap' . (app()->getLocale() == 'ar' ? '.rtl' : '') . '.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets_v1/lib/bootstrap-5.0.2/css/bootstrap' . ($isRtl ? '.rtl' : '') . '.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('report_assets/css/print.css') }}?v={{time()}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('report_assets/css/student_card.css') }}?v={{time()}}" rel="stylesheet" type="text/css" />
     <!-- Favicon -->
@@ -56,7 +57,7 @@ app()->setLocale('en')
                                         <li>{{t('Username')}}: <br /><span class="username" dir="ltr">{{ $std->email}}</span></li>
                                         <li>{{t('Password')}}: <span class="username" dir="ltr">123456</span></li>
                                     </ul>
-                                    <div class="col-5 mt-1 d-flex justify-content-end p-0 pe-1" style="position: absolute;right: 180px">
+                                    <div class="col-5 mt-1 d-flex justify-content-end p-0 pe-1" style="position: absolute; {{ $isRtl ? 'left' : 'right' }}: 180px">
                                         @if($std->gender == 'Girl')
                                             {!! QrCode::color(255, 0, 194)->size(100)->generate(sysDomain()."/login?username=$std->email".'&password=123456'); !!}
                                         @elseif($std->gender == 'Boy')
