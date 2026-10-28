@@ -90,6 +90,38 @@ class Grade extends Model
                 return '';
         }
     }
+    public function getGradeNameArAttribute(){
+        switch ($this->grade_number) {
+            case 0:
+                return "Foundation = Year 1";
+            case 1:
+                return "Grade 1 = Year 2";
+            case 2:
+                return "Grade 2 = Year 3";
+            case 3:
+                return "Grade 3 = Year 4";
+            case 4:
+                return "Grade 4 = Year 5";
+            case 5:
+                return "Grade 5 = Year 6";
+            case 6:
+                return "Grade 6 = Year 7";
+            case 7:
+                return "Grade 7 = Year 8";
+            case 8:
+                return "Grade 8 = Year 9";
+            case 9:
+                return "Grade 9 = Year 10";
+            case 10:
+                return "Grade 10 = Year 11";
+            case 11:
+                return "Grade 11 = Year 12";
+            case 12:
+                return "Grade 12 = Year 13";
+            default:
+                return '';
+        }
+    }
 
     public function question_count($skill, $type)
     {

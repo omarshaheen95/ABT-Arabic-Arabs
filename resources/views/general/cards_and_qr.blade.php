@@ -47,7 +47,7 @@
                                     <div class="col-7 d-flex flex-column pe-0">
                                         <div class="col-12 s-content"><span class="s-title">{{t('Name')}} : {{ $std->name }}</span></div>
                                         <div class="col-12 s-content"><span class="s-title">{{t('ID')}} : </span>{{ $std->id_number ?? '-' }}</div>
-                                        <div class="col-12 s-content"><span class="s-title">{{t('Grade')}} : </span> {{ $std->grade->name }}</div>
+                                        <div class="col-12 s-content"><span class="s-title">{{t('Grade')}} : </span> {{ $std->grade->grade_name_ar }}</div>
                                         <div class="col-12 s-content"><span class="s-title"> {{t('Section')}} : </span>{{ $std->section ?? '-' }}</div>
                                         <div class="col-12 s-content"><span class="s-title">{{t('Teacher')}}:</span>{{ optional($std->teacher)->name }}</div>
                                     </div>
