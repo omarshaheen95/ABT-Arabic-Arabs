@@ -7,7 +7,7 @@ app()->setLocale('en')
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="{{ asset('assets_v1/lib/bootstrap-5.0.2/css/bootstrap.rtl.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets_v1/lib/bootstrap-5.0.2/css/bootstrap' . (app()->getLocale() == 'ar' ? '.rtl' : '') . '.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('report_assets/css/print.css') }}?v={{time()}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('report_assets/css/student_card.css') }}?v={{time()}}" rel="stylesheet" type="text/css" />
     <!-- Favicon -->
