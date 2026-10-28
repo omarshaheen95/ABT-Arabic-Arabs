@@ -58,37 +58,67 @@ class Grade extends Model
     }
     public function getGradeNameAttribute()
     {
-        switch($this->grade_number)
-        {
+        switch ($this->grade_number) {
             case 0:
-                return "التمهيدي = Year 1";
+                return "Foundation = Year 1";
             case 1:
-                return "الأول = Year 2";
+                return "Grade 1 = Year 2";
             case 2:
-                return "الثاني = Year 3";
+                return "Grade 2 = Year 3";
             case 3:
-                return "الثالث = Year 4";
+                return "Grade 3 = Year 4";
             case 4:
-                return "الرابع = Year 5";
+                return "Grade 4 = Year 5";
             case 5:
-                return "الخامس = Year 6";
+                return "Grade 5 = Year 6";
             case 6:
-                return "السادس = Year 7";
+                return "Grade 6 = Year 7";
             case 7:
-                return "السابع = Year 8";
+                return "Grade 7 = Year 8";
             case 8:
-                return "الثامن = Year 9";
+                return "Grade 8 = Year 9";
             case 9:
-                return "التاسع = Year 10";
+                return "Grade 9 = Year 10";
             case 10:
-                return "العاشر = Year 11";
+                return "Grade 10 = Year 11";
             case 11:
-                return "الحادي عشر = Year 12";
+                return "Grade 11 = Year 12";
             case 12:
-                return "الثاني عشر = Year 13";
+                return "Grade 12 = Year 13";
             default:
                 return '';
         }
+//        switch($this->grade_number)
+//        {
+//            case 0:
+//                return "التمهيدي = Year 1";
+//            case 1:
+//                return "الأول = Year 2";
+//            case 2:
+//                return "الثاني = Year 3";
+//            case 3:
+//                return "الثالث = Year 4";
+//            case 4:
+//                return "الرابع = Year 5";
+//            case 5:
+//                return "الخامس = Year 6";
+//            case 6:
+//                return "السادس = Year 7";
+//            case 7:
+//                return "السابع = Year 8";
+//            case 8:
+//                return "الثامن = Year 9";
+//            case 9:
+//                return "التاسع = Year 10";
+//            case 10:
+//                return "العاشر = Year 11";
+//            case 11:
+//                return "الحادي عشر = Year 12";
+//            case 12:
+//                return "الثاني عشر = Year 13";
+//            default:
+//                return '';
+//        }
     }
 
     public function question_count($skill, $type)
