@@ -259,8 +259,13 @@ class User extends Authenticatable
             })
             ->when($created_at = $request->get('created_at', false), function (Builder $query) use ($created_at) {
                 $query->whereDate('created_at', '>=', $created_at);
-            })
-            ->when($teacher_id = $request->get('teacher_id', false), function (Builder $query) use ($teacher_id) {
+            })->when($value = $request->get('has_teacher', false), function (Builder $query) use ($value) {
+                if ($value == 1) {
+                    $query->whereHas('teacher');
+                } else {
+                    $query->whereDoesntHave('teacher');
+                }
+            })->when($teacher_id = $request->get('teacher_id', false), function (Builder $query) use ($teacher_id) {
                 $query->whereHas('teacherUser', function (Builder $query) use ($teacher_id) {
                     $query->where('teacher_id', $teacher_id);
                 });

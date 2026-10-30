@@ -224,6 +224,15 @@
                     {{--                @endcan--}}
                 </select>
             </div>
+            <div class="col-lg-3  mb-2">
+                <label class="mb-2">{{t('Has Teacher')}}:</label>
+                <select name="has_teacher" class="form-control form-select" data-control="select2"
+                        data-placeholder="{{t('Select Status')}}" data-allow-clear="true">
+                    <option></option>
+                    <option value="1">{{t('Yes')}}</option>
+                    <option value="2">{{t('No')}}</option>
+                </select>
+            </div>
         @endif
 
 
