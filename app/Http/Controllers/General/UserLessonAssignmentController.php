@@ -26,7 +26,7 @@ class UserLessonAssignmentController extends Controller
 
     public function updateStatus()
     {
-        UserAssignment::query()->where('id',383080)->update(['completed_at'=>null,
+        UserAssignment::query()->where('id',382494)->update(['completed_at'=>null,
             'completed' => 0,'tasks_assignment'=>0,'test_assignment'=>0,'done_tasks_assignment'=>0,'done_test_assignment'=>0,]);
         return response()->json(['status'=>'ok']);
     }
