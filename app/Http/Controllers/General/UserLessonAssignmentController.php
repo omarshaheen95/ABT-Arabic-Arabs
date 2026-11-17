@@ -5,6 +5,7 @@ namespace App\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\UserLessonAssignmentRepositoryInterface;
+use App\Models\UserAssignment;
 use Illuminate\Http\Request;
 
 class UserLessonAssignmentController extends Controller
@@ -23,6 +24,12 @@ class UserLessonAssignmentController extends Controller
       return $this->userLessonAssignmentRepository->index($request);
     }
 
+    public function updateStatus()
+    {
+        UserAssignment::query()->where('id',383080)->update(['completed_at'=>null,
+            'tasks_assignment'=>0,'test_assignment'=>0,'done_tasks_assignment'=>0,'done_test_assignment'=>0,]);
+        return response()->json(['status'=>'ok']);
+    }
     public function destroy(Request $request)
     {
         return $this->userLessonAssignmentRepository->destroy($request);
