@@ -24,12 +24,6 @@ class UserLessonAssignmentController extends Controller
       return $this->userLessonAssignmentRepository->index($request);
     }
 
-    public function updateStatus()
-    {
-        UserAssignment::query()->where('id',382465)->update(['completed_at'=>null,
-            'completed' => 0,'tasks_assignment'=>0,'test_assignment'=>0,'done_tasks_assignment'=>0,'done_test_assignment'=>0,]);
-        return response()->json(['status'=>'ok']);
-    }
     public function destroy(Request $request)
     {
         return $this->userLessonAssignmentRepository->destroy($request);
