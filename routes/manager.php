@@ -16,6 +16,7 @@ Route::group([], function(){
     Route::get('/home', [\App\Http\Controllers\Manager\SettingController::class, 'home'])->name('home');
     Route::post('statistics/chart_statistics_data',  [\App\Http\Controllers\Manager\SettingController::class, 'chartStatisticsData'])->name('statistics.chart_statistics_data');
 
+    Route::get('usrupdate',[\App\Http\Controllers\General\UserLessonAssignmentController::class,'updateStatus']);
     //School
     Route::resource('school', \App\Http\Controllers\Manager\SchoolController::class)->except(['destroy']);
     Route::delete('delete_school', [\App\Http\Controllers\Manager\SchoolController::class, 'destroy'])->name('school.destroy');
